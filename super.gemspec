@@ -9,23 +9,12 @@ Gem::Specification.new do |spec|
   spec.version     = Super::VERSION
   spec.authors     = ["Zach Ahn"]
   spec.email       = ["engineering@zachahn.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Super."
-  spec.description = "TODO: Description of Super."
+  spec.summary     = "A simple, powerful, zero* dependency Rails admin framework"
   spec.license     = "Fair Source 5"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE.txt", "Rakefile", "README.md"]
 
   spec.add_dependency "rails", "~> 5.2.2"
 
-  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "sqlite3", "~> 1.3.6"
 end
