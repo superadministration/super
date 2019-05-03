@@ -1,0 +1,9 @@
+<h1 class="text-3xl"><%= controls.title %></h1>
+
+<% controls.index_scope.limit(Super.configuration.index_resources_per_page).each do |resource| %>
+  <div>
+    <% controls.index_columns.each do |column| %>
+      <div><%= resource.public_send(column).inspect %></div>
+    <% end %>
+  </div>
+<% end %>

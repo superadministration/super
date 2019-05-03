@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= Super.configuration.title %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "super/application", media: "all" %>
+    <%= javascript_include_tag "super/application" %>
+  </head>
+
+  <body class="font-sans">
+    <div class="px-4">
+      <header class="pt-4">
+        <h1 class="text-base"><%= Super.configuration.title %></h1>
+      </header>
+
+      <div class="pt-8"></div>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
