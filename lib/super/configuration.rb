@@ -14,21 +14,36 @@ module Super
       base.extend(ClassMethods)
     end
 
+    def initialize
+      self.class.defaults.each do |key, value|
+        public_send("#{key}=", value)
+      end
+    end
+
     def configured?(attr)
       instance_variable_defined?("@#{attr}")
     end
 
     module ClassMethods
-      def configure(attr, default: nil, wrap: nil)
+      def defaults
+        @defaults ||= {}
+      end
+
+      def wraps
+        @wraps ||= {}
+      end
+
+      def configure(attr, wrap: nil, enum: nil, **kwargs)
+        if kwargs.key?(:default)
+          defaults[attr] = kwargs[:default]
+        end
+
         define_method(attr) do
-          result =
-            if configured?(attr)
-              instance_variable_get("@#{attr}")
-            elsif !default.nil?
-              default
-            else
-              raise Error::UnconfiguredConfiguration, "unconfigured: #{attr}"
-            end
+          if !configured?(attr)
+            raise Error::UnconfiguredConfiguration, "unconfigured: #{attr}"
+          end
+
+          result = instance_variable_get("@#{attr}")
 
           if wrap.nil?
             result
@@ -37,7 +52,18 @@ module Super
           end
         end
 
-        attr_writer(attr)
+        define_method("#{attr}=") do |value|
+          if enum.is_a?(Array)
+            if !enum.include?(value)
+              raise Error::InvalidConfiguration,
+                "tried to set `#{attr}` to `#{value.inspect}`, " \
+                "expected: #{enum.join(", ")}"
+            end
+          end
+
+          instance_variable_set("@#{attr}", value)
+          value
+        end
       end
     end
   end
