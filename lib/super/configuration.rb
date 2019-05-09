@@ -19,17 +19,22 @@ module Super
     end
 
     module ClassMethods
-      def configure(attr, default: nil)
+      def configure(attr, default: nil, wrap: nil)
         define_method(attr) do
-          if configured?(attr)
-            return instance_variable_get("@#{attr}")
-          end
+          result =
+            if configured?(attr)
+              instance_variable_get("@#{attr}")
+            elsif !default.nil?
+              default
+            else
+              raise Error::UnconfiguredConfiguration, "unconfigured: #{attr}"
+            end
 
-          if !default.nil?
-            return default
+          if wrap.nil?
+            result
+          else
+            wrap.call(result)
           end
-
-          raise Error::UnconfiguredConfiguration, "unconfigured: #{attr}"
         end
 
         attr_writer(attr)
@@ -42,5 +47,10 @@ module Super
 
     configure :title
     configure :index_resources_per_page, default: 20
+    configure :admin_namespace, default: :admin, wrap: -> (val) { [val].flatten }
+
+    def path_parts(*parts)
+      admin_namespace + parts
+    end
   end
 end

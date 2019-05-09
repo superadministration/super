@@ -1,9 +1,25 @@
 <h1 class="text-3xl"><%= controls.title %></h1>
+<%= link_to(
+  "New #{controls.model.name}",
+  new_polymorphic_path(Super.configuration.path_parts(controls.model.new))
+) %>
 
-<% controls.index_scope.limit(Super.configuration.index_resources_per_page).each do |resource| %>
-  <div>
-    <% controls.index_columns.each do |column| %>
-      <div><%= resource.public_send(column).inspect %></div>
-    <% end %>
+<% @resources.each do |resource| %>
+  <div id="resource-pk-<%= resource.id %>">
+    <div>
+      <% controls.index_columns.each do |column| %>
+        <div><%= resource.public_send(column).inspect %></div>
+      <% end %>
+    </div>
+    <%= link_to(
+      "Edit",
+      edit_polymorphic_path(Super.configuration.path_parts(resource))
+    ) %>
+    <%= link_to(
+      "Delete",
+      polymorphic_path(Super.configuration.path_parts(resource)),
+      method: :delete,
+      data: { confirm: "Really delete?" }
+    ) %>
   </div>
 <% end %>

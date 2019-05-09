@@ -1,0 +1,11 @@
+<%= form_with(model: Super.configuration.path_parts(resource), local: true) do |f| %>
+  <% columns.each do |column| %>
+    <div>
+      <%= f.label column %>
+      <%= f.text_field column %>
+    </div>
+  <% end %>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

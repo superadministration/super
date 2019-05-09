@@ -1,0 +1,5 @@
+<h1 class="text-3xl"><%= controls.title %></h1>
+
+<% controls.show_columns.each do |column| %>
+  <div><%= @resource.public_send(column).inspect %></div>
+<% end %>
