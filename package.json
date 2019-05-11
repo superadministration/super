@@ -1,5 +1,13 @@
 {
+  "dependencies": {
+    "@rails/ujs": "^6.0.0-alpha",
+    "tailwindcss": "^0.7.4"
+  },
   "devDependencies": {
     "parcel-bundler": "^1.12.3"
+  },
+  "scripts": {
+    "dev": "parcel watch app/frontend/super/**/* --cache-dir tmp/parcel/cache --out-dir tmp/frontend_dev_dist/frontend/super --public-url /assets/super --no-hmr",
+    "release": "parcel build app/frontend/super/**/* --cache-dir tmp/parcel/cache --out-dir app/assets/frontend/super --public-url /assets/super --no-source-maps --no-minify --no-content-hash"
   }
 }
