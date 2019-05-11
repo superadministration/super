@@ -1,4 +1,5 @@
 require "super/configuration"
 require "super/engine"
+require "super/environment"
 require "super/error"
 require "super/version"
