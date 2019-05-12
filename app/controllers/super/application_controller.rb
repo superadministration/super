@@ -3,7 +3,15 @@ module Super
     helper_method :controls
 
     def index
-      @resources = controls.index_scope.limit(Super.configuration.index_resources_per_page)
+      @resources = controls.index_scope
+      @pagination = Pagination.new(
+        total_count: @resources.size,
+        current_pageno: params[:page],
+        limit: Super.configuration.index_resources_per_page
+      )
+      @resources = @resources
+        .limit(@pagination.limit)
+        .offset(@pagination.offset)
     end
 
     def create

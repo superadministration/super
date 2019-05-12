@@ -43,3 +43,14 @@
     <% end %>
   </tbody>
 </table>
+
+<% @pagination.each do |pageno, is_current_page, display| %>
+  <%= link_to(
+    display,
+    polymorphic_path(
+      Super.configuration.path_parts(controls.model),
+      page: pageno
+    ),
+    class: "no-underline #{is_current_page ? " text-black" : ""}"
+  ) %>
+<% end %>
