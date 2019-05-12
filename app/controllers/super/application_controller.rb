@@ -12,7 +12,7 @@ module Super
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
-        render :new
+        render :new, status: :bad_request
       end
     end
 
@@ -34,7 +34,7 @@ module Super
       if @resource.update(permitted_update_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
-        render :edit
+        render :edit, status: :bad_request
       end
     end
 
