@@ -1,11 +1,11 @@
 <%= form_with(model: Super.configuration.path_parts(resource), local: true) do |f| %>
   <% columns.each do |column| %>
-    <div>
+    <div class="lg:w-1/3">
       <%= f.label column %>
-      <%= f.text_field column %>
+      <%= f.text_field column, class: "appearance-none border rounded w-full py-2 px-2 text-grey-darker leading-tight border border-grey-light focus:border-blue mt-2" %>
     </div>
   <% end %>
   <div>
-    <%= f.submit %>
+    <%= f.submit class: "bg-blue hover:bg-blue-dark text-white py-2 px-4 rounded mt-2" %>
   </div>
 <% end %>
