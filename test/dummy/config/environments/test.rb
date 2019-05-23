@@ -43,7 +43,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  # Use library development assets built by Parcel (Don't add this to real apps!)
-  config.assets.paths << File.expand_path("../../../../tmp/frontend_dev_dist/frontend", __dir__)
 end
