@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@rails/ujs": "^6.0.0-alpha",
-    "tailwindcss": "^0.7.4"
+    "tailwindcss": "^1.0.1"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.3"
