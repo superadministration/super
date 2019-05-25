@@ -9,17 +9,17 @@ class PaginationTest < CapybaraTest
     Super.configuration.index_resources_per_page = @original_index_resources_per_page
   end
 
-  def test_three_users_on_first_page
+  def test_three_members_on_first_page
     Super.configuration.index_resources_per_page = 3
 
-    visit(admin_users_path)
+    visit(admin_members_path)
     assert_equal(3, page.find_all("tbody tr").size)
   end
 
   def test_one_user_on_last_page
     Super.configuration.index_resources_per_page = 3
 
-    visit(admin_users_path)
+    visit(admin_members_path)
     click_on("2")
     assert_equal(1, page.find_all("tbody tr").size)
   end
