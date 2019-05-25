@@ -1,3 +1,8 @@
 @tailwind base;
+
+a {
+  @apply .text-blue-700;
+}
+
 @tailwind components;
 @tailwind utilities;

@@ -10,7 +10,7 @@
 </header>
 
 <table class="w-full leading-loose mt-4">
-  <thead class="border-grey border-solid">
+  <thead class="border-gray-400 border-solid">
     <tr>
       <% (controls.index_columns + ["Actions"]).each do |column| %>
         <th class="text-left"><%= column.to_s.humanize %></th>
@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <% @resources.each.with_index do |resource, index| %>
-      <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-grey-lightest" : "" %>" >
+      <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
         <% controls.index_columns.each do |column| %>
           <td><%= resource.public_send(column).inspect %></td>
         <% end %>
@@ -51,6 +51,6 @@
       Super.configuration.path_parts(controls.model),
       page: pageno
     ),
-    class: "no-underline #{is_current_page ? " text-black" : ""}"
+    class: "#{is_current_page ? " text-gray-900" : ""}"
   ) %>
 <% end %>
