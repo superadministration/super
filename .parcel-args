@@ -1,0 +1,2 @@
+--cache-dir tmp/parcel/cache
+--public-url /assets/super
