@@ -57,6 +57,10 @@ module Super
 
     private
 
+    def controls
+      Controls.new(dashboard)
+    end
+
     def permitted_create_params
       controls.permitted_create_params(params)
     end
