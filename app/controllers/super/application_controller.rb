@@ -1,5 +1,7 @@
 module Super
   class ApplicationController < ActionController::Base
+    include Pluggable.new(:super_application_controller)
+
     helper_method :controls
 
     def index
