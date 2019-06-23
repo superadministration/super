@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "rails-ujs": "^5.2.3",
+    "stimulus": "^1.1.1",
+    "tailwindcss": "^1.0.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  }
+}
