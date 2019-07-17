@@ -5,4 +5,10 @@ a {
 }
 
 @tailwind components;
+
+.feather {
+  height: auto;
+  max-width: 100%;
+}
+
 @tailwind utilities;
