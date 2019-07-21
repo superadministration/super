@@ -14,7 +14,12 @@
   <body class="font-sans bg-white">
     <div class="px-4">
       <header class="pt-4">
-        <h1 class="text-base font-bold"><%= Super.configuration.title %></h1>
+        <h1 class="text-base font-bold mr-6"><%= Super.configuration.title %></h1>
+        <%
+        route_namespace = Super.configuration.route_namespace.map(&:to_s).join("/")
+        Super::Navigation::Automatic.new(route_namespace: route_namespace).each do |text, href| %>
+          <%= link_to(text, href, class: "inline-block mr-6") %>
+        <% end %>
       </header>
 
       <div class="pt-8"></div>
