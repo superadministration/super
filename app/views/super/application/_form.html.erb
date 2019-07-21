@@ -1,4 +1,4 @@
-<%= form_with(model: Super.configuration.path_parts(resource), local: true) do |f| %>
+<%= form_for(Super.configuration.path_parts(resource)) do |f| %>
   <% columns.each do |column| %>
     <div class="lg:w-1/3">
       <%= f.label column %>
