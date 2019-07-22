@@ -73,10 +73,10 @@ module Super
 
     configure :title
     configure :index_resources_per_page, default: 20
-    configure :admin_namespace, default: :admin, wrap: -> (val) { [val].flatten }
+    configure :route_namespace, default: :admin, wrap: -> (val) { [val].flatten }
 
     def path_parts(*parts)
-      admin_namespace + parts
+      route_namespace + parts
     end
   end
 end
