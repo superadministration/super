@@ -1,2 +1,2 @@
-class AdminController < Super::ApplicationController
+class <%= config[:controller_namespace].classify %>Controller < Super::ApplicationController
 end

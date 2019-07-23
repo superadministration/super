@@ -1,3 +1,5 @@
 Super.configuration do |c|
   c.title = "My Admin Site"
+  c.controller_namespace = "<%= options["controller_namespace"] %>"
+  c.route_namespace = "<%= options["route_namespace"] %>"
 end

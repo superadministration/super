@@ -1,6 +1,18 @@
 Description:
     Set up all required files for the Super admin framework.
 
+Options:
+    --controller-namespace
+        This specifies the directory into which generated controllers should be
+        placed. This also specifies the parent controller that all Super admin
+        pages would inherit from (see examples). Generated controllers will
+        automatically inherit from the controller that is specified through this
+        option.
+
+    --route-namespace
+        Since this generator only creates one inheritable parent controller,
+        this option only affects the generated initializer.
+
 Example:
     rails generate super:install
 
@@ -8,4 +20,13 @@ Example:
         config/initializers/super.rb
         app/controllers/admin_controller.rb
         app/controllers/admin/.keep
+        app/super/.keep
+
+Example:
+    rails generate super:install --controller-namespace badminton
+
+    This will create:
+        config/initializers/super.rb
+        app/controllers/badminton_controller.rb
+        app/controllers/badminton/.keep
         app/super/.keep

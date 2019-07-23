@@ -2,22 +2,46 @@ module Super
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path("templates", __dir__)
 
+    class_option :controller_namespace, type: :string, default: "admin",
+      banner: "Specifies where to place generated admin controllers"
+    class_option :route_namespace, type: :string, default: "admin",
+      banner: "Specifies the route namespace for admin controllers"
+
     def create_initializer
-      copy_file "initializer.rb", "config/initializers/super.rb"
+      template("initializer.rb", "config/initializers/super.rb")
     end
 
     def create_base_admin_controller
-      copy_file "base_controller.rb", "app/controllers/admin_controller.rb"
+      template(
+        "base_controller.rb",
+        "app/controllers/#{controller_namespace}_controller.rb",
+        controller_namespace: controller_namespace
+      )
     end
 
     def create_directory_for_admin_controllers
-      empty_directory "app/controllers/admin"
-      create_file "app/controllers/admin/.keep", ""
+      if options["controller_namespace"].blank?
+        empty_directory("app/controllers")
+        return
+      end
+
+      empty_directory("app/controllers/#{controller_namespace}")
+      create_file("app/controllers/#{controller_namespace}/.keep", "")
     end
 
     def create_directory_for_dashboards_slash_setup
-      empty_directory "app/super"
-      create_file "app/super/.keep", ""
+      empty_directory("app/super")
+      create_file("app/super/.keep", "")
+    end
+
+    private
+
+    def controller_namespace
+      if options["controller_namespace"].blank?
+        "admin"
+      else
+        options["controller_namespace"]
+      end
     end
   end
 end
