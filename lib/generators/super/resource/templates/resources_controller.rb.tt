@@ -1,0 +1,9 @@
+module Admin
+  class <%= class_name.pluralize %>Controller < AdminController
+    private
+
+    def controls
+      <%= class_name %>Controls.new
+    end
+  end
+end

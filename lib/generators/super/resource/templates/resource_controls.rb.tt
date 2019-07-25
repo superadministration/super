@@ -1,0 +1,65 @@
+class <%= class_name %>Controls
+  def title
+    <%= class_name %>.name.pluralize
+  end
+
+  def model
+    <%= class_name %>
+  end
+
+  def index_scope
+    <%= class_name %>.all
+  end
+
+  def index_columns
+    [
+    ]
+  end
+
+  def create_scope
+    <%= class_name %>.all
+  end
+
+  def new_scope
+    <%= class_name %>.all
+  end
+
+  def new_columns
+    [
+    ]
+  end
+
+  def edit_scope
+    <%= class_name %>.all
+  end
+
+  def edit_columns
+    [
+    ]
+  end
+
+  def show_scope
+    <%= class_name %>.all
+  end
+
+  def show_columns
+    [
+    ]
+  end
+
+  def update_scope
+    <%= class_name %>.all
+  end
+
+  def destroy_scope
+    <%= class_name %>.all
+  end
+
+  def permitted_create_params(params)
+    params.require(:<%= file_name %>).permit()
+  end
+
+  def permitted_update_params(params)
+    params.require(:<%= file_name %>).permit()
+  end
+end
