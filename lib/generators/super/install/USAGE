@@ -1,0 +1,11 @@
+Description:
+    Set up all required files for the Super admin framework.
+
+Example:
+    rails generate super:install
+
+    This will create:
+        config/initializers/super.rb
+        app/controllers/admin_controller.rb
+        app/controllers/admin/.keep
+        app/super/.keep
