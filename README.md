@@ -25,4 +25,4 @@ $ gem install super
 Contribution directions go here.
 
 ## License
-The gem is available under the terms of the [Fair Source 5 License](https://fair.io).
+The gem is available under the terms of the [GNU LGPLv3](./LICENSE).

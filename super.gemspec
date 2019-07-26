@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Zach Ahn"]
   spec.email       = ["engineering@zachahn.com"]
   spec.summary     = "A simple, powerful, zero* dependency Rails admin framework"
-  spec.license     = "Fair Source 5"
+  spec.license     = "LGPL-3.0-only"
 
-  spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE.txt", "Rakefile", "README.md"]
+  spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency "rails", ">= 5.0"
 
