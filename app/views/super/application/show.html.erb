@@ -4,7 +4,7 @@
   <% controls.show_columns.each do |column| %>
     <tr>
       <th class="text-right px-4"><%= column.to_s.humanize %></th>
-      <td><%= @resource.public_send(column).inspect %></td>
+      <td><%= Super::Field.display(@resource, column, controls, action: :show) %></td>
     </tr>
   <% end %>
 </table>
