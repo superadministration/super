@@ -1,4 +1,4 @@
-class <%= class_name %>Controls
+class <%= class_name %>Dashboard
   def title
     <%= class_name %>.name.pluralize
   end

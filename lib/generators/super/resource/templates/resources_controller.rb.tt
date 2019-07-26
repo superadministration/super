@@ -1,9 +1,9 @@
-module Admin
-  class <%= class_name.pluralize %>Controller < AdminController
-    private
+<% wrap_with_configured_module do -%>
+class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
+  private
 
-    def controls
-      <%= class_name %>Controls.new
-    end
+  def dashboard
+    <%= class_name %>Dashboard.new
   end
 end
+<% end -%>
