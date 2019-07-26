@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3", "~> 1.3.6"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "super_test_engine"
+  spec.add_development_dependency "minitest-ci"
 end
