@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "super_test_engine"
   spec.add_development_dependency "minitest-ci"
+  spec.add_development_dependency "appraisal"
 end
