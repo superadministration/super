@@ -36,11 +36,13 @@ end
 appraise "rails50-sprockets3" do
   gem "rails", "~> 5.0.0"
   gem "sprockets", "~> 3.0"
+  gem "capybara", "~> 3.15.0"
 end
 
 appraise "rails50-webpacker" do
   gem "rails", "~> 5.0.0"
   gem "webpacker", "~> 4.0"
+  gem "capybara", "~> 3.15.0"
 end
 
 # vim: syntax=ruby
