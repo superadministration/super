@@ -53,7 +53,7 @@ jobs:
       - run:
           name: switch gemfile
           command: |
-            ruby bin/test.rb rails50 sprockets3
+            ruby bin/switch.rb rails50 sprockets3
       - *restore_cache
       - *install_dependencies
       - *save_cache
@@ -76,7 +76,7 @@ jobs:
       - run:
           name: switch gemfile
           command: |
-            ruby bin/test.rb rails51 sprockets3
+            ruby bin/switch.rb rails51 sprockets3
       - *restore_cache
       - *install_dependencies
       - *save_cache
