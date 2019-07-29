@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "fileutils"
+
 $valid_rails_versions = %w[rails50 rails51 rails52]
 $valid_asset_managers = %w[sprockets3 sprockets4 webpacker]
 
@@ -32,5 +34,14 @@ assert_file_exist(gemfile_lock_path)
 
 File.write(File.expand_path("../Gemfile", __dir__), File.read(gemfile_path).sub(/\bgemspec\b.+$/, "gemspec"))
 File.write(File.expand_path("../Gemfile.lock", __dir__), File.read(gemfile_lock_path).sub(/\bremote: \.\./, "remote: ."))
+
+Dir.chdir(File.expand_path("../test", __dir__)) do
+  rails_version = ARGV[0][/(?<=rails)\d*/]
+
+  if rails_version.class == String && rails_version =~ /\d/
+    FileUtils.rm("dummy") if File.exist?("dummy")
+    FileUtils.ln_s("dummy#{rails_version}", "dummy")
+  end
+end
 
 puts "ok"
