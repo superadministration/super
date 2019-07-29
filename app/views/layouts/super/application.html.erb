@@ -3,7 +3,9 @@
   <head>
     <title><%= Super.configuration.title %></title>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <% if respond_to?(:csp_meta_tag) -%>
+      <%= csp_meta_tag %>
+    <% end -%>
 
     <% if [:sprockets3, :sprockets4].include?(Super.environment.assets_via) %>
       <%= stylesheet_link_tag "super/application", media: "all" %>
