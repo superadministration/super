@@ -7,7 +7,7 @@
       <%= csp_meta_tag %>
     <% end -%>
 
-    <% if [:sprockets3, :sprockets4].include?(Super.environment.assets_via) %>
+    <% if Super.configuration.asset_handler.sprockets? %>
       <%= stylesheet_link_tag "super/application", media: "all" %>
       <%= javascript_include_tag "super/application" %>
     <% end %>

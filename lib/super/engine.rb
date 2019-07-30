@@ -1,7 +1,7 @@
 module Super
   class Engine < ::Rails::Engine
     initializer "super.assets.precompile" do |app|
-      if [:sprockets3, :sprockets4].include?(Super.environment.assets_via)
+      if Super::Assets.sprockets_available?
         app.config.assets.precompile << "config/super_manifest.js"
       end
     end

@@ -16,6 +16,10 @@ module Super
 
     def initialize
       self.class.defaults.each do |key, value|
+        if value.respond_to?(:call)
+          value = value.call
+        end
+
         public_send("#{key}=", value)
       end
     end
@@ -75,6 +79,7 @@ module Super
     configure :index_resources_per_page, default: 20
     configure :controller_namespace, default: "admin"
     configure :route_namespace, default: :admin, wrap: -> (val) { [val].flatten }
+    configure :asset_handler, default: -> { Super::Assets.auto }
 
     def path_parts(*parts)
       route_namespace + parts
