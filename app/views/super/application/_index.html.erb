@@ -1,0 +1,58 @@
+<% content_for(:header) do %>
+  <header>
+    <h1 class="text-3xl inline-block">
+      <%= controls.title %>
+    </h1>
+    <%= link_to(
+      "New #{controls.model.name}",
+      new_polymorphic_path(Super.configuration.path_parts(controls.model.new)),
+      class: "inline-block"
+    ) %>
+  </header>
+<% end %>
+
+<table class="w-full leading-loose mt-4">
+  <thead class="border-gray-400 border-solid">
+    <tr>
+      <% (controls.index_columns + ["Actions"]).each do |column| %>
+        <th class="text-left"><%= column.to_s.humanize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resources.each.with_index do |resource, index| %>
+      <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
+        <% controls.index_columns.each do |column| %>
+          <td><%= resource.public_send(column).inspect %></td>
+        <% end %>
+        <td>
+          <%= link_to(
+            "View",
+            polymorphic_path(Super.configuration.path_parts(resource))
+          ) %>
+          <%= link_to(
+            "Edit",
+            edit_polymorphic_path(Super.configuration.path_parts(resource))
+          ) %>
+          <%= link_to(
+            "Delete",
+            polymorphic_path(Super.configuration.path_parts(resource)),
+            method: :delete,
+            data: { confirm: "Really delete?" }
+          ) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% @pagination.each do |pageno, is_current_page, display| %>
+  <%= link_to(
+    display,
+    polymorphic_path(
+      Super.configuration.path_parts(controls.model),
+      page: pageno
+    ),
+    class: "#{is_current_page ? " text-gray-900" : ""}"
+  ) %>
+<% end %>
