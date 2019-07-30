@@ -4,6 +4,16 @@ module Super
       Gem::Dependency.new("sprockets").matching_specs.any?
     end
 
+    def self.dist(gem_name, package_name)
+      gem_name = gem_name.to_s
+
+      @gem_paths ||= {}
+      @gem_paths[gem_name] ||= Pathname.new(Gem.loaded_specs[gem_name].full_gem_path).expand_path
+      gem_path = @gem_paths[gem_name]
+
+      gem_path.join("frontend", package_name, "dist")
+    end
+
     def self.auto
       @auto ||=
         if Gem::Dependency.new("sprockets", "~> 4.0").matching_specs.any?

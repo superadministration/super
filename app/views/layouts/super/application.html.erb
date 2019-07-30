@@ -10,6 +10,9 @@
     <% if Super.configuration.asset_handler.sprockets? %>
       <%= stylesheet_link_tag "super/application", media: "all" %>
       <%= javascript_include_tag "super/application" %>
+    <% elsif Super.configuration.asset_handler.webpacker? %>
+      <%= stylesheet_pack_tag "super/application", media: "all" %>
+      <%= javascript_pack_tag "super/application" %>
     <% end %>
   </head>
 
