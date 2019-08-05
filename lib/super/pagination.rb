@@ -5,10 +5,13 @@ module Super
     attr_reader :current_pageno
     attr_reader :limit
 
-    def initialize(total_count:, current_pageno:, limit:)
+    def initialize(total_count:, limit:, query_params:, page_query_param:)
       @total_count = total_count.to_i
       @limit = limit.to_i
-      self.current_pageno = current_pageno
+      @query_params = query_params
+      @page_query_param = page_query_param
+
+      self.current_pageno = query_params[page_query_param]
     end
 
     def offset
@@ -42,8 +45,14 @@ module Super
       (1..pages).each do |pageno|
         is_current_page = pageno == current_pageno
         display = pageno.to_s
+        page_query_params = @query_params.dup
+        if pageno == 1
+          page_query_params.delete(:page)
+        else
+          page_query_params[@page_query_param] = pageno
+        end
 
-        yield(pageno, is_current_page, display)
+        yield(page_query_params, is_current_page, display)
       end
     end
   end

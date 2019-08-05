@@ -46,12 +46,12 @@
   </tbody>
 </table>
 
-<% @pagination.each do |pageno, is_current_page, display| %>
+<% @pagination.each do |page_query_params, is_current_page, display| %>
   <%= link_to(
     display,
     polymorphic_path(
       Super.configuration.path_parts(controls.model),
-      page: pageno
+      page_query_params
     ),
     class: "#{is_current_page ? " text-gray-900" : ""}"
   ) %>

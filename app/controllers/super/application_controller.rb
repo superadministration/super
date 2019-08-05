@@ -59,9 +59,11 @@ module Super
     def index_paginate
       @pagination = Pagination.new(
         total_count: @resources.size,
-        current_pageno: params[:page],
-        limit: Super.configuration.index_resources_per_page
+        limit: Super.configuration.index_resources_per_page,
+        query_params: request.GET,
+        page_query_param: :page
       )
+
       @resources = @resources
         .limit(@pagination.limit)
         .offset(@pagination.offset)
