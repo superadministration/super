@@ -1,19 +1,16 @@
 module Super
   class ApplicationController < ActionController::Base
+    include Super::InlineCallback
     include Pluggable.new(:super_application_controller)
+
+    register_inline_callback(:index_paginate, on: :index, after: :yield)
 
     helper_method :controls
 
     def index
-      @resources = controls.index_scope
-      @pagination = Pagination.new(
-        total_count: @resources.size,
-        current_pageno: params[:page],
-        limit: Super.configuration.index_resources_per_page
-      )
-      @resources = @resources
-        .limit(@pagination.limit)
-        .offset(@pagination.offset)
+      with_inline_callbacks do
+        @resources = controls.index_scope
+      end
     end
 
     def create
@@ -58,6 +55,17 @@ module Super
     end
 
     private
+
+    def index_paginate
+      @pagination = Pagination.new(
+        total_count: @resources.size,
+        current_pageno: params[:page],
+        limit: Super.configuration.index_resources_per_page
+      )
+      @resources = @resources
+        .limit(@pagination.limit)
+        .offset(@pagination.offset)
+    end
 
     def controls
       Controls.new(dashboard)

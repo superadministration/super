@@ -1,9 +1,13 @@
+require "tsort"
+require "active_support/concern"
+
 require "super/assets"
 require "super/configuration"
 require "super/controls"
 require "super/engine"
 require "super/error"
 require "super/field"
+require "super/inline_callback"
 require "super/navigation/automatic"
 require "super/pagination"
 require "super/plugin"
