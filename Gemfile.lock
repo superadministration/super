@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/zachahn/super_test_engine.git
+  revision: 7d92e7064f0b8d458930891e0be0c5a7f979b08a
+  specs:
+    super_test_engine (0.0.8)
+      rails
+
 PATH
   remote: .
   specs:
@@ -130,8 +137,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
-    super_test_engine (0.0.7)
-      rails
     thor (0.20.3)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
@@ -152,7 +157,7 @@ DEPENDENCIES
   pry
   sqlite3 (~> 1.3.6)
   super!
-  super_test_engine (= 0.0.7)
+  super_test_engine!
 
 BUNDLED WITH
    1.17.3
