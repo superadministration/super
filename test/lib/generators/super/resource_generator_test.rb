@@ -73,47 +73,12 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           Ship.all
         end
 
-        def index_columns
-          [
-          ]
+        def index_schema
+          Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+          end
         end
 
         def create_scope
-          Ship.all
-        end
-
-        def new_scope
-          Ship.all
-        end
-
-        def new_columns
-          [
-          ]
-        end
-
-        def edit_scope
-          Ship.all
-        end
-
-        def edit_columns
-          [
-          ]
-        end
-
-        def show_scope
-          Ship.all
-        end
-
-        def show_columns
-          [
-          ]
-        end
-
-        def update_scope
-          Ship.all
-        end
-
-        def destroy_scope
           Ship.all
         end
 
@@ -121,8 +86,43 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           params.require(:ship).permit()
         end
 
+        def new_scope
+          Ship.all
+        end
+
+        def new_schema
+          Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+          end
+        end
+
+        def edit_scope
+          Ship.all
+        end
+
+        def edit_schema
+          Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+          end
+        end
+
+        def show_scope
+          Ship.all
+        end
+
+        def show_schema
+          Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+          end
+        end
+
+        def update_scope
+          Ship.all
+        end
+
         def permitted_update_params(params)
           params.require(:ship).permit()
+        end
+
+        def destroy_scope
+          Ship.all
         end
       end
     RUBY

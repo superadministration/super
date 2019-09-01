@@ -25,8 +25,8 @@ class ResourceWithExplicitControlsTest < CapybaraTest
 
     assert_difference -> { Member.all.size }, 1 do
       fill_in("Name", with: "Wesley Crusher")
-      fill_in("Rank", with: "Ensign")
-      fill_in("Ship", with: ships(:uss_enterprise_d).id)
+      select("ensign", from: "Rank")
+      select(ships(:uss_enterprise_d).name, from: "Ship")
       click_on("Create Member")
     end
     assert_includes(200...300, page.status_code)

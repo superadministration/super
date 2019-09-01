@@ -1,6 +1,11 @@
 <%= form_for(Super.configuration.path_parts(resource)) do |f| %>
-  <% columns.each do |column| %>
-    <%= render "form_field", f: f, resource: resource, column: column %>
+  <% schema.fields.each do |field, type| %>
+    <%= render(
+      type,
+      form: f,
+      column: field,
+      resource: resource
+    ) %>
   <% end %>
   <div>
     <%= f.submit class: "bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded mt-2" %>

@@ -11,47 +11,12 @@ class <%= class_name %>Dashboard
     <%= class_name %>.all
   end
 
-  def index_columns
-    [
-    ]
+  def index_schema
+    Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+    end
   end
 
   def create_scope
-    <%= class_name %>.all
-  end
-
-  def new_scope
-    <%= class_name %>.all
-  end
-
-  def new_columns
-    [
-    ]
-  end
-
-  def edit_scope
-    <%= class_name %>.all
-  end
-
-  def edit_columns
-    [
-    ]
-  end
-
-  def show_scope
-    <%= class_name %>.all
-  end
-
-  def show_columns
-    [
-    ]
-  end
-
-  def update_scope
-    <%= class_name %>.all
-  end
-
-  def destroy_scope
     <%= class_name %>.all
   end
 
@@ -59,7 +24,42 @@ class <%= class_name %>Dashboard
     params.require(:<%= file_name %>).permit()
   end
 
+  def new_scope
+    <%= class_name %>.all
+  end
+
+  def new_schema
+    Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+    end
+  end
+
+  def edit_scope
+    <%= class_name %>.all
+  end
+
+  def edit_schema
+    Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+    end
+  end
+
+  def show_scope
+    <%= class_name %>.all
+  end
+
+  def show_schema
+    Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+    end
+  end
+
+  def update_scope
+    <%= class_name %>.all
+  end
+
   def permitted_update_params(params)
     params.require(:<%= file_name %>).permit()
+  end
+
+  def destroy_scope
+    <%= class_name %>.all
   end
 end
