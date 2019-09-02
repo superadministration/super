@@ -12,7 +12,7 @@ class <%= class_name %>Dashboard
   end
 
   def index_schema
-    Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+    Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
     end
   end
 
@@ -29,7 +29,7 @@ class <%= class_name %>Dashboard
   end
 
   def new_schema
-    Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+    Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
     end
   end
 
@@ -38,7 +38,7 @@ class <%= class_name %>Dashboard
   end
 
   def edit_schema
-    Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+    Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
     end
   end
 
@@ -47,7 +47,7 @@ class <%= class_name %>Dashboard
   end
 
   def show_schema
-    Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+    Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
     end
   end
 

@@ -3,15 +3,15 @@ module Super
   # for various purposes. It primarily exists to provide a cohesive user-facing
   # API for defining schemas.
   #
-  # Its inner classes are likely of more interest.
+  # The various "schema types" are likely of more interest
   class Schema
-    # @param type_driver [ReadTypes, WriteTypes]
-    def initialize(type_driver)
-      @type_driver = type_driver
+    # @param schema_type [Display::SchemaTypes, Form::SchemaTypes]
+    def initialize(schema_type)
+      @schema_type = schema_type
       @fields = {}
 
       if block_given?
-        yield(@fields, @type_driver)
+        yield(@fields, @schema_type)
       end
     end
 

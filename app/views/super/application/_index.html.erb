@@ -23,7 +23,7 @@
     <% @resources.each.with_index do |resource, index| %>
       <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
         <% controls.index_schema.field_keys.each do |column| %>
-          <td><%= Super::Field.display(controls.index_schema, resource, column) %></td>
+          <td><%= Super::Display.format(controls.index_schema, resource, column) %></td>
         <% end %>
         <td>
           <%= link_to(

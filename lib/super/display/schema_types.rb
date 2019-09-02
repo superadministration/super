@@ -1,5 +1,5 @@
 module Super
-  class Schema
+  class Display
     # This schema type is meant to be used for +#index+ or +#show+ actions to
     # transform database fields into something that is human friendly.
     #
@@ -10,7 +10,7 @@ module Super
     #     # ...
     #
     #     def show_schema
-    #       Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+    #       Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
     #         fields[:name] = type.dynamic { |name| name }
     #         fields[:rank] = type.dynamic { |rank| rank }
     #         fields[:position] = type.dynamic { |position| position }
@@ -22,7 +22,7 @@ module Super
     #
     #     # ...
     #   end
-    class ReadTypes
+    class SchemaTypes
       class Dynamic
         def initialize(transform_block)
           @transform_block = transform_block

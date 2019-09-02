@@ -74,7 +74,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
         end
 
         def index_schema
-          Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+          Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
           end
         end
 
@@ -91,7 +91,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
         end
 
         def new_schema
-          Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+          Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
           end
         end
 
@@ -100,7 +100,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
         end
 
         def edit_schema
-          Super::Schema.new(Super::Schema::WriteTypes.new) do |fields, type|
+          Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
           end
         end
 
@@ -109,7 +109,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
         end
 
         def show_schema
-          Super::Schema.new(Super::Schema::ReadTypes.new) do |fields, type|
+          Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
           end
         end
 
