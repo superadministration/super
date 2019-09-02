@@ -20,7 +20,7 @@ class <%= class_name %>Dashboard
     <%= class_name %>.all
   end
 
-  def permitted_create_params(params)
+  def create_permitted_params(params)
     params.require(:<%= file_name %>).permit()
   end
 
@@ -55,7 +55,7 @@ class <%= class_name %>Dashboard
     <%= class_name %>.all
   end
 
-  def permitted_update_params(params)
+  def update_permitted_params(params)
     params.require(:<%= file_name %>).permit()
   end
 

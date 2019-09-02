@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/zachahn/super_test_engine.git
-  revision: 7d92e7064f0b8d458930891e0be0c5a7f979b08a
+  revision: 845058a542c3ad5ca0b98de95a9b442b5e0c70f5
   specs:
-    super_test_engine (0.0.8)
+    super_test_engine (0.0.9)
       rails
 
 PATH

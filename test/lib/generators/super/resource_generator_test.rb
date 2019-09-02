@@ -82,7 +82,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           Ship.all
         end
 
-        def permitted_create_params(params)
+        def create_permitted_params(params)
           params.require(:ship).permit()
         end
 
@@ -117,7 +117,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           Ship.all
         end
 
-        def permitted_update_params(params)
+        def update_permitted_params(params)
           params.require(:ship).permit()
         end
 

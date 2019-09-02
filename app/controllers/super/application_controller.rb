@@ -14,7 +14,7 @@ module Super
     end
 
     def create
-      @resource = controls.create_scope.build(permitted_create_params)
+      @resource = controls.create_scope.build(create_permitted_params)
 
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -38,7 +38,7 @@ module Super
     def update
       @resource = controls.update_scope.find(params[:id])
 
-      if @resource.update(permitted_update_params)
+      if @resource.update(update_permitted_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
         render :edit, status: :bad_request
@@ -73,12 +73,12 @@ module Super
       Controls.new(dashboard)
     end
 
-    def permitted_create_params
-      controls.permitted_create_params(params)
+    def create_permitted_params
+      controls.create_permitted_params(params)
     end
 
-    def permitted_update_params
-      controls.permitted_update_params(params)
+    def update_permitted_params
+      controls.update_permitted_params(params)
     end
   end
 end
