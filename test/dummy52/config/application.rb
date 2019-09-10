@@ -15,7 +15,6 @@ require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
 require "super"
-require "super_test_engine"
 
 module Dummy
   class Application < Rails::Application

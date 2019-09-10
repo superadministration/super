@@ -1,0 +1,10 @@
+---
+uss_enterprise_d:
+  name: USS Enterprise
+  registry: NCC-1701-D
+  class_name: Galaxy
+
+uss_jenolan:
+  name: USS Jenolan
+  registry: NCC-2010
+  class_name: Sydney

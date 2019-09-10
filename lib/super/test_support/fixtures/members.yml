@@ -1,0 +1,336 @@
+---
+picard:
+  name: Jean-Luc Picard
+  rank: Captain
+  position: Commanding Officer
+  ship: uss_enterprise_d
+
+riker:
+  name: William T. Riker
+  rank: Commander
+  position: First Officer
+  ship: uss_enterprise_d
+
+data:
+  name: Data
+  rank: Lieutenant Commander
+  position: Second Officer
+  ship: uss_enterprise_d
+
+crusher:
+  name: Beverly Crusher
+  rank: Commander
+  position: Chief Medical Officer
+  ship: uss_enterprise_d
+
+worf:
+  name: Worf
+  rank: Lieutenant Commander
+  position: Chief of Security
+  ship: uss_enterprise_d
+
+la_forge:
+  name: Geordi La Forge
+  rank: Lieutenant Commander
+  position: Chief Engineering Officer
+  ship: uss_enterprise_d
+
+troi:
+  name: Deanna Troi
+  rank: Commander
+  position: Counselor
+  ship: uss_enterprise_d
+
+tasha:
+  name: Natasha Yar
+  rank: Lieutenant
+  position: Chief of Security
+  ship: uss_enterprise_d
+
+miles:
+  name: Miles O'Brien
+  rank: NCO
+  position: Transporter Chief
+  ship: uss_enterprise_d
+
+guinan:
+  name: Guinan
+  rank: NCO
+  position: Bartender
+  ship: uss_enterprise_d
+
+sepulveda:
+  name: Fernando Sepulveda
+  rank: Lieutenant
+  position: Ops engineer
+  ship: uss_enterprise_d
+
+jaxa:
+  name: Sito Jaxa
+  rank: Ensign
+  position: Security officer
+  ship: uss_enterprise_d
+
+calloway:
+  name: Maddy Calloway
+  rank: Ensign
+  position: Medical technician
+  ship: uss_enterprise_d
+
+mayter:
+  name: Van Mayter
+  rank: NCO
+  position: Engineer
+  ship: uss_enterprise_d
+
+sutter:
+  name: Daniel Sutter
+  rank: Ensign
+  position: Engineer
+  ship: uss_enterprise_d
+
+bernard:
+  name: Harry Bernard, Sr.
+  rank: Lieutenant
+  position: Oceanographer
+  ship: uss_enterprise_d
+
+dangelo:
+  name: Dick D'Angelo
+  rank: Lieutenant
+  position: Ops Engineer
+  ship: uss_enterprise_d
+
+ogawa:
+  name: Alyssa Ogawa
+  rank: Lieutenant
+  position: Nurse
+  ship: uss_enterprise_d
+
+nesterowicz:
+  name: John Nesterowicz
+  rank: Lieutenant
+  position: WarpField Tech 2
+  ship: uss_enterprise_d
+
+keiko:
+  name: Keiko O'Brien
+  rank: NCO
+  position: Botanist
+  ship: uss_enterprise_d
+
+anaya:
+  name: April Anaya
+  rank: Ensign
+  position: Flight controller
+  ship: uss_enterprise_d
+
+ziff:
+  name: Anaanda Ziff
+  rank: Lieutenant
+  position: Specialist
+  ship: uss_enterprise_d
+
+tarses:
+  name: Simon Tarses
+  rank: NCO
+  position: Medical technician
+  ship: uss_enterprise_d
+
+wallace:
+  name: Darien Wallace
+  rank: Lieutenant
+  position: Crewmember
+  ship: uss_enterprise_d
+
+giddings:
+  name: Diana Giddings
+  rank: Lieutenant
+  position: Junior engineer
+  ship: uss_enterprise_d
+
+pulaski:
+  name: Katherine Pulaski
+  rank: Commander
+  position: Medical officer
+  ship: uss_enterprise_d
+
+dumont:
+  name: Suzanne Dumont
+  rank: Ensign
+  position: Crewmember
+  ship: uss_enterprise_d
+
+tsu:
+  name: Lian T'Su
+  rank: Ensign
+  position: Operations officer
+  ship: uss_enterprise_d
+
+lynch:
+  name: Leland T. Lynch
+  rank: Lieutenant Commander
+  position: Chief engineer
+  ship: uss_enterprise_d
+
+dsora:
+  name: Jenna D'Sora
+  rank: Lieutenant Junior Grade
+  position: Security officer
+  ship: uss_enterprise_d
+
+macdougal:
+  name: Sarah MacDougal
+  rank: Lieutenant Commander
+  position: Chief engineer
+  ship: uss_enterprise_d
+
+shimoda:
+  name: Jim Shimoda
+  rank: NCO
+  position: Assistant chief engineer
+  ship: uss_enterprise_d
+
+solis:
+  name: Orfil Solis
+  rank: Lieutenant Junior Grade
+  position: Flight controller
+  ship: uss_enterprise_d
+
+rhodes:
+  name: Sandra Rhodes
+  rank: Lieutenant
+  position: Security officer
+  ship: uss_enterprise_d
+
+fratis:
+  name: Jeffrey Fratis
+  rank: Lieutenant
+  position: Crewmember
+  ship: uss_enterprise_d
+
+mees:
+  name: Jim Mees
+  rank: Lieutenant Commander
+  position: Crewmember
+  ship: uss_enterprise_d
+
+hubbell:
+  name: Maggie Hubbell
+  rank: Ensign
+  position: Transporter chief
+  ship: uss_enterprise_d
+
+rager:
+  name: Sariel Rager
+  rank: Ensign
+  position: Helmsman
+  ship: uss_enterprise_d
+
+robinson:
+  name: B.G. Robinson
+  rank: Lieutenant
+  position: Transporter chief
+  ship: uss_enterprise_d
+
+allenby:
+  name: Tess Allenby
+  rank: Ensign
+  position: Flight controller
+  ship: uss_enterprise_d
+
+brooks:
+  name: Janet Brooks
+  rank: Ensign
+  position: Crewmember
+  ship: uss_enterprise_d
+
+foster:
+  name: Don Foster, Jr.
+  rank: Lieutenant
+  position: WarpField Tech 1
+  ship: uss_enterprise_d
+
+lefler:
+  name: Robin Lefler
+  rank: Ensign
+  position: Mission Specialist
+  ship: uss_enterprise_d
+
+lavelle:
+  name: Sam Lavelle
+  rank: Lieutenant Junior Grade
+  position: Operations officer
+  ship: uss_enterprise_d
+
+prieto:
+  name: Ben Prieto
+  rank: Lieutenant
+  position: Shuttlecraft Pilot
+  ship: uss_enterprise_d
+
+pacelli:
+  name: Alfonse Pacelli
+  rank: Ensign
+  position: Specialist
+  ship: uss_enterprise_d
+
+aster:
+  name: Marla Aster
+  rank: Lieutenant
+  position: Archaeologist
+  ship: uss_enterprise_d
+
+barclay:
+  name: Reginald Barclay
+  rank: Lieutenant
+  position: Systems diagnostic engineer
+  ship: uss_enterprise_d
+
+salvatore:
+  name: Bruno Salvatore
+  rank: Ensign
+  position: Specialist in biomechanical research
+  ship: uss_enterprise_d
+
+juarez:
+  name: Francisca Juarez
+  rank: Lieutenant
+  position: Crewmember
+  ship: uss_enterprise_d
+
+finks:
+  name: Wilbur Finks
+  rank: Lieutenant
+  position: Safety officer
+  ship: uss_enterprise_d
+
+larson:
+  name: Linda Larson
+  rank: Lieutenant Junior Grade
+  position: Engineer
+  ship: uss_enterprise_d
+
+gomez:
+  name: Sonya Gomez
+  rank: Ensign
+  position: Engineer
+  ship: uss_enterprise_d
+
+hagler:
+  name: Edward Hagler
+  rank: Lieutenant
+  position: Crewmember
+  ship: uss_enterprise_d
+
+lin:
+  name: Peter Lin
+  rank: Ensign
+  position: Flight controller
+  ship: uss_enterprise_d
+
+kwan:
+  name: Daniel Kwan
+  rank: Lieutenant Junior Grade
+  position: Specialist
+  ship: uss_enterprise_d

@@ -1,1 +1,2 @@
-SuperTestEngine::Engine.load_seed
+require "super/test_support/starfleet_seeder"
+StarfleetSeeder.seed

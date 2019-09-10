@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/zachahn/super_test_engine.git
-  revision: c390ced01db90944a69b3ea836f4c74b18d87ee0
-  specs:
-    super_test_engine (0.0.10)
-      rails
-
 PATH
   remote: .
   specs:
@@ -157,7 +150,6 @@ DEPENDENCIES
   pry
   sqlite3 (~> 1.3.6)
   super!
-  super_test_engine!
 
 BUNDLED WITH
    1.17.3

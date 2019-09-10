@@ -13,5 +13,3 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
-gem "super_test_engine", github: "zachahn/super_test_engine"
