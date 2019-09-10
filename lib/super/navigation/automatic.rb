@@ -30,7 +30,7 @@ module Super
 
         navigable_defaults = navigable_namespace_routes.map do |route|
           controller_name = route.defaults[:controller] + "_controller"
-          controller =
+          _controller =
             begin
               controller_name.camelize.constantize
             rescue NameError
