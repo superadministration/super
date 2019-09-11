@@ -10,8 +10,8 @@ require "capybara/rails"
 require "capybara/dsl"
 require "capybara/minitest"
 
-ActiveSupport::Dependencies.autoload_paths << "lib/super/test_support/app"
-
+# Filter out Minitest backtrace while allowing backtrace from other libraries
+# to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 # Load fixtures from the engine
