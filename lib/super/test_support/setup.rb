@@ -74,4 +74,6 @@ FileUtils.cp(src.join("20190806014121_add_ship_to_members.rb"), dest.join("db/mi
 
 FileUtils.cp(src.join("seeds.rb"), dest.join("db/seeds.rb"))
 
+FileUtils.cp(src.join("routes.rb"), dest.join("config/routes.rb"))
+
 puts "Done!"
