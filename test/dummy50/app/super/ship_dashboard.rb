@@ -35,7 +35,7 @@ class ShipDashboard
     Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
       fields[:name] = type.generic("form_generic_text")
       fields[:registry] = type.generic("form_generic_text")
-      fields[:position] = type.generic("form_generic_text")
+      fields[:class_name] = type.generic("form_generic_text")
     end
   end
 
@@ -47,7 +47,7 @@ class ShipDashboard
     Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
       fields[:name] = type.generic("form_generic_text")
       fields[:registry] = type.generic("form_generic_text")
-      fields[:position] = type.generic("form_generic_text")
+      fields[:class_name] = type.generic("form_generic_text")
     end
   end
 
