@@ -39,6 +39,13 @@ Super Professional is a paid add-on and provides additional benefits:
 It will be available soon.
 
 
+## Demos
+
+* [Super Demo](https://demo-super.herokuapp.com/admin/members)
+  * [Super Demo source](https://github.com/zachahn/super_demo)
+* [Super Professional Demo](https://demo-super-professional.herokuapp.com/admin/members)
+
+
 ## Usage
 
 ### Creating new admin pages
