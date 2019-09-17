@@ -26,6 +26,10 @@ your application's Rails version or any other gem.
 * Looks reasonably nice and modern
 * All assets are vendored (doesn't require Sass, PostCSS, Babel, etc)
 
+Super was inspired in part by the admin frameworks [ActiveAdmin](activeadmin)
+and [Administrate](administrate). If Super doesn't quite fit your requirements
+at this moment, one of those might meet your needs better.
+
 
 ## Professional edition
 
@@ -36,7 +40,8 @@ Super Professional is a paid add-on and provides additional benefits:
 * Supporting long term development of Super
 * An LGPL exemption
 
-It will be available soon.
+It will be available soon. Subscribe to the [newsletter](newsletter) to be
+notified of its availability or for brief, occasional updates.
 
 
 ## Demos
@@ -114,3 +119,4 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 
 [administrate]: https://github.com/thoughtbot/administrate
 [activeadmin]: https://github.com/activeadmin/activeadmin
+[newsletter]: https://tinyletter.com/zachahn
