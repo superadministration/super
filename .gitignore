@@ -11,3 +11,5 @@ test/dummy*/tmp/
 
 node_modules
 /tmp/
+
+.yardoc/
