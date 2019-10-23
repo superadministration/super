@@ -1,1 +1,2 @@
-//= link_tree ../frontend
+//= link super/application.css
+//= link super/application.js
