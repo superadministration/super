@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", ">= 5.0"
 
   spec.add_development_dependency "capybara"
-  spec.add_development_dependency "sqlite3", "~> 1.3.6"
+  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "minitest-ci"
   spec.add_development_dependency "appraisal"

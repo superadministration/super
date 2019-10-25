@@ -17,4 +17,10 @@ appraise "rails52_sprockets4" do
   gem "sqlite3", "~> 1.3.0"
 end
 
+appraise "rails60_sprockets4" do
+  gem "rails", "~> 6.0.0"
+  gem "sprockets", "~> 4.0"
+  gem "sqlite3", "~> 1.4.0"
+end
+
 # vim: syntax=ruby
