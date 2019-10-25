@@ -1,0 +1,56 @@
+name: Unit tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile:
+          - gemfiles/rails50_sprockets3.gemfile
+          - gemfiles/rails51_sprockets3.gemfile
+          - gemfiles/rails52_sprockets4.gemfile
+          - gemfiles/rails60_sprockets4.gemfile
+          - gemfiles/rails60_webpacker4.gemfile
+        include:
+          - gemfile: gemfiles/rails50_sprockets3.gemfile
+            ruby: 2.4.x
+          - gemfile: gemfiles/rails51_sprockets3.gemfile
+            ruby: 2.5.x
+          - gemfile: gemfiles/rails52_sprockets4.gemfile
+            ruby: 2.5.x
+          - gemfile: gemfiles/rails60_sprockets4.gemfile
+            ruby: 2.6.x
+          - gemfile: gemfiles/rails60_webpacker4.gemfile
+            ruby: 2.6.x
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install build dependencies
+      run: |
+        sudo apt-get install -y sqlite3 libsqlite3-dev
+    - name: Install Ruby dependencies
+      env:
+        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      run: |
+        gem install bundler -v 1.17.3
+        bundle install --jobs 4 --retry 3
+    - name: Install JS dependencies
+      env:
+        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      run: |
+        [[ $BUNDLE_GEMFILE == *"webpacker"* ]] && bin/yarn || true
+    - name: Test
+      env:
+        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      run: |
+        bundle exec rake
