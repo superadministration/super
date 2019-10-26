@@ -2,8 +2,74 @@
 class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
   private
 
-  def dashboard
-    <%= class_name %>Dashboard.new
+  def new_controls
+    Controls.new
+  end
+
+  class Controls
+    def title
+      <%= class_name %>.name.pluralize
+    end
+
+    def model
+      <%= class_name %>
+    end
+
+    def index_scope
+      <%= class_name %>.all
+    end
+
+    def index_schema
+      Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+      end
+    end
+
+    def create_scope
+      <%= class_name %>.all
+    end
+
+    def create_permitted_params(params)
+      params.require(:<%= file_name %>).permit()
+    end
+
+    def new_scope
+      <%= class_name %>.all
+    end
+
+    def new_schema
+      Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+      end
+    end
+
+    def edit_scope
+      <%= class_name %>.all
+    end
+
+    def edit_schema
+      Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+      end
+    end
+
+    def show_scope
+      <%= class_name %>.all
+    end
+
+    def show_schema
+      Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+      end
+    end
+
+    def update_scope
+      <%= class_name %>.all
+    end
+
+    def update_permitted_params(params)
+      params.require(:<%= file_name %>).permit()
+    end
+
+    def destroy_scope
+      <%= class_name %>.all
+    end
   end
 end
 <% end -%>

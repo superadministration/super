@@ -20,7 +20,6 @@ Example:
         config/initializers/super.rb
         app/controllers/admin_controller.rb
         app/controllers/admin/.keep
-        app/super/.keep
 
 Example:
     rails generate super:install --controller-namespace badminton
@@ -29,4 +28,3 @@ Example:
         config/initializers/super.rb
         app/controllers/badminton_controller.rb
         app/controllers/badminton/.keep
-        app/super/.keep

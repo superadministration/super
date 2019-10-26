@@ -12,7 +12,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     assert_no_file("config/initializers/super.rb")
     assert_no_file("app/controllers/admin_controller.rb")
     assert_no_file("app/controllers/admin/.keep")
-    assert_no_file("app/super/.keep")
 
     run_generator
 
@@ -28,7 +27,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("app/controllers/admin/.keep", "")
-    assert_file("app/super/.keep", "")
   end
 
   def test_generator_correctly_sets_controller_namespace

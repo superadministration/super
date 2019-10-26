@@ -14,8 +14,6 @@ module Super
         "resources_controller.rb",
         "app/controllers/#{controller_subdir}#{file_path.pluralize}_controller.rb"
       )
-
-      template("resource_dashboard.rb", "app/super/#{file_path}_dashboard.rb")
     end
 
     private

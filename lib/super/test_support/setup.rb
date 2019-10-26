@@ -57,13 +57,6 @@ end
 FileUtils.cp(src.join("admin/members_controller.rb"), dest.join("app/controllers/admin/members_controller.rb"))
 FileUtils.cp(src.join("admin/ships_controller.rb"), dest.join("app/controllers/admin/ships_controller.rb"))
 
-act "Created #{dest.join("app/super")}", if_not: -> { dest.join("app/super").exist? } do
-  FileUtils.mkdir(dest.join("app/super"))
-end
-
-FileUtils.cp(src.join("member_dashboard.rb"), dest.join("app/super/member_dashboard.rb"))
-FileUtils.cp(src.join("ship_dashboard.rb"), dest.join("app/super/ship_dashboard.rb"))
-
 act "Created #{dest.join("db/migrate")}", if_not: -> { dest.join("db/migrate").exist? } do
   FileUtils.mkdir(dest.join("db/migrate"))
 end

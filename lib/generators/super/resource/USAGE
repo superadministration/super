@@ -1,9 +1,8 @@
 Description:
-    Creates a controller and its respective "control".
+    Creates a controller
 
 Example:
     rails generate super:resource Thing
 
     This will create:
         app/controllers/admin/things_controller.rb
-        app/controls/thing_controls.rb

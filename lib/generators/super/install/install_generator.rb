@@ -29,11 +29,6 @@ module Super
       create_file("app/controllers/#{controller_namespace}/.keep", "")
     end
 
-    def create_directory_for_dashboards_slash_setup
-      empty_directory("app/super")
-      create_file("app/super/.keep", "")
-    end
-
     private
 
     def controller_namespace

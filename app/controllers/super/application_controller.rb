@@ -70,7 +70,7 @@ module Super
     end
 
     def controls
-      Controls.new(dashboard)
+      Super::Controls.new(new_controls)
     end
 
     def create_permitted_params
