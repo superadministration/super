@@ -76,7 +76,7 @@ GEM
     method_source (0.9.2)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.9.1)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
     nio4r (2.5.2)
@@ -139,6 +139,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   capybara (~> 3.15.0)
+  minitest (~> 5.9.0)
   minitest-ci
   pry
   rails (~> 5.0.0)
