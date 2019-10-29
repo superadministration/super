@@ -10,6 +10,7 @@ require "rails/test_help"
 require "capybara/rails"
 require "capybara/dsl"
 require "capybara/minitest"
+require "mocha/minitest"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.

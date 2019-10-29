@@ -7,6 +7,31 @@ module Super
 
     helper_method :controls
 
+    rescue_from Error::ClientError do |exception|
+      code, default_message =
+        case exception
+        when Error::UnprocessableEntity
+          [422, "Unprocessable entity"]
+        when Error::NotFound
+          [404, "Not found"]
+        when Error::Forbidden
+          [403, "Forbidden"]
+        when Error::Unauthorized
+          [401, "Unauthorized"]
+        when Error::BadRequest, Error::ClientError
+          [400, "Bad request"]
+        end
+
+      flash.now.alert =
+        if exception.message == exception.class.name.to_s
+          default_message
+        else
+          exception.message
+        end
+
+      render "nothing", status: code
+    end
+
     def index
       with_inline_callbacks do
         @resources = controls.index_scope
