@@ -1,0 +1,17 @@
+<%
+  colors = {
+    "notice" => { bg: "bg-blue-100", fg: "text-blue-400", border: "border-blue-600" },
+    "alert" => { bg: "bg-red-100", fg: "text-red-400", border: "border-red-600" },
+  }
+%>
+
+<div data-flash="anchor">
+  <% flash.each do |level, messages| %>
+    <% Array(messages).each do |message| %>
+      <% color = colors[level.to_s] || colors["notice"] %>
+      <div class="<%= "%<bg>s %<fg>s border-l-4 %<border>s p-4 mt-2" % color %>">
+        <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
