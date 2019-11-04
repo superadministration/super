@@ -29,6 +29,10 @@ module Super
       create_file("app/controllers/#{controller_namespace}/.keep", "")
     end
 
+    def setup_sprockets4_manifest
+      append_to_file "app/assets/config/manifest.js", "//= link super_manifest.js"
+    end
+
     private
 
     def controller_namespace

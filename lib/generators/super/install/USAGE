@@ -21,6 +21,8 @@ Example:
         app/controllers/admin_controller.rb
         app/controllers/admin/.keep
 
+    This will also update your Sprockets manifest as necessary.
+
 Example:
     rails generate super:install --controller-namespace badminton
 
@@ -28,3 +30,5 @@ Example:
         config/initializers/super.rb
         app/controllers/badminton_controller.rb
         app/controllers/badminton/.keep
+
+    This will also update your Sprockets manifest as necessary.
