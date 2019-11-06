@@ -25,7 +25,7 @@ end
 class SuperDummyGenerator < Rails::Generators::Base
   source_root(File.expand_path("templates", __dir__))
 
-  class_option :custom_dummy_path, default: "test/dummy"
+  class_option :destination, required: true
 
   def create_new_plugin
     if plugin_name.blank?
@@ -74,7 +74,7 @@ class SuperDummyGenerator < Rails::Generators::Base
   private
 
   def dummy_path
-    @dummy_path ||= File.expand_path(options[:custom_dummy_path], destination_root)
+    @dummy_path ||= File.expand_path(options[:destination], destination_root)
   end
 
   def plugin_name
