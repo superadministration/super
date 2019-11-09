@@ -30,7 +30,7 @@ module Super
     end
 
     def setup_sprockets4_manifest
-      append_to_file "app/assets/config/manifest.js", "//= link super_manifest.js"
+      append_to_file "app/assets/config/manifest.js", "//= link super_manifest.js\n"
     end
 
     private

@@ -7,6 +7,10 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
   setup :prepare_destination
   setup { @original_configuration = Super.configuration }
   teardown { Super.instance_variable_set(:@configuration, @original_configuration) }
+  setup do
+    mkdir_p(File.join(destination_root, "app/assets/config"))
+    File.write(File.join(destination_root, "app/assets/config/manifest.js"), "")
+  end
 
   def test_generator_runs_correctly_with_no_args
     assert_no_file("config/initializers/super.rb")
@@ -27,6 +31,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("app/controllers/admin/.keep", "")
+    assert_file("app/assets/config/manifest.js", "//= link super_manifest.js\n")
   end
 
   def test_generator_correctly_sets_controller_namespace
