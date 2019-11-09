@@ -15,74 +15,32 @@ module Admin
         Ship
       end
 
-      def index_scope
+      def scope(action:)
         Ship.all
       end
 
-      def index_schema
-        Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-          fields[:name] = type.dynamic { |name| name }
-          fields[:registry] = type.dynamic { |registry| registry }
-          fields[:class_name] = type.dynamic { |class_name| class_name }
-        end
-      end
-
-      def create_scope
-        Ship.all
-      end
-
-      def create_permitted_params(params)
+      def permitted_params(params, action:)
         params.require(:ship).permit(:name, :registry, :class_name)
       end
 
-      def new_scope
-        Ship.all
+      def display_schema(action:)
+        Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+          fields[:name] = type.dynamic(&:itself)
+          fields[:registry] = type.dynamic(&:itself)
+          fields[:class_name] = type.dynamic(&:itself)
+          if action.show?
+            fields[:created_at] = type.dynamic(&:iso8601)
+            fields[:updated_at] = type.dynamic(&:iso8601)
+          end
+        end
       end
 
-      def new_schema
+      def form_schema(action:)
         Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
           fields[:name] = type.generic("form_generic_text")
           fields[:registry] = type.generic("form_generic_text")
           fields[:class_name] = type.generic("form_generic_text")
         end
-      end
-
-      def edit_scope
-        Ship.all
-      end
-
-      def edit_schema
-        Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-          fields[:name] = type.generic("form_generic_text")
-          fields[:registry] = type.generic("form_generic_text")
-          fields[:class_name] = type.generic("form_generic_text")
-        end
-      end
-
-      def show_scope
-        Ship.all
-      end
-
-      def show_schema
-        Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-          fields[:name] = type.dynamic { |name| name }
-          fields[:registry] = type.dynamic { |registry| registry }
-          fields[:class_name] = type.dynamic { |class_name| class_name }
-          fields[:created_at] = type.dynamic(&:iso8601)
-          fields[:updated_at] = type.dynamic(&:iso8601)
-        end
-      end
-
-      def update_scope
-        Ship.all
-      end
-
-      def update_permitted_params(params)
-        params.require(:ship).permit(:name, :registry, :class_name)
-      end
-
-      def destroy_scope
-        Ship.all
       end
     end
   end

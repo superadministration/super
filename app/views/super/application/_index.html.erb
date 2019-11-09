@@ -14,7 +14,7 @@
 <table class="w-full leading-loose mt-4">
   <thead class="border-gray-400 border-solid">
     <tr>
-      <% (controls.index_schema.field_keys + ["Actions"]).each do |column| %>
+      <% (controls.display_schema(action: action_inquirer).field_keys + ["Actions"]).each do |column| %>
         <th class="text-left"><%= column.to_s.humanize %></th>
       <% end %>
     </tr>
@@ -22,8 +22,8 @@
   <tbody>
     <% @resources.each.with_index do |resource, index| %>
       <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
-        <% controls.index_schema.field_keys.each do |column| %>
-          <td><%= Super::Display.format(controls.index_schema, resource, column) %></td>
+        <% controls.display_schema(action: action_inquirer).field_keys.each do |column| %>
+          <td><%= Super::Display.format(controls.display_schema(action: action_inquirer), resource, column) %></td>
         <% end %>
         <td>
           <%= link_to(

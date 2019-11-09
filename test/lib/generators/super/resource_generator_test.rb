@@ -33,60 +33,30 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
               Ship
             end
 
-            def index_scope
-              Ship.all
+            def scope(action:)
+              if action.read?
+                Ship.all
+              else
+                Ship.all
+              end
             end
 
-            def index_schema
+            def permitted_params(params, action:)
+              if action.create?
+                params.require(:ship).permit()
+              else
+                params.require(:ship).permit()
+              end
+            end
+
+            def display_schema(action:)
               Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
               end
             end
 
-            def create_scope
-              Ship.all
-            end
-
-            def create_permitted_params(params)
-              params.require(:ship).permit()
-            end
-
-            def new_scope
-              Ship.all
-            end
-
-            def new_schema
+            def form_schema(action:)
               Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
               end
-            end
-
-            def edit_scope
-              Ship.all
-            end
-
-            def edit_schema
-              Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-              end
-            end
-
-            def show_scope
-              Ship.all
-            end
-
-            def show_schema
-              Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-              end
-            end
-
-            def update_scope
-              Ship.all
-            end
-
-            def update_permitted_params(params)
-              params.require(:ship).permit()
-            end
-
-            def destroy_scope
-              Ship.all
             end
           end
         end
@@ -122,60 +92,30 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
             Ship
           end
 
-          def index_scope
-            Ship.all
+          def scope(action:)
+            if action.read?
+              Ship.all
+            else
+              Ship.all
+            end
           end
 
-          def index_schema
+          def permitted_params(params, action:)
+            if action.create?
+              params.require(:ship).permit()
+            else
+              params.require(:ship).permit()
+            end
+          end
+
+          def display_schema(action:)
             Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
             end
           end
 
-          def create_scope
-            Ship.all
-          end
-
-          def create_permitted_params(params)
-            params.require(:ship).permit()
-          end
-
-          def new_scope
-            Ship.all
-          end
-
-          def new_schema
+          def form_schema(action:)
             Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
             end
-          end
-
-          def edit_scope
-            Ship.all
-          end
-
-          def edit_schema
-            Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-            end
-          end
-
-          def show_scope
-            Ship.all
-          end
-
-          def show_schema
-            Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-            end
-          end
-
-          def update_scope
-            Ship.all
-          end
-
-          def update_permitted_params(params)
-            params.require(:ship).permit()
-          end
-
-          def destroy_scope
-            Ship.all
           end
         end
       end

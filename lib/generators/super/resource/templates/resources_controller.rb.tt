@@ -15,60 +15,30 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
       <%= class_name %>
     end
 
-    def index_scope
-      <%= class_name %>.all
+    def scope(action:)
+      if action.read?
+        <%= class_name %>.all
+      else
+        <%= class_name %>.all
+      end
     end
 
-    def index_schema
+    def permitted_params(params, action:)
+      if action.create?
+        params.require(:<%= file_name %>).permit()
+      else
+        params.require(:<%= file_name %>).permit()
+      end
+    end
+
+    def display_schema(action:)
       Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
       end
     end
 
-    def create_scope
-      <%= class_name %>.all
-    end
-
-    def create_permitted_params(params)
-      params.require(:<%= file_name %>).permit()
-    end
-
-    def new_scope
-      <%= class_name %>.all
-    end
-
-    def new_schema
+    def form_schema(action:)
       Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
       end
-    end
-
-    def edit_scope
-      <%= class_name %>.all
-    end
-
-    def edit_schema
-      Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-      end
-    end
-
-    def show_scope
-      <%= class_name %>.all
-    end
-
-    def show_schema
-      Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-      end
-    end
-
-    def update_scope
-      <%= class_name %>.all
-    end
-
-    def update_permitted_params(params)
-      params.require(:<%= file_name %>).permit()
-    end
-
-    def destroy_scope
-      <%= class_name %>.all
     end
   end
 end

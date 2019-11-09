@@ -1,6 +1,7 @@
 require "tsort"
 require "active_support/concern"
 
+require "super/action_inquirer"
 require "super/assets"
 require "super/configuration"
 require "super/controls"

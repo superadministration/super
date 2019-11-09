@@ -5,6 +5,7 @@ module Super
 
     register_inline_callback(:index_paginate, on: :index, after: :yield)
 
+    helper_method :action_inquirer
     helper_method :controls
 
     rescue_from Error::ClientError do |exception|
@@ -34,12 +35,12 @@ module Super
 
     def index
       with_inline_callbacks do
-        @resources = controls.index_scope
+        @resources = controls.scope(action: action_inquirer)
       end
     end
 
     def create
-      @resource = controls.create_scope.build(create_permitted_params)
+      @resource = controls.scope(action: action_inquirer).build(create_permitted_params)
 
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -49,19 +50,19 @@ module Super
     end
 
     def new
-      @resource = controls.new_scope.build
+      @resource = controls.scope(action: action_inquirer).build
     end
 
     def edit
-      @resource = controls.edit_scope.find(params[:id])
+      @resource = controls.scope(action: action_inquirer).find(params[:id])
     end
 
     def show
-      @resource = controls.show_scope.find(params[:id])
+      @resource = controls.scope(action: action_inquirer).find(params[:id])
     end
 
     def update
-      @resource = controls.update_scope.find(params[:id])
+      @resource = controls.scope(action: action_inquirer).find(params[:id])
 
       if @resource.update(update_permitted_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -71,7 +72,7 @@ module Super
     end
 
     def destroy
-      @resource = controls.destroy_scope.find(params[:id])
+      @resource = controls.scope(action: action_inquirer).find(params[:id])
       if @resource.destroy
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
       else
@@ -99,11 +100,18 @@ module Super
     end
 
     def create_permitted_params
-      controls.create_permitted_params(params)
+      controls.permitted_params(params, action: action_inquirer)
     end
 
     def update_permitted_params
-      controls.update_permitted_params(params)
+      controls.permitted_params(params, action: action_inquirer)
+    end
+
+    def action_inquirer
+      @action_inquirer ||= ActionInquirer.new(
+        ActionInquirer.default_resources,
+        params[:action]
+      )
     end
   end
 end

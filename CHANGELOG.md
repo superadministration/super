@@ -7,6 +7,24 @@
 * Place controller's "dashboard" class inside its respective controller.
   Existing installations must rename their controllers' `dashboard` method into
   `new_controls`.
+* Merged several methods under "Controls" to keep things a little less
+  repetitive.
+  * `scope(action:)` instead of
+    * `index_scope`
+    * `new_scope`
+    * `create_scope`
+    * `show_scope`
+    * `edit_scope`
+    * `update_scope`
+  * `permitted_params(params, action:)` instead of
+    * `create_permitted_params`
+    * `update_permitted_params`
+  * `display_schema(action:)` instead of
+    * `index_schema`
+    * `show_schema`
+  * `form_schema(action:)` instead of
+    * `new_schema`
+    * `edit_schema`
 
 ### Added
 

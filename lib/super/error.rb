@@ -4,6 +4,7 @@ module Super
     class InvalidConfiguration < Error; end
     class InvalidStyle < Error; end
     class InvalidPluginArgument < Error; end
+    class ActionInquirerError < Error; end
 
     class ClientError < Error; end
     class BadRequest < ClientError; end
