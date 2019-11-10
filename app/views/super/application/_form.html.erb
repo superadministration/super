@@ -1,3 +1,5 @@
+<% schema = controls.form_schema(action: action_inquirer) %>
+
 <%= form_for(Super.configuration.path_parts(resource)) do |f| %>
   <% schema.fields.each do |field, type| %>
     <%= render(

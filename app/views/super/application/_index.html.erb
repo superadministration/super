@@ -1,3 +1,5 @@
+<% schema = controls.display_schema(action: action_inquirer) %>
+
 <% content_for(:header) do %>
   <header>
     <h1 class="text-3xl inline-block">
@@ -14,7 +16,7 @@
 <table class="w-full leading-loose mt-4">
   <thead class="border-gray-400 border-solid">
     <tr>
-      <% (controls.display_schema(action: action_inquirer).field_keys + ["Actions"]).each do |column| %>
+      <% (schema.field_keys + ["Actions"]).each do |column| %>
         <th class="text-left"><%= column.to_s.humanize %></th>
       <% end %>
     </tr>
@@ -22,8 +24,8 @@
   <tbody>
     <% @resources.each.with_index do |resource, index| %>
       <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
-        <% controls.display_schema(action: action_inquirer).field_keys.each do |column| %>
-          <td><%= Super::Display.format(controls.display_schema(action: action_inquirer), resource, column) %></td>
+        <% schema.field_keys.each do |column| %>
+          <td><%= Super::Display.format(schema, resource, column) %></td>
         <% end %>
         <td>
           <%= link_to(
