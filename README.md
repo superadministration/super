@@ -59,9 +59,9 @@ notified of its availability or for brief, occasional updates.
 $ bundle exec rails g super:resource Thing # check out the `--help` option!
 ```
 
-In the example above, it will create two files, the appropriate admin controller
-and its related "dashboard" file. The dashboard file is where most configuration
-lives, so it's unlikely you'll need to modify the controller.
+The example above will create the appropriate admin controller. It generates a
+`Controls` class inside the controller as well; it's where most configuration
+lives. You generally won't need to edit the controller actions themselves.
 
 In addition, you'll have to manually update your routes file. It'll probably
 look something like the following:
