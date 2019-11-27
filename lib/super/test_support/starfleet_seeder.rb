@@ -3,6 +3,7 @@ class StarfleetSeeder
     seeder = StarfleetSeeder.new
     seeder.seed_from_fixture("ships", Ship)
     seeder.seed_from_fixture("members", Member)
+    seeder.seed_from_fixture("favorite_things", FavoriteThing)
   end
 
   def initialize

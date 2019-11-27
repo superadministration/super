@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tea:
+  member: picard
+  name: Tea, earl grey, hot
+
+spot:
+  member: data
+  name: Spot
