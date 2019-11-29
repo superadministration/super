@@ -23,24 +23,12 @@ class SuperCopyAppGenerator < Rails::Generators::Base
   end
 
   def copy_app
-    copy_file "member.rb", "app/models/member.rb"
-    copy_file "ship.rb", "app/models/ship.rb"
-
-    copy_file "ships_controller.rb", "app/controllers/admin/ships_controller.rb"
-    copy_file "members_controller.rb", "app/controllers/admin/members_controller.rb"
+    directory "models", "app/models"
+    directory "controllers", "app/controllers/admin"
   end
 
   def copy_db
-    migrations = [
-      "20190216224956_create_members.rb",
-      "20190803143320_create_ships.rb",
-      "20190806014121_add_ship_to_members.rb",
-    ]
-
-    migrations.each do |migration|
-      copy_file migration, "db/migrate/#{migration}"
-    end
-
+    directory "migrations", "db/migrate"
     copy_file "seeds.rb", "db/seeds.rb"
   end
 
