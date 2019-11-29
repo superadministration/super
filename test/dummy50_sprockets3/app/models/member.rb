@@ -10,6 +10,7 @@ class Member < ApplicationRecord
   }
 
   belongs_to :ship
+  has_many :favorite_things
 
   validates :name, presence: true
   validates :rank, presence: true
