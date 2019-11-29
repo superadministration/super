@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "open3"
+require_relative "../dummy_path"
+
+SUPER_RAILS_ROOTS.each do |_gemfile, path|
+  Dir.chdir(path) do
+    out, _pid = Open3.capture2e(*ARGV)
+    $stdout.print(out)
+  end
+end
