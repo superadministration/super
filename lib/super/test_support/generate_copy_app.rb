@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "rails/generators"
+require_relative "../../generators/super/install/install_generator"
 
 class SuperCopyAppGenerator < Rails::Generators::Base
   source_root(File.expand_path("copy_app_templates", __dir__))
@@ -19,7 +20,7 @@ class SuperCopyAppGenerator < Rails::Generators::Base
   end
 
   def install_super
-    Rails::Generators.invoke("super:install", [], destination_root: destination_root)
+    Super::InstallGenerator.start([], destination_root: destination_root)
   end
 
   def copy_app
