@@ -6,7 +6,7 @@ class PaginationTest < CapybaraTest
 
     Super.configuration.index_resources_per_page = 3
 
-    Member.delete_all
+    Member.destroy_all
 
     enterprise = Ship.create(name: "USS Enterprise", registry: "NCC-1701", class_name: "Constitution")
 

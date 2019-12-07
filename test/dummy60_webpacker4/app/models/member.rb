@@ -10,7 +10,7 @@ class Member < ApplicationRecord
   }
 
   belongs_to :ship
-  has_many :favorite_things
+  has_many :favorite_things, dependent: :delete_all
 
   validates :name, presence: true
   validates :rank, presence: true
