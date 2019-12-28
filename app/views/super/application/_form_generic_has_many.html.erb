@@ -1,0 +1,14 @@
+<div>
+  <% form.object.public_send(form_generic_has_many.reader).build %>
+
+  <%= form.fields_for(form_generic_has_many.reader) do |ff| %>
+    <fieldset class="border border-gray-300 rounded p-4">
+      <% if form_generic_has_many.label.present? %>
+        <legend class="bg-white p-1 -mx-1"><%= form_generic_has_many.label %></legend>
+      <% end %>
+      <% form_generic_has_many.nested_fields.each do |field, type| %>
+        <%= render(type, form: ff, column: field, resource: resource) %>
+      <% end %>
+    </fieldset>
+  <% end %>
+</div>

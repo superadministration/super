@@ -24,7 +24,7 @@ class ResourceWithExplicitControlsTest < CapybaraTest
     click_on("New Member")
 
     assert_difference -> { Member.all.size }, 1 do
-      fill_in("Name", with: "Wesley Crusher")
+      fill_in("Name", with: "Wesley Crusher", match: :first)
       select("ensign", from: "Rank")
       select(ships(:uss_enterprise_d).name, from: "Ship")
       click_on("Create Member")
@@ -40,7 +40,7 @@ class ResourceWithExplicitControlsTest < CapybaraTest
     end
 
     assert_difference -> { Member.where(name: "Keiko Ishikawa").size }, 1 do
-      fill_in("Name", with: "Keiko Ishikawa")
+      fill_in("Name", with: "Keiko Ishikawa", match: :first)
       click_on("Update Member")
     end
 

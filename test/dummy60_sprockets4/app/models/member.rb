@@ -12,6 +12,12 @@ class Member < ApplicationRecord
   belongs_to :ship
   has_many :favorite_things, dependent: :delete_all
 
+  accepts_nested_attributes_for(
+    :favorite_things,
+    allow_destroy: true,
+    reject_if: -> (record) { record[:name].blank? }
+  )
+
   validates :name, presence: true
   validates :rank, presence: true
 end

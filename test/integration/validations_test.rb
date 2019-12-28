@@ -16,7 +16,7 @@ class ValidationsTest < CapybaraTest
     visit(edit_admin_member_path(members(:picard)))
 
     assert_difference -> { Member.where(name: "Jean-Luc Picard").size }, 0 do
-      fill_in("Name", with: "")
+      fill_in("Name", with: "", match: :first)
       click_on("Update Member")
     end
 

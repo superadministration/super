@@ -24,11 +24,18 @@ module Super
     #   end
     class SchemaTypes
       class Generic
-        def initialize(partial_path:, extras:)
+        def initialize(partial_path:, extras:, nested:)
           @partial_path = partial_path
           @extras = extras
+          @nested_fields = nested
         end
 
+        attr_reader :nested_fields
+
+        # @return [String] the filename of the partial that will be rendered.
+        #  If the value of `#to_partial_path` is `my_form_field`, Rails will
+        #  render `app/views/super/application/_my_form_field.html.erb`, and
+        #  this instance of Generic is accessible via `my_form_field`
         def to_partial_path
           @partial_path
         end
@@ -36,11 +43,49 @@ module Super
         def [](key)
           @extras[key]
         end
+
+        def reader
+          @extras[:reader]
+        end
+
+        def label
+          if @extras.key?(:label)
+            return @extras[:label]
+          end
+
+          if @extras.key?(:reader)
+            return @extras[:reader].to_s.singularize.humanize
+          end
+        end
+
+        def ==(other)
+          return false if other.class != self.class
+          return false if other.instance_variable_get(:@partial_path) != @partial_path
+          return false if other.instance_variable_get(:@extras) != @extras
+          return false if other.instance_variable_get(:@nested) != @nested
+
+          true
+        end
       end
 
-      def generic(partial_path, extras = nil)
-        extras ||= {}
-        Generic.new(partial_path: partial_path, extras: extras)
+      def setup(fields:)
+        @fields = fields
+      end
+
+      def generic(partial_path, **extras)
+        Generic.new(partial_path: partial_path, extras: extras, nested: {})
+      end
+
+      def has_many(reader, **extras)
+        nested = @fields.nested do
+          yield
+        end
+
+        Generic.new(
+          partial_path: "form_generic_has_many",
+          extras: extras.merge(reader: reader),
+          nested: nested
+        )
       end
     end
   end
