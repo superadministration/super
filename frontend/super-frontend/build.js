@@ -29,6 +29,8 @@ bundler.on('bundled', function (bundle) {
     console.log(destPath);
     fs.copyFileSync(childBundle.name, destPath);
   });
+  console.log();
+  console.log();
 });
 
 bundler.bundle();
