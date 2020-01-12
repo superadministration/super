@@ -5,6 +5,7 @@
       "~/*": ["./*"]
     },
     "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
     "noEmit": true,
     "strict": true
   },
