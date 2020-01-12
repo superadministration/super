@@ -87,6 +87,20 @@ module Super
           nested: nested
         )
       end
+
+      def has_one(reader, **extras)
+        nested = @fields.nested do
+          yield
+        end
+
+        Generic.new(
+          partial_path: "form_generic_has_one",
+          extras: extras.merge(reader: reader),
+          nested: nested
+        )
+      end
+
+      alias_method :belongs_to, :has_one
     end
   end
 end

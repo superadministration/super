@@ -13,7 +13,5 @@
       </span>
     </div>
   </div>
-  <% form.object.errors.full_messages_for(column).each do |error_message| %>
-    <p class="text-red-400 text-xs italic pt-1"><%= error_message %></p>
-  <% end %>
+  <%= render "form_inline_errors", form: form, column: column %>
 </div>
