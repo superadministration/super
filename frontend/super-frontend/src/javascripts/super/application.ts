@@ -1,4 +1,4 @@
-import RailsUjs from 'rails-ujs';
+import RailsUjs from '@rails/ujs';
 import { Application, Controller } from 'stimulus';
 
 RailsUjs.start();
