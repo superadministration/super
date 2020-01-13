@@ -1,0 +1,8 @@
+<fieldset class="border border-gray-300 rounded p-4">
+  <% if form_fieldset.label.present? %>
+    <legend class="bg-white p-1 -mx-1"><%= form_fieldset.label %></legend>
+  <% end %>
+  <% form_fieldset.nested_fields.each do |field, type| %>
+    <%= render(type, form: form, column: field, resource: resource) %>
+  <% end %>
+</fieldset>

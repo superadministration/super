@@ -48,12 +48,7 @@ module Admin
 
           fields[:favorite_things_attributes] = type.has_many(:favorite_things) do
             fields[:name] = type.generic("form_generic_text")
-            fields[:_destroy] = type.generic(
-              "form_generic_select",
-              label: "Destroy?",
-              collection: { "No" => "0" , "Yes" => "1" },
-              options: { include_blank: false }
-            )
+            fields[:_destroy] = type._destroy
           end
         end
       end

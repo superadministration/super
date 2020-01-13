@@ -6,13 +6,6 @@
   %>
 
   <%= form.fields_for(form_generic_has_one.reader) do |ff| %>
-    <fieldset class="border border-gray-300 rounded p-4">
-      <% if form_generic_has_one.label.present? %>
-        <legend class="bg-white p-1 -mx-1"><%= form_generic_has_one.label %></legend>
-      <% end %>
-      <% form_generic_has_one.nested_fields.each do |field, type| %>
-        <%= render(type, form: ff, column: field, resource: resource) %>
-      <% end %>
-    </fieldset>
+    <%= render "form_fieldset", form_fieldset: form_generic_has_one, form: ff, resource: resource %>
   <% end %>
 </div>

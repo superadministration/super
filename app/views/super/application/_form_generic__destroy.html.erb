@@ -1,0 +1,5 @@
+<div class="lg:w-1/3">
+  <%= form.check_box(column, data: { action: "nested-attributes#toggleDestruction" }) %>
+  <%= form.label(column) %>
+  <%= render "form_inline_errors", form: form, column: column %>
+</div>

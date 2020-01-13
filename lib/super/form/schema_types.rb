@@ -101,6 +101,14 @@ module Super
       end
 
       alias_method :belongs_to, :has_one
+
+      def _destroy(**extras)
+        Generic.new(
+          partial_path: "form_generic__destroy",
+          extras: extras,
+          nested: {}
+        )
+      end
     end
   end
 end

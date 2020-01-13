@@ -1,14 +1,21 @@
-<div>
-  <% form.object.public_send(form_generic_has_many.reader).build %>
-
+<div data-controller="nested-attributes">
   <%= form.fields_for(form_generic_has_many.reader) do |ff| %>
-    <fieldset class="border border-gray-300 rounded p-4">
-      <% if form_generic_has_many.label.present? %>
-        <legend class="bg-white p-1 -mx-1"><%= form_generic_has_many.label %></legend>
-      <% end %>
-      <% form_generic_has_many.nested_fields.each do |field, type| %>
-        <%= render(type, form: ff, column: field, resource: resource) %>
-      <% end %>
-    </fieldset>
+    <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff, resource: resource %>
   <% end %>
+
+  <%=
+    form.fields_for(
+      form_generic_has_many.reader,
+      form.object.public_send(form_generic_has_many.reader).build,
+      child_index: "TEMPLATE"
+    ) do |ff|
+  %>
+    <template data-target="nested-attributes.template">
+      <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff, resource: resource %>
+    </template>
+  <% end %>
+
+  <button data-action="nested-attributes#add" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded mt-2">
+    Add <%= form_generic_has_many.label %>
+  </button>
 </div>
