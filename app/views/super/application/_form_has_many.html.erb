@@ -1,21 +1,21 @@
 <div data-controller="nested-attributes">
-  <%= form.fields_for(form_generic_has_many.reader) do |ff| %>
-    <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff %>
+  <%= form.fields_for(form_has_many.reader) do |ff| %>
+    <%= render "form_fieldset", form_fieldset: form_has_many, form: ff %>
   <% end %>
 
   <%=
     form.fields_for(
-      form_generic_has_many.reader,
-      form.object.public_send(form_generic_has_many.reader).build,
+      form_has_many.reader,
+      form.object.public_send(form_has_many.reader).build,
       child_index: "TEMPLATE"
     ) do |ff|
   %>
     <template data-target="nested-attributes.template">
-      <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff %>
+      <%= render "form_fieldset", form_fieldset: form_has_many, form: ff %>
     </template>
   <% end %>
 
   <button data-action="nested-attributes#add" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded mt-2">
-    Add <%= form_generic_has_many.label %>
+    Add <%= form_has_many.label %>
   </button>
 </div>

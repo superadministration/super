@@ -1,11 +1,11 @@
 <div>
   <%
-    if form.object.public_send(form_generic_has_one.reader).nil?
-      form.object.public_send("build_" + form_generic_has_one.reader.to_s)
+    if form.object.public_send(form_has_one.reader).nil?
+      form.object.public_send("build_" + form_has_one.reader.to_s)
     end
   %>
 
-  <%= form.fields_for(form_generic_has_one.reader) do |ff| %>
-    <%= render "form_fieldset", form_fieldset: form_generic_has_one, form: ff %>
+  <%= form.fields_for(form_has_one.reader) do |ff| %>
+    <%= render "form_fieldset", form_fieldset: form_has_one, form: ff %>
   <% end %>
 </div>

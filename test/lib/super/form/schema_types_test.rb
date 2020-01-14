@@ -28,7 +28,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
     assert_equal(
       {
         widgets_attributes: Super::Form::SchemaTypes::Generic.new(
-          partial_path: "form_generic_has_many",
+          partial_path: "form_has_many",
           extras: { reader: :widgets },
           nested: {
             name: Super::Form::SchemaTypes::Generic.new(

@@ -38,16 +38,16 @@ module Admin
 
       def form_schema(action:)
         Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-          fields[:name] = type.generic("form_generic_text")
-          fields[:rank] = type.generic("form_generic_select", collection: Member.ranks.keys)
-          fields[:position] = type.generic("form_generic_text")
+          fields[:name] = type.generic("form_field_text")
+          fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
+          fields[:position] = type.generic("form_field_text")
           fields[:ship_id] = type.generic(
-            "form_generic_select",
+            "form_field_select",
             collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
           )
 
           fields[:favorite_things_attributes] = type.has_many(:favorite_things) do
-            fields[:name] = type.generic("form_generic_text")
+            fields[:name] = type.generic("form_field_text")
             fields[:_destroy] = type._destroy
           end
         end

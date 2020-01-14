@@ -10,11 +10,11 @@ module Super
     #
     #     def new_schema
     #       Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-    #         fields[:name] = type.generic("write_type_text")
-    #         fields[:rank] = type.generic("write_type_select", collection: Member.ranks.keys)
-    #         fields[:position] = type.generic("write_type_text")
+    #         fields[:name] = type.generic("form_field_text")
+    #         fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
+    #         fields[:position] = type.generic("form_field_text")
     #         fields[:ship_id] = type.generic(
-    #           "write_type_select",
+    #           "form_field_select",
     #           collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
     #         )
     #       end
@@ -82,7 +82,7 @@ module Super
         end
 
         Generic.new(
-          partial_path: "form_generic_has_many",
+          partial_path: "form_has_many",
           extras: extras.merge(reader: reader),
           nested: nested
         )
@@ -94,7 +94,7 @@ module Super
         end
 
         Generic.new(
-          partial_path: "form_generic_has_one",
+          partial_path: "form_has_one",
           extras: extras.merge(reader: reader),
           nested: nested
         )
@@ -104,7 +104,7 @@ module Super
 
       def _destroy(**extras)
         Generic.new(
-          partial_path: "form_generic__destroy",
+          partial_path: "form_field__destroy",
           extras: extras,
           nested: {}
         )
