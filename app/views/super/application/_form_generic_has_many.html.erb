@@ -1,6 +1,6 @@
 <div data-controller="nested-attributes">
   <%= form.fields_for(form_generic_has_many.reader) do |ff| %>
-    <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff, resource: resource %>
+    <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff %>
   <% end %>
 
   <%=
@@ -11,7 +11,7 @@
     ) do |ff|
   %>
     <template data-target="nested-attributes.template">
-      <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff, resource: resource %>
+      <%= render "form_fieldset", form_fieldset: form_generic_has_many, form: ff %>
     </template>
   <% end %>
 
