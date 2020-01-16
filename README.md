@@ -1,6 +1,6 @@
 # Super
 
-Super is a single dependency admin framework for Ruby on Rails applications.
+Super is a zero\* dependency admin framework for Ruby on Rails applications.
 
 Its mission: to evade dependencies, to improve developer productivity and admin
 efficiency, to go where no one has gone before. Most of the alternatives I tried
@@ -11,6 +11,8 @@ Super is built be powerful but to stay out of your way; it should be easier to
 maintain relative to other admin frameworks. Because of its lack of
 dependencies, for example, it'll stay out of your way when you have to upgrade
 your application's Rails version or any other gem.
+
+\* Super depends on Rails
 
 
 ## Features
