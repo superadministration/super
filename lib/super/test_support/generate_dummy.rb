@@ -67,7 +67,6 @@ class SuperDummyGenerator < Rails::Generators::Base
       remove_file("app/channels/")
       remove_file("public/apple-touch-icon-precomposed.png")
       remove_file("public/apple-touch-icon.png")
-      remove_file("public/favicon.ico")
     end
   end
 
