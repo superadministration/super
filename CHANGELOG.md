@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Renamed `form_generic_text` and `form_generic_select` views to
   `form_field_text` and `form_field_select`, respectively
+* Renamed `Super::Controls#dashboard` to `#actual`
 
 ### Added
 
