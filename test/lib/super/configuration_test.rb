@@ -2,7 +2,7 @@ require "test_helper"
 
 class ConfigurationTest < ActiveSupport::TestCase
   class Testing
-    include Super::ConfigurationLogic
+    include Super::Configuration::ConfigurationLogic
 
     configure :no_modifiers
     configure :has_default, default: "i am the default"
