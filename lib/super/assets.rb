@@ -1,4 +1,5 @@
 module Super
+  # Utilities for determining whether to use Sprockets or Webpacker
   class Assets
     def self.sprockets_available?
       Gem::Dependency.new("sprockets").matching_specs.any?

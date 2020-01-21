@@ -1,5 +1,7 @@
 module Super
   class Navigation
+    # Traverses the defined Rails Routes and attempts to build a list of links.
+    # This is used for building the nav bar on each admin page.
     class Automatic
       def initialize(route_namespace:)
         route_namespace = route_namespace.to_s

@@ -1,7 +1,20 @@
 module Super
+  # ```ruby
+  # action = Super::ActionInquirer.new(
+  #   Super::ActionInquirer.default_resources,
+  #   :index
+  # )
+  #
+  # action.read? # => true
+  # action.index? # => true
+  # action.show? # => false
+  # action.write? # => false
+  # ```
   class ActionInquirer
     attr_reader :action
 
+    # @return [Hash<Symbol, Array<Symbol>>] default settings for initialization
+    #
     def self.default_resources
       {
         read: %i[index show new edit],

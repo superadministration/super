@@ -1,1 +1,6 @@
 --exclude lib/super/test_support
+--exclude lib/generators
+--markup markdown
+-
+CONTRIBUTING.md
+LICENSE

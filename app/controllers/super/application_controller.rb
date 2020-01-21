@@ -1,4 +1,5 @@
 module Super
+  # Provides a default implementation for each of the resourceful actions
   class ApplicationController < ActionController::Base
     include Super::InlineCallback
     include Pluggable.new(:super_application_controller)

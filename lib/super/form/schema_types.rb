@@ -2,26 +2,25 @@ module Super
   class Form
     # This schema type is used on your +#edit+ and +#new+ forms
     #
-    # Note: The constants under "Defined Under Namespace" are considered
-    # private.
+    # ```ruby
+    # class MembersController::Controls
+    #   # ...
     #
-    #   class MemberDashboard
-    #     # ...
-    #
-    #     def new_schema
-    #       Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-    #         fields[:name] = type.generic("form_field_text")
-    #         fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
-    #         fields[:position] = type.generic("form_field_text")
-    #         fields[:ship_id] = type.generic(
-    #           "form_field_select",
-    #           collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
-    #         )
-    #       end
+    #   def new_schema
+    #     Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+    #       fields[:name] = type.generic("form_field_text")
+    #       fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
+    #       fields[:position] = type.generic("form_field_text")
+    #       fields[:ship_id] = type.generic(
+    #         "form_field_select",
+    #         collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+    #       )
     #     end
-    #
-    #     # ...
     #   end
+    #
+    #   # ...
+    # end
+    # ```
     class SchemaTypes
       class Generic
         def initialize(partial_path:, extras:, nested:)
@@ -32,10 +31,12 @@ module Super
 
         attr_reader :nested_fields
 
+        # This takes advantage of a feature of Rails. If the value of
+        # `#to_partial_path` is `my_form_field`, Rails renders
+        # `app/views/super/application/_my_form_field.html.erb`, and this
+        # instance of Generic is accessible via `my_form_field`
+        #
         # @return [String] the filename of the partial that will be rendered.
-        #  If the value of `#to_partial_path` is `my_form_field`, Rails will
-        #  render `app/views/super/application/_my_form_field.html.erb`, and
-        #  this instance of Generic is accessible via `my_form_field`
         def to_partial_path
           @partial_path
         end

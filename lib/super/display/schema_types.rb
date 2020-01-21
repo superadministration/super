@@ -3,25 +3,24 @@ module Super
     # This schema type is meant to be used for +#index+ or +#show+ actions to
     # transform database fields into something that is human friendly.
     #
-    # Note: The constants under "Defined Under Namespace" are considered
-    # private.
+    # ```
+    # class MembersController::Controls
+    #   # ...
     #
-    #   class MemberDashboard
-    #     # ...
-    #
-    #     def show_schema
-    #       Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
-    #         fields[:name] = type.dynamic { |name| name }
-    #         fields[:rank] = type.dynamic { |rank| rank }
-    #         fields[:position] = type.dynamic { |position| position }
-    #         fields[:ship] = type.dynamic { |ship| "#{ship.name} (Ship ##{ship.id})" }
-    #         fields[:created_at] = type.dynamic { |created_at| created_at.iso8601 }
-    #         fields[:updated_at] = type.dynamic { |updated_at| updated_at.iso8601 }
-    #       end
+    #   def show_schema
+    #     Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+    #       fields[:name] = type.dynamic { |name| name }
+    #       fields[:rank] = type.dynamic { |rank| rank }
+    #       fields[:position] = type.dynamic { |position| position }
+    #       fields[:ship] = type.dynamic { |ship| "#{ship.name} (Ship ##{ship.id})" }
+    #       fields[:created_at] = type.dynamic { |created_at| created_at.iso8601 }
+    #       fields[:updated_at] = type.dynamic { |updated_at| updated_at.iso8601 }
     #     end
-    #
-    #     # ...
     #   end
+    #
+    #   # ...
+    # end
+    # ```
     class SchemaTypes
       class Dynamic
         def initialize(transform_block)

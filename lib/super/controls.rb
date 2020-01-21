@@ -1,4 +1,7 @@
 module Super
+  # A wrapper around the per-controller Controls classes. This class often
+  # directly delegates to the per-controller classes, but it can also provide
+  # some default implementation.
   class Controls
     def initialize(actual)
       @actual = actual

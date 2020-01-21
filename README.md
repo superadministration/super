@@ -18,8 +18,8 @@ your application's Rails version or any other gem.
 ## Features
 
 * Sprockets and Webpacker compatibility
-  * Note: Webpacker support depends on one additional NPM package for parsing
-    ERB
+    * Note: Webpacker support depends on one additional NPM package for parsing
+      ERB
 * Pagination
 * Configurable forms (new and edit forms)
 * Configurable display (index and show tables)
@@ -27,10 +27,10 @@ your application's Rails version or any other gem.
 * Configurable without a DSL
 * Looks reasonably nice and modern
 * Pre-built frontend assets (doesn't require Sass, PostCSS, Babel, etc)
-  * Vendored assets include
-    * Stimulus JS
-    * Tailwind CSS
-    * Feather icons
+    * Vendored assets include
+        * Stimulus JS
+        * Tailwind CSS
+        * Feather icons
 
 Super was inspired in part by the admin frameworks [ActiveAdmin][activeadmin]
 and [Administrate][administrate]. If Super doesn't quite fit your requirements
@@ -53,7 +53,7 @@ notified of its availability or for brief, occasional updates.
 ## Demos
 
 * [Super Demo][super_demo]
-  * [Super Demo source][super_demo_source]
+    * [Super Demo source][super_demo_source]
 * [Super Professional Demo][super_professional]
 
 

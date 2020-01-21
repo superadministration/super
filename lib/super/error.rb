@@ -1,4 +1,5 @@
 module Super
+  # A container class for all custom errors thrown by this library
   class Error < StandardError
     class UnconfiguredConfiguration < Error; end
     class InvalidConfiguration < Error; end
