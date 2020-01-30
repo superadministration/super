@@ -1,4 +1,4 @@
-<div data-controller="nested-attributes">
+<div data-controller="apply-template">
   <%= form.fields_for(form_has_many.reader) do |ff| %>
     <%= render "form_fieldset", form_fieldset: form_has_many, form: ff %>
   <% end %>
@@ -7,15 +7,15 @@
     form.fields_for(
       form_has_many.reader,
       form.object.public_send(form_has_many.reader).build,
-      child_index: "TEMPLATE"
+      child_index: "TEMPLATEINDEX"
     ) do |ff|
   %>
-    <template data-target="nested-attributes.template">
+    <template data-target="apply-template.template">
       <%= render "form_fieldset", form_fieldset: form_has_many, form: ff %>
     </template>
   <% end %>
 
-  <button data-action="nested-attributes#add" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded mt-2">
+  <button data-action="apply-template#call" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded mt-2">
     Add <%= form_has_many.label %>
   </button>
 </div>
