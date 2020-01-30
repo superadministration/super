@@ -6,10 +6,16 @@
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.3",
+    "prettier": "1.19.1",
     "typescript": "^3.7.4"
   },
   "scripts": {
     "build": "node build.js",
-    "watch": "node build.js --watch"
+    "watch": "node build.js --watch",
+    "typescript": "tsc --watch",
+    "lint": "prettier --write src/**/*.ts *.js"
+  },
+  "prettier": {
+    "trailingComma": "es5"
   }
 }

@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus'
+import { Controller } from "stimulus";
 
 export default class extends Controller {
   call(event: Event) {
@@ -6,9 +6,9 @@ export default class extends Controller {
 
     if (target) {
       if ((<HTMLInputElement>target).checked) {
-        this.element.classList.add("opacity-75", "bg-gray-100")
+        this.element.classList.add("opacity-75", "bg-gray-100");
       } else {
-        this.element.classList.remove("opacity-75", "bg-gray-100")
+        this.element.classList.remove("opacity-75", "bg-gray-100");
       }
     }
   }

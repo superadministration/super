@@ -1,1 +1,1 @@
-declare module '@rails/ujs';
+declare module "@rails/ujs";

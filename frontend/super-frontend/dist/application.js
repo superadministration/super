@@ -3521,7 +3521,7 @@ function (_super) {
     }
   };
 
-  default_1.targets = ['template'];
+  default_1.targets = ["template"];
   return default_1;
 }(stimulus_1.Controller);
 
