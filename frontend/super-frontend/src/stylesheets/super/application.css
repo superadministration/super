@@ -11,4 +11,18 @@ a {
   max-width: 100%;
 }
 
+.super-input {
+  @apply .appearance-none .border .rounded .text-gray-900 .leading-tight .border .border-gray-400;
+}
+.super-input:focus {
+  @apply .border-blue-400;
+}
+
+.super-button-primary {
+  @apply .bg-blue-700 .text-white .rounded;
+}
+.super-button-primary:hover {
+  @apply .bg-blue-800;
+}
+
 @tailwind utilities;

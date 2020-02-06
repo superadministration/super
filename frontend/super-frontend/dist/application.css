@@ -636,6 +636,32 @@ a {
   max-width: 100%;
 }
 
+.super-input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-width: 1px;
+  border-radius: 0.25rem;
+  color: #1a202c;
+  line-height: 1.25;
+  border-width: 1px;
+  border-color: #cbd5e0;
+}
+
+.super-input:focus {
+  border-color: #63b3ed;
+}
+
+.super-button-primary {
+  background-color: #2b6cb0;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.super-button-primary:hover {
+  background-color: #2c5282;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
