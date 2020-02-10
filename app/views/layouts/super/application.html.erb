@@ -7,6 +7,8 @@
       <%= csp_meta_tag %>
     <% end -%>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <% if Super.configuration.asset_handler.sprockets? %>
       <%= stylesheet_link_tag "super/application", media: "all" %>
       <%= javascript_include_tag "super/application" %>
