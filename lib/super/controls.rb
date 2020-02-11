@@ -10,7 +10,11 @@ module Super
     attr_reader :actual
 
     def title
-      @actual.title
+      if @actual.respond_to?(:title)
+        return @actual.title
+      end
+
+      model.name.pluralize
     end
 
     def model
@@ -53,7 +57,11 @@ module Super
 
     # @param action [ActionInquirer]
     def scope(action:)
-      @actual.scope(action: action)
+      if @actual.respond_to?(:scope)
+        return @actual.scope(action: action)
+      end
+
+      model.all
     end
 
     # @param params [ActionController::Parameters]
