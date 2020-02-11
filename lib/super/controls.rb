@@ -17,6 +17,40 @@ module Super
       @actual.model
     end
 
+    def resources_actions(params:, action:)
+      actions =
+        if @actual.respond_to?(:resources_actions)
+          @actual.resources_actions(params: params, action: action)
+        else
+          [:new]
+        end
+
+      actions.map do |link|
+        link = Link.resolve(link)
+
+        link.call(params: params)
+      end
+    end
+
+    def resource_actions(resource, params:, action:)
+      actions =
+        if @actual.respond_to?(:resource_actions)
+          @actual.resource_actions(resource, params: params, action: action)
+        else
+          if action.show?
+            [:edit, :destroy]
+          else
+            [:show, :edit, :destroy]
+          end
+        end
+
+      actions.map do |link|
+        link = Link.resolve(link)
+
+        link.call(resource, params: params)
+      end
+    end
+
     # @param action [ActionInquirer]
     def scope(action:)
       @actual.scope(action: action)

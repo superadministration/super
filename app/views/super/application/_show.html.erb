@@ -1,6 +1,15 @@
 <% schema = controls.display_schema(action: action_inquirer) %>
 
-<h1 class="text-3xl"><%= controls.title %></h1>
+<% content_for(:header) do %>
+  <header>
+    <h1 class="text-3xl inline-block">
+      <%= controls.title %>
+    </h1>
+    <% controls.resource_actions(@resource, params: params, action: action_inquirer).each do |link| %>
+      <%= link_to(link.text, link.href, link.options.merge(class: "inline-block ml-2")) %>
+    <% end %>
+  </header>
+<% end %>
 
 <table class="max-w-full leading-loose mt-4">
   <% schema.field_keys.each do |column| %>

@@ -5,11 +5,9 @@
     <h1 class="text-3xl inline-block">
       <%= controls.title %>
     </h1>
-    <%= link_to(
-      "New #{controls.model.name}",
-      new_polymorphic_path(Super.configuration.path_parts(controls.model.new)),
-      class: "inline-block"
-    ) %>
+    <% controls.resources_actions(params: params, action: action_inquirer).each do |link| %>
+      <%= link_to(link.text, link.href, link.options.merge(class: "inline-block ml-2")) %>
+    <% end %>
   </header>
 <% end %>
 
@@ -28,20 +26,9 @@
           <td><%= Super::Display.format(schema, resource, column) %></td>
         <% end %>
         <td>
-          <%= link_to(
-            "View",
-            polymorphic_path(Super.configuration.path_parts(resource))
-          ) %>
-          <%= link_to(
-            "Edit",
-            edit_polymorphic_path(Super.configuration.path_parts(resource))
-          ) %>
-          <%= link_to(
-            "Delete",
-            polymorphic_path(Super.configuration.path_parts(resource)),
-            method: :delete,
-            data: { confirm: "Really delete?" }
-          ) %>
+          <% controls.resource_actions(resource, params: params, action: action_inquirer).each do |link| %>
+            <%= link_to(link.text, link.href, link.options) %>
+          <% end %>
         </td>
       </tr>
     <% end %>

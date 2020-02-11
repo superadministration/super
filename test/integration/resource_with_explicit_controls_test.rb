@@ -21,7 +21,7 @@ class ResourceWithExplicitControlsTest < CapybaraTest
 
   def test_creation
     visit(admin_members_path)
-    click_on("New Member")
+    click_on("New")
 
     assert_difference -> { Member.all.size }, 1 do
       fill_in("Name", with: "Wesley Crusher", match: :first)

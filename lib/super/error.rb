@@ -6,6 +6,7 @@ module Super
     class InvalidStyle < Error; end
     class InvalidPluginArgument < Error; end
     class ActionInquirerError < Error; end
+    class LinkNotRegistered < Error; end
 
     class ClientError < Error; end
     class BadRequest < ClientError; end
