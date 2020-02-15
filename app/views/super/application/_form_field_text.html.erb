@@ -1,5 +1,5 @@
-<div class="lg:w-1/3">
-  <%= form.label(column) %>
-  <%= form.text_field(column, class: "super-input w-full p-2 mt-2") %>
+<div class="super-field-group">
+  <%= form.label(column, class: "block") %>
+  <%= form.text_field(column, class: "super-input w-full p-2 mt-1") %>
   <%= render "form_inline_errors", form: form, column: column %>
 </div>

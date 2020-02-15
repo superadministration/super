@@ -12,20 +12,20 @@
 <% end %>
 
 <table class="w-full leading-loose mt-4">
-  <thead class="border-gray-400 border-solid">
+  <thead class="bg-gray-100">
     <tr>
       <% (schema.field_keys + ["Actions"]).each do |column| %>
-        <th class="text-left"><%= column.to_s.humanize %></th>
+        <th class="text-left px-1"><%= column.to_s.humanize %></th>
       <% end %>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="border-gray-400 border-solid border-b">
     <% @resources.each.with_index do |resource, index| %>
-      <tr id="resource-pk-<%= resource.id %>" class="<%= index.even? ? "bg-gray-100" : "" %>" >
+      <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-200">
         <% schema.field_keys.each do |column| %>
-          <td><%= Super::Display.format(schema, resource, column) %></td>
+          <td class="px-1"><%= Super::Display.format(schema, resource, column) %></td>
         <% end %>
-        <td>
+        <td class="px-1">
           <% controls.resource_actions(resource, params: params, action: action_inquirer).each do |link| %>
             <%= link_to(link.text, link.href, link.options) %>
           <% end %>
@@ -35,13 +35,15 @@
   </tbody>
 </table>
 
-<% @pagination.each do |page_query_params, is_current_page, display| %>
-  <%= link_to(
-    display,
-    polymorphic_path(
-      Super.configuration.path_parts(controls.model),
-      page_query_params
-    ),
-    class: "#{is_current_page ? " text-gray-900" : ""}"
-  ) %>
-<% end %>
+<div class="mt-4">
+  <% @pagination.each do |page_query_params, is_current_page, display| %>
+    <%= link_to(
+      display,
+      polymorphic_path(
+        Super.configuration.path_parts(controls.model),
+        page_query_params
+      ),
+      class: "inline-block ml-2 #{is_current_page ? " text-gray-900" : ""}"
+    ) %>
+  <% end %>
+</div>

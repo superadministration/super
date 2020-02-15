@@ -662,6 +662,10 @@ a {
   background-color: #2c5282;
 }
 
+.super-field-group {
+  margin-top: 1rem;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

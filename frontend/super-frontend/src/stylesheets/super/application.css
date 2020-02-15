@@ -25,4 +25,8 @@ a {
   @apply .bg-blue-800;
 }
 
+.super-field-group {
+  @apply .mt-4;
+}
+
 @tailwind utilities;

@@ -1,14 +1,17 @@
 <% schema = controls.form_schema(action: action_inquirer) %>
 
 <%= form_for(Super.configuration.path_parts(resource)) do |f| %>
-  <% schema.fields.each do |field, type| %>
-    <%= render(
-      type,
-      form: f,
-      column: field
-    ) %>
-  <% end %>
-  <div>
-    <%= f.submit class: "super-button-primary py-2 px-4 mt-2" %>
+  <div class="max-w-3xl">
+    <% schema.fields.each do |field, type| %>
+      <%= render(
+        type,
+        form: f,
+        column: field
+      ) %>
+    <% end %>
+
+    <div>
+      <%= f.submit class: "super-button-primary py-2 px-4 mt-2" %>
+    </div>
   </div>
 <% end %>
