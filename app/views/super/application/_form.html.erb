@@ -1,6 +1,6 @@
 <% schema = controls.form_schema(action: action_inquirer) %>
 
-<%= form_for(Super.configuration.path_parts(resource)) do |f| %>
+<%= form_for(Super.configuration.path_parts(@resource)) do |f| %>
   <div class="max-w-3xl">
     <% schema.fields.each do |field, type| %>
       <%= render(

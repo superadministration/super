@@ -1,14 +1,1 @@
-<% content_for(:header) do %>
-  <header>
-    <h1 class="text-3xl inline-block">
-      <%= controls.title %>
-    </h1>
-  </header>
-<% end %>
-
-<%= render(
-  partial: "form",
-  locals: {
-    resource: @resource,
-  }
-) %>
+<%= render(@super_action.page) %>

@@ -1,10 +1,7 @@
 module Super
   # Provides a default implementation for each of the resourceful actions
   class ApplicationController < ActionController::Base
-    include Super::InlineCallback
     include Pluggable.new(:super_application_controller)
-
-    register_inline_callback(:index_paginate, on: :index, after: :yield)
 
     helper_method :action_inquirer
     helper_method :controls
@@ -35,13 +32,31 @@ module Super
     end
 
     def index
-      with_inline_callbacks do
-        @resources = controls.scope(action: action_inquirer)
+      @super_action = controls.index
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
+    end
+
+    def show
+      @super_action = controls.show
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
+    end
+
+    def new
+      @super_action = controls.new
+      @super_action.steps.each do |step|
+        instance_exec(&step)
       end
     end
 
     def create
-      @resource = controls.scope(action: action_inquirer).build(create_permitted_params)
+      @super_action = controls.create
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
 
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -50,20 +65,18 @@ module Super
       end
     end
 
-    def new
-      @resource = controls.scope(action: action_inquirer).build
-    end
-
     def edit
-      @resource = controls.scope(action: action_inquirer).find(params[:id])
-    end
-
-    def show
-      @resource = controls.scope(action: action_inquirer).find(params[:id])
+      @super_action = controls.edit
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
     end
 
     def update
-      @resource = controls.scope(action: action_inquirer).find(params[:id])
+      @super_action = controls.update
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
 
       if @resource.update(update_permitted_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -73,7 +86,11 @@ module Super
     end
 
     def destroy
-      @resource = controls.scope(action: action_inquirer).find(params[:id])
+      @super_action = controls.destroy
+      @super_action.steps.each do |step|
+        instance_exec(&step)
+      end
+
       if @resource.destroy
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
       else
@@ -82,19 +99,6 @@ module Super
     end
 
     private
-
-    def index_paginate
-      @pagination = Pagination.new(
-        total_count: @resources.size,
-        limit: Super.configuration.index_resources_per_page,
-        query_params: request.GET,
-        page_query_param: :page
-      )
-
-      @resources = @resources
-        .limit(@pagination.limit)
-        .offset(@pagination.offset)
-    end
 
     def controls
       Super::Controls.new(new_controls)

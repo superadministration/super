@@ -1,0 +1,8 @@
+<header>
+  <h1 class="text-3xl inline-block">
+    <%= controls.title %>
+  </h1>
+  <% controls.resource_actions(@resource, params: params, action: action_inquirer).each do |link| %>
+    <%= link_to(link.text, link.href, link.options.merge(class: "inline-block ml-2")) %>
+  <% end %>
+</header>

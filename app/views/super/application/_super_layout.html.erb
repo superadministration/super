@@ -1,0 +1,70 @@
+<%
+  super_layout_headers =
+    super_layout
+      .headers
+      .map { |partial| partial.is_a?(Symbol) ? instance_variable_get(partial) : partial }
+      .compact
+  super_layout_asides =
+    super_layout
+      .asides
+      .map { |partial| partial.is_a?(Symbol) ? instance_variable_get(partial) : partial }
+      .compact
+  super_layout_mains =
+    super_layout
+      .mains
+      .map { |partial| partial.is_a?(Symbol) ? instance_variable_get(partial) : partial }
+      .compact
+  super_layout_footers =
+    super_layout
+      .footers
+      .map { |partial| partial.is_a?(Symbol) ? instance_variable_get(partial) : partial }
+      .compact
+%>
+
+<% super_layout_headers.each do |partial| %>
+  <% if partial.respond_to?(:locals) %>
+    <%= render partial, partial.locals %>
+  <% else %>
+    <%= render partial %>
+  <% end %>
+<% end %>
+
+<% if super_layout_asides.empty? %>
+  <% super_layout_mains.each do |partial| %>
+    <% if partial.respond_to?(:locals) %>
+      <%= render partial, partial.locals %>
+    <% else %>
+      <%= render partial %>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="clearfix -mx-2">
+    <div class="md:float-left md:w-9/12 px-2">
+      <% super_layout_mains.each do |partial| %>
+        <% if partial.respond_to?(:locals) %>
+          <%= render partial, partial.locals %>
+        <% else %>
+          <%= render partial %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="md:float-right md:w-3/12 px-2">
+      <% super_layout_asides.each do |partial| %>
+        <% if partial.respond_to?(:locals) %>
+          <%= render partial, partial.locals %>
+        <% else %>
+          <%= render partial %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% super_layout_footers.each do |partial| %>
+  <% if partial.respond_to?(:locals) %>
+    <%= render partial, partial.locals %>
+  <% else %>
+    <%= render partial %>
+  <% end %>
+<% end %>
