@@ -63,7 +63,7 @@ module Super
           return false if other.class != self.class
           return false if other.instance_variable_get(:@partial_path) != @partial_path
           return false if other.instance_variable_get(:@extras) != @extras
-          return false if other.instance_variable_get(:@nested) != @nested
+          return false if other.instance_variable_get(:@nested_fields) != @nested_fields
 
           true
         end
