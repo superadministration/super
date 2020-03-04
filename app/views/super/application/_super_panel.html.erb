@@ -1,0 +1,11 @@
+<%
+  super_panel_parts = super_resolve_list_for_rendering(super_panel.parts, Proc.new)
+%>
+
+<% if super_panel_parts.any? %>
+  <div class="border rounded shadow border-gray-400 px-5 pt-4 pb-8 bg-white">
+    <% super_panel_parts.each do |partial| %>
+      <%= super_render_partialish(partial) %>
+    <% end %>
+  </div>
+<% end %>
