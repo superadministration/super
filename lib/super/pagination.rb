@@ -29,18 +29,14 @@ module Super
         end
     end
 
+    def necessary?
+      pages > 1
+    end
+
     def each
       if !block_given?
         return enum_for(:each)
       end
-
-      quotient, remainder = @total_count.divmod(@limit)
-      pages =
-        if remainder.zero?
-          quotient
-        else
-          quotient + 1
-        end
 
       (1..pages).each do |pageno|
         is_current_page = pageno == current_pageno
@@ -54,6 +50,21 @@ module Super
 
         yield(page_query_params, is_current_page, display)
       end
+    end
+
+    private
+
+    def pages
+      @pages ||=
+        begin
+          quotient, remainder = @total_count.divmod(@limit)
+
+          if remainder.zero?
+            quotient
+          else
+            quotient + 1
+          end
+        end
     end
   end
 end

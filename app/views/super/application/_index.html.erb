@@ -27,17 +27,19 @@
   </table>
 </div>
 
-<div class="flex justify-end mr-2">
-  <div class="mt-4">
-    <% @pagination.each do |page_query_params, is_current_page, display| %>
-      <%= link_to(
-        display,
-        polymorphic_path(
-          Super.configuration.path_parts(controls.model),
-          page_query_params
-        ),
-        class: "inline-block ml-2 text-lg #{is_current_page ? " text-gray-900" : ""}"
-      ) %>
-    <% end %>
+<% if @pagination.necessary? %>
+  <div class="flex justify-end mr-2">
+    <div class="mt-4">
+      <% @pagination.each do |page_query_params, is_current_page, display| %>
+        <%= link_to(
+          display,
+          polymorphic_path(
+            Super.configuration.path_parts(controls.model),
+            page_query_params
+          ),
+          class: "inline-block ml-2 text-lg #{is_current_page ? " text-gray-900" : ""}"
+        ) %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
