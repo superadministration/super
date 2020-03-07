@@ -127,8 +127,12 @@ module Super
           :paginate,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resources_header")],
-          mains: [Super::Partial.new("index")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resources_header"),
+              Super::Partial.new("index")
+            )
+          ]
         )
       )
     end
@@ -144,8 +148,12 @@ module Super
           :load_resource,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resource_header")],
-          mains: [Super::Partial.new("show")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resource_header"),
+              Super::Partial.new("show")
+            )
+          ]
         )
       )
     end
@@ -161,8 +169,12 @@ module Super
           :new_resource,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resources_header")],
-          mains: [Super::Partial.new("form")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resources_header"),
+              Super::Partial.new("form")
+            )
+          ]
         )
       )
     end
@@ -178,8 +190,12 @@ module Super
           :create_resource,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resources_header")],
-          mains: [Super::Partial.new("form")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resources_header"),
+              Super::Partial.new("form")
+            )
+          ]
         )
       )
     end
@@ -195,8 +211,12 @@ module Super
           :load_resource,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resource_header")],
-          mains: [Super::Partial.new("form")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resource_header"),
+              Super::Partial.new("form")
+            )
+          ]
         )
       )
     end
@@ -212,8 +232,12 @@ module Super
           :load_resource,
         ],
         page: Super::Layout.new(
-          headers: [Super::Partial.new("resource_header")],
-          mains: [Super::Partial.new("form")]
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("resource_header"),
+              Super::Partial.new("form")
+            )
+          ]
         )
       )
     end

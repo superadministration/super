@@ -1,8 +1,16 @@
-<header>
-  <h1 class="text-3xl inline-block">
+<header class="flex justify-between content-end">
+  <h1 class="text-xl">
     <%= controls.title %>
   </h1>
-  <% controls.resources_actions(params: params, action: action_inquirer).each do |link| %>
-    <%= link_to(link.text, link.href, link.options.merge(class: "inline-block ml-2")) %>
-  <% end %>
+  <div>
+    <% controls.resources_actions(params: params, action: action_inquirer).each do |link| %>
+      <%= link_to(
+        link.text,
+        link.href,
+        link.options.reverse_merge(
+          class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
+        )
+      ) %>
+    <% end %>
+  </div>
 </header>

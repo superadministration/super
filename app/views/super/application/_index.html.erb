@@ -1,38 +1,43 @@
 <% schema = controls.display_schema(action: action_inquirer) %>
 
-<table class="w-full leading-loose mt-4">
-  <thead class="bg-gray-100">
-    <tr>
-      <% (schema.field_keys + ["Actions"]).each do |column| %>
-        <th class="text-left px-1"><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody class="border-gray-400 border-solid border-b">
-    <% @resources.each.with_index do |resource, index| %>
-      <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-200">
+<div class="mt-4 -mx-5">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left text-sm uppercase font-bold tracking-wide">
         <% schema.field_keys.each do |column| %>
-          <td class="px-1"><%= Super::Display.format(schema, resource, column) %></td>
+          <th class="p-2 first:pl-5"><%= column.to_s.humanize %></th>
         <% end %>
-        <td class="px-1">
-          <% controls.resource_actions(resource, params: params, action: action_inquirer).each do |link| %>
-            <%= link_to(link.text, link.href, link.options) %>
-          <% end %>
-        </td>
+        <th class="p-2 pr-5">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="border-gray-400 border-solid border-t-2">
+      <% @resources.each.with_index do |resource, index| %>
+        <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-400">
+          <% schema.field_keys.each do |column| %>
+            <td class="p-2 first:pl-5"><%= Super::Display.format(schema, resource, column) %></td>
+          <% end %>
+          <td class="p-2 pr-5" style="word-spacing: 0.25rem">
+            <% controls.resource_actions(resource, params: params, action: action_inquirer).each do |link| %>
+              <%= link_to(link.text, link.href, link.options) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<div class="mt-4">
-  <% @pagination.each do |page_query_params, is_current_page, display| %>
-    <%= link_to(
-      display,
-      polymorphic_path(
-        Super.configuration.path_parts(controls.model),
-        page_query_params
-      ),
-      class: "inline-block ml-2 #{is_current_page ? " text-gray-900" : ""}"
-    ) %>
-  <% end %>
+<div class="flex justify-end mr-2">
+  <div class="mt-4">
+    <% @pagination.each do |page_query_params, is_current_page, display| %>
+      <%= link_to(
+        display,
+        polymorphic_path(
+          Super.configuration.path_parts(controls.model),
+          page_query_params
+        ),
+        class: "inline-block ml-2 text-lg #{is_current_page ? " text-gray-900" : ""}"
+      ) %>
+    <% end %>
+  </div>
 </div>

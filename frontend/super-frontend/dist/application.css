@@ -637,14 +637,19 @@ a {
 }
 
 .super-input {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  line-height: 1.25;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   border-width: 1px;
   border-radius: 0.25rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: #fff;
   color: #1a202c;
-  line-height: 1.25;
-  border-width: 1px;
   border-color: #cbd5e0;
 }
 
@@ -652,14 +657,81 @@ a {
   border-color: #63b3ed;
 }
 
-.super-button-primary {
-  background-color: #2b6cb0;
-  color: #fff;
-  border-radius: 0.25rem;
+.super-input-select {
+  position: relative;
 }
 
-.super-button-primary:hover {
+.super-input-select-field {
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.super-input-select-icon {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  fill: currentColor;
+}
+
+.super-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  line-height: 1.25;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-width: 1px;
+  border-color: transparent;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 150ms;
+}
+
+.super-button-sm {
+  font-size: 0.875rem;
+  line-height: 1;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.super-button--border-blue {
+  background-color: #fff;
+  color: #2b6cb0;
+  border-color: #2b6cb0;
+}
+
+.super-button--border-blue:hover {
+  background-color: #2b6cb0;
+  color: #fff;
+}
+
+.super-button--border-gray {
+  background-color: #fff;
+  color: #4a5568;
+  border-color: #a0aec0;
+}
+
+.super-button--border-gray:hover {
+  background-color: #4a5568;
+  color: #fff;
+  border-color: #4a5568;
+}
+
+.super-button--fill-blue {
+  color: #fff;
+  background-color: #2b6cb0;
+  border-color: #2b6cb0;
+}
+
+.super-button--fill-blue:hover {
   background-color: #2c5282;
+  border-color: #2c5282;
 }
 
 .super-field-group {
