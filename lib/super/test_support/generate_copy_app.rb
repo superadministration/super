@@ -26,6 +26,7 @@ class SuperCopyAppGenerator < Rails::Generators::Base
   def copy_app
     directory "models", "app/models"
     directory "controllers", "app/controllers/admin"
+    directory "views/members", "app/views/admin/members"
   end
 
   def copy_db
