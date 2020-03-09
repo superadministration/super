@@ -62,6 +62,8 @@ module Super
         else
           if action.show?
             [:edit, :destroy]
+          elsif action.edit?
+            [:show, :destroy]
           else
             [:show, :edit, :destroy]
           end
