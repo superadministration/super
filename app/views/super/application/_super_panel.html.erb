@@ -3,7 +3,7 @@
 %>
 
 <% if super_panel_parts.any? %>
-  <div class="border rounded shadow border-gray-400 px-5 pt-4 pb-8 bg-white">
+  <div class="border rounded shadow border-gray-400 bg-white px-5 pt-4 pb-8 mt-6">
     <% super_panel_parts.each do |partial| %>
       <%= super_render_partialish(partial) %>
     <% end %>
