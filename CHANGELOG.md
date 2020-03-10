@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2020-03-09
+
+### Changed
+
+* Major redesign!
+* Replaced the links to various actions (the "New", "View", "Edit", "Destroy"
+  links) with configurable ones. See `Super::Controls#resource_actions` and
+  `Super::Controls#resources_actions`
+* Replaced `Super::InlineCallback` with `Super::Action`. A `Super::Action` is
+  built of two parts, the business logic of the controller action and its
+  respective view.
+* Upgraded Tailwind CSS from v1.1.4 to v1.2.0. This is unlikely to be a breaking
+  change.
+  * Added `first:` variants for the padding classes
+* Conditionally show pagination links
+
+### Added
+
+* Some CSS classes for various form elements
+* Meta tags for responsive views on mobile
+* Configurable links to actions
+* Default behavior for `Super::Controls#title` and `Super::Controls#scope`
+* Utility classes for building views `Super::Layout`, `Super::Partial`, and
+  `Super::Panel`
+
+
 ## [0.0.3] - 2020-01-24
 
 ### Changed
