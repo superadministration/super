@@ -20,4 +20,5 @@ class Member < ApplicationRecord
 
   validates :name, presence: true
   validates :rank, presence: true
+  validates :position, presence: true
 end

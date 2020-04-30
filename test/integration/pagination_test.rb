@@ -11,18 +11,18 @@ class PaginationTest < CapybaraTest
     enterprise = Ship.create(name: "USS Enterprise", registry: "NCC-1701", class_name: "Constitution")
 
     # Page 1
-    Member.create!(name: "James Kirk", rank: "Captain", ship: enterprise)
-    Member.create!(name: "Spock", rank: "Commander", ship: enterprise)
-    Member.create!(name: "Leonard McCoy", rank: "Commander", ship: enterprise)
+    Member.create!(name: "James Kirk", rank: "Captain", position: "Captain", ship: enterprise)
+    Member.create!(name: "Spock", rank: "Commander", position: "First Officer", ship: enterprise)
+    Member.create!(name: "Leonard McCoy", rank: "Commander", position: "Chief Medical Officer", ship: enterprise)
 
     # Page 2
-    Member.create!(name: "Montgomery Scott", rank: "Lieutenant Commander", ship: enterprise)
-    Member.create!(name: "Nyota Uhura", rank: "Lieutenant Commander", ship: enterprise)
-    Member.create!(name: "Pavel Chekov", rank: "Ensign", ship: enterprise)
+    Member.create!(name: "Montgomery Scott", rank: "Lieutenant Commander", position: "Chief Engineer", ship: enterprise)
+    Member.create!(name: "Nyota Uhura", rank: "Lieutenant Commander", position: "Communications Officer", ship: enterprise)
+    Member.create!(name: "Pavel Chekov", rank: "Ensign", position: "Junior Officer", ship: enterprise)
 
     # Page 3
-    Member.create!(name: "Christine Chapel", rank: "Lieutenant", ship: enterprise)
-    Member.create!(name: "Hikaru Sulu", rank: "Lieutenant", ship: enterprise)
+    Member.create!(name: "Christine Chapel", rank: "Lieutenant", position: "Nurse", ship: enterprise)
+    Member.create!(name: "Hikaru Sulu", rank: "Lieutenant", position: "Helmsman", ship: enterprise)
   end
 
   teardown do

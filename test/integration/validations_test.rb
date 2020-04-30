@@ -10,6 +10,9 @@ class ValidationsTest < CapybaraTest
 
     assert_includes(400...500, page.status_code)
     page.assert_text("Name can't be blank")
+    page.assert_text("Rank can't be blank")
+    page.assert_text("Position can't be blank")
+    page.assert_text("Ship must exist")
   end
 
   def test_validation_problems_shows_errors_on_update
