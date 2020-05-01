@@ -1,4 +1,3 @@
-require "tsort"
 require "active_support/concern"
 
 require "super/action"
