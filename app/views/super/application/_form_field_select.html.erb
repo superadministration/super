@@ -1,6 +1,8 @@
 <div class="super-field-group">
-  <%= form.label(column, class: "block") %>
-  <div class="super-input-select mt-1">
+  <% if !local_assigns[:hide_label] %>
+    <%= form.label(column, class: "block") %>
+  <% end %>
+  <div class="<%= Super::ViewHelper.classes("super-input-select", ["mt-1", !local_assigns[:hide_label]]) %>">
     <%= form.select(
       column,
       form_field_select[:collection],
