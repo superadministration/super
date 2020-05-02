@@ -3,7 +3,7 @@ module.exports = {
     extend: {},
   },
   variants: {
-    padding: ["responsive", "first"],
+    padding: ["responsive", "first", "last"],
   },
   plugins: [],
 };
