@@ -1,4 +1,6 @@
-<div class="super-field-group">
+<% if !local_assigns[:ungrouped] %>
+  <div class="super-field-group">
+<% end %>
   <% if !local_assigns[:hide_label] %>
     <%= form.label(column, class: "block") %>
   <% end %>
@@ -6,4 +8,6 @@
     <%= form.text_field(column, class: "super-input w-full") %>
     <%= render "form_inline_errors", form: form, column: column %>
   </div>
-</div>
+<% if !local_assigns[:ungrouped] %>
+  </div>
+<% end %>

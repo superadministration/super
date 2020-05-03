@@ -1,5 +1,9 @@
-<div class="super-field-group">
+<% if !local_assigns[:ungrouped] %>
+  <div class="super-field-group">
+<% end %>
   <%= form.check_box(column, data: { action: "toggle-pending-destruction#call" }) %>
   <%= form.label(column) %>
   <%= render "form_inline_errors", form: form, column: column %>
-</div>
+<% if !local_assigns[:ungrouped] %>
+  </div>
+<% end %>
