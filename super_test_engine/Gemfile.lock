@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    super_test_engine (0.0.9)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.14.1)
+    rake (13.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.17)
+  minitest (~> 5.0)
+  rake
+  super_test_engine!
+
+BUNDLED WITH
+   1.17.3
