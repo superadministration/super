@@ -32,31 +32,21 @@ module Super
     end
 
     def index
-      @super_action = controls.index
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resources = Step.load_resources(controls, params, action_inquirer)
+      @pagination = Step.initialize_pagination(@resources, request.GET)
+      @resources = Step.paginate_resources(@resources, @pagination)
     end
 
     def show
-      @super_action = controls.show
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.load_resource(controls, params, action_inquirer)
     end
 
     def new
-      @super_action = controls.new
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.build_resource(controls, action_inquirer)
     end
 
     def create
-      @super_action = controls.create
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.build_resource_with_params(controls, action_inquirer, create_permitted_params)
 
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -66,17 +56,11 @@ module Super
     end
 
     def edit
-      @super_action = controls.edit
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.load_resource(controls, params, action_inquirer)
     end
 
     def update
-      @super_action = controls.update
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.load_resource(controls, params, action_inquirer)
 
       if @resource.update(update_permitted_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -86,10 +70,7 @@ module Super
     end
 
     def destroy
-      @super_action = controls.destroy
-      @super_action.steps.each do |step|
-        instance_exec(&step)
-      end
+      @resource = Step.load_resource(controls, params, action_inquirer)
 
       if @resource.destroy
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
