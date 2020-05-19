@@ -31,13 +31,13 @@ class SuperCopyAppGenerator < Rails::Generators::Base
   end
 
   def copy_app
-    directory "models", "app/models"
-    directory "controllers", "app/controllers/admin"
-    directory "views/members", "app/views/admin/members"
+    directory "models", "app/models", exclude_pattern: /\.swp$/
+    directory "controllers", "app/controllers/admin", exclude_pattern: /\.swp$/
+    directory "views/members", "app/views/admin/members", exclude_pattern: /\.swp$/
   end
 
   def copy_db
-    directory "migrations", "db/migrate"
+    directory "migrations", "db/migrate", exclude_pattern: /\.swp$/
     copy_file "seeds.rb", "db/seeds.rb"
   end
 
