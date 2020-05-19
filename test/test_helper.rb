@@ -18,7 +18,7 @@ Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.expand_path("../lib/super/test_support/fixtures", __dir__)
+  ActiveSupport::TestCase.fixture_path = File.expand_path("../super_test_engine/lib/super_test_engine/fixtures", __dir__)
   ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all

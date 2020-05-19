@@ -1,6 +1,13 @@
 require "fileutils"
 require "tmpdir"
 
+super_development_path = File.expand_path("../../..", __dir__)
+if File.exist?(File.join(super_development_path, "super.gemspec"))
+  super_lib_path = File.join(super_development_path, "lib")
+
+  $LOAD_PATH.unshift(super_lib_path) if !$LOAD_PATH.include?(super_lib_path)
+end
+
 require "rails"
 require "rails/generators/rails/app/app_generator"
 require "rails/generators/rails/plugin/plugin_generator"
@@ -39,7 +46,6 @@ class SuperDummyGenerator < Rails::Generators::Base
       skip_action_mailer: true,
       skip_action_mailbox: true,
       skip_action_text: true,
-      skip_active_storage: true,
       skip_action_cable: true,
       skip_puma: true,
       skip_coffee: true,

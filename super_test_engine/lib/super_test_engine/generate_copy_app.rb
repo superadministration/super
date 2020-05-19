@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 
+super_development_path = File.expand_path("../../..", __dir__)
+if File.exist?(File.join(super_development_path, "super.gemspec"))
+  super_lib_path = File.join(super_development_path, "lib")
+
+  $LOAD_PATH.unshift(super_lib_path) if !$LOAD_PATH.include?(super_lib_path)
+end
+
 require "rails/generators"
-require_relative "../../generators/super/install/install_generator"
+require "generators/super/install/install_generator"
 
 class SuperCopyAppGenerator < Rails::Generators::Base
   source_root(File.expand_path("copy_app_templates", __dir__))

@@ -1,2 +1,2 @@
-require "super/test_support/starfleet_seeder"
+require "super_test_engine/starfleet_seeder"
 StarfleetSeeder.seed
