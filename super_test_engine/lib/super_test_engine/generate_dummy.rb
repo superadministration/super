@@ -47,7 +47,6 @@ class SuperDummyGenerator < Rails::Generators::Base
       skip_action_mailbox: true,
       skip_action_text: true,
       skip_action_cable: true,
-      skip_puma: true,
       skip_coffee: true,
       database: "sqlite3",
     }

@@ -24,6 +24,8 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
+Capybara.server = :puma
+
 class CapybaraTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -31,5 +33,19 @@ class CapybaraTest < ActionDispatch::IntegrationTest
   teardown do
     Capybara.reset_sessions!
     Capybara.use_default_driver
+  end
+
+  def self.chrome!(kind = :headless)
+    setup do
+      if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
+        skip
+      else
+        if kind == :headless
+          Capybara.current_driver = :selenium_chrome_headless
+        else
+          Capybara.current_driver = :selenium_chrome
+        end
+      end
+    end
   end
 end

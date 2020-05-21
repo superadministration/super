@@ -18,7 +18,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 5.0"
 
-  spec.add_development_dependency "capybara"
+  spec.add_development_dependency "capybara", "~> 3.18"
+  spec.add_development_dependency "selenium-webdriver", "~> 3.142"
+  spec.add_development_dependency "webdrivers", "~> 4.3"
+  spec.add_development_dependency "puma"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "minitest-ci"
