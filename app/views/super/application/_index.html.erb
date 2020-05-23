@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody class="border-gray-400 border-solid border-t-2">
-      <% @resources.each.with_index do |resource, index| %>
+      <% @resources.each do |resource| %>
         <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-400">
           <% schema.field_keys.each do |column| %>
             <td class="p-2 first:pl-5"><%= Super::Display.format(schema, resource, column) %></td>
