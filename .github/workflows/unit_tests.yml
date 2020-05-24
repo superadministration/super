@@ -38,19 +38,28 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt-get install -y sqlite3 libsqlite3-dev
+    - uses: actions/cache@v1
+      env:
+        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
+      with:
+        path: gemfiles/vendor/bundle
+        key: ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE) }}
+        restore-keys: |
+          ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-
     - name: Install Ruby dependencies
       env:
-        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
         gem install bundler -v 1.17.3
+        bundle config path "$(pwd)/gemfiles/vendor/bundle"
         bundle install --jobs 4 --retry 3
     - name: Install JS dependencies
       env:
-        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
         [[ $BUNDLE_GEMFILE == *"webpacker"* ]] && bin/yarn || true
     - name: Test
       env:
-        BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
         bundle exec rake
