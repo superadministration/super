@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved the index table to be a bit more responsive by default
 * Updated `super:webpacker` generator to automatically update the initializer
 * Upgraded Tailwind CSS from v1.2.0 to 1.4.6
+* Improved documentation!
 
 
 ## [0.0.4] - 2020-03-09

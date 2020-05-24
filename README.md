@@ -2,15 +2,13 @@
 
 Super is a zero dependency admin framework for Ruby on Rails applications.
 
-Its mission: to evade dependencies, to improve developer productivity and admin
-efficiency, to go where no one has gone before. Most of the alternatives I tried
-were either too limited or required a large and complicated DSL for
-configuration.
+Super is made for developers. They will find it easy to build and modify admin
+pages. It builds on top of Rails controllers and views, so it's straightforward
+to customize. It's fully configurable without a DSL.
 
-Super is built be powerful but to stay out of your way; it should be easier to
-maintain relative to other admin frameworks. Because of its lack of
-dependencies, for example, it'll stay out of your way when you have to upgrade
-your application's Rails version or any other gem.
+Super is made for admins. Power users and casual users alike will find the admin
+pages simple and efficient. And the Professional add-on can make it even more
+powerful.
 
 
 ## Features
@@ -55,51 +53,9 @@ notified of its availability or for brief, occasional updates.
 * [Super Professional Demo][super_professional]
 
 
-## Usage
+## Installation and Usage
 
-### Creating new admin pages
-
-```bash
-$ bundle exec rails g super:resource Thing # check out the `--help` option!
-```
-
-The example above will create the appropriate admin controller. It generates a
-`Controls` class inside the controller as well; it's where most configuration
-lives. You generally won't need to edit the controller actions themselves.
-
-In addition, you'll have to manually update your routes file. It'll probably
-look something like the following:
-
-```ruby
-namespace :admin do
-  resources :things
-end
-```
-
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem "super"
-```
-
-And then execute:
-
-```bash
-$ bundle install
-$ bundle exec rails g super:install # check out the `--help` option!
-```
-
-Super supports using Webpacker instead of Sprockets. Note though that you need
-to set up ERB templates under Webpacker. There are no other requirements or
-dependencies.
-
-```bash
-$ bundle exec rails webpacker:install:erb # if you haven't already
-$ bundle exec rails g super:webpacker
-```
+See [Quick start](./docs/quick_start.md)
 
 
 ## Contributing
