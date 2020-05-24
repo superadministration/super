@@ -15,6 +15,16 @@ jobs:
           - gemfiles/rails52_sprockets4.gemfile
           - gemfiles/rails60_sprockets4.gemfile
           - gemfiles/rails60_webpacker4.gemfile
+        ruby:
+          - 2.4.x
+          - 2.5.x
+          - 2.6.x
+          - 2.7.x
+        exclude:
+          - ruby: 2.4.x
+          - ruby: 2.5.x
+          - ruby: 2.6.x
+          - ruby: 2.7.x
         include:
           - gemfile: gemfiles/rails50_sprockets3.gemfile
             ruby: 2.4.x
@@ -26,6 +36,8 @@ jobs:
             ruby: 2.6.x
           - gemfile: gemfiles/rails60_webpacker4.gemfile
             ruby: 2.6.x
+          - gemfile: gemfiles/rails60_sprockets4.gemfile
+            ruby: 2.7.x
 
     steps:
     - uses: actions/checkout@v1
