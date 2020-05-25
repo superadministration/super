@@ -58,20 +58,14 @@ jobs:
         key: ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE) }}
         restore-keys: |
           ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-
-    - name: Install Ruby dependencies
+    - name: Install and set up Bundler
       env:
         BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
         gem install bundler -v 1.17.3
         bundle config path "$(pwd)/gemfiles/vendor/bundle"
-        bundle install --jobs 4 --retry 3
-    - name: Install JS dependencies
-      env:
-        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-      run: |
-        [[ $BUNDLE_GEMFILE == *"webpacker"* ]] && bin/yarn || true
     - name: Test
       env:
         BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
-        bundle exec rake
+        ruby bin/thoroughly_test.rb
