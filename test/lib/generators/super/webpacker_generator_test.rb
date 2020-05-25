@@ -7,11 +7,30 @@ class Super::WebpackerGeneratorTest < Rails::Generators::TestCase
   setup :prepare_destination
 
   def test_make_sure_the_file_looks_right
+    destination_root.join("config").mkdir
+    destination_root.join("config", "initializers").mkdir
+    destination_root.join("config", "initializers", "super.rb").write(<<~RUBY)
+      Super.configuration do |c|
+        c.title = "My Admin Site"
+        c.controller_namespace = "admin"
+        c.route_namespace = "admin"
+      end
+    RUBY
+
     run_generator([])
 
     assert_file("app/javascript/packs/super/application.js.erb", <<~JS)
       import Super from "<%= Super::Assets.dist("super", "super-frontend").join("application") %>";
       import "<%= Super::Assets.dist("super", "super-frontend").join("application.css") %>";
     JS
+
+    assert_file("config/initializers/super.rb", <<~RUBY)
+      Super.configuration do |c|
+        c.title = "My Admin Site"
+        c.controller_namespace = "admin"
+        c.route_namespace = "admin"
+        c.asset_handler = Super::Assets.webpacker
+      end
+    RUBY
   end
 end

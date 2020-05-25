@@ -9,6 +9,14 @@ module Super
       )
     end
 
+    def set_asset_handler_to_webpacker
+      insert_into_file(
+        "config/initializers/super.rb",
+        "  c.asset_handler = Super::Assets.webpacker\n",
+        before: /\bend\b/
+      )
+    end
+
     def remind_about_erb
       say "Make sure ERB is set up for Webpacker!", :bold
       say "Run if needed: rails webpacker:install:erb", :bold

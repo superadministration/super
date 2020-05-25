@@ -101,15 +101,6 @@ $ bundle exec rails webpacker:install:erb # if you haven't already
 $ bundle exec rails g super:webpacker
 ```
 
-Lastly, update your Super initializer
-
-```ruby
-Super.configuration do |c|
-  # ...
-  c.asset_handler = Super::Assets.webpacker
-end
-```
-
 
 ## Contributing
 
