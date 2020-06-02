@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.5] - 2020-06-01
+
 ### Changed
 
 * Replaced the `Super::Action` framework with regular controller actions
