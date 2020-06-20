@@ -30,4 +30,10 @@ appraise "rails60_webpacker4" do
   gem "sqlite3", "~> 1.4.0"
 end
 
+appraise "rails60_webpacker5" do
+  gem "rails", "~> 6.0.0"
+  gem "webpacker", "~> 5.0"
+  gem "sqlite3", "~> 1.4.0"
+end
+
 # vim: syntax=ruby

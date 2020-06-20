@@ -5,6 +5,7 @@ SUPER_RAILS_ROOTS = {
   "rails52_sprockets4" => "test/dummy52_sprockets4",
   "rails60_sprockets4" => "test/dummy60_sprockets4",
   "rails60_webpacker4" => "test/dummy60_webpacker4",
+  "rails60_webpacker5" => "test/dummy60_webpacker5",
 }
 
 query =
