@@ -9,7 +9,7 @@ to set up ERB templates under Webpacker. There are no other requirements or
 dependencies.
 
 After adding `super` to your Gemfile and running the installation generator
-according to the [Quick start guide](./quickstart.md), run the following:
+according to the [Quick start guide](./quick_start.md), run the following:
 
 ```bash
 bundle exec rails webpacker:install:erb # if you haven't already

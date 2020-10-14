@@ -29,6 +29,22 @@ module Super
       create_file("app/controllers/#{controller_namespace}/.keep", "")
     end
 
+    def copy_cheatsheet
+      super_path = Pathname.new(Gem.loaded_specs["super"].full_gem_path).expand_path
+      super_cheat_path = super_path.join("docs", "cheat.md")
+
+      path =
+        if options["controller_namespace"].present?
+          "app/controllers/#{controller_namespace}/README.md"
+        else
+          "app/controllers/README.md"
+        end
+
+      create_file(path) do
+        super_cheat_path.read.sub(%r{<!--.*?-->}m, "").strip + "\n"
+      end
+    end
+
     def setup_sprockets4_manifest
       append_to_file "app/assets/config/manifest.js", "//= link super_manifest.js\n"
     end
