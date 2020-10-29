@@ -32,6 +32,9 @@ module Super
         end
       end
 
+      def setup(fields:)
+      end
+
       def dynamic(&transform_block)
         Dynamic.new(transform_block)
       end

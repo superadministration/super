@@ -10,9 +10,7 @@ module Super
       @schema_type = schema_type
       @fields = Fields.new
 
-      if @schema_type.respond_to?(:setup)
-        @schema_type.setup(fields: @fields)
-      end
+      @schema_type.setup(fields: @fields)
 
       if block_given?
         yield(@fields, @schema_type)
