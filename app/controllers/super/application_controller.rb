@@ -46,7 +46,7 @@ module Super
     end
 
     def create
-      @resource = Step.build_resource_with_params(controls, action_inquirer, create_permitted_params)
+      @resource = Step.build_resource_with_params(controls, action_inquirer, permitted_params)
 
       if @resource.save
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -62,7 +62,7 @@ module Super
     def update
       @resource = Step.load_resource(controls, params, action_inquirer)
 
-      if @resource.update(update_permitted_params)
+      if @resource.update(permitted_params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
         render :edit, status: :bad_request
@@ -85,11 +85,7 @@ module Super
       Super::Controls.new(new_controls)
     end
 
-    def create_permitted_params
-      controls.permitted_params(params, action: action_inquirer)
-    end
-
-    def update_permitted_params
+    def permitted_params
       controls.permitted_params(params, action: action_inquirer)
     end
 
