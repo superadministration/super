@@ -3,6 +3,7 @@
 --load ./docs/yard_customizations.rb
 -
 CONTRIBUTING.md
+STABILITY.md
 LICENSE
 docs/quick_start.md
 docs/webpacker.md

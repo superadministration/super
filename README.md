@@ -82,6 +82,11 @@ occasional updates to Super.
 See [Quick start](./docs/quick_start.md)
 
 
+## Path to 1.0
+
+See [STABILITY](./STABILITY.md)
+
+
 ## Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md)
