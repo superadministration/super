@@ -13,11 +13,9 @@ module Super
     #
     # @return [String]
     def title
-      if @actual.respond_to?(:title)
-        return @actual.title
+      default_for(:title) do
+        model.name.pluralize
       end
-
-      model.name.pluralize
     end
 
     # Specifies the model. This is a required method
@@ -82,11 +80,9 @@ module Super
     # @param action [ActionInquirer]
     # @return [ActiveRecord::Relation]
     def scope(action:)
-      if @actual.respond_to?(:scope)
-        return @actual.scope(action: action)
+      default_for(:scope, action: action) do
+        model.all
       end
-
-      model.all
     end
 
     # Configures which parameters could be written to the database. This is a
@@ -115,6 +111,22 @@ module Super
     # @return [Schema]
     def form_schema(action:)
       @actual.form_schema(action: action)
+    end
+
+    private
+
+    def default_for(method_name, *args, **kwargs)
+      if @actual.respond_to?(method_name)
+        if args.empty? && kwargs.empty?
+          return @actual.public_send(method_name)
+        elsif args.empty?
+          return @actual.public_send(method_name, **kwargs)
+        else
+          return @actual.public_send(method_name, *args)
+        end
+      end
+
+      yield
     end
   end
 end
