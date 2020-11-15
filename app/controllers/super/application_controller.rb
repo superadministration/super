@@ -32,23 +32,23 @@ module Super
     end
 
     def index
-      @resources = Step.load_resources(controls, params, action_inquirer)
-      @pagination = Step.initialize_pagination(@resources, request.GET)
-      @resources = Step.paginate_resources(@resources, @pagination)
+      @resources = controls.load_resources(action: action_inquirer, params: params)
+      @pagination = controls.initialize_pagination(action: action_inquirer, resources: @resources, query_params: request.GET)
+      @resources = controls.paginate_resources(action: action_inquirer, resources: @resources, pagination: @pagination)
     end
 
     def show
-      @resource = Step.load_resource(controls, params, action_inquirer)
+      @resource = controls.load_resource(action: action_inquirer, params: params)
     end
 
     def new
-      @resource = Step.build_resource(controls, action_inquirer)
+      @resource = controls.build_resource(action: action_inquirer)
     end
 
     def create
-      @resource = Step.build_resource_with_params(controls, action_inquirer, permitted_params)
+      @resource = controls.build_resource_with_params(action: action_inquirer, params: params)
 
-      if @resource.save
+      if controls.save_resource(action: action_inquirer, resource: @resource, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
         render :new, status: :bad_request
@@ -56,13 +56,13 @@ module Super
     end
 
     def edit
-      @resource = Step.load_resource(controls, params, action_inquirer)
+      @resource = controls.load_resource(action: action_inquirer, params: params)
     end
 
     def update
-      @resource = Step.load_resource(controls, params, action_inquirer)
+      @resource = controls.load_resource(action: action_inquirer, params: params)
 
-      if @resource.update(permitted_params)
+      if controls.update_resource(action: action_inquirer, resource: @resource, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
         render :edit, status: :bad_request
@@ -70,9 +70,9 @@ module Super
     end
 
     def destroy
-      @resource = Step.load_resource(controls, params, action_inquirer)
+      @resource = controls.load_resource(action: action_inquirer, params: params)
 
-      if @resource.destroy
+      if controls.destroy_resource(action: action_inquirer, resource: @resource, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
       else
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
@@ -83,10 +83,6 @@ module Super
 
     def controls
       Super::Controls.new(new_controls)
-    end
-
-    def permitted_params
-      controls.permitted_params(params, action: action_inquirer)
     end
 
     def action_inquirer

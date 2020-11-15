@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Consolidated the controller's two "permitted params" methods into one
+* Merged `Super::Step` into `Super::Controls`
 
 
 ## [0.0.5] - 2020-06-01
