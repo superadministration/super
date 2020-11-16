@@ -17,8 +17,8 @@
             <td class="p-2 first:pl-5"><%= Super::Display.format(schema, resource, column) %></td>
           <% end %>
           <td class="p-2 pr-5" style="word-spacing: 0.25rem">
-            <% controls.resource_actions(resource, params: params, action: action_inquirer).each do |link| %>
-              <%= link_to(link.text, link.href, link.options) %>
+            <% controls.resource_actions(action: action_inquirer).each do |link| %>
+              <%= link.to_s(resource: resource, params: params) %>
             <% end %>
           </td>
         </tr>

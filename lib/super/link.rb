@@ -2,7 +2,11 @@ module Super
   # Links have three required attributes that are passed directly into Rails'
   # `link_to` helper
   class Link
-    def self.resolve(link)
+    def self.find_all(*links)
+      links.map { |link| find(link) }
+    end
+
+    def self.find(link)
       if link.kind_of?(self)
         return link
       end
@@ -16,61 +20,61 @@ module Super
 
     def self.registry
       @registry ||= {
-        new: -> (params:) {
-          new(
-            "New",
+        new: new(
+          "New",
+          -> (params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :new,
               only_path: true
             )
-          )
-        },
-        index: -> (params:) {
-          new(
-            "Index",
+          }
+        ),
+        index: new(
+          "Index",
+          -> (params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :index,
               only_path: true
             )
-          )
-        },
-        show: -> (resource, params:) {
-          new(
-            "View",
+          }
+        ),
+        show: new(
+          "View",
+          -> (resource:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :show,
               id: resource,
               only_path: true
             )
-          )
-        },
-        edit: -> (resource, params:) {
-          new(
-            "Edit",
+          }
+        ),
+        edit: new(
+          "Edit",
+          -> (resource:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :edit,
               id: resource,
               only_path: true
             )
-          )
-        },
-        destroy: -> (resource, params:) {
-          new(
-            "Delete",
+          }
+        ),
+        destroy: new(
+          "Delete",
+          -> (resource:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :destroy,
               id: resource,
               only_path: true
-            ),
-            method: :delete,
-            data: { confirm: "Really delete?" }
-          )
-        },
+            )
+          },
+          method: :delete,
+          data: { confirm: "Really delete?" }
+        ),
       }
     end
 
@@ -80,8 +84,27 @@ module Super
       @options = options
     end
 
+    def to_s(default_options: nil, **proc_arguments)
+      default_options ||= {}
+      ActionController::Base.helpers.link_to(
+        value(text, proc_arguments),
+        value(href, proc_arguments),
+        default_options.deep_merge(value(options, proc_arguments))
+      )
+    end
+
+    private
+
     attr_reader :text
     attr_reader :href
     attr_reader :options
+
+    def value(proc_or_value, proc_arguments)
+      if proc_or_value.kind_of?(Proc)
+        proc_or_value.call(**proc_arguments)
+      else
+        proc_or_value
+      end
+    end
   end
 end

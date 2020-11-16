@@ -3,13 +3,13 @@
     <%= controls.title %>
   </h1>
   <div>
-    <% controls.resource_actions(@resource, params: params, action: action_inquirer).each do |link| %>
-      <%= link_to(
-        link.text,
-        link.href,
-        link.options.reverse_merge(
+    <% controls.resource_actions(action: action_inquirer).each do |link| %>
+      <%= link.to_s(
+        default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
-        )
+        },
+        resource: @resource,
+        params: params
       ) %>
     <% end %>
   </div>

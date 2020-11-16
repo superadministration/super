@@ -33,9 +33,9 @@ The following are the methods that can be defined in the `Controls` class.
 
 * **`#title()`**
   The title to show on the main panel
-* **`#resources_actions(params, action:)`**
+* **`#resources_actions(action:)`**
   The list of collection-level links
-* **`#resource_actions(resource, params:, action:)`**
+* **`#resource_actions(action:)`**
   The list of member-level links and `#show` pages
 * **`#scope(action:)`**
   The starting point of the query/relation. Defaults to `#all`

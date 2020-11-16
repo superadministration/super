@@ -23,8 +23,8 @@ stability.
 <tr><td><code>Super::Controls</code></td>                   <td>✅</td></tr>
 <tr><td><code>Super::Controls#title</code></td>             <td>✅</td></tr>
 <tr><td><code>Super::Controls#model</code></td>             <td>✅</td></tr>
-<tr><td><code>Super::Controls#resources_actions</code></td> <td>🚧</td></tr>
-<tr><td><code>Super::Controls#resource_actions</code></td>  <td>🚧</td></tr>
+<tr><td><code>Super::Controls#resources_actions</code></td> <td>✅</td></tr>
+<tr><td><code>Super::Controls#resource_actions</code></td>  <td>✅</td></tr>
 <tr><td><code>Super::Controls#scope</code></td>             <td>✅</td></tr>
 <tr><td><code>Super::Controls#permitted_params</code></td>  <td>✅</td></tr>
 <tr><td><code>Super::Controls#display_schema</code></td>    <td>✅</td></tr>

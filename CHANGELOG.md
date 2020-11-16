@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Consolidated the controller's two "permitted params" methods into one
 * Merged `Super::Step` into `Super::Controls`
+* Define `Super::Link#to_s` which returns an `<a href>` tag. Any of a Link's
+  fields can be a proc; they are resolved as necessary when called. `Controls`
+  was updated to handle these new `Link`s
 
 
 ## [0.0.5] - 2020-06-01

@@ -28,49 +28,28 @@ module Super
     # Configures the actions linked to on the index page. This is an optional
     # method
     #
-    # @param params [ActionController::Parameters]
     # @param action [ActionInquirer]
     # @return [Array<Link>]
-    def resources_actions(params:, action:)
-      actions =
-        if @actual.respond_to?(:resources_actions)
-          @actual.resources_actions(params: params, action: action)
-        else
-          [:new]
-        end
-
-      actions.map do |link|
-        link = Link.resolve(link)
-
-        link.call(params: params)
+    def resources_actions(action:)
+      default_for(:resources_actions, action: action) do
+        Super::Link.find_all(:new)
       end
     end
 
     # Configures the actions linked to on the show page as well as each row of
     # the table on the index page. This is an optional method
     #
-    # @param resource [ActiveRecord::Base]
-    # @param params [ActionController::Parameters]
     # @param action [ActionInquirer]
     # @return [Array<Link>]
-    def resource_actions(resource, params:, action:)
-      actions =
-        if @actual.respond_to?(:resource_actions)
-          @actual.resource_actions(resource, params: params, action: action)
+    def resource_actions(action:)
+      default_for(:resource_actions, action: action) do
+        if action.show?
+          Super::Link.find_all(:edit, :destroy)
+        elsif action.edit?
+          Super::Link.find_all(:show, :destroy)
         else
-          if action.show?
-            [:edit, :destroy]
-          elsif action.edit?
-            [:show, :destroy]
-          else
-            [:show, :edit, :destroy]
-          end
+          Super::Link.find_all(:show, :edit, :destroy)
         end
-
-      actions.map do |link|
-        link = Link.resolve(link)
-
-        link.call(resource, params: params)
       end
     end
 
