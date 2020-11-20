@@ -16,7 +16,7 @@ stability.
 <tr><td>Frontend JS</td>                                    <td>❌</td></tr>
 <tr><td><code>Super::ActionInquirer</code></td>             <td>✅</td></tr>
 <tr><td><code>Super::ApplicationController</code></td>      <td>✅</td></tr>
-<tr><td><code>Super::ApplicationHelper</code></td>          <td></td></tr>
+<tr><td><code>Super::ApplicationHelper</code></td>          <td>❌</td></tr>
 <tr><td><code>Super::Assets</code></td>                     <td></td></tr>
 <tr><td><code>Super::Compatability</code></td>              <td></td></tr>
 <tr><td><code>Super::Configuration</code></td>              <td>❌</td></tr>
@@ -42,7 +42,7 @@ stability.
 <tr><td><code>Super::Pluggable</code></td>                  <td></td></tr>
 <tr><td><code>Super::PluginRegistry</code></td>             <td></td></tr>
 <tr><td><code>Super::Schema</code></td>                     <td></td></tr>
-<tr><td><code>Super::ViewHelper</code></td>                 <td></td></tr>
+<tr><td><code>Super::ViewHelper</code></td>                 <td>❌</td></tr>
 </tbody>
 </table>
 
