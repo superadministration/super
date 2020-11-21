@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Define `Super::Link#to_s` which returns an `<a href>` tag. Any of a Link's
   fields can be a proc; they are resolved as necessary when called. `Controls`
   was updated to handle these new `Link`s
+* Moved `Super::ClientError` out of `Super::Error`. `ClientError` does NOT
+  inherit from `Super::Error` since they're different categories of errors
+  (`Error` are generally developer errors, not user errors)
 
 
 ## [0.0.5] - 2020-06-01

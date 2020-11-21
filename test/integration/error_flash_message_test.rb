@@ -2,7 +2,7 @@ require "test_helper"
 
 class ErrorFlashMessageTest < CapybaraTest
   def test_default_error_message
-    Admin::ShipsController.any_instance.stubs(:index).raises(Super::Error::BadRequest)
+    Admin::ShipsController.any_instance.stubs(:index).raises(Super::ClientError::BadRequest)
 
     visit(admin_ships_path)
 
@@ -14,7 +14,7 @@ class ErrorFlashMessageTest < CapybaraTest
     Admin::ShipsController
       .any_instance
       .stubs(:index)
-      .raises(Super::Error::Unauthorized, "Hello!")
+      .raises(Super::ClientError::Unauthorized, "Hello!")
 
     visit(admin_ships_path)
 

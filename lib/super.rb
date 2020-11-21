@@ -2,6 +2,7 @@ require "active_support/concern"
 
 require "super/action_inquirer"
 require "super/assets"
+require "super/client_error"
 require "super/compatibility"
 require "super/configuration"
 require "super/controls/optional"

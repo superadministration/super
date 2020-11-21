@@ -18,6 +18,7 @@ stability.
 <tr><td><code>Super::ApplicationController</code></td>      <td>✅</td></tr>
 <tr><td><code>Super::ApplicationHelper</code></td>          <td>❌</td></tr>
 <tr><td><code>Super::Assets</code></td>                     <td></td></tr>
+<tr><td><code>Super::ClientError</code></td>                <td>✅</td></tr>
 <tr><td><code>Super::Compatability</code></td>              <td></td></tr>
 <tr><td><code>Super::Configuration</code></td>              <td>❌</td></tr>
 <tr><td><code>Super::Controls</code></td>                   <td>✅</td></tr>
@@ -31,7 +32,7 @@ stability.
 <tr><td><code>Super::Controls#form_schema</code></td>       <td>✅</td></tr>
 <tr><td><code>Super::Display</code></td>                    <td></td></tr>
 <tr><td><code>Super::Engine</code></td>                     <td></td></tr>
-<tr><td><code>Super::Error</code></td>                      <td></td></tr>
+<tr><td><code>Super::Error</code></td>                      <td>✅</td></tr>
 <tr><td><code>Super::Form</code></td>                       <td></td></tr>
 <tr><td><code>Super::Layout</code></td>                     <td></td></tr>
 <tr><td><code>Super::Link</code></td>                       <td>✅</td></tr>

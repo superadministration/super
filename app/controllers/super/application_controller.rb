@@ -1,35 +1,11 @@
 module Super
   # Provides a default implementation for each of the resourceful actions
   class ApplicationController < ActionController::Base
+    include ClientError::Handling
     include Pluggable.new(:super_application_controller)
 
     helper_method :action_inquirer
     helper_method :controls
-
-    rescue_from Error::ClientError do |exception|
-      code, default_message =
-        case exception
-        when Error::UnprocessableEntity
-          [422, "Unprocessable entity"]
-        when Error::NotFound
-          [404, "Not found"]
-        when Error::Forbidden
-          [403, "Forbidden"]
-        when Error::Unauthorized
-          [401, "Unauthorized"]
-        when Error::BadRequest, Error::ClientError
-          [400, "Bad request"]
-        end
-
-      flash.now.alert =
-        if exception.message == exception.class.name.to_s
-          default_message
-        else
-          exception.message
-        end
-
-      render "nothing", status: code
-    end
 
     def index
       @resources = controls.load_resources(action: action_inquirer, params: params)

@@ -1,5 +1,7 @@
 module Super
-  # A container class for all custom errors thrown by this library
+  # A container class for all internal errors thrown by this library
+  #
+  # See also `Super::ClientError`
   class Error < StandardError
     class UnconfiguredConfiguration < Error; end
     class InvalidConfiguration < Error; end
@@ -7,12 +9,5 @@ module Super
     class InvalidPluginArgument < Error; end
     class ActionInquirerError < Error; end
     class LinkNotRegistered < Error; end
-
-    class ClientError < Error; end
-    class BadRequest < ClientError; end
-    class Unauthorized < ClientError; end
-    class Forbidden < ClientError; end
-    class NotFound < ClientError; end
-    class UnprocessableEntity < ClientError; end
   end
 end
