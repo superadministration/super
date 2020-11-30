@@ -40,13 +40,13 @@ class ResourceWithExplicitControlsTest < CapybaraTest
       click_on("Edit")
     end
 
-    assert_difference -> { Member.where(name: "Keiko Ishikawa").size }, 1 do
-      fill_in("Name", with: "Keiko Ishikawa", match: :first)
+    assert_difference(%(Member.where(name: "Locutus").size), 1) do
+      fill_in("Name", with: "Locutus", match: :first)
       click_on("Update Member")
     end
 
     assert_includes(200...300, page.status_code)
-    assert_equal(admin_member_path(Member.find_by(name: "Keiko Ishikawa")), page.current_path)
+    assert_equal(admin_member_path(Member.find_by(name: "Locutus")), page.current_path)
   end
 
   def test_delete
