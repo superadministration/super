@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Allow `Super::Controls#display_schema` to return any object that defines
   `#to_partial_path`. This will allow developers to bypass the form builder if
   it's too limited.
+* Upgraded Tailwind CSS to 1.9.6
 
 ### Added
 
