@@ -19,6 +19,7 @@ module Super
 
     def new
       @resource = controls.build_resource(action: action_inquirer)
+      @form = controls.form_schema(action: action_inquirer)
     end
 
     def create
@@ -27,12 +28,14 @@ module Super
       if controls.save_resource(action: action_inquirer, resource: @resource, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
+        @form = controls.form_schema(action: action_inquirer_for("new"))
         render :new, status: :bad_request
       end
     end
 
     def edit
       @resource = controls.load_resource(action: action_inquirer, params: params)
+      @form = controls.form_schema(action: action_inquirer)
     end
 
     def update
@@ -41,6 +44,7 @@ module Super
       if controls.update_resource(action: action_inquirer, resource: @resource, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
       else
+        @form = controls.form_schema(action: action_inquirer_for("edit"))
         render :edit, status: :bad_request
       end
     end
@@ -62,9 +66,13 @@ module Super
     end
 
     def action_inquirer
-      @action_inquirer ||= ActionInquirer.new(
+      @action_inquirer ||= action_inquirer_for(params[:action])
+    end
+
+    def action_inquirer_for(action)
+      ActionInquirer.new(
         ActionInquirer.default_resources,
-        params[:action]
+        action
       )
     end
   end

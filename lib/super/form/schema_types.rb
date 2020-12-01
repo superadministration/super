@@ -110,6 +110,10 @@ module Super
           nested: {}
         )
       end
+
+      def to_partial_path
+        "super_schema_form"
+      end
     end
   end
 end

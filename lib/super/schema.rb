@@ -23,6 +23,10 @@ module Super
       fields.keys
     end
 
+    def to_partial_path
+      @schema_type.to_partial_path
+    end
+
     class Fields
       include Enumerable
 

@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   form fields with a `<div class="field_with_errors">`. Sadly this currently
   monkey patches `ActionView::Helpers::Tags::Base`
 
+### Added
+
+* Allow `Super::Controls#form_schema` to return any object that defines
+  `#to_partial_path`. This will allow developers to bypass the form builder if
+  it's too limited.
+
 
 ## [0.0.5] - 2020-06-01
 
