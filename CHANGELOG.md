@@ -31,6 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `#to_partial_path`. This will allow developers to bypass the form builder if
   it's too limited.
 
+### Fixed
+
+* The `apply-template` Stimulus controller now correctly raises an error when
+  the eponymous `<template>` tag is missing
+
 
 ## [0.0.5] - 2020-06-01
 

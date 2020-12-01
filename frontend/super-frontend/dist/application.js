@@ -3513,12 +3513,9 @@ function (_super) {
 
   default_1.prototype.call = function (event) {
     event.preventDefault();
-
-    if (this.templateTarget) {
-      var unixtime = new Date().getTime();
-      var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
-      this.templateTarget.insertAdjacentHTML("beforebegin", content);
-    }
+    var unixtime = new Date().getTime();
+    var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
+    this.templateTarget.insertAdjacentHTML("beforebegin", content);
   };
 
   default_1.targets = ["template"];

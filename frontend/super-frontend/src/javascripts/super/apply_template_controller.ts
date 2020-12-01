@@ -8,14 +8,12 @@ export default class extends Controller {
   call(event: Event) {
     event.preventDefault();
 
-    if (this.templateTarget) {
-      const unixtime = new Date().getTime();
-      let content = this.templateTarget.innerHTML.replace(
-        /TEMPLATEINDEX/g,
-        unixtime.toString()
-      );
+    const unixtime = new Date().getTime();
+    let content = this.templateTarget!.innerHTML.replace(
+      /TEMPLATEINDEX/g,
+      unixtime.toString()
+    );
 
-      this.templateTarget.insertAdjacentHTML("beforebegin", content);
-    }
+    this.templateTarget!.insertAdjacentHTML("beforebegin", content);
   }
 }
