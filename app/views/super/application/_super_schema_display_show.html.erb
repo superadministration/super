@@ -1,0 +1,8 @@
+<table class="max-w-full leading-loose mt-4">
+  <% super_schema_display_show.field_keys.each do |column| %>
+    <tr>
+      <th class="text-right px-4"><%= column.to_s.humanize %></th>
+      <td><%= Super::Display.format(super_schema_display_show, @resource, column) %></td>
+    </tr>
+  <% end %>
+</table>

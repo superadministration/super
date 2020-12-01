@@ -1,10 +1,8 @@
-<% schema = controls.display_schema(action: action_inquirer) %>
-
 <div class="mt-4 -mx-5 overflow-x-auto">
   <table class="w-full">
     <thead>
       <tr class="text-left text-sm uppercase font-bold tracking-wide">
-        <% schema.field_keys.each do |column| %>
+        <% super_schema_display_index.field_keys.each do |column| %>
           <th class="p-2 first:pl-5"><%= column.to_s.humanize %></th>
         <% end %>
         <th class="p-2 pr-5">Actions</th>
@@ -13,8 +11,8 @@
     <tbody class="border-gray-400 border-solid border-t-2">
       <% @resources.each do |resource| %>
         <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-400">
-          <% schema.field_keys.each do |column| %>
-            <td class="p-2 first:pl-5"><%= Super::Display.format(schema, resource, column) %></td>
+          <% super_schema_display_index.field_keys.each do |column| %>
+            <td class="p-2 first:pl-5"><%= Super::Display.format(super_schema_display_index, resource, column) %></td>
           <% end %>
           <td class="p-2 pr-5" style="word-spacing: 0.25rem">
             <% controls.resource_actions(action: action_inquirer).each do |link| %>

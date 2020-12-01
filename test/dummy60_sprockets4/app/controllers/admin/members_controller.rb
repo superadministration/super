@@ -24,7 +24,7 @@ module Admin
       end
 
       def display_schema(action:)
-        Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+        Super::Schema.new(Super::Display::SchemaTypes.new(action)) do |fields, type|
           fields[:name] = type.dynamic(&:itself)
           fields[:rank] = type.dynamic(&:itself)
           fields[:position] = type.dynamic(&:itself)

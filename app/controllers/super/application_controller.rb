@@ -11,10 +11,12 @@ module Super
       @resources = controls.load_resources(action: action_inquirer, params: params)
       @pagination = controls.initialize_pagination(action: action_inquirer, resources: @resources, query_params: request.GET)
       @resources = controls.paginate_resources(action: action_inquirer, resources: @resources, pagination: @pagination)
+      @display = controls.display_schema(action: action_inquirer)
     end
 
     def show
       @resource = controls.load_resource(action: action_inquirer, params: params)
+      @display = controls.display_schema(action: action_inquirer)
     end
 
     def new

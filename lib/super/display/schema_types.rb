@@ -32,11 +32,19 @@ module Super
         end
       end
 
+      def initialize(action_inquirer)
+        @action_inquirer = action_inquirer
+      end
+
       def setup(fields:)
       end
 
       def dynamic(&transform_block)
         Dynamic.new(transform_block)
+      end
+
+      def to_partial_path
+        "super_schema_display_#{@action_inquirer.action}"
       end
     end
   end
