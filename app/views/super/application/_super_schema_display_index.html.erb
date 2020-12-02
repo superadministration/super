@@ -1,17 +1,19 @@
-<div class="mt-4 -mx-5 overflow-x-auto">
-  <table class="w-full">
+<div class="mt-4 overflow-x-auto">
+  <table class="w-full border-separate" cellspacing="0" cellpadding="0">
     <thead>
-      <tr class="text-left text-sm uppercase font-bold tracking-wide">
+      <tr class="">
         <% super_schema_display_index.field_keys.each do |column| %>
-          <th class="p-2 first:pl-5 last:pr-5"><%= column.to_s.humanize %></th>
+          <th class="p-2 first:pl-6 border-b border-b-2 border-gray-400 text-gray-600 text-left text-sm font-normal"><%= column.to_s.humanize %></th>
         <% end %>
       </tr>
     </thead>
-    <tbody class="border-gray-400 border-solid border-t-2">
-      <% @resources.each do |resource| %>
-        <tr id="resource-pk-<%= resource.id %>" class="border-b border-gray-400">
+    <tbody class="">
+      <% @resources.each.with_index do |resource, row_index| %>
+        <tr id="resource-pk-<%= resource.id %>" class="group">
           <% super_schema_display_index.field_keys.each do |column| %>
-            <td class="p-2 first:pl-5 last:pr-5"><%= super_format_for_display(super_schema_display_index, resource, column) %></td>
+            <td class="py-1 px-2 first:pl-5 border-transparent border-t border-b group-hover:bg-blue-200 first:border-l first:rounded-l-lg last:border-r last:rounded-r-lg <%= Super::ViewHelper.classes(["bg-gray-100", row_index.odd?]) %>">
+              <%= super_format_for_display(super_schema_display_index, resource, column) %>
+            </td>
           <% end %>
         </tr>
       <% end %>
