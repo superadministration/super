@@ -14,7 +14,7 @@ module Super
             raise %(Expected exactly two elements (["class", some_condition]), got: #{c.inspect})
           end
 
-          c if c.last
+          c.first if c.last
         end
       end
 

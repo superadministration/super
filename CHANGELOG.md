@@ -39,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * The `apply-template` Stimulus controller now correctly raises an error when
   the eponymous `<template>` tag is missing
+* Fixed `Super::ViewHelper.classes` which used to return the stringified value
+  of the conditional. It now only returns the classes without the conditionals
 
 
 ## [0.0.5] - 2020-06-01
