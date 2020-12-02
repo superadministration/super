@@ -1,0 +1,5 @@
+<div>
+  <% controls.resource_actions(action: action_inquirer).each do |link| %>
+    <span class="pl-2 first:pl-0"><%= link.to_s(resource: resource, params: params) %></span>
+  <% end %>
+</div>

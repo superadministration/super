@@ -69,8 +69,11 @@ module Super
         end
       end
 
-      def setup(fields:)
+      def before_yield(fields:)
         @fields = fields
+      end
+
+      def after_yield
       end
 
       def generic(partial_path, **extras)

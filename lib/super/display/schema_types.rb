@@ -27,20 +27,52 @@ module Super
           @transform_block = transform_block
         end
 
-        def present(field)
-          @transform_block.call(field)
+        def present(value)
+          @transform_block.call(value)
+        end
+
+        def real?
+          true
+        end
+      end
+
+      class Bypass
+        def initialize(partial:, real:)
+          @partial = partial
+          @real = real
+        end
+
+        def present
+          Partial.new(@partial)
+        end
+
+        def real?
+          @real
         end
       end
 
       def initialize(action_inquirer)
         @action_inquirer = action_inquirer
+        @actions_called = false
       end
 
-      def setup(fields:)
+      def before_yield(fields:)
+        @fields = fields
+      end
+
+      def after_yield
+        return if !@action_inquirer.index?
+        return if @actions_called
+        @fields[:actions] = actions
       end
 
       def dynamic(&transform_block)
         Dynamic.new(transform_block)
+      end
+
+      def actions
+        @actions_called = true
+        Bypass.new(partial: "super_schema_display_actions", real: false)
       end
 
       def to_partial_path

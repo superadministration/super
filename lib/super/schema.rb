@@ -10,11 +10,13 @@ module Super
       @schema_type = schema_type
       @fields = Fields.new
 
-      @schema_type.setup(fields: @fields)
+      @schema_type.before_yield(fields: @fields)
 
       if block_given?
         yield(@fields, @schema_type)
       end
+
+      @schema_type.after_yield
     end
 
     attr_reader :fields
@@ -44,6 +46,10 @@ module Super
 
       def keys
         @backing.keys
+      end
+
+      def values
+        @backing.values
       end
 
       def each

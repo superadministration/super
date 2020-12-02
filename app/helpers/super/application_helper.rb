@@ -28,5 +28,28 @@ module Super
         partialish
       end
     end
+
+    def super_format_for_display(schema, resource, column)
+      formatter = schema.fields[column]
+
+      formatted =
+        if formatter.real?
+          value = resource.public_send(column)
+          formatter.present(value)
+        else
+          formatter.present
+        end
+
+      if formatted.respond_to?(:to_partial_path)
+        if formatted.respond_to?(:locals)
+          formatted.locals[:resource] ||= resource
+          render(formatted, formatted.locals)
+        else
+          render(formatted)
+        end
+      else
+        formatted
+      end
+    end
   end
 end

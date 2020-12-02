@@ -30,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Allow `Super::Controls#form_schema` to return any object that defines
   `#to_partial_path`. This will allow developers to bypass the form builder if
   it's too limited.
+* Allow `Super::Display` fields to be objects that respond to `to_partial_path`.
+  This will allow developers to partially bypass the display schema
+* Allow `Super::Display` to work with "fields" that aren't methods part of an
+  instance of `ActiveRecord::Base`
 
 ### Fixed
 
