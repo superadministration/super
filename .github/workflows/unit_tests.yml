@@ -16,6 +16,7 @@ jobs:
           - gemfiles/rails60_sprockets4.gemfile
           - gemfiles/rails60_webpacker4.gemfile
           - gemfiles/rails60_webpacker5.gemfile
+          - gemfiles/rails61_webpacker5.gemfile
         ruby:
           - 2.4.x
           - 2.5.x
@@ -40,6 +41,8 @@ jobs:
           - gemfile: gemfiles/rails60_webpacker5.gemfile
             ruby: 2.7.x
           - gemfile: gemfiles/rails60_sprockets4.gemfile
+            ruby: 2.7.x
+          - gemfile: gemfiles/rails61_webpacker5.gemfile
             ruby: 2.7.x
 
     steps:

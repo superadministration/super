@@ -1,0 +1,11 @@
+<%= render(
+  Super::Layout.new(
+    mains: [
+      Super::Panel.new(
+        Super::Partial.new("resource_header"),
+        @display
+      ),
+      Super::Partial.new("favorite_things")
+    ]
+  )
+) %>
