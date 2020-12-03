@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the eponymous `<template>` tag is missing
 * Fixed `Super::ViewHelper.classes` which used to return the stringified value
   of the conditional. It now only returns the classes without the conditionals
+* A deprecation warning under Rails 6.1
 
 
 ## [0.0.5] - 2020-06-01
