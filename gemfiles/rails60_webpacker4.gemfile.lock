@@ -86,6 +86,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    i18n-debug (1.2.0)
+      i18n (< 2)
     loofah (2.8.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -181,6 +183,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   capybara (~> 3.18)
+  i18n-debug
   minitest-ci
   mocha
   pry

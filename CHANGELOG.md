@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   This will allow developers to partially bypass the display schema
 * Allow `Super::Display` to work with "fields" that aren't methods part of an
   instance of `ActiveRecord::Base`
+* A footer
 
 ### Fixed
 

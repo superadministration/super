@@ -1,0 +1,5 @@
+---
+en:
+  super:
+    layout:
+      powered_by: "%{env} environment. Powered by Super %{version}."

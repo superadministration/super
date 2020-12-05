@@ -34,6 +34,10 @@
       <div class="pt-4"></div>
 
       <%= yield %>
+
+      <div class="pt-8 text-sm text-gray-800">
+        <%= t("super.layout.powered_by", env: Rails.env.capitalize, version: Super::VERSION) %>
+      </div>
     </div>
   </body>
 </html>
