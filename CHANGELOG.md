@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Renamed lots of methods with the word "resource" in it. In most cases, the
   word "resources" meant "records" or "collection" (or in the singular case,
   "record" or "member")
+* Upgraded Stimulus to 2.0.0 (no breaking changes, only warnings)
 
 ### Added
 
