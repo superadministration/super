@@ -1,7 +1,7 @@
 module Super
   # ```ruby
   # action = Super::ActionInquirer.new(
-  #   Super::ActionInquirer.default_resources,
+  #   Super::ActionInquirer.default_for_resources,
   #   :index
   # )
   #
@@ -15,7 +15,7 @@ module Super
 
     # @return [Hash<Symbol, Array<Symbol>>] default settings for initialization
     #
-    def self.default_resources
+    def self.default_for_resources
       {
         read: %i[index show new edit],
         write: %i[create update destroy],

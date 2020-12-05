@@ -1,9 +1,9 @@
-<% if @resource.favorite_things.any? %>
+<% if @record.favorite_things.any? %>
   <%= render(Super::Panel.new) do %>
     <h1 class="text-xl">Favorite Things</h1>
 
     <ul class="list-disc list-outside mt-4">
-      <% @resource.favorite_things.each do |favorite_thing| %>
+      <% @record.favorite_things.each do |favorite_thing| %>
         <li class="ml-6"><%= favorite_thing.name %></li>
       <% end %>
     </ul>

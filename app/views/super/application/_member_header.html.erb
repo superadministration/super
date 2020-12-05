@@ -3,11 +3,12 @@
     <%= controls.title %>
   </h1>
   <div>
-    <% controls.resources_actions(action: action_inquirer).each do |link| %>
+    <% controls.member_actions(action: action_inquirer).each do |link| %>
       <%= link.to_s(
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
         },
+        record: @record,
         params: params
       ) %>
     <% end %>

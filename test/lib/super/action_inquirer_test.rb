@@ -2,7 +2,7 @@ require "test_helper"
 
 class ActionInquirerTest < ActiveSupport::TestCase
   def test_match_action
-    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_resources, :index)
+    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, :index)
 
     assert_equal(true, inquirer.index?)
     assert_equal(false, inquirer.show?)
@@ -24,7 +24,7 @@ class ActionInquirerTest < ActiveSupport::TestCase
   end
 
   def test_match_category
-    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_resources, :index)
+    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, :index)
 
     assert_equal(true, inquirer.read?)
     assert_equal(false, inquirer.write?)
@@ -38,7 +38,7 @@ class ActionInquirerTest < ActiveSupport::TestCase
   end
 
   def test_respond_to
-    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_resources, :index)
+    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, :index)
 
     assert_equal(true, inquirer.respond_to?(:index?))
     assert_equal(true, inquirer.respond_to?(:show?))

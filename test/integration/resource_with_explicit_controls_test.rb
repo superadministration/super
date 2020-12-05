@@ -36,7 +36,7 @@ class ResourceWithExplicitControlsTest < CapybaraTest
 
   def test_update
     visit(admin_members_path)
-    within("#resource-pk-#{members(:picard).id}") do
+    within("#record-pk-#{members(:picard).id}") do
       click_on("Edit")
     end
 
@@ -52,7 +52,7 @@ class ResourceWithExplicitControlsTest < CapybaraTest
   def test_delete
     visit(admin_members_path)
     assert_difference -> { Member.all.size }, -1 do
-      within("#resource-pk-#{members(:picard).id}") do
+      within("#record-pk-#{members(:picard).id}") do
         click_on("Delete")
       end
     end

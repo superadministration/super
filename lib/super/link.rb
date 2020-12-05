@@ -42,33 +42,33 @@ module Super
         ),
         show: new(
           "View",
-          -> (resource:, params:) {
+          -> (record:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :show,
-              id: resource,
+              id: record,
               only_path: true
             )
           }
         ),
         edit: new(
           "Edit",
-          -> (resource:, params:) {
+          -> (record:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :edit,
-              id: resource,
+              id: record,
               only_path: true
             )
           }
         ),
         destroy: new(
           "Delete",
-          -> (resource:, params:) {
+          -> (record:, params:) {
             Rails.application.routes.url_for(
               controller: params[:controller],
               action: :destroy,
-              id: resource,
+              id: record,
               only_path: true
             )
           },

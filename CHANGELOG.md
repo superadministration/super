@@ -25,6 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   it's too limited.
 * Upgraded Tailwind CSS to 1.9.6
 * Redesigned the index table
+* Renamed lots of methods with the word "resource" in it. In most cases, the
+  word "resources" meant "records" or "collection" (or in the singular case,
+  "record" or "member")
 
 ### Added
 

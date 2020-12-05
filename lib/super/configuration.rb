@@ -87,7 +87,7 @@ module Super
     # @!attribute [rw]
     configure :title
     # @!attribute [rw]
-    configure :index_resources_per_page, default: 20
+    configure :index_records_per_page, default: 20
     # @!attribute [rw]
     configure :controller_namespace, default: "admin"
     # @!attribute [rw]

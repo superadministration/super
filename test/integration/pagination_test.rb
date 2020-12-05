@@ -2,9 +2,9 @@ require "test_helper"
 
 class PaginationTest < CapybaraTest
   setup do
-    @original_index_resources_per_page = Super.configuration.index_resources_per_page
+    @original_index_records_per_page = Super.configuration.index_records_per_page
 
-    Super.configuration.index_resources_per_page = 3
+    Super.configuration.index_records_per_page = 3
 
     Member.destroy_all
 
@@ -26,7 +26,7 @@ class PaginationTest < CapybaraTest
   end
 
   teardown do
-    Super.configuration.index_resources_per_page = @original_index_resources_per_page
+    Super.configuration.index_records_per_page = @original_index_records_per_page
   end
 
   def test_three_members_on_first_page

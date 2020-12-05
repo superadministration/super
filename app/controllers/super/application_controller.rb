@@ -8,27 +8,27 @@ module Super
     helper_method :controls
 
     def index
-      @resources = controls.load_resources(action: action_inquirer, params: params)
-      @pagination = controls.initialize_pagination(action: action_inquirer, resources: @resources, query_params: request.GET)
-      @resources = controls.paginate_resources(action: action_inquirer, resources: @resources, pagination: @pagination)
+      @records = controls.load_records(action: action_inquirer, params: params)
+      @pagination = controls.initialize_pagination(action: action_inquirer, records: @records, query_params: request.GET)
+      @records = controls.paginate_records(action: action_inquirer, records: @records, pagination: @pagination)
       @display = controls.display_schema(action: action_inquirer)
     end
 
     def show
-      @resource = controls.load_resource(action: action_inquirer, params: params)
+      @record = controls.load_record(action: action_inquirer, params: params)
       @display = controls.display_schema(action: action_inquirer)
     end
 
     def new
-      @resource = controls.build_resource(action: action_inquirer)
+      @record = controls.build_record(action: action_inquirer)
       @form = controls.form_schema(action: action_inquirer)
     end
 
     def create
-      @resource = controls.build_resource_with_params(action: action_inquirer, params: params)
+      @record = controls.build_record_with_params(action: action_inquirer, params: params)
 
-      if controls.save_resource(action: action_inquirer, resource: @resource, params: params)
-        redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
+      if controls.save_record(action: action_inquirer, record: @record, params: params)
+        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("new"))
         render :new, status: :bad_request
@@ -36,15 +36,15 @@ module Super
     end
 
     def edit
-      @resource = controls.load_resource(action: action_inquirer, params: params)
+      @record = controls.load_record(action: action_inquirer, params: params)
       @form = controls.form_schema(action: action_inquirer)
     end
 
     def update
-      @resource = controls.load_resource(action: action_inquirer, params: params)
+      @record = controls.load_record(action: action_inquirer, params: params)
 
-      if controls.update_resource(action: action_inquirer, resource: @resource, params: params)
-        redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
+      if controls.update_record(action: action_inquirer, record: @record, params: params)
+        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("edit"))
         render :edit, status: :bad_request
@@ -52,12 +52,12 @@ module Super
     end
 
     def destroy
-      @resource = controls.load_resource(action: action_inquirer, params: params)
+      @record = controls.load_record(action: action_inquirer, params: params)
 
-      if controls.destroy_resource(action: action_inquirer, resource: @resource, params: params)
+      if controls.destroy_record(action: action_inquirer, record: @record, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
       else
-        redirect_to polymorphic_path(Super.configuration.path_parts(@resource))
+        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       end
     end
 
@@ -73,7 +73,7 @@ module Super
 
     def action_inquirer_for(action)
       ActionInquirer.new(
-        ActionInquirer.default_resources,
+        ActionInquirer.default_for_resources,
         action
       )
     end

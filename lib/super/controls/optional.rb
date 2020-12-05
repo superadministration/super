@@ -26,8 +26,8 @@ module Super
       #
       # @param action [ActionInquirer]
       # @return [Array<Link>]
-      def resources_actions(action:)
-        default_for(:resources_actions, action: action) do
+      def collection_actions(action:)
+        default_for(:collection_actions, action: action) do
           Super::Link.find_all(:new)
         end
       end
@@ -37,8 +37,8 @@ module Super
       #
       # @param action [ActionInquirer]
       # @return [Array<Link>]
-      def resource_actions(action:)
-        default_for(:resource_actions, action: action) do
+      def member_actions(action:)
+        default_for(:member_actions, action: action) do
           if action.show?
             Super::Link.find_all(:edit, :destroy)
           elsif action.edit?
@@ -49,14 +49,14 @@ module Super
         end
       end
 
-      # Specifies how many resources to show per page
+      # Specifies how many records to show per page
       #
       # @param action [ActionInquirer]
       # @param query_params [Hash]
       # @return [ActiveRecord::Relation]
-      def resources_per_page(action:, query_params:)
-        default_for(:resources_per_page, action: action, query_params: query_params) do
-          Super.configuration.index_resources_per_page
+      def records_per_page(action:, query_params:)
+        default_for(:records_per_page, action: action, query_params: query_params) do
+          Super.configuration.index_records_per_page
         end
       end
     end

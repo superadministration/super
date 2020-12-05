@@ -29,12 +29,12 @@ module Super
       end
     end
 
-    def super_format_for_display(schema, resource, column)
+    def super_format_for_display(schema, record, column)
       formatter = schema.fields[column]
 
       formatted =
         if formatter.real?
-          value = resource.public_send(column)
+          value = record.public_send(column)
           formatter.present(value)
         else
           formatter.present
@@ -42,7 +42,7 @@ module Super
 
       if formatted.respond_to?(:to_partial_path)
         if formatted.respond_to?(:locals)
-          formatted.locals[:resource] ||= resource
+          formatted.locals[:record] ||= record
           render(formatted, formatted.locals)
         else
           render(formatted)
