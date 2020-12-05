@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@rails/ujs": "^6.0.2-1",
-    "stimulus": "^1.1.1",
+    "stimulus": "^2.0.0",
     "tailwindcss": "^1.0.1"
   },
   "devDependencies": {

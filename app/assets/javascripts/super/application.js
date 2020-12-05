@@ -866,7 +866,7 @@ Released under the MIT license
   }
 }).call(this);
 
-},{}],"../node_modules/@stimulus/core/dist/src/event_listener.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/core/dist/event_listener.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -877,18 +877,19 @@ exports.EventListener = void 0;
 var EventListener =
 /** @class */
 function () {
-  function EventListener(eventTarget, eventName) {
+  function EventListener(eventTarget, eventName, eventOptions) {
     this.eventTarget = eventTarget;
     this.eventName = eventName;
+    this.eventOptions = eventOptions;
     this.unorderedBindings = new Set();
   }
 
   EventListener.prototype.connect = function () {
-    this.eventTarget.addEventListener(this.eventName, this, false);
+    this.eventTarget.addEventListener(this.eventName, this, this.eventOptions);
   };
 
   EventListener.prototype.disconnect = function () {
-    this.eventTarget.removeEventListener(this.eventName, this, false);
+    this.eventTarget.removeEventListener(this.eventName, this, this.eventOptions);
   }; // Binding observer delegate
 
   /** @hidden */
@@ -926,7 +927,7 @@ function () {
         return leftIndex < rightIndex ? -1 : leftIndex > rightIndex ? 1 : 0;
       });
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   return EventListener;
@@ -948,7 +949,7 @@ function extendEvent(event) {
     });
   }
 }
-},{}],"../node_modules/@stimulus/core/dist/src/dispatcher.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/core/dist/dispatcher.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -991,7 +992,7 @@ function () {
         return listeners.concat(Array.from(map.values()));
       }, []);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   }); // Binding observer delegate
 
@@ -1018,24 +1019,26 @@ function () {
 
   Dispatcher.prototype.fetchEventListenerForBinding = function (binding) {
     var eventTarget = binding.eventTarget,
-        eventName = binding.eventName;
-    return this.fetchEventListener(eventTarget, eventName);
+        eventName = binding.eventName,
+        eventOptions = binding.eventOptions;
+    return this.fetchEventListener(eventTarget, eventName, eventOptions);
   };
 
-  Dispatcher.prototype.fetchEventListener = function (eventTarget, eventName) {
+  Dispatcher.prototype.fetchEventListener = function (eventTarget, eventName, eventOptions) {
     var eventListenerMap = this.fetchEventListenerMapForEventTarget(eventTarget);
-    var eventListener = eventListenerMap.get(eventName);
+    var cacheKey = this.cacheKey(eventName, eventOptions);
+    var eventListener = eventListenerMap.get(cacheKey);
 
     if (!eventListener) {
-      eventListener = this.createEventListener(eventTarget, eventName);
-      eventListenerMap.set(eventName, eventListener);
+      eventListener = this.createEventListener(eventTarget, eventName, eventOptions);
+      eventListenerMap.set(cacheKey, eventListener);
     }
 
     return eventListener;
   };
 
-  Dispatcher.prototype.createEventListener = function (eventTarget, eventName) {
-    var eventListener = new _event_listener.EventListener(eventTarget, eventName);
+  Dispatcher.prototype.createEventListener = function (eventTarget, eventName, eventOptions) {
+    var eventListener = new _event_listener.EventListener(eventTarget, eventName, eventOptions);
 
     if (this.started) {
       eventListener.connect();
@@ -1055,27 +1058,36 @@ function () {
     return eventListenerMap;
   };
 
+  Dispatcher.prototype.cacheKey = function (eventName, eventOptions) {
+    var parts = [eventName];
+    Object.keys(eventOptions).sort().forEach(function (key) {
+      parts.push("" + (eventOptions[key] ? "" : "!") + key);
+    });
+    return parts.join(":");
+  };
+
   return Dispatcher;
 }();
 
 exports.Dispatcher = Dispatcher;
-},{"./event_listener":"../node_modules/@stimulus/core/dist/src/event_listener.js"}],"../node_modules/@stimulus/core/dist/src/action_descriptor.js":[function(require,module,exports) {
+},{"./event_listener":"../node_modules/@stimulus/core/dist/event_listener.js"}],"../node_modules/@stimulus/core/dist/action_descriptor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseDescriptorString = parseDescriptorString;
+exports.parseActionDescriptorString = parseActionDescriptorString;
 exports.stringifyEventTarget = stringifyEventTarget;
-// capture nos.:            12   23 4               43   1 5   56 7  76
-var descriptorPattern = /^((.+?)(@(window|document))?->)?(.+?)(#(.+))?$/;
+// capture nos.:            12   23 4               43   1 5   56 7      768 9  98
+var descriptorPattern = /^((.+?)(@(window|document))?->)?(.+?)(#([^:]+?))(:(.+))?$/;
 
-function parseDescriptorString(descriptorString) {
+function parseActionDescriptorString(descriptorString) {
   var source = descriptorString.trim();
   var matches = source.match(descriptorPattern) || [];
   return {
     eventTarget: parseEventTarget(matches[4]),
     eventName: matches[2],
+    eventOptions: matches[9] ? parseEventOptions(matches[9]) : {},
     identifier: matches[5],
     methodName: matches[7]
   };
@@ -1089,6 +1101,14 @@ function parseEventTarget(eventTargetName) {
   }
 }
 
+function parseEventOptions(eventOptions) {
+  return eventOptions.split(":").reduce(function (options, token) {
+    var _a;
+
+    return Object.assign(options, (_a = {}, _a[token.replace(/^!/, "")] = !/^!/.test(token), _a));
+  }, {});
+}
+
 function stringifyEventTarget(eventTarget) {
   if (eventTarget == window) {
     return "window";
@@ -1096,7 +1116,7 @@ function stringifyEventTarget(eventTarget) {
     return "document";
   }
 }
-},{}],"../node_modules/@stimulus/core/dist/src/action.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/core/dist/action.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1115,12 +1135,13 @@ function () {
     this.index = index;
     this.eventTarget = descriptor.eventTarget || element;
     this.eventName = descriptor.eventName || getDefaultEventNameForElement(element) || error("missing event name");
+    this.eventOptions = descriptor.eventOptions || {};
     this.identifier = descriptor.identifier || error("missing identifier");
     this.methodName = descriptor.methodName || error("missing method name");
   }
 
   Action.forToken = function (token) {
-    return new this(token.element, token.index, (0, _action_descriptor.parseDescriptorString)(token.content));
+    return new this(token.element, token.index, (0, _action_descriptor.parseActionDescriptorString)(token.content));
   };
 
   Action.prototype.toString = function () {
@@ -1132,7 +1153,7 @@ function () {
     get: function () {
       return (0, _action_descriptor.stringifyEventTarget)(this.eventTarget);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   return Action;
@@ -1150,13 +1171,13 @@ var defaultEventNames = {
     return "submit";
   },
   "input": function (e) {
-    return e.getAttribute("type") == "submit" ? "click" : "change";
+    return e.getAttribute("type") == "submit" ? "click" : "input";
   },
   "select": function (e) {
     return "change";
   },
   "textarea": function (e) {
-    return "change";
+    return "input";
   }
 };
 
@@ -1171,7 +1192,7 @@ function getDefaultEventNameForElement(element) {
 function error(message) {
   throw new Error(message);
 }
-},{"./action_descriptor":"../node_modules/@stimulus/core/dist/src/action_descriptor.js"}],"../node_modules/@stimulus/core/dist/src/binding.js":[function(require,module,exports) {
+},{"./action_descriptor":"../node_modules/@stimulus/core/dist/action_descriptor.js"}],"../node_modules/@stimulus/core/dist/binding.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1191,21 +1212,28 @@ function () {
     get: function () {
       return this.action.index;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "eventTarget", {
     get: function () {
       return this.action.eventTarget;
     },
-    enumerable: true,
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Binding.prototype, "eventOptions", {
+    get: function () {
+      return this.action.eventOptions;
+    },
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "identifier", {
     get: function () {
       return this.context.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1219,7 +1247,7 @@ function () {
     get: function () {
       return this.action.eventName;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "method", {
@@ -1232,7 +1260,7 @@ function () {
 
       throw new Error("Action \"" + this.action + "\" references undefined method \"" + this.methodName + "\"");
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1265,7 +1293,7 @@ function () {
     } else if (eventTarget instanceof Element && this.element.contains(eventTarget)) {
       return this.scope.containsElement(eventTarget);
     } else {
-      return true;
+      return this.scope.containsElement(this.action.element);
     }
   };
 
@@ -1273,35 +1301,35 @@ function () {
     get: function () {
       return this.context.controller;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "methodName", {
     get: function () {
       return this.action.methodName;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "element", {
     get: function () {
       return this.scope.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Binding.prototype, "scope", {
     get: function () {
       return this.context.scope;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   return Binding;
 }();
 
 exports.Binding = Binding;
-},{}],"../node_modules/@stimulus/mutation-observers/dist/src/element_observer.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/mutation-observers/dist/element_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1479,7 +1507,7 @@ function () {
 }();
 
 exports.ElementObserver = ElementObserver;
-},{}],"../node_modules/@stimulus/mutation-observers/dist/src/attribute_observer.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/mutation-observers/dist/attribute_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1502,14 +1530,14 @@ function () {
     get: function () {
       return this.elementObserver.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(AttributeObserver.prototype, "selector", {
     get: function () {
       return "[" + this.attributeName + "]";
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1529,7 +1557,7 @@ function () {
     get: function () {
       return this.elementObserver.started;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   }); // Element observer delegate
 
@@ -1565,7 +1593,144 @@ function () {
 }();
 
 exports.AttributeObserver = AttributeObserver;
-},{"./element_observer":"../node_modules/@stimulus/mutation-observers/dist/src/element_observer.js"}],"../node_modules/@stimulus/multimap/dist/src/set_operations.js":[function(require,module,exports) {
+},{"./element_observer":"../node_modules/@stimulus/mutation-observers/dist/element_observer.js"}],"../node_modules/@stimulus/mutation-observers/dist/string_map_observer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StringMapObserver = void 0;
+
+var StringMapObserver =
+/** @class */
+function () {
+  function StringMapObserver(element, delegate) {
+    var _this = this;
+
+    this.element = element;
+    this.delegate = delegate;
+    this.started = false;
+    this.stringMap = new Map();
+    this.mutationObserver = new MutationObserver(function (mutations) {
+      return _this.processMutations(mutations);
+    });
+  }
+
+  StringMapObserver.prototype.start = function () {
+    if (!this.started) {
+      this.started = true;
+      this.mutationObserver.observe(this.element, {
+        attributes: true
+      });
+      this.refresh();
+    }
+  };
+
+  StringMapObserver.prototype.stop = function () {
+    if (this.started) {
+      this.mutationObserver.takeRecords();
+      this.mutationObserver.disconnect();
+      this.started = false;
+    }
+  };
+
+  StringMapObserver.prototype.refresh = function () {
+    if (this.started) {
+      for (var _i = 0, _a = this.knownAttributeNames; _i < _a.length; _i++) {
+        var attributeName = _a[_i];
+        this.refreshAttribute(attributeName);
+      }
+    }
+  }; // Mutation record processing
+
+
+  StringMapObserver.prototype.processMutations = function (mutations) {
+    if (this.started) {
+      for (var _i = 0, mutations_1 = mutations; _i < mutations_1.length; _i++) {
+        var mutation = mutations_1[_i];
+        this.processMutation(mutation);
+      }
+    }
+  };
+
+  StringMapObserver.prototype.processMutation = function (mutation) {
+    var attributeName = mutation.attributeName;
+
+    if (attributeName) {
+      this.refreshAttribute(attributeName);
+    }
+  }; // State tracking
+
+
+  StringMapObserver.prototype.refreshAttribute = function (attributeName) {
+    var key = this.delegate.getStringMapKeyForAttribute(attributeName);
+
+    if (key != null) {
+      if (!this.stringMap.has(attributeName)) {
+        this.stringMapKeyAdded(key, attributeName);
+      }
+
+      var value = this.element.getAttribute(attributeName);
+
+      if (this.stringMap.get(attributeName) != value) {
+        this.stringMapValueChanged(value, key);
+      }
+
+      if (value == null) {
+        this.stringMap.delete(attributeName);
+        this.stringMapKeyRemoved(key, attributeName);
+      } else {
+        this.stringMap.set(attributeName, value);
+      }
+    }
+  };
+
+  StringMapObserver.prototype.stringMapKeyAdded = function (key, attributeName) {
+    if (this.delegate.stringMapKeyAdded) {
+      this.delegate.stringMapKeyAdded(key, attributeName);
+    }
+  };
+
+  StringMapObserver.prototype.stringMapValueChanged = function (value, key) {
+    if (this.delegate.stringMapValueChanged) {
+      this.delegate.stringMapValueChanged(value, key);
+    }
+  };
+
+  StringMapObserver.prototype.stringMapKeyRemoved = function (key, attributeName) {
+    if (this.delegate.stringMapKeyRemoved) {
+      this.delegate.stringMapKeyRemoved(key, attributeName);
+    }
+  };
+
+  Object.defineProperty(StringMapObserver.prototype, "knownAttributeNames", {
+    get: function () {
+      return Array.from(new Set(this.currentAttributeNames.concat(this.recordedAttributeNames)));
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(StringMapObserver.prototype, "currentAttributeNames", {
+    get: function () {
+      return Array.from(this.element.attributes).map(function (attribute) {
+        return attribute.name;
+      });
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(StringMapObserver.prototype, "recordedAttributeNames", {
+    get: function () {
+      return Array.from(this.stringMap.keys());
+    },
+    enumerable: false,
+    configurable: true
+  });
+  return StringMapObserver;
+}();
+
+exports.StringMapObserver = StringMapObserver;
+},{}],"../node_modules/@stimulus/multimap/dist/set_operations.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1603,7 +1768,7 @@ function prune(map, key) {
     map.delete(key);
   }
 }
-},{}],"../node_modules/@stimulus/multimap/dist/src/multimap.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/multimap/dist/multimap.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1627,7 +1792,7 @@ function () {
         return values.concat(Array.from(set));
       }, []);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Multimap.prototype, "size", {
@@ -1637,7 +1802,7 @@ function () {
         return size + set.size;
       }, 0);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1686,7 +1851,7 @@ function () {
 }();
 
 exports.Multimap = Multimap;
-},{"./set_operations":"../node_modules/@stimulus/multimap/dist/src/set_operations.js"}],"../node_modules/@stimulus/multimap/dist/src/indexed_multimap.js":[function(require,module,exports) {
+},{"./set_operations":"../node_modules/@stimulus/multimap/dist/set_operations.js"}],"../node_modules/@stimulus/multimap/dist/indexed_multimap.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1699,12 +1864,16 @@ var _multimap = require("./multimap");
 var _set_operations = require("./set_operations");
 
 var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = Object.setPrototypeOf || {
-    __proto__: []
-  } instanceof Array && function (d, b) {
-    d.__proto__ = b;
-  } || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
   };
 
   return function (d, b) {
@@ -1734,7 +1903,7 @@ function (_super) {
     get: function () {
       return Array.from(this.keysByValue.keys());
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1763,14 +1932,26 @@ function (_super) {
 }(_multimap.Multimap);
 
 exports.IndexedMultimap = IndexedMultimap;
-},{"./multimap":"../node_modules/@stimulus/multimap/dist/src/multimap.js","./set_operations":"../node_modules/@stimulus/multimap/dist/src/set_operations.js"}],"../node_modules/@stimulus/multimap/dist/index.js":[function(require,module,exports) {
+},{"./multimap":"../node_modules/@stimulus/multimap/dist/multimap.js","./set_operations":"../node_modules/@stimulus/multimap/dist/set_operations.js"}],"../node_modules/@stimulus/multimap/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _multimap = require("./src/multimap");
+var _indexed_multimap = require("./indexed_multimap");
+
+Object.keys(_indexed_multimap).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _indexed_multimap[key];
+    }
+  });
+});
+
+var _multimap = require("./multimap");
 
 Object.keys(_multimap).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -1782,18 +1963,18 @@ Object.keys(_multimap).forEach(function (key) {
   });
 });
 
-var _indexed_multimap = require("./src/indexed_multimap");
+var _set_operations = require("./set_operations");
 
-Object.keys(_indexed_multimap).forEach(function (key) {
+Object.keys(_set_operations).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
-      return _indexed_multimap[key];
+      return _set_operations[key];
     }
   });
 });
-},{"./src/multimap":"../node_modules/@stimulus/multimap/dist/src/multimap.js","./src/indexed_multimap":"../node_modules/@stimulus/multimap/dist/src/indexed_multimap.js"}],"../node_modules/@stimulus/mutation-observers/dist/src/token_list_observer.js":[function(require,module,exports) {
+},{"./indexed_multimap":"../node_modules/@stimulus/multimap/dist/indexed_multimap.js","./multimap":"../node_modules/@stimulus/multimap/dist/multimap.js","./set_operations":"../node_modules/@stimulus/multimap/dist/set_operations.js"}],"../node_modules/@stimulus/mutation-observers/dist/token_list_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1818,7 +1999,7 @@ function () {
     get: function () {
       return this.attributeObserver.started;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1838,14 +2019,14 @@ function () {
     get: function () {
       return this.attributeObserver.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(TokenListObserver.prototype, "attributeName", {
     get: function () {
       return this.attributeObserver.attributeName;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   }); // Attribute observer delegate
 
@@ -1944,7 +2125,7 @@ function zip(left, right) {
 function tokensAreEqual(left, right) {
   return left && right && left.index == right.index && left.content == right.content;
 }
-},{"./attribute_observer":"../node_modules/@stimulus/mutation-observers/dist/src/attribute_observer.js","@stimulus/multimap":"../node_modules/@stimulus/multimap/dist/index.js"}],"../node_modules/@stimulus/mutation-observers/dist/src/value_list_observer.js":[function(require,module,exports) {
+},{"./attribute_observer":"../node_modules/@stimulus/mutation-observers/dist/attribute_observer.js","@stimulus/multimap":"../node_modules/@stimulus/multimap/dist/index.js"}],"../node_modules/@stimulus/mutation-observers/dist/value_list_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1968,7 +2149,7 @@ function () {
     get: function () {
       return this.tokenListObserver.started;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -1988,14 +2169,14 @@ function () {
     get: function () {
       return this.tokenListObserver.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(ValueListObserver.prototype, "attributeName", {
     get: function () {
       return this.tokenListObserver.attributeName;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -2058,14 +2239,14 @@ function () {
 }();
 
 exports.ValueListObserver = ValueListObserver;
-},{"./token_list_observer":"../node_modules/@stimulus/mutation-observers/dist/src/token_list_observer.js"}],"../node_modules/@stimulus/mutation-observers/dist/index.js":[function(require,module,exports) {
+},{"./token_list_observer":"../node_modules/@stimulus/mutation-observers/dist/token_list_observer.js"}],"../node_modules/@stimulus/mutation-observers/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _attribute_observer = require("./src/attribute_observer");
+var _attribute_observer = require("./attribute_observer");
 
 Object.keys(_attribute_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -2077,7 +2258,7 @@ Object.keys(_attribute_observer).forEach(function (key) {
   });
 });
 
-var _element_observer = require("./src/element_observer");
+var _element_observer = require("./element_observer");
 
 Object.keys(_element_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -2089,7 +2270,19 @@ Object.keys(_element_observer).forEach(function (key) {
   });
 });
 
-var _token_list_observer = require("./src/token_list_observer");
+var _string_map_observer = require("./string_map_observer");
+
+Object.keys(_string_map_observer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _string_map_observer[key];
+    }
+  });
+});
+
+var _token_list_observer = require("./token_list_observer");
 
 Object.keys(_token_list_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -2101,7 +2294,7 @@ Object.keys(_token_list_observer).forEach(function (key) {
   });
 });
 
-var _value_list_observer = require("./src/value_list_observer");
+var _value_list_observer = require("./value_list_observer");
 
 Object.keys(_value_list_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -2112,7 +2305,7 @@ Object.keys(_value_list_observer).forEach(function (key) {
     }
   });
 });
-},{"./src/attribute_observer":"../node_modules/@stimulus/mutation-observers/dist/src/attribute_observer.js","./src/element_observer":"../node_modules/@stimulus/mutation-observers/dist/src/element_observer.js","./src/token_list_observer":"../node_modules/@stimulus/mutation-observers/dist/src/token_list_observer.js","./src/value_list_observer":"../node_modules/@stimulus/mutation-observers/dist/src/value_list_observer.js"}],"../node_modules/@stimulus/core/dist/src/binding_observer.js":[function(require,module,exports) {
+},{"./attribute_observer":"../node_modules/@stimulus/mutation-observers/dist/attribute_observer.js","./element_observer":"../node_modules/@stimulus/mutation-observers/dist/element_observer.js","./string_map_observer":"../node_modules/@stimulus/mutation-observers/dist/string_map_observer.js","./token_list_observer":"../node_modules/@stimulus/mutation-observers/dist/token_list_observer.js","./value_list_observer":"../node_modules/@stimulus/mutation-observers/dist/value_list_observer.js"}],"../node_modules/@stimulus/core/dist/binding_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2154,35 +2347,35 @@ function () {
     get: function () {
       return this.context.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(BindingObserver.prototype, "identifier", {
     get: function () {
       return this.context.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(BindingObserver.prototype, "actionAttribute", {
     get: function () {
       return this.schema.actionAttribute;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(BindingObserver.prototype, "schema", {
     get: function () {
       return this.context.schema;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(BindingObserver.prototype, "bindings", {
     get: function () {
       return Array.from(this.bindingsByAction.values());
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -2231,7 +2424,98 @@ function () {
 }();
 
 exports.BindingObserver = BindingObserver;
-},{"./action":"../node_modules/@stimulus/core/dist/src/action.js","./binding":"../node_modules/@stimulus/core/dist/src/binding.js","@stimulus/mutation-observers":"../node_modules/@stimulus/mutation-observers/dist/index.js"}],"../node_modules/@stimulus/core/dist/src/context.js":[function(require,module,exports) {
+},{"./action":"../node_modules/@stimulus/core/dist/action.js","./binding":"../node_modules/@stimulus/core/dist/binding.js","@stimulus/mutation-observers":"../node_modules/@stimulus/mutation-observers/dist/index.js"}],"../node_modules/@stimulus/core/dist/value_observer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ValueObserver = void 0;
+
+var _mutationObservers = require("@stimulus/mutation-observers");
+
+var ValueObserver =
+/** @class */
+function () {
+  function ValueObserver(context, receiver) {
+    this.context = context;
+    this.receiver = receiver;
+    this.stringMapObserver = new _mutationObservers.StringMapObserver(this.element, this);
+    this.valueDescriptorMap = this.controller.valueDescriptorMap;
+    this.invokeChangedCallbacksForDefaultValues();
+  }
+
+  ValueObserver.prototype.start = function () {
+    this.stringMapObserver.start();
+  };
+
+  ValueObserver.prototype.stop = function () {
+    this.stringMapObserver.stop();
+  };
+
+  Object.defineProperty(ValueObserver.prototype, "element", {
+    get: function () {
+      return this.context.element;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(ValueObserver.prototype, "controller", {
+    get: function () {
+      return this.context.controller;
+    },
+    enumerable: false,
+    configurable: true
+  }); // String map observer delegate
+
+  ValueObserver.prototype.getStringMapKeyForAttribute = function (attributeName) {
+    if (attributeName in this.valueDescriptorMap) {
+      return this.valueDescriptorMap[attributeName].name;
+    }
+  };
+
+  ValueObserver.prototype.stringMapValueChanged = function (attributeValue, name) {
+    this.invokeChangedCallbackForValue(name);
+  };
+
+  ValueObserver.prototype.invokeChangedCallbacksForDefaultValues = function () {
+    for (var _i = 0, _a = this.valueDescriptors; _i < _a.length; _i++) {
+      var _b = _a[_i],
+          key = _b.key,
+          name_1 = _b.name,
+          defaultValue = _b.defaultValue;
+
+      if (defaultValue != undefined && !this.controller.data.has(key)) {
+        this.invokeChangedCallbackForValue(name_1);
+      }
+    }
+  };
+
+  ValueObserver.prototype.invokeChangedCallbackForValue = function (name) {
+    var methodName = name + "Changed";
+    var method = this.receiver[methodName];
+
+    if (typeof method == "function") {
+      var value = this.receiver[name];
+      method.call(this.receiver, value);
+    }
+  };
+
+  Object.defineProperty(ValueObserver.prototype, "valueDescriptors", {
+    get: function () {
+      var valueDescriptorMap = this.valueDescriptorMap;
+      return Object.keys(valueDescriptorMap).map(function (key) {
+        return valueDescriptorMap[key];
+      });
+    },
+    enumerable: false,
+    configurable: true
+  });
+  return ValueObserver;
+}();
+
+exports.ValueObserver = ValueObserver;
+},{"@stimulus/mutation-observers":"../node_modules/@stimulus/mutation-observers/dist/index.js"}],"../node_modules/@stimulus/core/dist/context.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2241,6 +2525,8 @@ exports.Context = void 0;
 
 var _binding_observer = require("./binding_observer");
 
+var _value_observer = require("./value_observer");
+
 var Context =
 /** @class */
 function () {
@@ -2249,6 +2535,7 @@ function () {
     this.scope = scope;
     this.controller = new module.controllerConstructor(this);
     this.bindingObserver = new _binding_observer.BindingObserver(this, this.dispatcher);
+    this.valueObserver = new _value_observer.ValueObserver(this, this.controller);
 
     try {
       this.controller.initialize();
@@ -2259,6 +2546,7 @@ function () {
 
   Context.prototype.connect = function () {
     this.bindingObserver.start();
+    this.valueObserver.start();
 
     try {
       this.controller.connect();
@@ -2274,6 +2562,7 @@ function () {
       this.handleError(error, "disconnecting controller");
     }
 
+    this.valueObserver.stop();
     this.bindingObserver.stop();
   };
 
@@ -2281,42 +2570,42 @@ function () {
     get: function () {
       return this.module.application;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Context.prototype, "identifier", {
     get: function () {
       return this.module.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Context.prototype, "schema", {
     get: function () {
       return this.application.schema;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Context.prototype, "dispatcher", {
     get: function () {
       return this.application.dispatcher;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Context.prototype, "element", {
     get: function () {
       return this.scope.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Context.prototype, "parentElement", {
     get: function () {
       return this.element.parentElement;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   }); // Error handling
 
@@ -2342,21 +2631,76 @@ function () {
 }();
 
 exports.Context = Context;
-},{"./binding_observer":"../node_modules/@stimulus/core/dist/src/binding_observer.js"}],"../node_modules/@stimulus/core/dist/src/definition.js":[function(require,module,exports) {
+},{"./binding_observer":"../node_modules/@stimulus/core/dist/binding_observer.js","./value_observer":"../node_modules/@stimulus/core/dist/value_observer.js"}],"../node_modules/@stimulus/core/dist/inheritable_statics.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.blessDefinition = blessDefinition;
+exports.readInheritableStaticArrayValues = readInheritableStaticArrayValues;
+exports.readInheritableStaticObjectPairs = readInheritableStaticObjectPairs;
+
+function readInheritableStaticArrayValues(constructor, propertyName) {
+  var ancestors = getAncestorsForConstructor(constructor);
+  return Array.from(ancestors.reduce(function (values, constructor) {
+    getOwnStaticArrayValues(constructor, propertyName).forEach(function (name) {
+      return values.add(name);
+    });
+    return values;
+  }, new Set()));
+}
+
+function readInheritableStaticObjectPairs(constructor, propertyName) {
+  var ancestors = getAncestorsForConstructor(constructor);
+  return ancestors.reduce(function (pairs, constructor) {
+    pairs.push.apply(pairs, getOwnStaticObjectPairs(constructor, propertyName));
+    return pairs;
+  }, []);
+}
+
+function getAncestorsForConstructor(constructor) {
+  var ancestors = [];
+
+  while (constructor) {
+    ancestors.push(constructor);
+    constructor = Object.getPrototypeOf(constructor);
+  }
+
+  return ancestors.reverse();
+}
+
+function getOwnStaticArrayValues(constructor, propertyName) {
+  var definition = constructor[propertyName];
+  return Array.isArray(definition) ? definition : [];
+}
+
+function getOwnStaticObjectPairs(constructor, propertyName) {
+  var definition = constructor[propertyName];
+  return definition ? Object.keys(definition).map(function (key) {
+    return [key, definition[key]];
+  }) : [];
+}
+},{}],"../node_modules/@stimulus/core/dist/blessing.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bless = bless;
+
+var _inheritable_statics = require("./inheritable_statics");
 
 var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = Object.setPrototypeOf || {
-    __proto__: []
-  } instanceof Array && function (d, b) {
-    d.__proto__ = b;
-  } || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
   };
 
   return function (d, b) {
@@ -2369,37 +2713,96 @@ var __extends = void 0 && (void 0).__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+
+var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
+
 /** @hidden */
-
-
-function blessDefinition(definition) {
-  return {
-    identifier: definition.identifier,
-    controllerConstructor: blessControllerConstructor(definition.controllerConstructor)
-  };
+function bless(constructor) {
+  return shadow(constructor, getBlessedProperties(constructor));
 }
 
-function blessControllerConstructor(controllerConstructor) {
-  var constructor = extend(controllerConstructor);
-  constructor.bless();
-  return constructor;
+function shadow(constructor, properties) {
+  var shadowConstructor = extend(constructor);
+  var shadowProperties = getShadowProperties(constructor.prototype, properties);
+  Object.defineProperties(shadowConstructor.prototype, shadowProperties);
+  return shadowConstructor;
 }
+
+function getBlessedProperties(constructor) {
+  var blessings = (0, _inheritable_statics.readInheritableStaticArrayValues)(constructor, "blessings");
+  return blessings.reduce(function (blessedProperties, blessing) {
+    var properties = blessing(constructor);
+
+    for (var key in properties) {
+      var descriptor = blessedProperties[key] || {};
+      blessedProperties[key] = Object.assign(descriptor, properties[key]);
+    }
+
+    return blessedProperties;
+  }, {});
+}
+
+function getShadowProperties(prototype, properties) {
+  return getOwnKeys(properties).reduce(function (shadowProperties, key) {
+    var _a;
+
+    var descriptor = getShadowedDescriptor(prototype, properties, key);
+
+    if (descriptor) {
+      Object.assign(shadowProperties, (_a = {}, _a[key] = descriptor, _a));
+    }
+
+    return shadowProperties;
+  }, {});
+}
+
+function getShadowedDescriptor(prototype, properties, key) {
+  var shadowingDescriptor = Object.getOwnPropertyDescriptor(prototype, key);
+  var shadowedByValue = shadowingDescriptor && "value" in shadowingDescriptor;
+
+  if (!shadowedByValue) {
+    var descriptor = Object.getOwnPropertyDescriptor(properties, key).value;
+
+    if (shadowingDescriptor) {
+      descriptor.get = shadowingDescriptor.get || descriptor.get;
+      descriptor.set = shadowingDescriptor.set || descriptor.set;
+    }
+
+    return descriptor;
+  }
+}
+
+var getOwnKeys = function () {
+  if (typeof Object.getOwnPropertySymbols == "function") {
+    return function (object) {
+      return __spreadArrays(Object.getOwnPropertyNames(object), Object.getOwnPropertySymbols(object));
+    };
+  } else {
+    return Object.getOwnPropertyNames;
+  }
+}();
 
 var extend = function () {
   function extendWithReflect(constructor) {
-    function Controller() {
-      var _newTarget = this && this instanceof Controller ? this.constructor : void 0;
+    function extended() {
+      var _newTarget = this && this instanceof extended ? this.constructor : void 0;
 
       return Reflect.construct(constructor, arguments, _newTarget);
     }
 
-    Controller.prototype = Object.create(constructor.prototype, {
+    extended.prototype = Object.create(constructor.prototype, {
       constructor: {
-        value: Controller
+        value: extended
       }
     });
-    Reflect.setPrototypeOf(Controller, constructor);
-    return Controller;
+    Reflect.setPrototypeOf(extended, constructor);
+    return extended;
   }
 
   function testReflectExtension() {
@@ -2422,19 +2825,36 @@ var extend = function () {
       return (
         /** @class */
         function (_super) {
-          __extends(Controller, _super);
+          __extends(extended, _super);
 
-          function Controller() {
+          function extended() {
             return _super !== null && _super.apply(this, arguments) || this;
           }
 
-          return Controller;
+          return extended;
         }(constructor)
       );
     };
   }
 }();
-},{}],"../node_modules/@stimulus/core/dist/src/module.js":[function(require,module,exports) {
+},{"./inheritable_statics":"../node_modules/@stimulus/core/dist/inheritable_statics.js"}],"../node_modules/@stimulus/core/dist/definition.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.blessDefinition = blessDefinition;
+
+var _blessing = require("./blessing");
+
+/** @hidden */
+function blessDefinition(definition) {
+  return {
+    identifier: definition.identifier,
+    controllerConstructor: (0, _blessing.bless)(definition.controllerConstructor)
+  };
+}
+},{"./blessing":"../node_modules/@stimulus/core/dist/blessing.js"}],"../node_modules/@stimulus/core/dist/module.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2460,21 +2880,21 @@ function () {
     get: function () {
       return this.definition.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Module.prototype, "controllerConstructor", {
     get: function () {
       return this.definition.controllerConstructor;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Module.prototype, "contexts", {
     get: function () {
       return Array.from(this.connectedContexts);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -2508,13 +2928,82 @@ function () {
 }();
 
 exports.Module = Module;
-},{"./context":"../node_modules/@stimulus/core/dist/src/context.js","./definition":"../node_modules/@stimulus/core/dist/src/definition.js"}],"../node_modules/@stimulus/core/dist/src/data_map.js":[function(require,module,exports) {
+},{"./context":"../node_modules/@stimulus/core/dist/context.js","./definition":"../node_modules/@stimulus/core/dist/definition.js"}],"../node_modules/@stimulus/core/dist/class_map.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ClassMap = void 0;
+
+var ClassMap =
+/** @class */
+function () {
+  function ClassMap(scope) {
+    this.scope = scope;
+  }
+
+  ClassMap.prototype.has = function (name) {
+    return this.data.has(this.getDataKey(name));
+  };
+
+  ClassMap.prototype.get = function (name) {
+    return this.data.get(this.getDataKey(name));
+  };
+
+  ClassMap.prototype.getAttributeName = function (name) {
+    return this.data.getAttributeNameForKey(this.getDataKey(name));
+  };
+
+  ClassMap.prototype.getDataKey = function (name) {
+    return name + "-class";
+  };
+
+  Object.defineProperty(ClassMap.prototype, "data", {
+    get: function () {
+      return this.scope.data;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  return ClassMap;
+}();
+
+exports.ClassMap = ClassMap;
+},{}],"../node_modules/@stimulus/core/dist/string_helpers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.camelize = camelize;
+exports.capitalize = capitalize;
+exports.dasherize = dasherize;
+
+function camelize(value) {
+  return value.replace(/(?:[_-])([a-z0-9])/g, function (_, char) {
+    return char.toUpperCase();
+  });
+}
+
+function capitalize(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function dasherize(value) {
+  return value.replace(/([A-Z])/g, function (_, char) {
+    return "-" + char.toLowerCase();
+  });
+}
+},{}],"../node_modules/@stimulus/core/dist/data_map.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.DataMap = void 0;
+
+var _string_helpers = require("./string_helpers");
 
 var DataMap =
 /** @class */
@@ -2527,58 +3016,86 @@ function () {
     get: function () {
       return this.scope.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(DataMap.prototype, "identifier", {
     get: function () {
       return this.scope.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
   DataMap.prototype.get = function (key) {
-    key = this.getFormattedKey(key);
-    return this.element.getAttribute(key);
+    var name = this.getAttributeNameForKey(key);
+    return this.element.getAttribute(name);
   };
 
   DataMap.prototype.set = function (key, value) {
-    key = this.getFormattedKey(key);
-    this.element.setAttribute(key, value);
+    var name = this.getAttributeNameForKey(key);
+    this.element.setAttribute(name, value);
     return this.get(key);
   };
 
   DataMap.prototype.has = function (key) {
-    key = this.getFormattedKey(key);
-    return this.element.hasAttribute(key);
+    var name = this.getAttributeNameForKey(key);
+    return this.element.hasAttribute(name);
   };
 
   DataMap.prototype.delete = function (key) {
     if (this.has(key)) {
-      key = this.getFormattedKey(key);
-      this.element.removeAttribute(key);
+      var name_1 = this.getAttributeNameForKey(key);
+      this.element.removeAttribute(name_1);
       return true;
     } else {
       return false;
     }
   };
 
-  DataMap.prototype.getFormattedKey = function (key) {
-    return "data-" + this.identifier + "-" + dasherize(key);
+  DataMap.prototype.getAttributeNameForKey = function (key) {
+    return "data-" + this.identifier + "-" + (0, _string_helpers.dasherize)(key);
   };
 
   return DataMap;
 }();
 
 exports.DataMap = DataMap;
+},{"./string_helpers":"../node_modules/@stimulus/core/dist/string_helpers.js"}],"../node_modules/@stimulus/core/dist/guide.js":[function(require,module,exports) {
+"use strict";
 
-function dasherize(value) {
-  return value.replace(/([A-Z])/g, function (_, char) {
-    return "-" + char.toLowerCase();
-  });
-}
-},{}],"../node_modules/@stimulus/core/dist/src/selectors.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Guide = void 0;
+
+var Guide =
+/** @class */
+function () {
+  function Guide(logger) {
+    this.warnedKeysByObject = new WeakMap();
+    this.logger = logger;
+  }
+
+  Guide.prototype.warn = function (object, key, message) {
+    var warnedKeys = this.warnedKeysByObject.get(object);
+
+    if (!warnedKeys) {
+      warnedKeys = new Set();
+      this.warnedKeysByObject.set(object, warnedKeys);
+    }
+
+    if (!warnedKeys.has(key)) {
+      warnedKeys.add(key);
+      this.logger.warn(message, object);
+    }
+  };
+
+  return Guide;
+}();
+
+exports.Guide = Guide;
+},{}],"../node_modules/@stimulus/core/dist/selectors.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2590,7 +3107,7 @@ exports.attributeValueContainsToken = attributeValueContainsToken;
 function attributeValueContainsToken(attributeName, token) {
   return "[" + attributeName + "~=\"" + token + "\"]";
 }
-},{}],"../node_modules/@stimulus/core/dist/src/target_set.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/core/dist/target_set.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2599,6 +3116,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.TargetSet = void 0;
 
 var _selectors = require("./selectors");
+
+var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
 
 var TargetSet =
 /** @class */
@@ -2611,21 +3136,21 @@ function () {
     get: function () {
       return this.scope.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(TargetSet.prototype, "identifier", {
     get: function () {
       return this.scope.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(TargetSet.prototype, "schema", {
     get: function () {
       return this.scope.schema;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -2634,45 +3159,89 @@ function () {
   };
 
   TargetSet.prototype.find = function () {
+    var _this = this;
+
     var targetNames = [];
 
     for (var _i = 0; _i < arguments.length; _i++) {
       targetNames[_i] = arguments[_i];
     }
 
-    var selector = this.getSelectorForTargetNames(targetNames);
-    return this.scope.findElement(selector);
+    return targetNames.reduce(function (target, targetName) {
+      return target || _this.findTarget(targetName) || _this.findLegacyTarget(targetName);
+    }, undefined);
   };
 
   TargetSet.prototype.findAll = function () {
+    var _this = this;
+
     var targetNames = [];
 
     for (var _i = 0; _i < arguments.length; _i++) {
       targetNames[_i] = arguments[_i];
     }
 
-    var selector = this.getSelectorForTargetNames(targetNames);
+    return targetNames.reduce(function (targets, targetName) {
+      return __spreadArrays(targets, _this.findAllTargets(targetName), _this.findAllLegacyTargets(targetName));
+    }, []);
+  };
+
+  TargetSet.prototype.findTarget = function (targetName) {
+    var selector = this.getSelectorForTargetName(targetName);
+    return this.scope.findElement(selector);
+  };
+
+  TargetSet.prototype.findAllTargets = function (targetName) {
+    var selector = this.getSelectorForTargetName(targetName);
     return this.scope.findAllElements(selector);
   };
 
-  TargetSet.prototype.getSelectorForTargetNames = function (targetNames) {
-    var _this = this;
-
-    return targetNames.map(function (targetName) {
-      return _this.getSelectorForTargetName(targetName);
-    }).join(", ");
+  TargetSet.prototype.getSelectorForTargetName = function (targetName) {
+    var attributeName = "data-" + this.identifier + "-target";
+    return (0, _selectors.attributeValueContainsToken)(attributeName, targetName);
   };
 
-  TargetSet.prototype.getSelectorForTargetName = function (targetName) {
+  TargetSet.prototype.findLegacyTarget = function (targetName) {
+    var selector = this.getLegacySelectorForTargetName(targetName);
+    return this.deprecate(this.scope.findElement(selector), targetName);
+  };
+
+  TargetSet.prototype.findAllLegacyTargets = function (targetName) {
+    var _this = this;
+
+    var selector = this.getLegacySelectorForTargetName(targetName);
+    return this.scope.findAllElements(selector).map(function (element) {
+      return _this.deprecate(element, targetName);
+    });
+  };
+
+  TargetSet.prototype.getLegacySelectorForTargetName = function (targetName) {
     var targetDescriptor = this.identifier + "." + targetName;
     return (0, _selectors.attributeValueContainsToken)(this.schema.targetAttribute, targetDescriptor);
   };
 
+  TargetSet.prototype.deprecate = function (element, targetName) {
+    if (element) {
+      var identifier = this.identifier;
+      var attributeName = this.schema.targetAttribute;
+      this.guide.warn(element, "target:" + targetName, "Please replace " + attributeName + "=\"" + identifier + "." + targetName + "\" with data-" + identifier + "-target=\"" + targetName + "\". " + ("The " + attributeName + " attribute is deprecated and will be removed in a future version of Stimulus."));
+    }
+
+    return element;
+  };
+
+  Object.defineProperty(TargetSet.prototype, "guide", {
+    get: function () {
+      return this.scope.guide;
+    },
+    enumerable: false,
+    configurable: true
+  });
   return TargetSet;
 }();
 
 exports.TargetSet = TargetSet;
-},{"./selectors":"../node_modules/@stimulus/core/dist/src/selectors.js"}],"../node_modules/@stimulus/core/dist/src/scope.js":[function(require,module,exports) {
+},{"./selectors":"../node_modules/@stimulus/core/dist/selectors.js"}],"../node_modules/@stimulus/core/dist/scope.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2680,65 +3249,74 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Scope = void 0;
 
+var _class_map = require("./class_map");
+
 var _data_map = require("./data_map");
+
+var _guide = require("./guide");
+
+var _selectors = require("./selectors");
 
 var _target_set = require("./target_set");
 
-var _selectors = require("./selectors");
+var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
 
 var Scope =
 /** @class */
 function () {
-  function Scope(schema, identifier, element) {
-    this.schema = schema;
-    this.identifier = identifier;
-    this.element = element;
+  function Scope(schema, element, identifier, logger) {
+    var _this = this;
+
     this.targets = new _target_set.TargetSet(this);
+    this.classes = new _class_map.ClassMap(this);
     this.data = new _data_map.DataMap(this);
+
+    this.containsElement = function (element) {
+      return element.closest(_this.controllerSelector) === _this.element;
+    };
+
+    this.schema = schema;
+    this.element = element;
+    this.identifier = identifier;
+    this.guide = new _guide.Guide(logger);
   }
 
   Scope.prototype.findElement = function (selector) {
-    return this.findAllElements(selector)[0];
+    return this.element.matches(selector) ? this.element : this.queryElements(selector).find(this.containsElement);
   };
 
   Scope.prototype.findAllElements = function (selector) {
-    var head = this.element.matches(selector) ? [this.element] : [];
-    var tail = this.filterElements(Array.from(this.element.querySelectorAll(selector)));
-    return head.concat(tail);
+    return __spreadArrays(this.element.matches(selector) ? [this.element] : [], this.queryElements(selector).filter(this.containsElement));
   };
 
-  Scope.prototype.filterElements = function (elements) {
-    var _this = this;
-
-    return elements.filter(function (element) {
-      return _this.containsElement(element);
-    });
-  };
-
-  Scope.prototype.containsElement = function (element) {
-    return element.closest(this.controllerSelector) === this.element;
+  Scope.prototype.queryElements = function (selector) {
+    return Array.from(this.element.querySelectorAll(selector));
   };
 
   Object.defineProperty(Scope.prototype, "controllerSelector", {
     get: function () {
       return (0, _selectors.attributeValueContainsToken)(this.schema.controllerAttribute, this.identifier);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   return Scope;
 }();
 
 exports.Scope = Scope;
-},{"./data_map":"../node_modules/@stimulus/core/dist/src/data_map.js","./target_set":"../node_modules/@stimulus/core/dist/src/target_set.js","./selectors":"../node_modules/@stimulus/core/dist/src/selectors.js"}],"../node_modules/@stimulus/core/dist/src/scope_observer.js":[function(require,module,exports) {
+},{"./class_map":"../node_modules/@stimulus/core/dist/class_map.js","./data_map":"../node_modules/@stimulus/core/dist/data_map.js","./guide":"../node_modules/@stimulus/core/dist/guide.js","./selectors":"../node_modules/@stimulus/core/dist/selectors.js","./target_set":"../node_modules/@stimulus/core/dist/target_set.js"}],"../node_modules/@stimulus/core/dist/scope_observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.ScopeObserver = void 0;
-
-var _scope = require("./scope");
 
 var _mutationObservers = require("@stimulus/mutation-observers");
 
@@ -2766,7 +3344,7 @@ function () {
     get: function () {
       return this.schema.controllerAttribute;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   }); // Value observer delegate
 
@@ -2779,7 +3357,7 @@ function () {
     var scope = scopesByIdentifier.get(identifier);
 
     if (!scope) {
-      scope = new _scope.Scope(this.schema, identifier, element);
+      scope = this.delegate.createScopeForElementAndIdentifier(element, identifier);
       scopesByIdentifier.set(identifier, scope);
     }
 
@@ -2826,7 +3404,7 @@ function () {
 }();
 
 exports.ScopeObserver = ScopeObserver;
-},{"./scope":"../node_modules/@stimulus/core/dist/src/scope.js","@stimulus/mutation-observers":"../node_modules/@stimulus/mutation-observers/dist/index.js"}],"../node_modules/@stimulus/core/dist/src/router.js":[function(require,module,exports) {
+},{"@stimulus/mutation-observers":"../node_modules/@stimulus/mutation-observers/dist/index.js"}],"../node_modules/@stimulus/core/dist/router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2837,6 +3415,8 @@ exports.Router = void 0;
 var _module = require("./module");
 
 var _multimap = require("@stimulus/multimap");
+
+var _scope = require("./scope");
 
 var _scope_observer = require("./scope_observer");
 
@@ -2854,28 +3434,35 @@ function () {
     get: function () {
       return this.application.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Router.prototype, "schema", {
     get: function () {
       return this.application.schema;
     },
-    enumerable: true,
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Router.prototype, "logger", {
+    get: function () {
+      return this.application.logger;
+    },
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Router.prototype, "controllerAttribute", {
     get: function () {
       return this.schema.controllerAttribute;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Router.prototype, "modules", {
     get: function () {
       return Array.from(this.modulesByIdentifier.values());
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Router.prototype, "contexts", {
@@ -2884,7 +3471,7 @@ function () {
         return contexts.concat(module.contexts);
       }, []);
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -2930,6 +3517,12 @@ function () {
   /** @hidden */
 
 
+  Router.prototype.createScopeForElementAndIdentifier = function (element, identifier) {
+    return new _scope.Scope(this.schema, element, identifier, this.logger);
+  };
+  /** @hidden */
+
+
   Router.prototype.scopeConnected = function (scope) {
     this.scopesByIdentifier.add(scope.identifier, scope);
     var module = this.modulesByIdentifier.get(scope.identifier);
@@ -2971,7 +3564,7 @@ function () {
 }();
 
 exports.Router = Router;
-},{"./module":"../node_modules/@stimulus/core/dist/src/module.js","@stimulus/multimap":"../node_modules/@stimulus/multimap/dist/index.js","./scope_observer":"../node_modules/@stimulus/core/dist/src/scope_observer.js"}],"../node_modules/@stimulus/core/dist/src/schema.js":[function(require,module,exports) {
+},{"./module":"../node_modules/@stimulus/core/dist/module.js","@stimulus/multimap":"../node_modules/@stimulus/multimap/dist/index.js","./scope":"../node_modules/@stimulus/core/dist/scope.js","./scope_observer":"../node_modules/@stimulus/core/dist/scope_observer.js"}],"../node_modules/@stimulus/core/dist/schema.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2984,7 +3577,7 @@ var defaultSchema = {
   targetAttribute: "data-target"
 };
 exports.defaultSchema = defaultSchema;
-},{}],"../node_modules/@stimulus/core/dist/src/application.js":[function(require,module,exports) {
+},{}],"../node_modules/@stimulus/core/dist/application.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2999,6 +3592,12 @@ var _router = require("./router");
 var _schema = require("./schema");
 
 var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
       try {
@@ -3017,9 +3616,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     }
 
     function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
 
     step((generator = generator.apply(thisArg, _arguments || [])).next());
@@ -3058,8 +3655,8 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
     if (f) throw new TypeError("Generator is already executing.");
 
     while (_) try {
-      if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-      if (y = 0, t) op = [0, t.value];
+      if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+      if (y = 0, t) op = [op[0] & 2, t.value];
 
       switch (op[0]) {
         case 0:
@@ -3135,6 +3732,14 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   }
 };
 
+var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
+
 var Application =
 /** @class */
 function () {
@@ -3147,6 +3752,7 @@ function () {
       schema = _schema.defaultSchema;
     }
 
+    this.logger = console;
     this.element = element;
     this.schema = schema;
     this.dispatcher = new _dispatcher.Dispatcher(this);
@@ -3171,8 +3777,8 @@ function () {
           case 1:
             _a.sent();
 
-            this.router.start();
             this.dispatcher.start();
+            this.router.start();
             return [2
             /*return*/
             ];
@@ -3182,8 +3788,8 @@ function () {
   };
 
   Application.prototype.stop = function () {
-    this.router.stop();
     this.dispatcher.stop();
+    this.router.stop();
   };
 
   Application.prototype.register = function (identifier, controllerConstructor) {
@@ -3202,7 +3808,7 @@ function () {
       rest[_i - 1] = arguments[_i];
     }
 
-    var definitions = Array.isArray(head) ? head : [head].concat(rest);
+    var definitions = Array.isArray(head) ? head : __spreadArrays([head], rest);
     definitions.forEach(function (definition) {
       return _this.router.loadDefinition(definition);
     });
@@ -3217,7 +3823,7 @@ function () {
       rest[_i - 1] = arguments[_i];
     }
 
-    var identifiers = Array.isArray(head) ? head : [head].concat(rest);
+    var identifiers = Array.isArray(head) ? head : __spreadArrays([head], rest);
     identifiers.forEach(function (identifier) {
       return _this.router.unloadIdentifier(identifier);
     });
@@ -3230,7 +3836,7 @@ function () {
         return context.controller;
       });
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -3241,7 +3847,7 @@ function () {
 
 
   Application.prototype.handleError = function (error, message, detail) {
-    console.error("%s\n\n%o\n\n%o", message, error, detail);
+    this.logger.error("%s\n\n%o\n\n%o", message, error, detail);
   };
 
   return Application;
@@ -3258,82 +3864,262 @@ function domReady() {
     }
   });
 }
-},{"./dispatcher":"../node_modules/@stimulus/core/dist/src/dispatcher.js","./router":"../node_modules/@stimulus/core/dist/src/router.js","./schema":"../node_modules/@stimulus/core/dist/src/schema.js"}],"../node_modules/@stimulus/core/dist/src/target_properties.js":[function(require,module,exports) {
+},{"./dispatcher":"../node_modules/@stimulus/core/dist/dispatcher.js","./router":"../node_modules/@stimulus/core/dist/router.js","./schema":"../node_modules/@stimulus/core/dist/schema.js"}],"../node_modules/@stimulus/core/dist/class_properties.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defineTargetProperties = defineTargetProperties;
+exports.ClassPropertiesBlessing = ClassPropertiesBlessing;
+
+var _inheritable_statics = require("./inheritable_statics");
+
+var _string_helpers = require("./string_helpers");
 
 /** @hidden */
-function defineTargetProperties(constructor) {
-  var prototype = constructor.prototype;
-  var targetNames = getTargetNamesForConstructor(constructor);
-  targetNames.forEach(function (name) {
-    var _a;
-
-    return defineLinkedProperties(prototype, (_a = {}, _a[name + "Target"] = {
-      get: function () {
-        var target = this.targets.find(name);
-
-        if (target) {
-          return target;
-        } else {
-          throw new Error("Missing target element \"" + this.identifier + "." + name + "\"");
-        }
-      }
-    }, _a[name + "Targets"] = {
-      get: function () {
-        return this.targets.findAll(name);
-      }
-    }, _a["has" + capitalize(name) + "Target"] = {
-      get: function () {
-        return this.targets.has(name);
-      }
-    }, _a));
-  });
+function ClassPropertiesBlessing(constructor) {
+  var classes = (0, _inheritable_statics.readInheritableStaticArrayValues)(constructor, "classes");
+  return classes.reduce(function (properties, classDefinition) {
+    return Object.assign(properties, propertiesForClassDefinition(classDefinition));
+  }, {});
 }
 
-function getTargetNamesForConstructor(constructor) {
-  var ancestors = getAncestorsForConstructor(constructor);
-  return Array.from(ancestors.reduce(function (targetNames, constructor) {
-    getOwnTargetNamesForConstructor(constructor).forEach(function (name) {
-      return targetNames.add(name);
-    });
-    return targetNames;
-  }, new Set()));
+function propertiesForClassDefinition(key) {
+  var _a;
+
+  var name = key + "Class";
+  return _a = {}, _a[name] = {
+    get: function () {
+      var classes = this.classes;
+
+      if (classes.has(key)) {
+        return classes.get(key);
+      } else {
+        var attribute = classes.getAttributeName(key);
+        throw new Error("Missing attribute \"" + attribute + "\"");
+      }
+    }
+  }, _a["has" + (0, _string_helpers.capitalize)(name)] = {
+    get: function () {
+      return this.classes.has(key);
+    }
+  }, _a;
+}
+},{"./inheritable_statics":"../node_modules/@stimulus/core/dist/inheritable_statics.js","./string_helpers":"../node_modules/@stimulus/core/dist/string_helpers.js"}],"../node_modules/@stimulus/core/dist/target_properties.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TargetPropertiesBlessing = TargetPropertiesBlessing;
+
+var _inheritable_statics = require("./inheritable_statics");
+
+var _string_helpers = require("./string_helpers");
+
+/** @hidden */
+function TargetPropertiesBlessing(constructor) {
+  var targets = (0, _inheritable_statics.readInheritableStaticArrayValues)(constructor, "targets");
+  return targets.reduce(function (properties, targetDefinition) {
+    return Object.assign(properties, propertiesForTargetDefinition(targetDefinition));
+  }, {});
 }
 
-function getAncestorsForConstructor(constructor) {
-  var ancestors = [];
+function propertiesForTargetDefinition(name) {
+  var _a;
 
-  while (constructor) {
-    ancestors.push(constructor);
-    constructor = Object.getPrototypeOf(constructor);
+  return _a = {}, _a[name + "Target"] = {
+    get: function () {
+      var target = this.targets.find(name);
+
+      if (target) {
+        return target;
+      } else {
+        throw new Error("Missing target element \"" + this.identifier + "." + name + "\"");
+      }
+    }
+  }, _a[name + "Targets"] = {
+    get: function () {
+      return this.targets.findAll(name);
+    }
+  }, _a["has" + (0, _string_helpers.capitalize)(name) + "Target"] = {
+    get: function () {
+      return this.targets.has(name);
+    }
+  }, _a;
+}
+},{"./inheritable_statics":"../node_modules/@stimulus/core/dist/inheritable_statics.js","./string_helpers":"../node_modules/@stimulus/core/dist/string_helpers.js"}],"../node_modules/@stimulus/core/dist/value_properties.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ValuePropertiesBlessing = ValuePropertiesBlessing;
+exports.propertiesForValueDefinitionPair = propertiesForValueDefinitionPair;
+
+var _inheritable_statics = require("./inheritable_statics");
+
+var _string_helpers = require("./string_helpers");
+
+/** @hidden */
+function ValuePropertiesBlessing(constructor) {
+  var valueDefinitionPairs = (0, _inheritable_statics.readInheritableStaticObjectPairs)(constructor, "values");
+  var propertyDescriptorMap = {
+    valueDescriptorMap: {
+      get: function () {
+        var _this = this;
+
+        return valueDefinitionPairs.reduce(function (result, valueDefinitionPair) {
+          var _a;
+
+          var valueDescriptor = parseValueDefinitionPair(valueDefinitionPair);
+
+          var attributeName = _this.data.getAttributeNameForKey(valueDescriptor.key);
+
+          return Object.assign(result, (_a = {}, _a[attributeName] = valueDescriptor, _a));
+        }, {});
+      }
+    }
+  };
+  return valueDefinitionPairs.reduce(function (properties, valueDefinitionPair) {
+    return Object.assign(properties, propertiesForValueDefinitionPair(valueDefinitionPair));
+  }, propertyDescriptorMap);
+}
+/** @hidden */
+
+
+function propertiesForValueDefinitionPair(valueDefinitionPair) {
+  var _a;
+
+  var definition = parseValueDefinitionPair(valueDefinitionPair);
+  var type = definition.type,
+      key = definition.key,
+      name = definition.name;
+  var read = readers[type],
+      write = writers[type] || writers.default;
+  return _a = {}, _a[name] = {
+    get: function () {
+      var value = this.data.get(key);
+
+      if (value !== null) {
+        return read(value);
+      } else {
+        return definition.defaultValue;
+      }
+    },
+    set: function (value) {
+      if (value === undefined) {
+        this.data.delete(key);
+      } else {
+        this.data.set(key, write(value));
+      }
+    }
+  }, _a["has" + (0, _string_helpers.capitalize)(name)] = {
+    get: function () {
+      return this.data.has(key);
+    }
+  }, _a;
+}
+
+function parseValueDefinitionPair(_a) {
+  var token = _a[0],
+      typeConstant = _a[1];
+  var type = parseValueTypeConstant(typeConstant);
+  return valueDescriptorForTokenAndType(token, type);
+}
+
+function parseValueTypeConstant(typeConstant) {
+  switch (typeConstant) {
+    case Array:
+      return "array";
+
+    case Boolean:
+      return "boolean";
+
+    case Number:
+      return "number";
+
+    case Object:
+      return "object";
+
+    case String:
+      return "string";
   }
 
-  return ancestors;
+  throw new Error("Unknown value type constant \"" + typeConstant + "\"");
 }
 
-function getOwnTargetNamesForConstructor(constructor) {
-  var definition = constructor["targets"];
-  return Array.isArray(definition) ? definition : [];
-}
+function valueDescriptorForTokenAndType(token, type) {
+  var key = (0, _string_helpers.dasherize)(token) + "-value";
+  return {
+    type: type,
+    key: key,
+    name: (0, _string_helpers.camelize)(key),
 
-function defineLinkedProperties(object, properties) {
-  Object.keys(properties).forEach(function (name) {
-    if (!(name in object)) {
-      var descriptor = properties[name];
-      Object.defineProperty(object, name, descriptor);
+    get defaultValue() {
+      return defaultValuesByType[type];
     }
-  });
+
+  };
 }
 
-function capitalize(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1);
+var defaultValuesByType = {
+  get array() {
+    return [];
+  },
+
+  boolean: false,
+  number: 0,
+
+  get object() {
+    return {};
+  },
+
+  string: ""
+};
+var readers = {
+  array: function (value) {
+    var array = JSON.parse(value);
+
+    if (!Array.isArray(array)) {
+      throw new TypeError("Expected array");
+    }
+
+    return array;
+  },
+  boolean: function (value) {
+    return !(value == "0" || value == "false");
+  },
+  number: function (value) {
+    return parseFloat(value);
+  },
+  object: function (value) {
+    var object = JSON.parse(value);
+
+    if (object === null || typeof object != "object" || Array.isArray(object)) {
+      throw new TypeError("Expected object");
+    }
+
+    return object;
+  },
+  string: function (value) {
+    return value;
+  }
+};
+var writers = {
+  default: writeString,
+  array: writeJSON,
+  object: writeJSON
+};
+
+function writeJSON(value) {
+  return JSON.stringify(value);
 }
-},{}],"../node_modules/@stimulus/core/dist/src/controller.js":[function(require,module,exports) {
+
+function writeString(value) {
+  return "" + value;
+}
+},{"./inheritable_statics":"../node_modules/@stimulus/core/dist/inheritable_statics.js","./string_helpers":"../node_modules/@stimulus/core/dist/string_helpers.js"}],"../node_modules/@stimulus/core/dist/controller.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3341,7 +4127,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Controller = void 0;
 
+var _class_properties = require("./class_properties");
+
 var _target_properties = require("./target_properties");
+
+var _value_properties = require("./value_properties");
 
 var Controller =
 /** @class */
@@ -3350,50 +4140,53 @@ function () {
     this.context = context;
   }
 
-  Controller.bless = function () {
-    (0, _target_properties.defineTargetProperties)(this);
-  };
-
   Object.defineProperty(Controller.prototype, "application", {
     get: function () {
       return this.context.application;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Controller.prototype, "scope", {
     get: function () {
       return this.context.scope;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Controller.prototype, "element", {
     get: function () {
       return this.scope.element;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Controller.prototype, "identifier", {
     get: function () {
       return this.scope.identifier;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Controller.prototype, "targets", {
     get: function () {
       return this.scope.targets;
     },
-    enumerable: true,
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Controller.prototype, "classes", {
+    get: function () {
+      return this.scope.classes;
+    },
+    enumerable: false,
     configurable: true
   });
   Object.defineProperty(Controller.prototype, "data", {
     get: function () {
       return this.scope.data;
     },
-    enumerable: true,
+    enumerable: false,
     configurable: true
   });
 
@@ -3406,12 +4199,14 @@ function () {
   Controller.prototype.disconnect = function () {// Override in your subclass to respond when the controller is disconnected from the DOM
   };
 
+  Controller.blessings = [_class_properties.ClassPropertiesBlessing, _target_properties.TargetPropertiesBlessing, _value_properties.ValuePropertiesBlessing];
   Controller.targets = [];
+  Controller.values = {};
   return Controller;
 }();
 
 exports.Controller = Controller;
-},{"./target_properties":"../node_modules/@stimulus/core/dist/src/target_properties.js"}],"../node_modules/@stimulus/core/dist/index.js":[function(require,module,exports) {
+},{"./class_properties":"../node_modules/@stimulus/core/dist/class_properties.js","./target_properties":"../node_modules/@stimulus/core/dist/target_properties.js","./value_properties":"../node_modules/@stimulus/core/dist/value_properties.js"}],"../node_modules/@stimulus/core/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3442,14 +4237,14 @@ Object.defineProperty(exports, "defaultSchema", {
   }
 });
 
-var _application = require("./src/application");
+var _application = require("./application");
 
-var _context = require("./src/context");
+var _context = require("./context");
 
-var _controller = require("./src/controller");
+var _controller = require("./controller");
 
-var _schema = require("./src/schema");
-},{"./src/application":"../node_modules/@stimulus/core/dist/src/application.js","./src/context":"../node_modules/@stimulus/core/dist/src/context.js","./src/controller":"../node_modules/@stimulus/core/dist/src/controller.js","./src/schema":"../node_modules/@stimulus/core/dist/src/schema.js"}],"../node_modules/stimulus/index.js":[function(require,module,exports) {
+var _schema = require("./schema");
+},{"./application":"../node_modules/@stimulus/core/dist/application.js","./context":"../node_modules/@stimulus/core/dist/context.js","./controller":"../node_modules/@stimulus/core/dist/controller.js","./schema":"../node_modules/@stimulus/core/dist/schema.js"}],"../node_modules/stimulus/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
