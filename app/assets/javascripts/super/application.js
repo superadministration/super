@@ -1943,6 +1943,7 @@ var _indexed_multimap = require("./indexed_multimap");
 
 Object.keys(_indexed_multimap).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _indexed_multimap[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -1955,6 +1956,7 @@ var _multimap = require("./multimap");
 
 Object.keys(_multimap).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _multimap[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -1967,6 +1969,7 @@ var _set_operations = require("./set_operations");
 
 Object.keys(_set_operations).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _set_operations[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -2250,6 +2253,7 @@ var _attribute_observer = require("./attribute_observer");
 
 Object.keys(_attribute_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _attribute_observer[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -2262,6 +2266,7 @@ var _element_observer = require("./element_observer");
 
 Object.keys(_element_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _element_observer[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -2274,6 +2279,7 @@ var _string_map_observer = require("./string_map_observer");
 
 Object.keys(_string_map_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _string_map_observer[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -2286,6 +2292,7 @@ var _token_list_observer = require("./token_list_observer");
 
 Object.keys(_token_list_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _token_list_observer[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -2298,6 +2305,7 @@ var _value_list_observer = require("./value_list_observer");
 
 Object.keys(_value_list_observer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _value_list_observer[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
@@ -4255,6 +4263,7 @@ var _core = require("@stimulus/core");
 
 Object.keys(_core).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _core[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
