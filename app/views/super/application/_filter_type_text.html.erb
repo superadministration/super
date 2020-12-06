@@ -1,0 +1,22 @@
+<div class="super-field-group">
+  <%= form.fields_for(filter_type_text.field_name, filter_type_text) do |form_field| %>
+    <%= form_field.label(:q, filter_type_text.humanized_field_name) %>
+    <div class="relative inline-block">
+      <%= form_field.select(
+        :op,
+        filter_type_text.operators,
+        {},
+        { class: "super-input super-input-select-field" }
+      ) %>
+      <div class="super-input-select-icon text-gray-700">
+        <span class="h-4 w-4">
+          <%= render "super/feather/chevron_down" %>
+        </span>
+      </div>
+    </div>
+    <%= form_field.text_field(
+      :q,
+      class: "super-input w-full mt-3"
+    ) %>
+  <% end %>
+</div>

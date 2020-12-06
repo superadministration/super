@@ -9,5 +9,15 @@ module Super
         field
       end
     end
+
+    def sanitize_sql_like(query)
+      if ActiveRecord::VERSION::MAJOR == 4
+        ActiveRecord::Base.send(:sanitize_sql_like, query)
+      elsif ActiveRecord::VERSION::MAJOR == 5 && ActiveRecord::VERSION::MINOR <= 1
+        ActiveRecord::Base.send(:sanitize_sql_like, query)
+      else
+        ActiveRecord::Base.sanitize_sql_like(query)
+      end
+    end
   end
 end

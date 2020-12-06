@@ -1,0 +1,14 @@
+<%= render(Super::Panel.new) do %>
+  <h1 class="text-xl">Filters</h1>
+  <%= form_for(filter, url: filter.url, method: :get, as: :q, html: { class: "mt-4" }) do |form| %>
+    <% filter.each_field do |filter_field| %>
+      <div class="mt-4">
+        <%= render(filter_field, form: form) %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.submit "Filter", class: "super-button super-button--border-gray mt-6" %>
+    </div>
+  <% end %>
+<% end %>

@@ -33,6 +33,7 @@ module Super
           public_send("#{key}=", value)
         end
 
+        Plugin::Registry.controller.use(prepend: Super::Filter::ControllerMethods)
         Plugin::Registry.controller.use(prepend: Super::Pagination::ControllerMethods)
       end
 

@@ -28,6 +28,7 @@ stability.
 <tr><td><code>Super::Display</code></td>                    <td>🤔</td></tr>
 <tr><td><code>Super::Engine</code></td>                     <td>🙈</td></tr>
 <tr><td><code>Super::Error</code></td>                      <td>✅</td></tr>
+<tr><td><code>Super::Filter</code></td>                     <td>❌</td></tr>
 <tr><td><code>Super::Form</code></td>                       <td>🤔</td></tr>
 <tr><td><code>Super::Layout</code></td>                     <td>🤔</td></tr>
 <tr><td><code>Super::Link</code></td>                       <td>✅</td></tr>

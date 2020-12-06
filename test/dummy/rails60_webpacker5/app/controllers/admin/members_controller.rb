@@ -57,6 +57,19 @@ module Admin
           end
         end
       end
+
+      def filter_schema
+        Super::Schema.new(Super::Filter::SchemaTypes.new) do |fields, type|
+          fields[:name] = type.text
+          fields[:rank] = type.select(collection: Member.ranks.values)
+          fields[:position] = type.text
+          fields[:ship_id] = type.select(
+            collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+          )
+          fields[:created_at] = type.timestamp
+          fields[:updated_at] = type.timestamp
+        end
+      end
     end
   end
 end
