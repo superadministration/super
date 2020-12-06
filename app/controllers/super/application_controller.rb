@@ -7,6 +7,7 @@ module Super
     helper_method :action_inquirer
     helper_method :controls
 
+    # Displays a list of records to the user
     def index
       @records = controls.load_records(action: action_inquirer, params: params)
       @pagination = controls.initialize_pagination(action: action_inquirer, records: @records, query_params: request.GET)
@@ -14,16 +15,19 @@ module Super
       @display = controls.display_schema(action: action_inquirer)
     end
 
+    # Displays a specific record to the user
     def show
       @record = controls.load_record(action: action_inquirer, params: params)
       @display = controls.display_schema(action: action_inquirer)
     end
 
+    # Displays a form to allow the user to create a new record
     def new
       @record = controls.build_record(action: action_inquirer)
       @form = controls.form_schema(action: action_inquirer)
     end
 
+    # Creates a record, or shows the validation errors
     def create
       @record = controls.build_record_with_params(action: action_inquirer, params: params)
 
@@ -35,11 +39,13 @@ module Super
       end
     end
 
+    # Displays a form to allow the user to update an existing record
     def edit
       @record = controls.load_record(action: action_inquirer, params: params)
       @form = controls.form_schema(action: action_inquirer)
     end
 
+    # Updates a record, or shows validation errors
     def update
       @record = controls.load_record(action: action_inquirer, params: params)
 
@@ -51,6 +57,7 @@ module Super
       end
     end
 
+    # Deletes a record, or shows validation errors
     def destroy
       @record = controls.load_record(action: action_inquirer, params: params)
 

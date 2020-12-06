@@ -1,4 +1,5 @@
 module Super
+  # View helpers, available within views
   module ApplicationHelper
     def super_resolve_list_for_rendering(partials, block = -> {})
       block_result = block.call

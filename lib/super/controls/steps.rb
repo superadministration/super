@@ -1,5 +1,7 @@
 module Super
   class Controls
+    # Methods that are called by controller actions. All of these methods have
+    # a default implementation, but feel free to override as needed.
     module Steps
       # Tells the controller how to load records in the index action using
       # `#scope`

@@ -1,5 +1,6 @@
 module Super
   class Controls
+    # Methods for `Controls` that have a sane default implementation
     module Optional
       # This is an optional method
       #

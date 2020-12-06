@@ -29,6 +29,10 @@ module Super
       @schema_type.to_partial_path
     end
 
+    # This class can be thought of as a Hash, where the keys usually refer to
+    # the model's column name and the value refers to the column type. Note
+    # though that this isn't always the case—different `SchemaTypes` can do
+    # whatever makes sense in their context
     class Fields
       include Enumerable
 
@@ -52,9 +56,9 @@ module Super
         @backing.values
       end
 
-      def each
+      def each(&block)
         if block_given?
-          return @backing.each(&Proc.new)
+          return @backing.each(&block)
         end
 
         enum_for(:each)
@@ -73,6 +77,8 @@ module Super
         inside = {}
         @backing = inside
         yield
+        return inside
+      ensure
         @backing = outside
         inside
       end
