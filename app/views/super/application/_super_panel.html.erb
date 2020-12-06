@@ -1,10 +1,6 @@
-<%
-  super_panel_parts = super_resolve_list_for_rendering(super_panel.parts, Proc.new)
-%>
-
-<% if super_panel_parts.any? %>
+<% if super_panel.resolve(self, block_given? ? Proc.new : nil).resolved_parts.any? %>
   <div class="border rounded shadow border-gray-400 bg-white px-5 pt-4 pb-8 mt-6">
-    <% super_panel_parts.each do |partial| %>
+    <% super_panel.resolved_parts.each do |partial| %>
       <%= super_render_partialish(partial) %>
     <% end %>
   </div>

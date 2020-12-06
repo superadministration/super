@@ -1,34 +1,29 @@
-<%
-  super_layout_headers = super_resolve_list_for_rendering(super_layout.headers)
-  super_layout_asides = super_resolve_list_for_rendering(super_layout.asides)
-  super_layout_mains = super_resolve_list_for_rendering(super_layout.mains)
-  super_layout_footers = super_resolve_list_for_rendering(super_layout.footers)
-%>
+<% super_layout.resolve(self) %>
 
-<% super_layout_headers.each do |partial| %>
+<% super_layout.resolved_headers.each do |partial| %>
   <%= super_render_partialish(partial) %>
 <% end %>
 
-<% if super_layout_asides.empty? %>
-  <% super_layout_mains.each do |partial| %>
+<% if super_layout.resolved_asides.empty? %>
+  <% super_layout.resolved_mains.each do |partial| %>
     <%= super_render_partialish(partial) %>
   <% end %>
 <% else %>
   <div class="clearfix -mx-2">
     <div class="md:float-left md:w-9/12 px-2">
-      <% super_layout_mains.each do |partial| %>
+      <% super_layout.resolved_mains.each do |partial| %>
         <%= super_render_partialish(partial) %>
       <% end %>
     </div>
 
     <div class="md:float-right md:w-3/12 px-2">
-      <% super_layout_asides.each do |partial| %>
+      <% super_layout.resolved_asides.each do |partial| %>
         <%= super_render_partialish(partial) %>
       <% end %>
     </div>
   </div>
 <% end %>
 
-<% super_layout_footers.each do |partial| %>
+<% super_layout.resolved_footers.each do |partial| %>
   <%= super_render_partialish(partial) %>
 <% end %>
