@@ -1,3 +1,7 @@
+require "super/controls/optional"
+require "super/controls/required"
+require "super/controls/steps"
+
 module Super
   # A wrapper around the per-controller Controls classes. This class often
   # directly delegates to the per-controller classes, but it can also provide
