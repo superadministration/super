@@ -57,8 +57,12 @@ module Super
       if controls.destroy_record(action: action_inquirer, record: @record, params: params)
         redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
       else
+        flash.alert = "Couldn't delete record"
         redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       end
+    rescue ActiveRecord::InvalidForeignKey => e
+      flash.alert = "Couldn't delete record: #{e.class}"
+      redirect_to polymorphic_path(Super.configuration.path_parts(@record))
     end
 
     private
