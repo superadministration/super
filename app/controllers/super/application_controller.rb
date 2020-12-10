@@ -2,7 +2,6 @@ module Super
   # Provides a default implementation for each of the resourceful actions
   class ApplicationController < ActionController::Base
     include ClientError::Handling
-    include Pluggable.new(:super_application_controller)
 
     helper_method :action_inquirer
     helper_method :controls

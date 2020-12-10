@@ -6,5 +6,11 @@ module Super
         app.config.assets.precompile << "config/super_manifest.js"
       end
     end
+
+    config.to_prepare do
+      Super::Plugin::Registry.controller.ordered do |klass, method_name|
+        Super::ApplicationController.public_send(method_name, klass)
+      end
+    end
   end
 end

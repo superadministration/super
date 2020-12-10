@@ -1,3 +1,5 @@
+require "tsort"
+
 require "active_support/concern"
 
 require "super/action_inquirer"
@@ -7,7 +9,6 @@ require "super/compatibility"
 require "super/configuration"
 require "super/controls"
 require "super/display/schema_types"
-require "super/engine"
 require "super/error"
 require "super/form"
 require "super/form/schema_types"
@@ -21,3 +22,5 @@ require "super/plugin"
 require "super/schema"
 require "super/version"
 require "super/view_helper"
+
+require "super/engine"

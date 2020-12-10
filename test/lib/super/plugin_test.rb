@@ -1,55 +1,46 @@
 require "test_helper"
 
 class PluginTest < ActiveSupport::TestCase
-  class SomeSuperclass
+  module A; end
+  module B; end
+  module C; end
+  module D; end
+
+  def test_ordering
+    expected_one_of = [
+      [D, B, A, C],
+      [D, B, C, A],
+      [B, D, A, C],
+      [B, D, C, A],
+      [B, A, D, C],
+      [B, C, D, A],
+      [B, A, C, D],
+      [B, C, A, D],
+    ]
+
+    10.times do
+      registry = Super::Plugin::Registry.new
+      actions = [
+        -> { registry.insert_before(C, include: B) },
+        -> { registry.insert_before(A, include: B) },
+        -> { registry.use(include: D) },
+      ]
+
+      while actions.any?
+        action = actions.delete_at(rand(actions.length))
+        action.call
+      end
+
+      assert_includes(expected_one_of, registry.classes_ordered)
+    end
   end
 
-  class SubclassDefinedFirstInclude < SomeSuperclass
-    include Super::Pluggable.new(:subclass_defined_first_include)
-  end
-
-  class SubclassDefinedFirstPrepend < SomeSuperclass
-    include Super::Pluggable.new(:subclass_defined_first_prepend)
-  end
-
-  module CoolPlugin
-  end
-
-  Super::PluginRegistry.include_to(:subclass_defined_first_include, CoolPlugin)
-  Super::PluginRegistry.prepend_to(:subclass_defined_first_prepend, CoolPlugin)
-
-  Super::PluginRegistry.include_to(:subclass_defined_after_include, CoolPlugin)
-  Super::PluginRegistry.prepend_to(:subclass_defined_after_prepend, CoolPlugin)
-
-  class SubclassDefinedAfterInclude < SomeSuperclass
-    include Super::Pluggable.new(:subclass_defined_after_include)
-  end
-
-  class SubclassDefinedAfterPrepend < SomeSuperclass
-    include Super::Pluggable.new(:subclass_defined_after_prepend)
-  end
-
-  def test_class_defined_first
-    assert_equal(
-      [SubclassDefinedFirstInclude, CoolPlugin],
-      SubclassDefinedFirstInclude.ancestors[0..1]
-    )
-
-    assert_equal(
-      [CoolPlugin, SubclassDefinedFirstPrepend],
-      SubclassDefinedFirstPrepend.ancestors[0..1]
-    )
-  end
-
-  def test_plugin_defined_first
-    assert_equal(
-      [SubclassDefinedAfterInclude, CoolPlugin],
-      SubclassDefinedAfterInclude.ancestors[0..1]
-    )
-
-    assert_equal(
-      [CoolPlugin, SubclassDefinedAfterPrepend],
-      SubclassDefinedAfterPrepend.ancestors[0..1]
-    )
+  def test_use_appends
+    registry = Super::Plugin::Registry.new
+    registry.use(include: A)
+    registry.use(include: B)
+    registry.use(include: C)
+    registry.use(include: D)
+    assert_equal([A, B, C, D], registry.classes_ordered)
   end
 end

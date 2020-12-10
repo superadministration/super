@@ -95,6 +95,10 @@ module Super
     # @!attribute [rw]
     configure :asset_handler, default: -> { Super::Assets.auto }
 
+    def controller_plugins
+      Plugin::Registry.controller
+    end
+
     # @api private
     def path_parts(*parts)
       route_namespace + parts

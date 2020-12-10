@@ -35,8 +35,7 @@ stability.
 <tr><td><code>Super::Pagination</code></td>                 <td>🤔</td></tr>
 <tr><td><code>Super::Panel</code></td>                      <td>🤔</td></tr>
 <tr><td><code>Super::Partial</code></td>                    <td>🤔</td></tr>
-<tr><td><code>Super::Pluggable</code></td>                  <td>❌</td></tr>
-<tr><td><code>Super::PluginRegistry</code></td>             <td>❌</td></tr>
+<tr><td><code>Super::Plugin</code></td>                     <td>✅</td></tr>
 <tr><td><code>Super::Schema</code></td>                     <td>🚧</td></tr>
 <tr><td><code>Super::ViewHelper</code></td>                 <td>❌</td></tr>
 </tbody>

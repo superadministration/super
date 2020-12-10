@@ -1,88 +1,59 @@
 module Super
-  class Pluggable < Module
-    def initialize(registry_name)
-      @registry_name = registry_name
-    end
-
-    def included(base)
-      super
-
-      PluginRegistry.base_set(@registry_name, base)
-
-      plugins = PluginRegistry.plugins_for(@registry_name)
-
-      plugins.each do |klass, method_name|
-        base.public_send(method_name, klass)
-      end
-    end
-  end
-
-  class PluginRegistry
-    class << self
-      def include_to(name, klass)
-        plugin_push(name.to_sym, :include, klass)
-      end
-
-      def prepend_to(name, klass)
-        plugin_push(name.to_sym, :prepend, klass)
-      end
-
-      def plugins_for(name)
-        name = name.to_sym
-
-        plugins.fetch(name) { {} }
-      end
-
-      def base_set(name, klass)
-        name = name.to_sym
-
-        if !klass.kind_of?(Class)
-          raise Error::InvalidPluginArgument,
-            "Received `#{klass}` which must be a class"
+  module Plugin
+    class Registry
+      class << self
+        def controller
+          @controller ||= Registry.new
         end
-
-        bases[name] = klass
-
-        true
       end
 
-      def base_get(name)
-        name = name.to_sym
+      def initialize
+        @registry = {}
+        @ordering = Hash.new { |hash, key| hash[key] = [] }
+      end
 
-        bases[name]
+      def use(include: nil, prepend: nil)
+        register(include: include, prepend: prepend, before: [], after: [])
+      end
+
+      def insert_before(*before, include: nil, prepend: nil)
+        register(include: include, prepend: prepend, before: before, after: [])
+      end
+
+      def insert_after(*after, include: nil, prepend: nil)
+        register(include: include, prepend: prepend, before: [], after: after)
+      end
+
+      def classes_ordered
+        each_node = -> (&b) { @ordering.each_key(&b) }
+        each_child = -> (cb, &b) { @ordering[cb].each(&b) }
+
+        TSort.tsort(each_node, each_child)
+      end
+
+      def ordered
+        classes_ordered.each do |class_name|
+          yield class_name, @registry[class_name]
+        end
       end
 
       private
 
-      def plugin_push(name, method_name, klass)
-        if ![:include, :prepend].include?(method_name)
-          raise Error::InvalidPluginArgument,
-            "Received `#{method_name.inspect}`, must be either :include or :prepend"
+      def register(include:, prepend:, before: [], after: [])
+        raise Error::InvalidPluginArgument, "only one of :include or :prepend can be filled out" if include && prepend
+        raise Error::InvalidPluginArgument, "at least one of :include or :prepend must be filled out" if include.nil? && prepend.nil?
+
+        klass = include || prepend
+        @registry[klass] = :include if include
+        @registry[klass] = :prepend if prepend
+
+        before.each do |b|
+          @ordering[b].push(klass)
         end
 
-        if !klass.kind_of?(Module)
-          raise Error::InvalidPluginArgument,
-            "Received `#{klass}` which must be a module"
-        end
+        @ordering[klass].push(*after)
 
-        plugins[name] ||= {}
-        plugins[name][klass] = method_name
-
-        base = base_get(name)
-
-        if base
-          base.public_send(method_name, klass)
-        end
-
-        true
-      end
-
-      def plugins
-        @plugins ||= {}
-      end
-
-      def bases
-        @bases ||= {}
+        nil
       end
     end
   end
