@@ -1,2 +1,2 @@
-/app/assets/javascripts/**/* linguist-generated=false
-/frontend/super-frontend/dist/**/* linguist-generated=false
+test/dummy*/**/* lingust-generated=true
+/frontend/super-frontend/dist/**/* linguist-generated=true
