@@ -6,6 +6,7 @@ SUPER_RAILS_ROOTS = {
   "rails60_sprockets4" => "test/dummy60_sprockets4",
   "rails60_webpacker4" => "test/dummy60_webpacker4",
   "rails60_webpacker5" => "test/dummy60_webpacker5",
+  "rails61_sprockets4" => "test/dummy61_sprockets4",
   "rails61_webpacker5" => "test/dummy61_webpacker5",
 }
 
