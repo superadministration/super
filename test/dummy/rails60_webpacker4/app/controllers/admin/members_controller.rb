@@ -1,5 +1,10 @@
 module Admin
   class MembersController < AdminController
+    def show
+      super
+      @view.mains.push(Super::Partial.new("favorite_things"))
+    end
+
     private
 
     def new_controls

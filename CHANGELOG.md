@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* A "view" object in each controller action that renders something. These are
+  built via Controls to allow developers to customize them as desired. The
+  return value can be any object with a method `#to_partial_path` (or in newer
+  versions of Rails, a view component).
+
+
 ## [0.0.6] - 2020-12-08
 
 ### Changed

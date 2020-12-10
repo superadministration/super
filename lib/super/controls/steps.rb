@@ -110,6 +110,50 @@ module Super
           record.destroy
         end
       end
+
+      def build_index_view
+        Super::Layout.new(
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("collection_header"),
+              :@display
+            ),
+          ]
+        )
+      end
+
+      def build_show_view
+        Super::Layout.new(
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("member_header"),
+              :@display
+            ),
+          ]
+        )
+      end
+
+      def build_new_view
+        Super::Layout.new(
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("collection_header"),
+              :@form
+            ),
+          ]
+        )
+      end
+
+      def build_edit_view
+        Super::Layout.new(
+          mains: [
+            Super::Panel.new(
+              Super::Partial.new("member_header"),
+              :@form
+            ),
+          ]
+        )
+      end
     end
   end
 end
