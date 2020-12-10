@@ -1,13 +1,13 @@
 SUPER_DEFAULT_RAILS = "rails60_sprockets4"
 SUPER_RAILS_ROOTS = {
-  "rails50_sprockets3" => "test/dummy50_sprockets3",
-  "rails51_sprockets3" => "test/dummy51_sprockets3",
-  "rails52_sprockets4" => "test/dummy52_sprockets4",
-  "rails60_sprockets4" => "test/dummy60_sprockets4",
-  "rails60_webpacker4" => "test/dummy60_webpacker4",
-  "rails60_webpacker5" => "test/dummy60_webpacker5",
-  "rails61_sprockets4" => "test/dummy61_sprockets4",
-  "rails61_webpacker5" => "test/dummy61_webpacker5",
+  "rails50_sprockets3" => "test/dummy/rails50_sprockets3",
+  "rails51_sprockets3" => "test/dummy/rails51_sprockets3",
+  "rails52_sprockets4" => "test/dummy/rails52_sprockets4",
+  "rails60_sprockets4" => "test/dummy/rails60_sprockets4",
+  "rails60_webpacker4" => "test/dummy/rails60_webpacker4",
+  "rails60_webpacker5" => "test/dummy/rails60_webpacker5",
+  "rails61_sprockets4" => "test/dummy/rails61_sprockets4",
+  "rails61_webpacker5" => "test/dummy/rails61_webpacker5",
 }
 
 query =

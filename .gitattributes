@@ -1,2 +1,2 @@
-test/dummy*/**/* lingust-generated=true
+test/dummy/**/* linguist-generated=true
 /frontend/super-frontend/dist/**/* linguist-generated=true
