@@ -55,16 +55,14 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
-    - name: Install build dependencies
-      run: |
-        sudo apt-get install -y sqlite3 libsqlite3-dev
+        node-version: '12.x'
     - uses: actions/cache@v1
       env:
         BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
+        BUNDLE_GEMFILE_LOCK: ${{ github.workspace }}/${{ matrix.gemfile }}.lock
       with:
         path: gemfiles/vendor/bundle
-        key: ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE) }}
+        key: ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE_LOCK) }}
         restore-keys: |
           ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-
     - name: Install and set up Bundler
