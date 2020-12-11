@@ -1,2 +1,3 @@
-test/dummy/**/* linguist-generated=true
-/frontend/super-frontend/dist/**/* linguist-generated=true
+/app/assets/**/* linguist-generated
+/test/dummy/**/* linguist-generated
+/frontend/super-frontend/dist/**/* linguist-generated
