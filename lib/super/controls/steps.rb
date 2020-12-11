@@ -15,37 +15,6 @@ module Super
         end
       end
 
-      # Sets up pagination
-      #
-      # @param action [ActionInquirer]
-      # @param records [ActiveRecord::Relation]
-      # @param query_params [Hash]
-      # @return [Pagination]
-      def initialize_pagination(action:, records:, query_params:)
-        default_for(:initialize_pagination, action: action, records: records, query_params: query_params) do
-          Pagination.new(
-            total_count: records.size,
-            limit: records_per_page(action: action, query_params: query_params),
-            query_params: query_params,
-            page_query_param: :page
-          )
-        end
-      end
-
-      # Paginates
-      #
-      # @param action [ActionInquirer]
-      # @param records [ActiveRecord::Relation]
-      # @param pagination [Pagination]
-      # @return [ActiveRecord::Relation]
-      def paginate_records(action:, records:, pagination:)
-        default_for(:paginate_records, action: action, records: records, pagination: pagination) do
-          records
-            .limit(pagination.limit)
-            .offset(pagination.offset)
-        end
-      end
-
       # Loads a record using `#scope`
       #
       # @param action [ActionInquirer]

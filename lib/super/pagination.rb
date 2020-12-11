@@ -52,6 +52,10 @@ module Super
       end
     end
 
+    def to_partial_path
+      "super_pagination"
+    end
+
     private
 
     def pages
@@ -65,6 +69,63 @@ module Super
             quotient + 1
           end
         end
+    end
+
+    module ControllerMethods
+      def index
+        super
+        @pagination = controls.initialize_pagination(action: action_inquirer, records: @records, query_params: request.GET)
+        @records = controls.paginate_records(action: action_inquirer, records: @records, pagination: @pagination)
+        @view.mains.first.parts.push(:@pagination)
+      end
+    end
+  end
+
+  class Controls
+    module Optional
+      # Specifies how many records to show per page
+      #
+      # @param action [ActionInquirer]
+      # @param query_params [Hash]
+      # @return [ActiveRecord::Relation]
+      def records_per_page(action:, query_params:)
+        default_for(:records_per_page, action: action, query_params: query_params) do
+          Super.configuration.index_records_per_page
+        end
+      end
+    end
+
+    module Steps
+      # Sets up pagination
+      #
+      # @param action [ActionInquirer]
+      # @param records [ActiveRecord::Relation]
+      # @param query_params [Hash]
+      # @return [Pagination]
+      def initialize_pagination(action:, records:, query_params:)
+        default_for(:initialize_pagination, action: action, records: records, query_params: query_params) do
+          Pagination.new(
+            total_count: records.size,
+            limit: records_per_page(action: action, query_params: query_params),
+            query_params: query_params,
+            page_query_param: :page
+          )
+        end
+      end
+
+      # Paginates
+      #
+      # @param action [ActionInquirer]
+      # @param records [ActiveRecord::Relation]
+      # @param pagination [Pagination]
+      # @return [ActiveRecord::Relation]
+      def paginate_records(action:, records:, pagination:)
+        default_for(:paginate_records, action: action, records: records, pagination: pagination) do
+          records
+            .limit(pagination.limit)
+            .offset(pagination.offset)
+        end
+      end
     end
   end
 end

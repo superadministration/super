@@ -9,8 +9,6 @@ module Super
     # Displays a list of records to the user
     def index
       @records = controls.load_records(action: action_inquirer, params: params)
-      @pagination = controls.initialize_pagination(action: action_inquirer, records: @records, query_params: request.GET)
-      @records = controls.paginate_records(action: action_inquirer, records: @records, pagination: @pagination)
       @display = controls.display_schema(action: action_inquirer)
       @view = controls.build_index_view
     end
