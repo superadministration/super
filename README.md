@@ -1,7 +1,8 @@
 # Super
 
 Super is an admin framework for Ruby on Rails applications. Super helps you make
-powerful admin pages quickly.
+powerful admin pages quickly so that you can concentrate on the parts of your
+app that make it great.
 
 Super strives to let engineers build great admin pages quickly and easily by:
 
@@ -57,16 +58,21 @@ as ActiveAdmin, but it's nice and feels like developing a normal Rails app.
 There's no DSL.
 
 
-## Professional edition
+## Paid editions
 
-Super Professional is a paid add-on that provides additional benefits:
+If you have additional requirements, there are some paid editions to consider:
+
+**Super Premium** provides:
+
+* Priority email support
+* Ensuring long term development of Super
+
+**Super Professional** provides everything in Premium and:
 
 * Productivity improvements and quality of life features for admins
-* Priority email support
-* Supporting long term development of Super
 * An LGPL exemption
 
-It isn't available yet. Contact me if you're interested, or subscribe to the
+They aren't available yet. Contact me if you're interested, or subscribe to the
 [newsletter][newsletter] to be notified of its availability and for brief,
 occasional updates to Super.
 
