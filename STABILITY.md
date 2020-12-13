@@ -16,7 +16,6 @@ stability.
 <tr><td>Frontend JS</td>                                    <td>❌</td></tr>
 <tr><td><code>Super::ActionInquirer</code></td>             <td>✅</td></tr>
 <tr><td><code>Super::ApplicationController</code></td>      <td>✅</td></tr>
-<tr><td><code>Super::ApplicationHelper</code></td>          <td>❌</td></tr>
 <tr><td><code>Super::Assets</code></td>                     <td>🚧</td></tr>
 <tr><td><code>Super::ClientError</code></td>                <td>✅</td></tr>
 <tr><td><code>Super::Compatability</code></td>              <td>🙈</td></tr>

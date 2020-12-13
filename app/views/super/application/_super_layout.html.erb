@@ -1,29 +1,29 @@
 <% super_layout.resolve(self) %>
 
 <% super_layout.resolved_headers.each do |partial| %>
-  <%= super_render_partialish(partial) %>
+  <%= Super::Partial.render(partial, template: self) %>
 <% end %>
 
 <% if super_layout.resolved_asides.empty? %>
   <% super_layout.resolved_mains.each do |partial| %>
-    <%= super_render_partialish(partial) %>
+    <%= Super::Partial.render(partial, template: self) %>
   <% end %>
 <% else %>
   <div class="clearfix -mx-2">
     <div class="md:float-left md:w-9/12 px-2">
       <% super_layout.resolved_mains.each do |partial| %>
-        <%= super_render_partialish(partial) %>
+        <%= Super::Partial.render(partial, template: self) %>
       <% end %>
     </div>
 
     <div class="md:float-right md:w-3/12 px-2">
       <% super_layout.resolved_asides.each do |partial| %>
-        <%= super_render_partialish(partial) %>
+        <%= Super::Partial.render(partial, template: self) %>
       <% end %>
     </div>
   </div>
 <% end %>
 
 <% super_layout.resolved_footers.each do |partial| %>
-  <%= super_render_partialish(partial) %>
+  <%= Super::Partial.render(partial, template: self) %>
 <% end %>
