@@ -23,7 +23,7 @@ module Super
 
     def errors_accounting_for_reflections(model_instance, column_or_association)
       errable_fields(model_instance, column_or_association)
-        .flat_map { |field| Compatability.rails_50_errable_fields(field) }
+        .flat_map { |field| Compatability.errable_fields(field) }
         .flat_map { |field| model_instance.errors.full_messages_for(field) }
         .uniq
     end
