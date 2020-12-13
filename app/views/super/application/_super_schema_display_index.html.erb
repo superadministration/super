@@ -12,7 +12,7 @@
         <tr id="record-pk-<%= record.id %>" class="group">
           <% super_schema_display_index.field_keys.each do |column| %>
             <td class="py-1 px-2 first:pl-5 border-transparent border-t border-b group-hover:bg-blue-200 first:border-l first:rounded-l-lg last:border-r last:rounded-r-lg <%= Super::ViewHelper.classes(["bg-gray-100", row_index.odd?]) %>">
-              <%= super_format_for_display(super_schema_display_index, record, column) %>
+              <%= super_schema_display_index.schema_type.render_field(template: self, record: record, column: column) %>
             </td>
           <% end %>
         </tr>

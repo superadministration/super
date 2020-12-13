@@ -84,6 +84,30 @@ module Super
           "super_schema_display_#{@action_inquirer.action}"
         end
       end
+
+      # @private
+      def render_field(template:, record:, column:)
+        formatter = @fields[column]
+
+        formatted =
+          if formatter.real?
+            value = record.public_send(column)
+            formatter.present(value)
+          else
+            formatter.present
+          end
+
+        if formatted.respond_to?(:to_partial_path)
+          if formatted.respond_to?(:locals)
+            formatted.locals[:record] ||= record
+            template.render(formatted, formatted.locals)
+          else
+            template.render(formatted)
+          end
+        else
+          formatted
+        end
+      end
     end
   end
 end

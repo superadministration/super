@@ -20,6 +20,7 @@ module Super
     end
 
     attr_reader :fields
+    attr_reader :schema_type
 
     def field_keys
       fields.keys
