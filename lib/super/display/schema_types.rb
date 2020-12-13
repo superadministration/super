@@ -76,7 +76,13 @@ module Super
       end
 
       def to_partial_path
-        "super_schema_display_#{@action_inquirer.action}"
+        if @action_inquirer.index?
+          "super_schema_display_index"
+        elsif @action_inquirer.show?
+          "super_schema_display_show"
+        else
+          "super_schema_display_#{@action_inquirer.action}"
+        end
       end
     end
   end
