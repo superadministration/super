@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Changed
+
+* Made the table headers (on the `#index` action) sticky on larger screens.
+
 ### Added
 
 * A "view" object in each controller action that renders something. These are
