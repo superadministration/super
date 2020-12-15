@@ -16,8 +16,10 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.3.0"
 
-  spec.add_dependency "rails", ">= 5.0"
+  rails_versions = ">= 5.0"
+  spec.add_dependency "railties", rails_versions
 
+  spec.add_development_dependency "rails", rails_versions
   spec.add_development_dependency "capybara", "~> 3.18"
   spec.add_development_dependency "selenium-webdriver", "~> 3.142"
   spec.add_development_dependency "webdrivers", "~> 4.3"

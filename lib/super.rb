@@ -1,6 +1,6 @@
 require "tsort"
 
-require "active_support/concern"
+require "rails/engine"
 
 require "super/action_inquirer"
 require "super/assets"

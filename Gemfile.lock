@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     super (0.0.6)
-      rails (>= 5.0)
+      railties (>= 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -182,6 +182,7 @@ DEPENDENCIES
   mocha
   pry
   puma (~> 4.3, >= 4.3.6)
+  rails (>= 5.0)
   selenium-webdriver (~> 3.142)
   sqlite3
   super!
