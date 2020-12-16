@@ -76,3 +76,8 @@ jobs:
         BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
       run: |
         ruby bin/thoroughly_test.rb
+    - name: Clean Bundler cache
+      env:
+        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
+      run: |
+        bundle clean
