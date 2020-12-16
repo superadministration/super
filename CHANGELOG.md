@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.7] - 2020-12-15
+
 ## Changed
 
 * Made the table headers (on the `#index` action) sticky on larger screens.
