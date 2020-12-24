@@ -13,7 +13,7 @@ module Super
     #     # ...
     #
     #     def filter_schema
-    #       Super::Schema.new(Super::Filter::SchemaTypes.new) do |fields, type|
+    #       Super::Filter.new do |fields, type|
     #         fields[:name] = type.text(operators: [
     #           Super::Filter::Operator.eq,
     #           Super::Filter::Operator.contain,
@@ -88,12 +88,6 @@ module Super
         def q
           [:q0, :q1]
         end
-      end
-
-      def before_yield(fields:)
-      end
-
-      def after_yield
       end
 
       def select(collection:, operators: Filter::Operator.select_defaults)

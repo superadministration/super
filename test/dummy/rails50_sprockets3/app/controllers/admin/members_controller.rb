@@ -59,7 +59,7 @@ module Admin
       end
 
       def filter_schema
-        Super::Schema.new(Super::Filter::SchemaTypes.new) do |fields, type|
+        Super::Filter.new do |fields, type|
           fields[:name] = type.text
           fields[:rank] = type.select(collection: Member.ranks.values)
           fields[:position] = type.text
