@@ -25,22 +25,22 @@ module Admin
 
       def display_schema(action:)
         Super::Display.new(action: action) do |fields, type|
-          fields[:name] = type.dynamic(&:itself)
-          fields[:registry] = type.dynamic(&:itself)
-          fields[:class_name] = type.dynamic(&:itself)
-          fields[:members] = type.dynamic(&:count)
+          fields[:name] = type.string
+          fields[:registry] = type.string
+          fields[:class_name] = type.string
+          fields[:members] = type.manual(&:count)
           if action.show?
-            fields[:created_at] = type.dynamic(&:iso8601)
-            fields[:updated_at] = type.dynamic(&:iso8601)
+            fields[:created_at] = type.timestamp
+            fields[:updated_at] = type.timestamp
           end
         end
       end
 
       def form_schema(action:)
         Super::Form.new do |fields, type|
-          fields[:name] = type.generic("form_field_text")
-          fields[:registry] = type.generic("form_field_text")
-          fields[:class_name] = type.generic("form_field_text")
+          fields[:name] = type.string
+          fields[:registry] = type.string
+          fields[:class_name] = type.string
         end
       end
     end

@@ -56,6 +56,14 @@ module Super
         Generic.new(partial_path: partial_path, extras: extras, nested: {})
       end
 
+      def select(**extras)
+        Generic.new(partial_path: "form_field_select", extras: extras, nested: {})
+      end
+
+      def string(**extras)
+        Generic.new(partial_path: "form_field_text", extras: extras, nested: {})
+      end
+
       def has_many(reader, **extras)
         nested = @fields.nested do
           yield

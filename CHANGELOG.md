@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `#form_schema` definition now looks like `Super::Form.new do`
 * The `#filter_schema` definition now looks like `Super::Filter.new do`
 
+### Added
+
+* Additional "schema type" helpers on Display and Form
+
 
 ## [0.0.7] - 2020-12-15
 

@@ -7,11 +7,10 @@ module Super
   #
   #   def new_schema
   #     Super::Form.new do |fields, type|
-  #       fields[:name] = type.generic("form_field_text")
-  #       fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
-  #       fields[:position] = type.generic("form_field_text")
-  #       fields[:ship_id] = type.generic(
-  #         "form_field_select",
+  #       fields[:name] = type.string
+  #       fields[:rank] = type.select
+  #       fields[:position] = type.string
+  #       fields[:ship_id] = type.select(
   #         collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
   #       )
   #     end

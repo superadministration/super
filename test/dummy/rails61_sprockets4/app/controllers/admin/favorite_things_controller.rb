@@ -25,21 +25,20 @@ module Admin
 
       def display_schema(action:)
         Super::Display.new(action: action) do |fields, type|
-          fields[:name] = type.dynamic(&:itself)
-          fields[:member] = type.dynamic { |member| "#{member.name} (member ##{member.id})" }
+          fields[:name] = type.string
+          fields[:member] = type.manual { |member| "#{member.name} (member ##{member.id})" }
         end
       end
 
       def form_schema(action:)
         Super::Form.new do |fields, type|
-          fields[:name] = type.generic("form_field_text")
+          fields[:name] = type.string
 
           fields[:member_attributes] = type.belongs_to(:member) do
-            fields[:name] = type.generic("form_field_text")
-            fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
-            fields[:position] = type.generic("form_field_text")
-            fields[:ship_id] = type.generic(
-              "form_field_select",
+            fields[:name] = type.string
+            fields[:rank] = type.select(collection: Member.ranks.keys)
+            fields[:position] = type.string
+            fields[:ship_id] = type.select(
               collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
             )
           end

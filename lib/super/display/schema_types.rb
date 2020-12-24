@@ -2,7 +2,7 @@ module Super
   class Display
     class SchemaTypes
       class Dynamic
-        def initialize(transform_block)
+        def initialize(&transform_block)
           @transform_block = transform_block
         end
 
@@ -35,8 +35,22 @@ module Super
         @fields = fields
       end
 
+      def string
+        Dynamic.new(&:to_s)
+      end
+
+      alias text string
+
+      def timestamp
+        Dynamic.new(&:iso8601)
+      end
+
+      def manual(&transform_block)
+        Dynamic.new(&transform_block)
+      end
+
       def dynamic(&transform_block)
-        Dynamic.new(transform_block)
+        Dynamic.new(&transform_block)
       end
 
       def actions

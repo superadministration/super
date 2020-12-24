@@ -30,29 +30,28 @@ module Admin
 
       def display_schema(action:)
         Super::Display.new(action: action) do |fields, type|
-          fields[:name] = type.dynamic(&:itself)
-          fields[:rank] = type.dynamic(&:itself)
-          fields[:position] = type.dynamic(&:itself)
-          fields[:ship] = type.dynamic { |ship| "#{ship.name} (Ship ##{ship.id})" }
-          fields[:created_at] = type.dynamic(&:iso8601)
+          fields[:name] = type.string
+          fields[:rank] = type.string
+          fields[:position] = type.string
+          fields[:ship] = type.manual { |ship| "#{ship.name} (Ship ##{ship.id})" }
+          fields[:created_at] = type.timestamp
           if action.show?
-            fields[:updated_at] = type.dynamic(&:iso8601)
+            fields[:updated_at] = type.timestamp
           end
         end
       end
 
       def form_schema(action:)
         Super::Form.new do |fields, type|
-          fields[:name] = type.generic("form_field_text")
-          fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
-          fields[:position] = type.generic("form_field_text")
-          fields[:ship_id] = type.generic(
-            "form_field_select",
+          fields[:name] = type.string
+          fields[:rank] = type.select(collection: Member.ranks.keys)
+          fields[:position] = type.string
+          fields[:ship_id] = type.select(
             collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
           )
 
           fields[:favorite_things_attributes] = type.has_many(:favorite_things) do
-            fields[:name] = type.generic("form_field_text")
+            fields[:name] = type.string
             fields[:_destroy] = type._destroy
           end
         end
