@@ -50,7 +50,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
             end
 
             def display_schema(action:)
-              Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+              Super::Display.new(action: action) do |fields, type|
               end
             end
 
@@ -109,7 +109,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           end
 
           def display_schema(action:)
-            Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+            Super::Display.new(action: action) do |fields, type|
             end
           end
 

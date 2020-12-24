@@ -32,7 +32,7 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
     end
 
     def display_schema(action:)
-      Super::Schema.new(Super::Display::SchemaTypes.new) do |fields, type|
+      Super::Display.new(action: action) do |fields, type|
       end
     end
 

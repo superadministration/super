@@ -2,9 +2,9 @@
   <table class="w-full border-separate relative" cellspacing="0" cellpadding="0">
     <thead class="">
       <tr class="">
-        <% super_schema_display_index.field_keys.each do |column| %>
+        <% super_schema_display_index.each_attribute_name do |attribute_name| %>
           <th class="p-2 first:pl-6 border-b border-b-2 border-gray-400 text-gray-600 text-left text-sm font-normal bg-white sticky top-0 z-10">
-            <%= controls.model.human_attribute_name(column) %>
+            <%= controls.model.human_attribute_name(attribute_name) %>
           </th>
         <% end %>
       </tr>
@@ -12,9 +12,9 @@
     <tbody class="">
       <% @records.each.with_index do |record, row_index| %>
         <tr id="record-pk-<%= record.id %>" class="group">
-          <% super_schema_display_index.field_keys.each do |column| %>
+          <% super_schema_display_index.each_attribute_name do |attribute_name| %>
             <td class="py-1 px-2 first:pl-5 border-transparent border-t border-b group-hover:bg-blue-200 first:border-l first:rounded-l-lg last:border-r last:rounded-r-lg bg-white <%= Super::ViewHelper.classes(["bg-gray-100", row_index.odd?]) %>">
-              <%= super_schema_display_index.schema_type.render_field(template: self, record: record, column: column) %>
+              <%= super_schema_display_index.render_field(template: self, record: record, column: attribute_name) %>
             </td>
           <% end %>
         </tr>
