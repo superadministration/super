@@ -2,6 +2,8 @@ require "tsort"
 
 require "rails/engine"
 
+require "super/schema/common"
+
 require "super/action_inquirer"
 require "super/assets"
 require "super/client_error"

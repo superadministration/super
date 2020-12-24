@@ -21,6 +21,8 @@ module Super
   # end
   # ```
   class Display
+    include Schema::Common
+
     def initialize(action:)
       @action_inquirer = action
       @fields = Super::Schema::Fields.new
@@ -31,16 +33,6 @@ module Super
       return if !@action_inquirer.index?
       return if @schema_types.actions_called?
       @fields[:actions] = @schema_types.actions
-    end
-
-    def each_attribute_name
-      if block_given?
-        @fields.keys.each do |key|
-          yield(key)
-        end
-      end
-
-      enum_for(:each_attribute_name)
     end
 
     def to_partial_path

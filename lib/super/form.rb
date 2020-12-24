@@ -20,30 +20,12 @@ module Super
   # end
   # ```
   class Form
+    include Schema::Common
+
     def initialize
       @fields = Schema::Fields.new
       @schema_types = SchemaTypes.new(fields: @fields)
       yield(@fields, @schema_types)
-    end
-
-    def each_attribute_name
-      if block_given?
-        @fields.keys.each do |key|
-          yield(key)
-        end
-      end
-
-      enum_for(:each_attribute_name)
-    end
-
-    def each_attribute
-      if block_given?
-        @fields.each do |key, value|
-          yield(key, value)
-        end
-      end
-
-      enum_for(:each_attribute)
     end
 
     def to_partial_path
