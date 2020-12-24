@@ -2,7 +2,7 @@ require "test_helper"
 
 class FormSchemaTypesTest < ActiveSupport::TestCase
   def test_basic
-    result = Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+    result = Super::Form.new do |fields, type|
       fields[:name] = type.generic("cool_partial_path")
     end
 
@@ -14,12 +14,12 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
           nested: {}
         ),
       },
-      result.fields.to_h
+      result.instance_variable_get(:@fields).to_h
     )
   end
 
   def test_has_many
-    result = Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+    result = Super::Form.new do |fields, type|
       fields[:widgets_attributes] = type.has_many(:widgets) do
         fields[:name] = type.generic("cool_partial_path")
       end
@@ -39,7 +39,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
           }
         )
       },
-      result.fields.to_h
+      result.instance_variable_get(:@fields).to_h
     )
   end
 end

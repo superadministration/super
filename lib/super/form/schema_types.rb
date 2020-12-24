@@ -1,26 +1,5 @@
 module Super
   class Form
-    # This schema type is used on your +#edit+ and +#new+ forms
-    #
-    # ```ruby
-    # class MembersController::Controls
-    #   # ...
-    #
-    #   def new_schema
-    #     Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
-    #       fields[:name] = type.generic("form_field_text")
-    #       fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
-    #       fields[:position] = type.generic("form_field_text")
-    #       fields[:ship_id] = type.generic(
-    #         "form_field_select",
-    #         collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
-    #       )
-    #     end
-    #   end
-    #
-    #   # ...
-    # end
-    # ```
     class SchemaTypes
       class Generic
         def initialize(partial_path:, extras:, nested:)
@@ -69,11 +48,8 @@ module Super
         end
       end
 
-      def before_yield(fields:)
+      def initialize(fields:)
         @fields = fields
-      end
-
-      def after_yield
       end
 
       def generic(partial_path, **extras)
@@ -112,10 +88,6 @@ module Super
           extras: extras,
           nested: {}
         )
-      end
-
-      def to_partial_path
-        "super_schema_form"
       end
     end
   end

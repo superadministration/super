@@ -1,48 +1,54 @@
 module Super
+  # This schema type is used on your +#edit+ and +#new+ forms
+  #
+  # ```ruby
+  # class MembersController::Controls
+  #   # ...
+  #
+  #   def new_schema
+  #     Super::Form.new do |fields, type|
+  #       fields[:name] = type.generic("form_field_text")
+  #       fields[:rank] = type.generic("form_field_select", collection: Member.ranks.keys)
+  #       fields[:position] = type.generic("form_field_text")
+  #       fields[:ship_id] = type.generic(
+  #         "form_field_select",
+  #         collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+  #       )
+  #     end
+  #   end
+  #
+  #   # ...
+  # end
+  # ```
   class Form
-    module FieldErrorProc
-      def error_wrapping(html_tag)
-        if Thread.current[:super_form_builder]
-          return html_tag
-        end
-
-        super
-      end
+    def initialize
+      @fields = Schema::Fields.new
+      @schema_types = SchemaTypes.new(fields: @fields)
+      yield(@fields, @schema_types)
     end
 
-    class Builder < ActionView::Helpers::FormBuilder
-      # These methods were originally defined in the following files
-      #
-      # * actionview/lib/action_view/helpers/form_helper.rb
-      # * actionview/lib/action_view/helpers/form_options_helper.rb
-      # * actionview/lib/action_view/helpers/date_helper.rb
-      %w[
-        label text_field password_field hidden_field file_field text_area
-        check_box radio_button color_field search_field telephone_field
-        date_field time_field datetime_field month_field week_field url_field
-        email_field number_field range_field
-
-        select collection_select grouped_collection_select time_zone_select
-        collection_radio_buttons collection_check_boxes
-
-        time_select datetime_select date_select
-      ].each do |field_type_method|
-        class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
-          def #{field_type_method}(*)
-            Thread.current[:super_form_builder] = true
-            super
-          ensure
-            Thread.current[:super_form_builder] = nil
-          end
-        RUBY
+    def each_attribute_name
+      if block_given?
+        @fields.keys.each do |key|
+          yield(key)
+        end
       end
 
-      alias datetime_local_field datetime_field
-      alias phone_field telephone_field
+      enum_for(:each_attribute_name)
+    end
+
+    def each_attribute
+      if block_given?
+        @fields.each do |key, value|
+          yield(key, value)
+        end
+      end
+
+      enum_for(:each_attribute)
+    end
+
+    def to_partial_path
+      "super_schema_form"
     end
   end
-end
-
-ActionView::Helpers::Tags::Base.class_eval do
-  prepend Super::Form::FieldErrorProc
 end

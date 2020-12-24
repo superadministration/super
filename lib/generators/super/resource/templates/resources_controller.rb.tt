@@ -37,7 +37,7 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
     end
 
     def form_schema(action:)
-      Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+      Super::Form.new do |fields, type|
       end
     end
   end

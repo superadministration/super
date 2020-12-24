@@ -1,6 +1,6 @@
 <%= form_for(Super.configuration.path_parts(@record), builder: Super::Form::Builder) do |f| %>
   <div class="max-w-3xl">
-    <% super_schema_form.fields.each do |field, type| %>
+    <% super_schema_form.each_attribute do |field, type| %>
       <%= render(
         type,
         form: f,

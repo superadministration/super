@@ -37,7 +37,7 @@ module Admin
       end
 
       def form_schema(action:)
-        Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+        Super::Form.new do |fields, type|
           fields[:name] = type.generic("form_field_text")
           fields[:registry] = type.generic("form_field_text")
           fields[:class_name] = type.generic("form_field_text")

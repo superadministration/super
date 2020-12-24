@@ -55,7 +55,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
             end
 
             def form_schema(action:)
-              Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+              Super::Form.new do |fields, type|
               end
             end
           end
@@ -114,7 +114,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           end
 
           def form_schema(action:)
-            Super::Schema.new(Super::Form::SchemaTypes.new) do |fields, type|
+            Super::Form.new do |fields, type|
             end
           end
         end
