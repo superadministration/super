@@ -27,6 +27,7 @@ require "super/panel"
 require "super/partial"
 require "super/plugin"
 require "super/schema"
+require "super/schema/guesser"
 require "super/version"
 require "super/view_helper"
 
