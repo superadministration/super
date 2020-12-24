@@ -5,31 +5,6 @@ module Super
   #
   # The various "schema types" are likely of more interest
   class Schema
-    # @param schema_type [Display::SchemaTypes, Form::SchemaTypes]
-    def initialize(schema_type)
-      @schema_type = schema_type
-      @fields = Fields.new
-
-      @schema_type.before_yield(fields: @fields)
-
-      if block_given?
-        yield(@fields, @schema_type)
-      end
-
-      @schema_type.after_yield
-    end
-
-    attr_reader :fields
-    attr_reader :schema_type
-
-    def field_keys
-      fields.keys
-    end
-
-    def to_partial_path
-      @schema_type.to_partial_path
-    end
-
     # This class can be thought of as a Hash, where the keys usually refer to
     # the model's column name and the value refers to the column type. Note
     # though that this isn't always the case—different `SchemaTypes` can do
