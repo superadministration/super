@@ -22,6 +22,32 @@ module Super
         end
       end
 
+      # Configures the fields that are displayed on the index and show actions.
+      # This is a required method
+      #
+      # @param action [ActionInquirer]
+      # @return [Schema]
+      def display_schema(action:)
+        default_for(:display_schema, action: action) do
+          Display.new(action: action) do |fields, type|
+            Display::Guesser.new(model: model, action: action, fields: fields, type: type).call
+          end
+        end
+      end
+
+      # Configures the editable fields on the new and edit actions. This is a
+      # required method
+      #
+      # @param action [ActionInquirer]
+      # @return [Schema]
+      def form_schema(action:)
+        default_for(:form_schema, action: action) do
+          Form.new do |fields, type|
+            Form::Guesser.new(model: model, fields: fields, type: type).call
+          end
+        end
+      end
+
       # Configures the actions linked to on the index page. This is an optional
       # method
       #

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Additional "schema type" helpers on Display and Form
+* Schema guesser for `#display_schema`, `#form_schema`, and `#filter_schema`.
 
 
 ## [0.0.7] - 2020-12-15
