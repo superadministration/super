@@ -12,8 +12,17 @@ Gem::Specification.new do |spec|
   spec.summary     = "A simple, powerful, zero dependency Rails admin framework"
   spec.license     = "LGPL-3.0-only"
 
-  spec.files = Dir["{app,config,db,frontend,lib,docs}/**/*", "LICENSE", "Rakefile", "README.md", ".yardopts"] & `git ls-files -z`.split("\x0")
+  files_allowlist = Dir[
+    "{app,config,db,frontend,lib,docs}/**/*",
+    "Rakefile",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "STABILITY.md",
+    "README.md",
+    ".yardopts",
+  ]
 
+  spec.files = files_allowlist & `git ls-files -z`.split("\x0")
   spec.required_ruby_version = ">= 2.3.0"
 
   rails_versions = ">= 5.0"
