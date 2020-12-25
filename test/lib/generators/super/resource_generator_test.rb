@@ -41,14 +41,6 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
               end
             end
 
-            def permitted_params(params, action:)
-              if action.create?
-                params.require(:ship).permit()
-              else
-                params.require(:ship).permit()
-              end
-            end
-
             def display_schema(action:)
               Super::Display.new(action: action) do |fields, type|
               end
@@ -97,14 +89,6 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
               Ship.all
             else
               Ship.all
-            end
-          end
-
-          def permitted_params(params, action:)
-            if action.create?
-              params.require(:ship).permit()
-            else
-              params.require(:ship).permit()
             end
           end
 

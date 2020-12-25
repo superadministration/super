@@ -24,10 +24,6 @@ module Admin
         Member.all
       end
 
-      def permitted_params(params, action:)
-        params.require(:member).permit(:name, :rank, :position, :ship_id, favorite_things_attributes: [:id, :name, :_destroy])
-      end
-
       def display_schema(action:)
         Super::Display.new(action: action) do |fields, type|
           fields[:name] = type.string

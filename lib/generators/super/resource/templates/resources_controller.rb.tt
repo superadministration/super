@@ -23,14 +23,6 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
       end
     end
 
-    def permitted_params(params, action:)
-      if action.create?
-        params.require(:<%= file_name %>).permit()
-      else
-        params.require(:<%= file_name %>).permit()
-      end
-    end
-
     def display_schema(action:)
       Super::Display.new(action: action) do |fields, type|
       end

@@ -10,6 +10,16 @@ module Super
 
         attr_reader :nested_fields
 
+        def each_attribute
+          if block_given?
+            @nested_fields.each do |key, value|
+              yield(key, value)
+            end
+          end
+
+          enum_for(:each_attribute)
+        end
+
         # This takes advantage of a feature of Rails. If the value of
         # `#to_partial_path` is `my_form_field`, Rails renders
         # `app/views/super/application/_my_form_field.html.erb`, and this

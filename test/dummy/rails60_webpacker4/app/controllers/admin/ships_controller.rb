@@ -19,10 +19,6 @@ module Admin
         Ship.all
       end
 
-      def permitted_params(params, action:)
-        params.require(:ship).permit(:name, :registry, :class_name)
-      end
-
       def display_schema(action:)
         Super::Display.new(action: action) do |fields, type|
           fields[:name] = type.string

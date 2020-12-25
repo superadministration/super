@@ -48,6 +48,19 @@ module Super
         end
       end
 
+      # Configures which parameters could be written to the database. This is a
+      # required method
+      #
+      # @param params [ActionController::Parameters]
+      # @param action [ActionInquirer]
+      # @return [ActionController::Parameters]
+      def permitted_params(params, action:)
+        default_for(:permitted_params, params, action: action) do
+          strong_params = Super::Form::StrongParams.new(form_schema(action: action))
+          params.require(strong_params.require(model)).permit(strong_params.permit)
+        end
+      end
+
       # Configures the actions linked to on the index page. This is an optional
       # method
       #
