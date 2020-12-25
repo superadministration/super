@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Schema guesser for `#display_schema`, `#form_schema`, and `#filter_schema`.
 * Guesser for Strong Parameters
 
+### Fixed
+
+* A Ruby 3.0 error
+
 
 ## [0.0.7] - 2020-12-15
 
