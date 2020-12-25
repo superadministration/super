@@ -2,11 +2,14 @@ module Super
   class Display
     class SchemaTypes
       class Dynamic
-        def initialize(&transform_block)
+        def initialize(ignore_nil: true, &transform_block)
           @transform_block = transform_block
+          @ignore_nil = ignore_nil
         end
 
         def present(value)
+          return nil if value.nil? && @ignore_nil
+
           @transform_block.call(value)
         end
 

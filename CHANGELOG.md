@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * A Ruby 3.0 error
+* Displaying `nil` values
 
 
 ## [0.0.7] - 2020-12-15
