@@ -9,12 +9,20 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <% if Super.configuration.asset_handler.sprockets? %>
-      <%= stylesheet_link_tag "super/application", media: "all" %>
-      <%= javascript_include_tag "super/application" %>
-    <% elsif Super.configuration.asset_handler.webpacker? %>
-      <%= stylesheet_pack_tag "super/application", media: "all" %>
-      <%= javascript_pack_tag "super/application" %>
+    <% Super.configuration.stylesheets.each do |stylesheet| %>
+      <% if stylesheet.handler.sprockets? %>
+        <%= stylesheet_link_tag(stylesheet.path, **stylesheet.arguments) %>
+      <% elsif stylesheet.handler.webpacker? %>
+        <%= stylesheet_pack_tag(stylesheet.path, **stylesheet.arguments) %>
+      <% end %>
+    <% end %>
+
+    <% Super.configuration.javascripts.each do |javascript| %>
+      <% if javascript.handler.sprockets? %>
+        <%= javascript_include_tag(javascript.path) %>
+      <% elsif javascript.handler.webpacker? %>
+        <%= javascript_pack_tag(javascript.path) %>
+      <% end %>
     <% end %>
   </head>
 

@@ -96,7 +96,9 @@ module Super
     # @!attribute [rw]
     configure :route_namespace, default: :admin, wrap: -> (val) { [val].flatten }
     # @!attribute [rw]
-    configure :asset_handler, default: -> { Super::Assets.auto }
+    configure :javascripts, default: -> { Super::Assets.auto("super/application") }, wrap: -> (val) { [val].flatten }
+    # @!attribute [rw]
+    configure :stylesheets, default: -> { Super::Assets.auto("super/application") }, wrap: -> (val) { [val].flatten }
 
     def controller_plugins
       Plugin::Registry.controller
