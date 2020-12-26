@@ -19,86 +19,29 @@ module Super
   # end
   # ```
   class Configuration
-    module ConfigurationLogic # @api private
-      def self.included(base)
-        base.extend(ClassMethods)
-      end
+    def initialize
+      self.title = "Super Admin"
+      self.index_records_per_page = 20
+      self.controller_namespace = "admin"
+      self.route_namespace = :admin
 
-      def initialize
-        self.class.defaults.each do |key, value|
-          if value.respond_to?(:call)
-            value = value.call
-          end
+      controller_plugins.use(prepend: Super::Filter::ControllerMethods)
+      controller_plugins.use(prepend: Super::Pagination::ControllerMethods)
 
-          public_send("#{key}=", value)
-        end
-
-        Plugin::Registry.controller.use(prepend: Super::Filter::ControllerMethods)
-        Plugin::Registry.controller.use(prepend: Super::Pagination::ControllerMethods)
-      end
-
-      def configured?(attr)
-        instance_variable_defined?("@#{attr}")
-      end
-
-      module ClassMethods
-        def defaults
-          @defaults ||= {}
-        end
-
-        def wraps
-          @wraps ||= {}
-        end
-
-        def configure(attr, wrap: nil, enum: nil, **kwargs)
-          if kwargs.key?(:default)
-            defaults[attr] = kwargs[:default]
-          end
-
-          define_method(attr) do
-            if !configured?(attr)
-              raise Error::UnconfiguredConfiguration, "unconfigured: #{attr}"
-            end
-
-            result = instance_variable_get("@#{attr}")
-
-            if wrap.nil?
-              result
-            else
-              wrap.call(result)
-            end
-          end
-
-          define_method("#{attr}=") do |value|
-            if enum.is_a?(Array)
-              if !enum.include?(value)
-                raise Error::InvalidConfiguration,
-                  "tried to set `#{attr}` to `#{value.inspect}`, " \
-                  "expected: #{enum.join(", ")}"
-              end
-            end
-
-            instance_variable_set("@#{attr}", value)
-            value
-          end
-        end
-      end
+      self.javascripts = [Super::Assets.auto("super/application")]
+      self.stylesheets = [Super::Assets.auto("super/application")]
     end
 
-    include ConfigurationLogic
+    attr_accessor :title
+    attr_accessor :index_records_per_page
+    attr_accessor :controller_namespace
+    attr_writer :route_namespace
+    def route_namespace
+      [@route_namespace].flatten
+    end
 
-    # @!attribute [rw]
-    configure :title
-    # @!attribute [rw]
-    configure :index_records_per_page, default: 20
-    # @!attribute [rw]
-    configure :controller_namespace, default: "admin"
-    # @!attribute [rw]
-    configure :route_namespace, default: :admin, wrap: -> (val) { [val].flatten }
-    # @!attribute [rw]
-    configure :javascripts, default: -> { Super::Assets.auto("super/application") }, wrap: -> (val) { [val].flatten }
-    # @!attribute [rw]
-    configure :stylesheets, default: -> { Super::Assets.auto("super/application") }, wrap: -> (val) { [val].flatten }
+    attr_accessor :javascripts
+    attr_accessor :stylesheets
 
     def controller_plugins
       Plugin::Registry.controller
