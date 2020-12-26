@@ -7,30 +7,8 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
   end
 
   class Controls
-    def title
-      <%= class_name %>.name.pluralize
-    end
-
     def model
       <%= class_name %>
-    end
-
-    def scope(action:)
-      if action.read?
-        <%= class_name %>.all
-      else
-        <%= class_name %>.all
-      end
-    end
-
-    def display_schema(action:)
-      Super::Display.new(action: action) do |fields, type|
-      end
-    end
-
-    def form_schema(action:)
-      Super::Form.new do |fields, type|
-      end
     end
   end
 end

@@ -25,30 +25,8 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           end
 
           class Controls
-            def title
-              Ship.name.pluralize
-            end
-
             def model
               Ship
-            end
-
-            def scope(action:)
-              if action.read?
-                Ship.all
-              else
-                Ship.all
-              end
-            end
-
-            def display_schema(action:)
-              Super::Display.new(action: action) do |fields, type|
-              end
-            end
-
-            def form_schema(action:)
-              Super::Form.new do |fields, type|
-              end
             end
           end
         end
@@ -76,30 +54,8 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
         end
 
         class Controls
-          def title
-            Ship.name.pluralize
-          end
-
           def model
             Ship
-          end
-
-          def scope(action:)
-            if action.read?
-              Ship.all
-            else
-              Ship.all
-            end
-          end
-
-          def display_schema(action:)
-            Super::Display.new(action: action) do |fields, type|
-            end
-          end
-
-          def form_schema(action:)
-            Super::Form.new do |fields, type|
-            end
           end
         end
       end
