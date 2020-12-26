@@ -6,7 +6,7 @@ module Super
       #
       # @return [ActiveRecord::Base]
       def model
-        @actual.model
+        raise NotImplementedError
       end
     end
   end

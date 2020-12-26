@@ -10,9 +10,7 @@ module Super
       # @param params [ActionController::Parameters]
       # @return [ActiveRecord::Relation]
       def load_records(action:, params:)
-        default_for(:load_records, action: action, params: params) do
-          scope(action: action)
-        end
+        scope(action: action)
       end
 
       # Loads a record using `#scope`
@@ -21,9 +19,7 @@ module Super
       # @param params [ActionController::Parameters]
       # @return [ActiveRecord::Base]
       def load_record(action:, params:)
-        default_for(:load_record, action: action, params: params) do
-          scope(action: action).find(params[:id])
-        end
+        scope(action: action).find(params[:id])
       end
 
       # Builds a record using `#scope`
@@ -31,9 +27,7 @@ module Super
       # @param action [ActionInquirer]
       # @return [ActiveRecord::Base]
       def build_record(action:)
-        default_for(:build_record) do
-          scope(action: action).build
-        end
+        scope(action: action).build
       end
 
       # Builds and populates a record using `#scope`
@@ -42,31 +36,25 @@ module Super
       # @param params [ActionController::Parameters]
       # @return [ActiveRecord::Base]
       def build_record_with_params(action:, params:)
-        default_for(:build_record_with_params, action: action, params: params) do
-          scope(action: action).build(permitted_params(params, action: action))
-        end
+        scope(action: action).build(permitted_params(params, action: action))
       end
 
       # Saves a record
       #
       # @param action [ActionInquirer]
       # @param params [ActionController::Parameters]
-      # @return [ActiveRecord::Base]
+      # @return [true, false]
       def save_record(action:, record:, params:)
-        default_for(:save_record, action: action, record: record, params: params) do
-          record.save
-        end
+        record.save
       end
 
       # Saves a record
       #
       # @param action [ActionInquirer]
       # @param params [ActionController::Parameters]
-      # @return [ActiveRecord::Base]
+      # @return [true, false]
       def update_record(action:, record:, params:)
-        default_for(:update_record, action: action, record: record, params: params) do
-          record.update(permitted_params(params, action: action))
-        end
+        record.update(permitted_params(params, action: action))
       end
 
       # Destroys a record
@@ -75,9 +63,7 @@ module Super
       # @param params [ActionController::Parameters]
       # @return [ActiveRecord::Base, false]
       def destroy_record(action:, record:, params:)
-        default_for(:update_record, action: action, record: record, params: params) do
-          record.destroy
-        end
+        record.destroy
       end
 
       def build_index_view

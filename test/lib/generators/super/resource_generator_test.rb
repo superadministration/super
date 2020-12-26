@@ -24,7 +24,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
             Controls.new
           end
 
-          class Controls
+          class Controls < Super::Controls
             def model
               Ship
             end
@@ -53,7 +53,7 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
           Controls.new
         end
 
-        class Controls
+        class Controls < Super::Controls
           def model
             Ship
           end

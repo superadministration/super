@@ -6,7 +6,7 @@ module Admin
       Controls.new
     end
 
-    class Controls
+    class Controls < Super::Controls
       def title
         FavoriteThing.name.pluralize
       end

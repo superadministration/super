@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `#form_schema` definition now looks like `Super::Form.new do`
 * The `#filter_schema` definition now looks like `Super::Filter.new do`
 * The generators now only define required methods
+* Controls must now inherit from `Super::Controls`
 
 ### Added
 

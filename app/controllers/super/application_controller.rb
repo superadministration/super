@@ -78,7 +78,7 @@ module Super
     private
 
     def controls
-      Super::Controls.new(new_controls)
+      @controls ||= new_controls
     end
 
     def action_inquirer

@@ -6,7 +6,7 @@ class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
     Controls.new
   end
 
-  class Controls
+  class Controls < Super::Controls
     def model
       <%= class_name %>
     end

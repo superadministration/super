@@ -89,9 +89,7 @@ module Super
       # @param query_params [Hash]
       # @return [ActiveRecord::Relation]
       def records_per_page(action:, query_params:)
-        default_for(:records_per_page, action: action, query_params: query_params) do
-          Super.configuration.index_records_per_page
-        end
+        Super.configuration.index_records_per_page
       end
     end
 
@@ -103,14 +101,12 @@ module Super
       # @param query_params [Hash]
       # @return [Pagination]
       def initialize_pagination(action:, records:, query_params:)
-        default_for(:initialize_pagination, action: action, records: records, query_params: query_params) do
-          Pagination.new(
-            total_count: records.size,
-            limit: records_per_page(action: action, query_params: query_params),
-            query_params: query_params,
-            page_query_param: :page
-          )
-        end
+        Pagination.new(
+          total_count: records.size,
+          limit: records_per_page(action: action, query_params: query_params),
+          query_params: query_params,
+          page_query_param: :page
+        )
       end
 
       # Paginates
@@ -120,11 +116,9 @@ module Super
       # @param pagination [Pagination]
       # @return [ActiveRecord::Relation]
       def paginate_records(action:, records:, pagination:)
-        default_for(:paginate_records, action: action, records: records, pagination: pagination) do
-          records
-            .limit(pagination.limit)
-            .offset(pagination.offset)
-        end
+        records
+          .limit(pagination.limit)
+          .offset(pagination.offset)
       end
     end
   end

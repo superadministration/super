@@ -17,10 +17,8 @@ module Super
       end
 
       def filter_schema
-        default_for(:filter_schema) do
-          Filter.new do |fields, type|
-            Filter::Guesser.new(model: model, fields: fields, type: type).call
-          end
+        Filter.new do |fields, type|
+          Filter::Guesser.new(model: model, fields: fields, type: type).call
         end
       end
     end

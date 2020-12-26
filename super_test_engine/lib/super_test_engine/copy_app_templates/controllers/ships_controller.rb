@@ -6,7 +6,7 @@ module Admin
       Controls.new
     end
 
-    class Controls
+    class Controls < Super::Controls
       def title
         Ship.name.pluralize
       end
