@@ -4399,21 +4399,26 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.StimulusController = exports.StimulusApplication = void 0;
 
 var ujs_1 = __importDefault(require("@rails/ujs"));
 
 var stimulus_1 = require("stimulus");
+
+Object.defineProperty(exports, "StimulusController", {
+  enumerable: true,
+  get: function get() {
+    return stimulus_1.Controller;
+  }
+});
 
 var apply_template_controller_1 = __importDefault(require("./apply_template_controller"));
 
 var toggle_pending_destruction_controller_1 = __importDefault(require("./toggle_pending_destruction_controller"));
 
 ujs_1.default.start();
-var application = stimulus_1.Application.start();
-application.register("apply-template", apply_template_controller_1.default);
-application.register("toggle-pending-destruction", toggle_pending_destruction_controller_1.default);
-exports.default = {
-  StimulusApplication: application,
-  StimulusController: stimulus_1.Controller
-};
+var StimulusApplication = stimulus_1.Application.start();
+exports.StimulusApplication = StimulusApplication;
+StimulusApplication.register("apply-template", apply_template_controller_1.default);
+StimulusApplication.register("toggle-pending-destruction", toggle_pending_destruction_controller_1.default);
 },{"@rails/ujs":"../node_modules/@rails/ujs/lib/assets/compiled/rails-ujs.js","stimulus":"../node_modules/stimulus/index.js","./apply_template_controller":"javascripts/super/apply_template_controller.ts","./toggle_pending_destruction_controller":"javascripts/super/toggle_pending_destruction_controller.ts"}]},{},["javascripts/super/application.ts"], "Super")
