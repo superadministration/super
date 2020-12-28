@@ -1,5 +1,10 @@
 # Super
 
+![Unit tests status](https://github.com/zachahn/super/workflows/Unit%20tests/badge.svg?branch=master)
+[![Gem](https://img.shields.io/gem/v/super)][gem]
+[![Try the demo](https://img.shields.io/badge/try-demo-blue)][super_demo]
+
+
 Super is an admin framework for Ruby on Rails applications. Super helps you make
 powerful admin pages quickly so that you can concentrate on the parts of your
 app that make it great.
@@ -103,6 +108,7 @@ See [CONTRIBUTING](./CONTRIBUTING.md)
 The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 
 
+[gem]: https://rubygems.org/gems/super
 [Administrate]: https://github.com/thoughtbot/administrate
 [ActiveAdmin]: https://github.com/activeadmin/activeadmin
 [RailsAdmin]: https://github.com/sferik/rails_admin
