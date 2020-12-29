@@ -4,8 +4,6 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
@@ -51,37 +49,18 @@ jobs:
             ruby: "2.7"
           - gemfile: gemfiles/rails61_webpacker5.gemfile
             ruby: "3.0"
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
 
     steps:
     - uses: actions/checkout@v1
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
-    - uses: actions/cache@v1
-      env:
-        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-        BUNDLE_GEMFILE_LOCK: ${{ github.workspace }}/${{ matrix.gemfile }}.lock
-      with:
-        path: gemfiles/vendor/bundle
-        key: ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE_LOCK) }}
-        restore-keys: |
-          ${{ runner.os }}-Ruby${{ matrix.ruby }}-gems-
-    - name: Install and set up Bundler
-      env:
-        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-      run: |
-        gem install bundler -v 1.17.3
-        bundle config path "$(pwd)/gemfiles/vendor/bundle"
-    - name: Test
-      env:
-        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-      run: |
-        ruby bin/thoroughly_test.rb
-    - name: Clean Bundler cache
-      env:
-        BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-      run: |
-        bundle clean
+        node-version: "12.x"
+    - name: Thoroughly test
+      run: ruby bin/thoroughly_test.rb

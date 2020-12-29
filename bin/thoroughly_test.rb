@@ -25,8 +25,6 @@ if Dir.exist?(SUPER_DUMMY_PATH)
   FileUtils.rm_rf(SUPER_DUMMY_PATH)
 end
 
-run_or_fail("bundle", "install", "--jobs", "4", "--retry", "3")
-
 run_or_fail(
   "bundle",
   "exec",
