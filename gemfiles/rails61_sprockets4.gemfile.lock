@@ -147,6 +147,7 @@ GEM
       thor (~> 1.0)
     rake (13.0.1)
     regexp_parser (1.8.2)
+    rexml (3.2.4)
     rubyzip (2.3.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
@@ -186,6 +187,7 @@ DEPENDENCIES
   pry
   puma (~> 4.3, >= 4.3.6)
   rails (~> 6.1.0)
+  rexml
   selenium-webdriver (~> 3.142)
   sprockets (~> 4.0)
   sqlite3 (~> 1.4.0)
