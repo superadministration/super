@@ -8,6 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         gemfile:
+          - gemfiles/rails50_sprockets3_ruby23.gemfile
           - gemfiles/rails50_sprockets3.gemfile
           - gemfiles/rails51_sprockets3.gemfile
           - gemfiles/rails52_sprockets4.gemfile
@@ -17,18 +18,22 @@ jobs:
           - gemfiles/rails61_sprockets4.gemfile
           - gemfiles/rails61_webpacker5.gemfile
         ruby:
+          - "2.3"
           - "2.4"
           - "2.5"
           - "2.6"
           - "2.7"
           - "3.0"
         exclude:
+          - ruby: "2.3"
           - ruby: "2.4"
           - ruby: "2.5"
           - ruby: "2.6"
           - ruby: "2.7"
           - ruby: "3.0"
         include:
+          - gemfile: gemfiles/rails50_sprockets3_ruby23.gemfile
+            ruby: "2.3"
           - gemfile: gemfiles/rails50_sprockets3.gemfile
             ruby: "2.4"
           - gemfile: gemfiles/rails51_sprockets3.gemfile

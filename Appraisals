@@ -1,3 +1,14 @@
+appraise "rails50_sprockets3_ruby23" do
+  gem "rails", "~> 5.0.0"
+  gem "sprockets", "~> 3.0"
+  gem "capybara", "~> 3.15.0" # Last version to support Ruby 2.3
+  gem "sqlite3", "~> 1.3.0"
+  gem "minitest", "~> 5.9.0"
+  gem "nio4r", "~> 2.4.0"
+  gem "rubyzip", "~> 1.0"
+  gem "webdrivers", "~> 4.2.0"
+end
+
 appraise "rails50_sprockets3" do
   gem "rails", "~> 5.0.0"
   gem "sprockets", "~> 3.0"
