@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   you'll first need to set up Webpacker and ActionText on your application
 * Initial support for Webpacker 6
 
+### Fixed
+
+* Alignment of multi-line values on the `#show` action
+
 
 ## [0.0.8] - 2020-12-27
 

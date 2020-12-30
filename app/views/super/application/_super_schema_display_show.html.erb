@@ -1,8 +1,8 @@
-<table class="max-w-full leading-loose mt-4">
+<table class="max-w-full mt-4">
   <% super_schema_display_show.each_attribute_name do |attribute_name| %>
     <tr>
-      <th class="text-right px-4"><%= controls.model.human_attribute_name(attribute_name) %></th>
-      <td><%= super_schema_display_show.render_field(template: self, record: @record, column: attribute_name) %></td>
+      <th class="py-1 align-baseline text-right px-4"><%= controls.model.human_attribute_name(attribute_name) %></th>
+      <td class="py-1 align-baseline"><%= super_schema_display_show.render_field(template: self, record: @record, column: attribute_name) %></td>
     </tr>
   <% end %>
 </table>
