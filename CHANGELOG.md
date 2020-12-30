@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Initial support for ActionText
+* Generator for setting up ActionText. Before Super can work with ActionText,
+  you'll first need to set up Webpacker and ActionText on your application
+
+
 ## [0.0.8] - 2020-12-27
 
 ### Changed

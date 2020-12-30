@@ -1,0 +1,13 @@
+<% if !local_assigns[:ungrouped] %>
+  <div class="super-field-group">
+<% end %>
+  <% if !local_assigns[:hide_label] %>
+    <%= form.label(column, class: "block") %>
+  <% end %>
+  <div class="<%= Super::ViewHelper.classes(["mt-1", !local_assigns[:hide_label]]) %>">
+    <%= form.rich_text_area(column, class: "trix-content super-input w-full") %>
+    <%= render "form_inline_errors", form: form, column: column %>
+  </div>
+<% if !local_assigns[:ungrouped] %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+Description:
+    Creates the necessary files for Super to support ActionText
+
+    Prerequisites:
+
+        * Webpacker must be installed on your Rails app
+            * Run: bundle exec rails webpacker:install
+
+        * ActionText must be installed on your Rails app
+            * Run: bundle exec rails action_text:install
+
+    Note that Super does NOT need to be configured to use Webpacker. But if you
+    do use Super with Webpacker, you can merge `action_text.js` into
+    `application.js.erb` file.
+
+Example:
+    bin/rails webpacker:install             # if you haven't already
+    bin/rails action_text:install           # if you haven't already
+    bin/rails generate super:action_text
+
+    This will:
+        Create app/javascript/packs/super/action_text.js
+        Modify config/initializers/super.rb

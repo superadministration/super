@@ -48,6 +48,12 @@ module Super
         Dynamic.new(&:iso8601)
       end
 
+      def rich_text
+        Dynamic.new do |value|
+          Partial.new("display_rich_text", locals: { rich_text: value })
+        end
+      end
+
       def manual(&transform_block)
         Dynamic.new(&transform_block)
       end
