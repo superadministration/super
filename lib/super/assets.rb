@@ -80,6 +80,10 @@ module Super
             sprockets
           elsif Gem::Dependency.new("sprockets", "~> 2.0").matching_specs.any?
             sprockets
+          elsif Gem::Dependency.new("webpacker", "~> 6.0").matching_specs.any?
+            webpacker
+          elsif Gem::Dependency.new("webpacker", "~> 5.0").matching_specs.any?
+            webpacker
           elsif Gem::Dependency.new("webpacker", "~> 4.0").matching_specs.any?
             webpacker
           elsif Gem::Dependency.new("webpacker", "~> 3.0").matching_specs.any?
