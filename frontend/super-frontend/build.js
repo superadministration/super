@@ -4,7 +4,7 @@ const path = require("path");
 
 const entryFiles = [
   "src/stylesheets/super/application.css",
-  "src/javascripts/super/application.ts",
+  "src/javascripts/super/application.js",
 ];
 
 const options = {

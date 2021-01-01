@@ -1,19 +1,17 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  templateTarget: Element | undefined;
-
   static targets = ["template"];
 
-  call(event: Event) {
+  call(event) {
     event.preventDefault();
 
     const unixtime = new Date().getTime();
-    let content = this.templateTarget!.innerHTML.replace(
+    let content = this.templateTarget.innerHTML.replace(
       /TEMPLATEINDEX/g,
       unixtime.toString()
     );
 
-    this.templateTarget!.insertAdjacentHTML("beforebegin", content);
+    this.templateTarget.insertAdjacentHTML("beforebegin", content);
   }
 }

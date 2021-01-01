@@ -6,8 +6,7 @@
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.3",
-    "prettier": "1.19.1",
-    "typescript": "^3.7.4"
+    "prettier": "1.19.1"
   },
   "scripts": {
     "build": "node build.js",

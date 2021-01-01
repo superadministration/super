@@ -4271,154 +4271,158 @@ Object.keys(_core).forEach(function (key) {
     }
   });
 });
-},{"@stimulus/core":"../node_modules/@stimulus/core/dist/index.js"}],"javascripts/super/apply_template_controller.ts":[function(require,module,exports) {
+},{"@stimulus/core":"../node_modules/@stimulus/core/dist/index.js"}],"javascripts/super/apply_template_controller.js":[function(require,module,exports) {
 "use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
-      }
-    };
-
-    return _extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    _extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var stimulus_1 = require("stimulus");
+var _stimulus = require("stimulus");
 
-var default_1 =
-/** @class */
-function (_super) {
-  __extends(default_1, _super);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-  function default_1() {
-    return _super !== null && _super.apply(this, arguments) || this;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
   }
 
-  default_1.prototype.call = function (event) {
-    event.preventDefault();
-    var unixtime = new Date().getTime();
-    var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
-    this.templateTarget.insertAdjacentHTML("beforebegin", content);
-  };
-
-  default_1.targets = ["template"];
-  return default_1;
-}(stimulus_1.Controller);
-
-exports.default = default_1;
-},{"stimulus":"../node_modules/stimulus/index.js"}],"javascripts/super/toggle_pending_destruction_controller.ts":[function(require,module,exports) {
-"use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
-      }
-    };
-
-    return _extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    _extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
+  _createClass(_default, [{
+    key: "call",
+    value: function call(event) {
+      event.preventDefault();
+      var unixtime = new Date().getTime();
+      var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
+      this.templateTarget.insertAdjacentHTML("beforebegin", content);
     }
+  }]);
 
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
+  return _default;
+}(_stimulus.Controller);
+
+exports.default = _default;
+
+_defineProperty(_default, "targets", ["template"]);
+},{"stimulus":"../node_modules/stimulus/index.js"}],"javascripts/super/toggle_pending_destruction_controller.js":[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var stimulus_1 = require("stimulus");
+var _stimulus = require("stimulus");
 
-var default_1 =
-/** @class */
-function (_super) {
-  __extends(default_1, _super);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-  function default_1() {
-    return _super !== null && _super.apply(this, arguments) || this;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
   }
 
-  default_1.prototype.call = function (event) {
-    var target = event.target;
+  _createClass(_default, [{
+    key: "call",
+    value: function call(event) {
+      var target = event.target;
 
-    if (target) {
-      if (target.checked) {
-        this.element.classList.add("opacity-75", "bg-gray-100");
-      } else {
-        this.element.classList.remove("opacity-75", "bg-gray-100");
+      if (target) {
+        if (target.checked) {
+          this.element.classList.add("opacity-75", "bg-gray-100");
+        } else {
+          this.element.classList.remove("opacity-75", "bg-gray-100");
+        }
       }
     }
-  };
+  }]);
 
-  return default_1;
-}(stimulus_1.Controller);
+  return _default;
+}(_stimulus.Controller);
 
-exports.default = default_1;
-},{"stimulus":"../node_modules/stimulus/index.js"}],"javascripts/super/application.ts":[function(require,module,exports) {
+exports.default = _default;
+},{"stimulus":"../node_modules/stimulus/index.js"}],"javascripts/super/application.js":[function(require,module,exports) {
 "use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StimulusController = exports.StimulusApplication = void 0;
-
-var ujs_1 = __importDefault(require("@rails/ujs"));
-
-var stimulus_1 = require("stimulus");
-
 Object.defineProperty(exports, "StimulusController", {
   enumerable: true,
-  get: function get() {
-    return stimulus_1.Controller;
+  get: function () {
+    return _stimulus.Controller;
   }
 });
+exports.StimulusApplication = void 0;
 
-var apply_template_controller_1 = __importDefault(require("./apply_template_controller"));
+var _ujs = _interopRequireDefault(require("@rails/ujs"));
 
-var toggle_pending_destruction_controller_1 = __importDefault(require("./toggle_pending_destruction_controller"));
+var _stimulus = require("stimulus");
 
-ujs_1.default.start();
-var StimulusApplication = stimulus_1.Application.start();
+var _apply_template_controller = _interopRequireDefault(require("./apply_template_controller"));
+
+var _toggle_pending_destruction_controller = _interopRequireDefault(require("./toggle_pending_destruction_controller"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_ujs.default.start();
+
+var StimulusApplication = _stimulus.Application.start();
+
 exports.StimulusApplication = StimulusApplication;
-StimulusApplication.register("apply-template", apply_template_controller_1.default);
-StimulusApplication.register("toggle-pending-destruction", toggle_pending_destruction_controller_1.default);
-},{"@rails/ujs":"../node_modules/@rails/ujs/lib/assets/compiled/rails-ujs.js","stimulus":"../node_modules/stimulus/index.js","./apply_template_controller":"javascripts/super/apply_template_controller.ts","./toggle_pending_destruction_controller":"javascripts/super/toggle_pending_destruction_controller.ts"}]},{},["javascripts/super/application.ts"], "Super")
+StimulusApplication.register("apply-template", _apply_template_controller.default);
+StimulusApplication.register("toggle-pending-destruction", _toggle_pending_destruction_controller.default);
+},{"@rails/ujs":"../node_modules/@rails/ujs/lib/assets/compiled/rails-ujs.js","stimulus":"../node_modules/stimulus/index.js","./apply_template_controller":"javascripts/super/apply_template_controller.js","./toggle_pending_destruction_controller":"javascripts/super/toggle_pending_destruction_controller.js"}]},{},["javascripts/super/application.js"], "Super")
