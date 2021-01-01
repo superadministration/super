@@ -74,6 +74,8 @@ module Super
         Generic.new(partial_path: "form_field_text", extras: extras, nested: {})
       end
 
+      alias text string
+
       def rich_text_area(**extras)
         Generic.new(partial_path: "form_field_rich_text_area", extras: extras, nested: {})
       end
