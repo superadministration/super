@@ -1,0 +1,15 @@
+<% if !local_assigns[:ungrouped] %>
+  <div class="super-field-group">
+<% end %>
+  <div class="<%= Super::ViewHelper.classes(["mt-1", !local_assigns[:hide_label]]) %>">
+    <div>
+      <%= form.check_box(column) %>
+      <% if !local_assigns[:hide_label] %>
+        <%= form.label(column, class: "select-none") %>
+      <% end %>
+    </div>
+    <%= render "form_inline_errors", form: form, column: column %>
+  </div>
+<% if !local_assigns[:ungrouped] %>
+  </div>
+<% end %>

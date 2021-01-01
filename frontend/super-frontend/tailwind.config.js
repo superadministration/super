@@ -6,8 +6,8 @@ module.exports = {
     extend: {},
   },
   variants: {
-    backgroundColor: ({ after }) => after(["group-hover"], "responsive"),
-    borderColor: ({ after }) => after(["group-hover"], "responsive"),
+    backgroundColor: ({ after }) => after(["group-hover", "checked"], "responsive"),
+    borderColor: ({ after }) => after(["group-hover", "checked"], "responsive"),
     borderRadius: ({ after }) => after(["first", "last"], "responsive"),
     padding: ({ after }) => after(["first", "last"]),
   },

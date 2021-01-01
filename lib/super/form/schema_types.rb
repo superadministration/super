@@ -80,6 +80,10 @@ module Super
         Generic.new(partial_path: "form_field_rich_text_area", extras: extras, nested: {})
       end
 
+      def checkbox(**extras)
+        Generic.new(partial_path: "form_field_checkbox", extras: extras, nested: {})
+      end
+
       def has_many(reader, **extras)
         nested = @fields.nested do
           yield

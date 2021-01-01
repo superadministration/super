@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Generator for setting up ActionText. Before Super can work with ActionText,
   you'll first need to set up Webpacker and ActionText on your application
 * Initial support for Webpacker 6
+* Checkbox input field for forms
 
 ### Fixed
 
