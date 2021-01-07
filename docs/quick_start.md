@@ -4,23 +4,8 @@
 
 # Quick start
 
-## Installation
+See [Installation](./installation.md) for the installation guide.
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem "super"
-```
-
-And then execute:
-
-```bash
-bundle install
-bundle exec rails generate super:install # check out the `--help` option!
-```
-
-Super supports using Webpacker instead of Sprockets. For more information,
-see the [Webpacker guide](./webpacker.md).
 
 ## Usage
 

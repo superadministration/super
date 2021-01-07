@@ -2,7 +2,7 @@
 
 ![Unit tests status](https://github.com/zachahn/super/workflows/Unit%20tests/badge.svg?branch=master)
 [![Gem](https://img.shields.io/gem/v/super)][gem]
-[![Try the demo](https://img.shields.io/badge/try-demo-blue)][super_demo]
+[![Try the demo](https://img.shields.io/badge/try-demo-blue)][demo]
 
 
 Super is an admin framework for Ruby on Rails applications. Super helps you make
@@ -11,91 +11,82 @@ app that make it great.
 
 Super strives to let engineers build great admin pages quickly and easily by:
 
-* Providing a useful CRUD interface
-* Relying on Rails' built in features whenever possible
-* Preferring plain Ruby objects rather than requiring DSLs
-* Supporting a wide range of Ruby and Rails versions
-* Having zero dependencies
+* Providing a configurable CRUD interface with usable defaults
+* Building on top of standard Rails controllers and ERB views
+* Preferring plain Ruby objects and initializers instead of DSLs
 
 
-Super has no dependencies. That means when you install Super, only Super gets
-added to your `Gemfile.lock`. This leads to many benefits:
+Super's distinguishing feature is that it's easy to maintain in your
+application. It does this by:
 
-* Super doesn't require common Rails libraries like [Kaminari][Kaminari],
-  [Devise][Devise], or [Sass][Sass], so it'll never conflict with the libraries
-  you have installed. If you want to upgrade Super, you won't have to upgrade
-  any of your other gems. And if you want to upgrade your other gems, you won't
-  have to upgrade Super! This will greatly reduce your maintenance burden since
-  your admin framework won't dictate which libraries and which versions your
-  application uses.
-* All code has the possibility of bugs and security issues, whether they're
-  written by you or by others. Having fewer dependencies can reduce the risk of
-  introducing problems into your application.
+* Supporting a wide range of Ruby (2.3–3.0+) and Rails (5.0–6.1+) versions,
+  which makes it easy to upgrade your Ruby and Rails versions without breaking
+  your admin pages
+* Having zero dependencies, so that you can upgrade your app's dependencies
+  without affecting your admin pages (or upgrade your admin pages without
+  worrying it might break your app)
+
+
+Note: There may be lots of breaking changes since Super is still fairly young.
+See the [stability doc](./STABILITY.md) for an idea of what might be changed.
 
 
 ## Features
 
-* Sprockets and Webpacker compatibility
-    * Note: Webpacker support depends on one additional NPM package for parsing
-      ERB
-* Configurable forms (new and edit forms)
-    * Nested associations are supported out of the box
+* Responsive and mobile-friendly
+* Compatible with Sprockets and Webpacker
+* Configurable forms
+    * Supports nested attributes `accepts_nested_attributes_for`
 * Configurable display (index and show tables)
+* Advanced filtering for ActiveRecord
 * Pre-built frontend assets (doesn't require Sass, PostCSS, Babel, etc)
     * Vendored assets include
         * Stimulus JS
-        * Rails UJS
         * Tailwind CSS
+        * Rails UJS
 * Supports Rails 5.0+, Ruby 2.3+
 
 
-## Super doesn't fit my needs. What should I look at?
-
-There are lots of Rails admin frameworks. I've personally used
-[ActiveAdmin][ActiveAdmin] and [Administrate][Administrate], and I had some
-brief exposure to [RailsAdmin][RailsAdmin].
-
-If you need a ton of features, I'd probably suggest looking at ActiveAdmin. It
-relies pretty heavily on DSLs but is pretty flexible and popular.
-
-I like Administrate as well. I found that it doesn't have quite as many features
-as ActiveAdmin, but it's nice and feels like developing a normal Rails app.
-There's no DSL.
-
-
-## Paid editions
-
-If you have additional requirements, there are some paid editions to consider:
-
-**Super Premium** provides:
-
-* Priority email support
-* Ensuring long term development of Super
-
-**Super Professional** provides everything in Premium and:
-
-* Productivity improvements and quality of life features for admins
-* An LGPL exemption
-
-They aren't available yet. Contact me if you're interested, or subscribe to the
-[newsletter][newsletter] to be notified of its availability and for brief,
-occasional updates to Super.
-
-
-## Demos
-
-* [Super Demo][super_demo]
-    * [Super Demo source][super_demo_source]
+See the [demo][demo] and its [source][demo_source] for an example of some of its
+features.
 
 
 ## Installation and Usage
 
-See [Quick start](./docs/quick_start.md)
+See [Installation](./docs/quick_start.md) and
+[Quick start](./docs/quick_start.md)
 
 
-## Path to 1.0
+## Editions
 
-See [STABILITY](./STABILITY.md)
+There are several editions to consider.
+
+**Super FOSS** provides:
+
+* A great admin framework that's free and easy to maintain
+* Community support, see the [discussion forum][discussions]
+
+**Super Premium** (not available yet) provides:
+
+* Private email support
+* Ensuring long term development of Super
+
+**Super Professional** (not available yet) provides everything in Premium and:
+
+* Productivity improvements and quality of life features for admins
+* An LGPL exemption
+
+Subscribe to the [newsletter][newsletter] to be notified of their availabilities
+and for brief, quarterly-at-most updates to Super.
+
+
+## Super doesn't fit my needs. What are some alternatives?
+
+[ActiveAdmin](https://github.com/activeadmin/activeadmin) is great if you need
+lots of features. It relies heavily on DSLs but is flexible and popular.
+
+[Administrate](https://github.com/thoughtbot/administrate) doesn't have as many
+features as ActiveAdmin, but it feels like developing a normal Rails app.
 
 
 ## Contributing
@@ -109,12 +100,7 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 
 
 [gem]: https://rubygems.org/gems/super
-[Administrate]: https://github.com/thoughtbot/administrate
-[ActiveAdmin]: https://github.com/activeadmin/activeadmin
-[RailsAdmin]: https://github.com/sferik/rails_admin
-[Kaminari]: https://github.com/kaminari/kaminari
-[Devise]: https://github.com/heartcombo/devise
-[Sass]: https://github.com/sass/sassc-ruby
+[discussions]: https://github.com/zachahn/super/discussions
 [newsletter]: https://tinyletter.com/zachahn
-[super_demo]: https://demo-super.herokuapp.com/admin/members
-[super_demo_source]: https://github.com/zachahn/super_demo
+[demo]: https://demo-super.herokuapp.com/admin/members
+[demo_source]: https://github.com/zachahn/super_demo

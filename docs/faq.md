@@ -16,7 +16,7 @@ class PostsController < AdminController
     Controls.new(current_user)
   end
 
-  class Controls
+  class Controls < Super::Controls
     def initialize(current_user)
       @current_user = current_user
     end
@@ -26,7 +26,7 @@ class PostsController < AdminController
     end
 
     def scope(action:)
-      # Example: admins can read and write; customer support can only read
+      # Example: admins can read and write; others can only read
       if @current_user.admin?
         return model.all
       end
@@ -35,7 +35,7 @@ class PostsController < AdminController
         return model.all
       end
 
-      raise Super::Error::Forbidden
+      raise Super::ClientError::Forbidden
     end
 
     # ...

@@ -1,6 +1,8 @@
 # Docs
 
-* [Quick start](./quick_start.md)
+* [Quick Start](./quick_start.md)
+* [Installation](./installation.md)
 * [Webpacker](./webpacker.md)
-* [Controls](./controls.md)
+* [ActionText](./action_text.md)
+* [Cheat sheet](./cheat.md)
 * [FAQ](./faq.md)
