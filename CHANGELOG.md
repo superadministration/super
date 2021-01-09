@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* A real form builder. You can use `super_form_for` to build a form that looks
+  like a Super form.
+
 ## [0.0.9] - 2021-01-07
 
 ### Added

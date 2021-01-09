@@ -49,3 +49,15 @@ class CapybaraTest < ActionDispatch::IntegrationTest
     end
   end
 end
+
+ActionView::TestCase.class_eval do
+  private
+
+  # The behavior of this method (since 2009!) has been to prefer `@rendered`
+  # over `@output_buffer`. I think this is usually fine, but it breaks when a
+  # view helper calls render--this causes the render to be a subset of the
+  # expected output.
+  def document_root_element
+    Nokogiri::HTML::Document.parse(@output_buffer).root
+  end
+end
