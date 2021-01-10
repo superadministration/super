@@ -13,7 +13,8 @@ Gem::Specification.new do |spec|
   spec.license     = "LGPL-3.0-only"
 
   files_allowlist = Dir[
-    "{app,config,db,frontend,lib,docs}/**/*",
+    "{app,config,db,lib,docs}/**/*",
+    "frontend/*/dist/**/*",
     "Rakefile",
     "LICENSE",
     "CONTRIBUTING.md",
