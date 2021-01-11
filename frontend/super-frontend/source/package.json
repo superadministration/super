@@ -11,8 +11,7 @@
   "scripts": {
     "build": "node build.js",
     "watch": "node build.js --watch",
-    "typescript": "tsc --watch",
-    "lint": "prettier --write src/**/*.ts *.js"
+    "lint": "prettier --write src/**/*.js *.js"
   },
   "prettier": {
     "trailingComma": "es5"
