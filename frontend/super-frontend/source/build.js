@@ -8,7 +8,7 @@ const entryFiles = [
 ];
 
 const options = {
-  outDir: "../../app/assets",
+  outDir: "../../../app/assets",
   watch: process.argv.includes("--watch"),
   cacheDir: "tmp/parcel/cache",
   global: "Super",
@@ -23,7 +23,7 @@ const bundler = new Bundler(entryFiles, options);
 bundler.on("bundled", function(bundle) {
   bundle.childBundles.forEach(function(childBundle) {
     var basename = path.basename(childBundle.name);
-    var destDir = path.join(__dirname, "dist");
+    var destDir = path.join(__dirname, "../dist");
     var destPath = path.join(destDir, basename);
 
     console.log(destPath);

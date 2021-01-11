@@ -1,6 +1,0 @@
-src/**/*
---out-dir dest
---no-source-maps
---cache-dir tmp/parcel/cache
---public-url /assets/super
---global Super
