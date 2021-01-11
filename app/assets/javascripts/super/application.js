@@ -4303,8 +4303,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var _default = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
@@ -4324,14 +4322,17 @@ var _default = /*#__PURE__*/function (_Controller) {
       var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
       this.templateTarget.insertAdjacentHTML("beforebegin", content);
     }
+  }], [{
+    key: "targets",
+    get: function get() {
+      return ["template"];
+    }
   }]);
 
   return _default;
 }(_stimulus.Controller);
 
 exports.default = _default;
-
-_defineProperty(_default, "targets", ["template"]);
 },{"stimulus":"../node_modules/stimulus/index.js"}],"javascripts/super/toggle_pending_destruction_controller.js":[function(require,module,exports) {
 "use strict";
 
