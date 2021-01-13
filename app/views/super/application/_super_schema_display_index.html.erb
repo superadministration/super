@@ -1,9 +1,9 @@
-<div class="mt-4 overflow-x-auto lg:overflow-x-visible">
+<div class="mt-4 overflow-x-auto">
   <table class="w-full border-separate relative" cellspacing="0" cellpadding="0">
     <thead class="">
       <tr class="">
         <% super_schema_display_index.each_attribute_name do |attribute_name| %>
-          <th class="p-2 first:pl-6 border-b border-b-2 border-gray-400 text-gray-600 text-left text-sm font-normal bg-white sticky top-0 z-10">
+          <th class="p-2 first:pl-6 border-b border-b-2 border-gray-400 text-gray-600 text-left text-sm font-normal bg-white top-0 z-10">
             <%= controls.model.human_attribute_name(attribute_name) %>
           </th>
         <% end %>

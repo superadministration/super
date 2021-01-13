@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A real form builder. You can use `super_form_for` to build a form that looks
   like a Super form.
 
+### Removed
+
+* The "sticky headers" feature. It was very possible for the table to
+  look bad on certain breakpoints.
+
 ## [0.0.9] - 2021-01-07
 
 ### Added
