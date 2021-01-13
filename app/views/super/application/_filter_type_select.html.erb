@@ -1,31 +1,18 @@
 <div class="super-field-group">
   <%= form.fields_for(filter_type_select.field_name, filter_type_select) do |form_field| %>
     <%= form_field.label(:q, filter_type_select.humanized_field_name) %>
-    <div class="super-input-select inline-block">
-      <%= form_field.select(
+    <div class="relative inline-block">
+      <%= form_field.super.select(
         :op,
         filter_type_select.operators,
-        {},
-        { class: "super-input super-input-select-field" }
+        { include_blank: false },
       ) %>
-      <div class="super-input-select-icon text-gray-700">
-        <span class="h-4 w-4">
-          <%= render "super/feather/chevron_down" %>
-        </span>
-      </div>
     </div>
-    <div class="super-input-select mt-3">
-      <%= form_field.select(
+    <div class="mt-3">
+      <%= form_field.super.select(
         :q,
         filter_type_select.field_type.collection,
-        { include_blank: true },
-        { class: "super-input super-input-select-field" }
       ) %>
-      <div class="super-input-select-icon text-gray-700">
-        <span class="h-4 w-4">
-          <%= render "super/feather/chevron_down" %>
-        </span>
-      </div>
     </div>
   <% end %>
 </div>

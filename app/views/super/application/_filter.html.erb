@@ -1,6 +1,6 @@
 <%= render(Super::Panel.new) do %>
   <h1 class="text-xl">Filters</h1>
-  <%= form_for(filter, url: filter.url, method: :get, as: :q, html: { class: "mt-4" }) do |form| %>
+  <%= super_form_for(filter, url: filter.url, method: :get, as: :q, html: { class: "mt-4" }) do |form| %>
     <% filter.each_field do |filter_field| %>
       <div class="mt-4">
         <%= render(filter_field, form: form) %>
