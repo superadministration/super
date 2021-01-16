@@ -35,15 +35,23 @@ class CapybaraTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
-  def self.chrome!(kind = :headless)
+  def self.selenium!(kind = :headless)
     setup do
       if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
         skip
       else
         if kind == :headless
-          Capybara.current_driver = :selenium_chrome_headless
+          if ENV["SELENIUM_CHROME"]
+            Capybara.current_driver = :selenium_chrome_headless
+          else
+            Capybara.current_driver = :selenium_headless
+          end
         else
-          Capybara.current_driver = :selenium_chrome
+          if ENV["SELENIUM_CHROME"]
+            Capybara.current_driver = :selenium_chrome
+          else
+            Capybara.current_driver = :selenium
+          end
         end
       end
     end

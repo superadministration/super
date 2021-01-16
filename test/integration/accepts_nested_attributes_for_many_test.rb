@@ -1,7 +1,7 @@
 require "test_helper"
 
 class AcceptsNestedAttributesForManyTest < CapybaraTest
-  chrome!
+  selenium!
 
   def test_it_works
     visit(edit_admin_member_path(members(:riker)))
