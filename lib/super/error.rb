@@ -13,5 +13,14 @@ module Super
     class ActionInquirerError < Error; end
     # Error raised when a `Super::Link` couldn't be found
     class LinkNotRegistered < Error; end
+    # Error raised when rendering if `@view` wasn't set by the controller
+    class NothingToRender < Error
+      def initialize(basename)
+        super(
+          "Super's built-in `#{basename}.html.erb` requires `@view` to be set " \
+          "by the controller, but it wasn't set"
+        )
+      end
+    end
   end
 end
