@@ -94,6 +94,14 @@ module Super
           @template.safe_join(parts)
         end
 
+        def submit(value = nil, options = {})
+          value, options = nil, value if value.is_a?(Hash)
+          options, defaults = split_defaults(options, class: "super-button")
+          options[:class] = join_classes(defaults[:class], options[:class])
+
+          @builder.submit(value, options)
+        end
+
         def text_field(attribute, options = {})
           options, defaults = split_defaults(options, class: "super-input w-full")
           options[:class] = join_classes(defaults[:class], options[:class])
