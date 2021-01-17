@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+bundle
+appraisal
+
+ruby \
+  -e 'load "lib/super/version.rb"' \
+  -e 'contents = File.read("CHANGELOG.md")' \
+  -e 'new_header = "Unreleased]\n\n## [#{Super::VERSION}] - #{Time.now.strftime("%F")}"' \
+  -e 'File.write("CHANGELOG.md", contents.sub(/Unreleased\]/, new_header)) if !contents.include?(Super::VERSION)'
+
+git commit --all --message="Release v`ruby -e 'load "lib/super/version.rb"' -e 'print Super::VERSION'`"
