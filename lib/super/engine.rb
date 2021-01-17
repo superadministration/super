@@ -1,6 +1,8 @@
 module Super
   # Configures the host Rails app to work with Super
   class Engine < ::Rails::Engine
+    isolate_namespace Super
+
     initializer "super.assets.precompile" do |app|
       if Super::Assets::Handler.sprockets_available?
         app.config.assets.precompile << "config/super_manifest.js"
