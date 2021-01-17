@@ -9,5 +9,15 @@ module Super
     ensure
       ActionView::Base.field_error_proc = original
     end
+
+    def super_form_with(**options, &block)
+      original = ActionView::Base.field_error_proc
+      ActionView::Base.field_error_proc = Form::Builder::FIELD_ERROR_PROC
+
+      options[:builder] ||= Form::Builder
+      return form_with(**options, &block)
+    ensure
+      ActionView::Base.field_error_proc = original
+    end
   end
 end
