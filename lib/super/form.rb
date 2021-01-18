@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # This schema type is used on your +#edit+ and +#new+ forms
   #

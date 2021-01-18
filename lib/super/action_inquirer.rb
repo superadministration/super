@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # ```ruby
   # action = Super::ActionInquirer.new(

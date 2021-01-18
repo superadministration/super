@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # Provides a default implementation for each of the resourceful actions
   class ApplicationController < ActionController::Base

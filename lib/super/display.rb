@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # This schema type is meant to be used for +#index+ or +#show+ actions to
   # transform database fields into something that is human friendly.

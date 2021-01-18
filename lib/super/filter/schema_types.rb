@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class Filter
     # This schema type is used to configure the filtering form on your +#index+

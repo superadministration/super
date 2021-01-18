@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "super/controls/optional"
 require "super/controls/required"
 require "super/controls/steps"

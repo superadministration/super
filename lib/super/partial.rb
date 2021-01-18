@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class Partial
     def self.render(partialish, template:)

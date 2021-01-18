@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # Links have three required attributes that are passed directly into Rails'
   # `link_to` helper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # Configures the host Rails app to work with Super
   class Engine < ::Rails::Engine

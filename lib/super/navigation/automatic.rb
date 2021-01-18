@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class Navigation
     # Traverses the defined Rails Routes and attempts to build a list of links.

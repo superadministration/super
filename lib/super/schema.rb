@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # The Schema is a general purpose container for describing the "schema"
   # for various purposes. It primarily exists to provide a cohesive user-facing

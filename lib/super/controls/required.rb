@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class Controls
     # Methods for `Controls` that must be defined for Super to work properly

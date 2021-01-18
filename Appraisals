@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 appraise "rails50_sprockets3_ruby23" do
   gem "rails", "~> 5.0.0"
   gem "sprockets", "~> 3.0"

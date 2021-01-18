@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   module Compatability
     module_function

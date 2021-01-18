@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StarfleetSeeder
   def self.seed(verbose: true)
     seeder = StarfleetSeeder.new(verbose: verbose)

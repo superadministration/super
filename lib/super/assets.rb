@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # Utilities for determining whether to use Sprockets or Webpacker
   class Assets

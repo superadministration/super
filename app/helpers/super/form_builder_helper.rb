@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   module FormBuilderHelper
     def super_form_for(record, options = {}, &block)

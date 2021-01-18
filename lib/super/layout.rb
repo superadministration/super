@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "super/partial/resolving"
 
 module Super

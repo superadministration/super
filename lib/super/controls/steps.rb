@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class Controls
     # Methods that are called by controller actions. All of these methods have

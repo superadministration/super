@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   # A container class for all user-facing (4xx) errors thrown by this library.
   #

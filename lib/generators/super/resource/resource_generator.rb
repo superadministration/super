@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Super
   class ResourceGenerator < Rails::Generators::NamedBase
     source_root File.expand_path("templates", __dir__)

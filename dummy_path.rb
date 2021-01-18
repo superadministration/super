@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SUPER_DEFAULT_RAILS = "rails60_sprockets4"
 SUPER_RAILS_ROOTS = {
   "rails50_sprockets3_ruby23" => "test/dummy/rails50_sprockets3",

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 super_development_path = File.expand_path("../../..", __dir__)
 if File.exist?(File.join(super_development_path, "super.gemspec"))
