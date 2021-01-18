@@ -77,6 +77,16 @@ module Super
         end
       end
 
+      def filters_enabled?
+        true
+      end
+
+      def filter_schema
+        Super::Filter.new do |fields, type|
+          Super::Filter::Guesser.new(model: model, fields: fields, type: type).call
+        end
+      end
+
       def index_view
         Super::Layout.new(
           mains: [
@@ -84,6 +94,9 @@ module Super
               Super::Partial.new("collection_header"),
               :@display
             ),
+          ],
+          asides: [
+            :@filter_form
           ]
         )
       end

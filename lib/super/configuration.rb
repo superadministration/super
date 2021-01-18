@@ -27,7 +27,6 @@ module Super
       self.controller_namespace = "admin"
       self.route_namespace = :admin
 
-      controller_plugins.use(prepend: Super::Filter::ControllerMethods)
       controller_plugins.use(prepend: Super::Pagination::ControllerMethods)
 
       self.javascripts = [Super::Assets.auto("super/application")]

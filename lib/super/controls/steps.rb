@@ -67,6 +67,26 @@ module Super
       def destroy_record(action:, record:, params:)
         record.destroy
       end
+
+      def initialize_filter_form(params:, query_params:)
+        if filters_enabled?
+          Super::Filter::FormObject.new(
+            model: model,
+            schema: filter_schema,
+            params: params,
+            namespace: :q,
+            query_params: query_params
+          )
+        end
+      end
+
+      def filter_records(filter_form:, records:)
+        if filters_enabled? && records
+          filter_form.to_search_query(records)
+        else
+          records
+        end
+      end
     end
   end
 end

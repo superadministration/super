@@ -7,7 +7,7 @@ class FilterTest < CapybaraTest
     assert_equal(Super.configuration.index_records_per_page, page.find_all("tbody tr").size)
 
     fill_in "q[name][q]", with: "Jean-Luc Picard"
-    click_button "Filter"
+    click_button "Apply"
 
     assert_equal(1, page.find_all("tbody tr").size)
     assert(page.has_css?("table", text: "Jean-Luc Picard"))
@@ -18,7 +18,7 @@ class FilterTest < CapybaraTest
     visit admin_members_path
     fill_in "q[name][q]", with: "O'Brien"
     select "contains", from: "q[name][op]"
-    click_button "Filter"
+    click_button "Apply"
 
     assert_equal(2, page.find_all("tbody tr").size)
     assert(page.has_content?("Keiko O'Brien"))

@@ -13,6 +13,8 @@ module Super
       @records = controls.load_records(action: action_inquirer, params: params)
       @display = controls.display_schema(action: action_inquirer)
       @view = controls.index_view
+      @filter_form = controls.initialize_filter_form(params: params, query_params: request.GET)
+      @records = controls.filter_records(filter_form: @filter_form, records: @records)
     end
 
     # Displays a specific record to the user

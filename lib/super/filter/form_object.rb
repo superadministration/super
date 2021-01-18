@@ -44,11 +44,11 @@ module Super
         end
       end
 
-      def initialize(model:, url:, schema:, params:)
+      def initialize(model:, query_params:, schema:, namespace:, params:)
         @model = model
-        @url = url
+        @query_params = query_params
         @schema = schema
-        @params = params
+        @params = params[namespace]
 
         @form_fields = {}
       end
@@ -60,7 +60,7 @@ module Super
       end
 
       def url
-        @url
+        @query_params
       end
 
       def to_partial_path
