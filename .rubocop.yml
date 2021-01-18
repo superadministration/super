@@ -1,0 +1,21 @@
+---
+AllCops:
+  TargetRubyVersion: 2.4
+  DisabledByDefault: true
+  Exclude:
+    - "**/node_modules/**/*"
+    - "**/tmp/**/*"
+    - "test/dummy/**/*"
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: Yes
+
+Style/FrozenStringLiteralComment:
+  Enabled: Yes
+  Exclude:
+    - "gemfiles/**/*"
+    - "test/**/*"
+
+Style/StringLiterals:
+  Enabled: Yes
+  EnforcedStyle: double_quotes
