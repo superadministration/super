@@ -14,3 +14,14 @@ jobs:
           ruby-version: "2.7"
           bundler-cache: true
       - run: bin/rubocop
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+      - run: yarn install
+        working-directory: frontend/super-frontend/source
+      - run: yarn run lintci
+        working-directory: frontend/super-frontend/source
