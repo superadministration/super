@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - "**/node_modules/**/*"
     - "**/tmp/**/*"
+    - "**/vendor/**/*"
     - "test/dummy/**/*"
 
 Layout/EmptyLineAfterMagicComment:
