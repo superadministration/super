@@ -12,21 +12,21 @@ module Super
     def index
       @records = controls.load_records(action: action_inquirer, params: params)
       @display = controls.display_schema(action: action_inquirer)
-      @view = controls.build_index_view
+      @view = controls.index_view
     end
 
     # Displays a specific record to the user
     def show
       @record = controls.load_record(action: action_inquirer, params: params)
       @display = controls.display_schema(action: action_inquirer)
-      @view = controls.build_show_view
+      @view = controls.show_view
     end
 
     # Displays a form to allow the user to create a new record
     def new
       @record = controls.build_record(action: action_inquirer)
       @form = controls.form_schema(action: action_inquirer)
-      @view = controls.build_new_view
+      @view = controls.new_view
     end
 
     # Creates a record, or shows the validation errors
@@ -37,7 +37,7 @@ module Super
         redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("new"))
-        @view = controls.build_new_view
+        @view = controls.new_view
         render :new, status: :bad_request
       end
     end
@@ -46,7 +46,7 @@ module Super
     def edit
       @record = controls.load_record(action: action_inquirer, params: params)
       @form = controls.form_schema(action: action_inquirer)
-      @view = controls.build_edit_view
+      @view = controls.edit_view
     end
 
     # Updates a record, or shows validation errors
@@ -57,7 +57,7 @@ module Super
         redirect_to polymorphic_path(Super.configuration.path_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("edit"))
-        @view = controls.build_edit_view
+        @view = controls.edit_view
         render :edit, status: :bad_request
       end
     end
