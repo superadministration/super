@@ -15,6 +15,7 @@ module Super
       @view = controls.index_view
       @query_form = controls.initialize_query_form(params: params, current_path: request.path)
       controls.initialize_filter_form(query_form: @query_form)
+      controls.initialize_sort_form(query_form: @query_form)
       @records = controls.apply_queries(query_form: @query_form, records: @records)
     end
 

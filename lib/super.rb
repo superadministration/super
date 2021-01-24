@@ -37,6 +37,7 @@ require "super/plugin"
 require "super/query/form_object"
 require "super/schema"
 require "super/schema/guesser"
+require "super/sort"
 require "super/version"
 require "super/view_helper"
 

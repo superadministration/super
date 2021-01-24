@@ -1,0 +1,18 @@
+<h1 class="text-lg mt-6">Sort</h1>
+<div data-controller="apply-template">
+  <% sort.exprs.each.with_index do |expr, index| %>
+    <%= form.fields_for("exprs[]", expr.with_index(index)) do |expr_fields| %>
+      <%= render "sort_expression", expr_fields: expr_fields, sort: sort %>
+    <% end %>
+  <% end %>
+
+  <%= form.fields_for("exprs[]", sort.new_expr.with_index("TEMPLATEINDEX")) do |expr_fields| %>
+    <template data-apply-template-target="template">
+      <%= render "sort_expression", expr_fields: expr_fields, sort: sort %>
+    </template>
+  <% end %>
+
+  <a href="#" data-action="apply-template#call" class="block mt-2 text-sm">
+    Add
+  </a>
+</div>

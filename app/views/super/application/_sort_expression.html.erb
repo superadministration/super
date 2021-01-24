@@ -1,0 +1,25 @@
+<div data-controller="delete clean-filter-param" class="mt-4">
+  <div class="flex items-center">
+    <div class="flex-auto">
+      <%= expr_fields.super.select(
+        :a,
+        sort.sortable_columns,
+        {},
+        {}
+      ) %>
+    </div>
+    <div class="flex-none w-2">
+    </div>
+    <div class="flex-auto">
+      <%= expr_fields.super.select(
+        :d,
+        sort.class::DIRECTIONS,
+        { include_blank: false },
+        {}
+      ) %>
+    </div>
+    <div class="flex-none pl-2">
+      <a href="#" data-action="delete#call" class="block text-black hover:text-red-600 h-4 w-4"><%= render("super/feather/x") %></a>
+    </div>
+  </div>
+</div>

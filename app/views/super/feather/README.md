@@ -3,6 +3,7 @@
 Vendored from: https://github.com/feathericons/feather
 
 * `icons/chevron-down.svg` @ `3c64e93543fab6befab54c3abd013dd8db52509e`
+* `icons/x.svg` @ `a718a7e9c39447202f703783336e8ba1c8e32405`
 
 
 ## License

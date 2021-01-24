@@ -67,6 +67,14 @@ module Admin
           fields[:updated_at] = type.timestamp
         end
       end
+
+      def sortable_columns
+        ["id"] + super
+      end
+
+      def default_sort
+        { id: :asc }
+      end
     end
   end
 end

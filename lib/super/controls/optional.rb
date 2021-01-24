@@ -87,6 +87,27 @@ module Super
         end
       end
 
+      def sort_enabled?
+        true
+      end
+
+      def sortable_columns
+        action = ActionInquirer.new(
+          ActionInquirer.default_for_resources,
+          "index"
+        )
+        attribute_names =
+          display_schema(action: action).each_attribute.map do |key, val|
+            key if val.real?
+          end
+
+        attribute_names.compact
+      end
+
+      def default_sort
+        { id: :desc }
+      end
+
       def index_view
         Super::Layout.new(
           mains: [

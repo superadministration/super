@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Sorting. It's now possible to sort by one or many columns
+
 ### Changed
 
 * Renamed Controls' `build_*_view` to `*_view`

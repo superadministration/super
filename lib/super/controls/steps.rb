@@ -90,6 +90,17 @@ module Super
           )
         end
       end
+
+      def initialize_sort_form(query_form:)
+        if sort_enabled?
+          query_form.add(
+            Super::Sort::FormObject,
+            namespace: :s,
+            default: default_sort,
+            sortable_columns: sortable_columns
+          )
+        end
+      end
     end
   end
 end

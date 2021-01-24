@@ -3,6 +3,7 @@ import { Application, Controller as StimulusController } from "stimulus";
 import ApplyTemplateController from "./apply_template_controller";
 import CleanFilterParamController from "./clean_filter_param_controller";
 import CleanFilterParamsController from "./clean_filter_params_controller";
+import DeleteController from "./delete_controller";
 import TogglePendingDestructionController from "./toggle_pending_destruction_controller";
 
 RailsUjs.start();
@@ -14,6 +15,7 @@ StimulusApplication.register(
   "clean-filter-params",
   CleanFilterParamsController
 );
+StimulusApplication.register("delete", DeleteController);
 StimulusApplication.register(
   "toggle-pending-destruction",
   TogglePendingDestructionController
