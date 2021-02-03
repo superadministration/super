@@ -44,11 +44,10 @@ module Super
         end
       end
 
-      def initialize(model:, query_params:, schema:, namespace:, params:)
+      def initialize(model:, params:, schema:)
         @model = model
-        @query_params = query_params
+        @params = params
         @schema = schema
-        @params = params[namespace]
 
         @form_fields = {}
       end
@@ -59,15 +58,11 @@ module Super
         end
       end
 
-      def url
-        @query_params
-      end
-
       def to_partial_path
         "filter"
       end
 
-      def to_search_query(relation)
+      def apply_changes(relation)
         each_field do |form_field|
           next if form_field.specified_values.values.map(&:to_s).map(&:strip).all? { |specified_value| specified_value == "" }
           next if !Super::Filter::Operator.registry.key?(form_field.op)

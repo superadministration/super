@@ -96,7 +96,7 @@ module Super
             ),
           ],
           asides: [
-            :@filter_form
+            :@query_form,
           ]
         )
       end

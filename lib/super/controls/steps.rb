@@ -68,23 +68,26 @@ module Super
         record.destroy
       end
 
-      def initialize_filter_form(params:, query_params:)
-        if filters_enabled?
-          Super::Filter::FormObject.new(
-            model: model,
-            schema: filter_schema,
-            params: params,
-            namespace: :q,
-            query_params: query_params
-          )
-        end
+      def initialize_query_form(params:, current_path:)
+        Super::Query::FormObject.new(
+          model: model,
+          params: params,
+          namespace: :q,
+          current_path: current_path,
+        )
       end
 
-      def filter_records(filter_form:, records:)
-        if filters_enabled? && records
-          filter_form.to_search_query(records)
-        else
-          records
+      def apply_queries(query_form:, records:)
+        query_form.apply_changes(records)
+      end
+
+      def initialize_filter_form(query_form:)
+        if filters_enabled?
+          query_form.add(
+            Super::Filter::FormObject,
+            namespace: :f,
+            schema: filter_schema
+          )
         end
       end
     end
