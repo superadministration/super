@@ -1,22 +1,23 @@
-<div class="super-field-group">
+<div class="super-field-group" data-controller="clean-filter-param">
   <%= form.fields_for(filter_type_timestamp.field_name, filter_type_timestamp) do |form_field| %>
     <%= form_field.label(:q0, filter_type_timestamp.humanized_field_name) %>
     <div class="relative inline-block mt-2">
       <%= form_field.super.select(
         :op,
         filter_type_timestamp.operators,
-        { include_blank: false}
+        { include_blank: false },
+        data: { clean_filter_param_target: "candidate" }
       ) %>
     </div>
     <div class="flex items-center mt-3">
       <div class="flex-initial">
-        <%= form_field.super.text_field(:q0) %>
+        <%= form_field.super.text_field(:q0, data: { clean_filter_param_target: "control candidate" }) %>
       </div>
       <div class="flex-initial px-2">
         &ndash;
       </div>
       <div class="flex-initial">
-        <%= form_field.super.text_field(:q1) %>
+        <%= form_field.super.text_field(:q1, data: { clean_filter_param_target: "control candidate" }) %>
       </div>
     </div>
   <% end %>

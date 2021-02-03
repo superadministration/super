@@ -1,4 +1,4 @@
-<div class="super-field-group">
+<div class="super-field-group" data-controller="clean-filter-param">
   <%= form.fields_for(filter_type_select.field_name, filter_type_select) do |form_field| %>
     <%= form_field.label(:q, filter_type_select.humanized_field_name) %>
     <div class="relative inline-block">
@@ -6,12 +6,15 @@
         :op,
         filter_type_select.operators,
         { include_blank: false },
+        data: { clean_filter_param_target: "candidate" }
       ) %>
     </div>
     <div class="mt-3">
       <%= form_field.super.select(
         :q,
         filter_type_select.field_type.collection,
+        {},
+        data: { clean_filter_param_target: "control candidate" }
       ) %>
     </div>
   <% end %>

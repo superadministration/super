@@ -1,6 +1,12 @@
 <%= render(Super::Panel.new) do %>
   <h1 class="text-xl">Query</h1>
-  <%= super_form_for(query, url: query.path, method: :get, as: query.namespace, html: { class: "mt-4" }) do |form| %>
+  <%= super_form_for(
+    query,
+    url: query.path,
+    method: :get,
+    as: query.namespace,
+    html: { class: "mt-4" },
+    data: { controller: "clean-filter-params", action: "submit->clean-filter-params#call" }) do |form| %>
     <% query.addons.each do |namespace, addon| %>
       <%= form.fields_for namespace do |addon_form| %>
         <%= render(addon, form: addon_form) %>
