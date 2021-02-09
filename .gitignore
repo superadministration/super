@@ -12,5 +12,6 @@ test/dummy/**/public/packs*
 
 node_modules
 /tmp/
+/coverage
 
 .yardoc/

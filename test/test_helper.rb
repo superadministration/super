@@ -2,8 +2,10 @@
 ENV["RAILS_ENV"] = "test"
 
 require "pry"
+require "simplecov"
 
 require_relative "../dummy_path"
+SimpleCov.start("rails")
 require_relative "../#{SUPER_DUMMY_PATH}/config/environment"
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../#{SUPER_DUMMY_PATH}/db/migrate", __dir__)]
 require "rails/test_help"
