@@ -11,7 +11,7 @@ module Super
     # Displays a list of records to the user
     def index
       @records = controls.load_records(action: action_inquirer, params: params)
-      @display = controls.display_schema(action: action_inquirer)
+      @display = controls.display_schema(action: action_inquirer).apply(action: action_inquirer)
       @view = controls.index_view
       @query_form = controls.initialize_query_form(params: params, current_path: request.path)
       controls.initialize_filter_form(query_form: @query_form)
@@ -22,7 +22,7 @@ module Super
     # Displays a specific record to the user
     def show
       @record = controls.load_record(action: action_inquirer, params: params)
-      @display = controls.display_schema(action: action_inquirer)
+      @display = controls.display_schema(action: action_inquirer).apply(action: action_inquirer)
       @view = controls.show_view
     end
 

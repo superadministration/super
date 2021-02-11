@@ -26,7 +26,7 @@ module Super
       # @param action [ActionInquirer]
       # @return [Display]
       def display_schema(action:)
-        Display.new(action: action) do |fields, type|
+        Display.new do |fields, type|
           Display::Guesser.new(model: model, action: action, fields: fields, type: type).call
         end
       end

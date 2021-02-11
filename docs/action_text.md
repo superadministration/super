@@ -39,7 +39,7 @@ class Controls < Super::Controls
   end
 
   def display_schema(action:)
-    Super::Display.new(action: action) do |fields, type|
+    Super::Display.new do |fields, type|
       fields[:title] = type.text
       fields[:content] = type.rich_text
     end

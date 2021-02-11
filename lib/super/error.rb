@@ -24,5 +24,8 @@ module Super
         )
       end
     end
+    # Error raised when something wasn't initalized correctly, and if there isn't
+    # a more specific error
+    class Initalization < Error; end
   end
 end

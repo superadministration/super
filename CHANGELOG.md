@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Renamed Controls' `build_*_view` to `*_view`
+* Made `Super::Display` easier to initialize. It no longer requires any
+  arguments
 
 ## [0.0.10] - 2021-01-17
 

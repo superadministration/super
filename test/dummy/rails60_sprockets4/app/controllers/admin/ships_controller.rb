@@ -20,7 +20,7 @@ module Admin
       end
 
       def display_schema(action:)
-        Super::Display.new(action: action) do |fields, type|
+        Super::Display.new do |fields, type|
           fields[:name] = type.string
           fields[:registry] = type.string
           fields[:class_name] = type.string

@@ -25,20 +25,26 @@ module Super
   class Display
     include Schema::Common
 
-    def initialize(action:)
-      @action_inquirer = action
+    def initialize
       @fields = Super::Schema::Fields.new
       @schema_types = SchemaTypes.new(fields: @fields)
 
       yield(@fields, @schema_types)
+    end
 
-      return if !@action_inquirer.index?
-      return if @schema_types.actions_called?
+    def apply(action:)
+      @action_inquirer = action
+      return self if !@action_inquirer.index?
+      return self if @schema_types.actions_called?
       @fields[:actions] = @schema_types.actions
+      self
     end
 
     def to_partial_path
-      if @action_inquirer.index?
+      if @action_inquirer.nil?
+        raise Super::Error::Initalization,
+          "You must call the `#apply` method after instantiating Super::Display"
+      elsif @action_inquirer.index?
         "super_schema_display_index"
       elsif @action_inquirer.show?
         "super_schema_display_show"
