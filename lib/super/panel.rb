@@ -26,7 +26,7 @@ module Super
     end
 
     def to_partial_path
-      "super_panel"
+      "panel"
     end
   end
 end

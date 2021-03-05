@@ -19,7 +19,7 @@ module Super
     attr_reader :footers
 
     def to_partial_path
-      "super_layout"
+      "layout"
     end
 
     def resolve(template)

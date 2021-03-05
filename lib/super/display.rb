@@ -45,11 +45,11 @@ module Super
         raise Super::Error::Initalization,
           "You must call the `#apply` method after instantiating Super::Display"
       elsif @action_inquirer.index?
-        "super_schema_display_index"
+        "display_index"
       elsif @action_inquirer.show?
-        "super_schema_display_show"
+        "display_show"
       else
-        "super_schema_display_#{@action_inquirer.action}"
+        "display_#{@action_inquirer.action}"
       end
     end
 

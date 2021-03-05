@@ -1,6 +1,6 @@
-<% if super_panel.resolve(self, block_given? ? Proc.new { yield } : nil).resolved_parts.any? %>
+<% if panel.resolve(self, block_given? ? Proc.new { yield } : nil).resolved_parts.any? %>
   <div class="border rounded shadow border-gray-400 bg-white px-5 pt-4 pb-8 mt-6">
-    <% super_panel.resolved_parts.each do |partial| %>
+    <% panel.resolved_parts.each do |partial| %>
       <%= Super::Partial.render(partial, template: self) %>
     <% end %>
   </div>

@@ -55,7 +55,7 @@ module Super
     end
 
     def to_partial_path
-      "super_pagination"
+      "pagination"
     end
 
     private

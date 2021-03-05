@@ -102,7 +102,7 @@ module Super
       def actions
         @actions_called = true
         Builder.new.computed.none.transform do
-          Partial.new("super_schema_display_actions")
+          Partial.new("display_actions")
         end
       end
 

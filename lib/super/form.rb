@@ -31,7 +31,7 @@ module Super
     end
 
     def to_partial_path
-      "super_schema_form"
+      "form"
     end
   end
 end
