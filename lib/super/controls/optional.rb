@@ -98,6 +98,7 @@ module Super
         )
         attribute_names =
           display_schema(action: action).each_attribute.map do |key, val|
+            val = val.build if val.respond_to?(:build)
             key if val.real?
           end
 

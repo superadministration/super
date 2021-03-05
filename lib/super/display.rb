@@ -54,16 +54,24 @@ module Super
     end
 
     # @private
-    def render_field(template:, record:, column:)
+    def render_attribute(template:, record:, column:)
       formatter = @fields[column]
+      formatter = formatter.build if formatter.respond_to?(:build)
 
       formatted =
-        if formatter.real?
-          value = record.public_send(column)
-          formatter.present(value)
-        else
-          formatter.present
+        SchemaTypes::TYPES
+        .case(formatter.type)
+        .when(:record) do
+          formatter.present(column, record)
         end
+        .when(:column) do
+          value = record.public_send(column)
+          formatter.present(column, value)
+        end
+        .when(:none) do
+          formatter.present(column)
+        end
+        .result
 
       if formatted.respond_to?(:to_partial_path)
         if formatted.respond_to?(:locals)

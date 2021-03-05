@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Support for "virtual" fields that don't need to be correlated to a method on
+  the model. Although it's not possible to sort by virtual fields (sorting is
+  only done by the database), this will make it possible to show derived values
+
 ## [0.0.11] - 2021-03-02
 
 ### Added

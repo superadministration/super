@@ -14,7 +14,7 @@
         <tr id="record-pk-<%= record.id %>" class="group">
           <% super_schema_display_index.each_attribute_name do |attribute_name| %>
             <td class="py-1 px-2 first:pl-5 border-transparent border-t border-b group-hover:bg-blue-200 first:border-l first:rounded-l-lg last:border-r last:rounded-r-lg bg-white <%= Super::ViewHelper.classes(["bg-gray-100", row_index.odd?]) %>">
-              <%= super_schema_display_index.render_field(template: self, record: record, column: attribute_name) %>
+              <%= super_schema_display_index.render_attribute(template: self, record: record, column: attribute_name) %>
             </td>
           <% end %>
         </tr>

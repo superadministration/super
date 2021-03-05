@@ -68,6 +68,6 @@ ActionView::TestCase.class_eval do
   # view helper calls render--this causes the render to be a subset of the
   # expected output.
   def document_root_element
-    Nokogiri::HTML::Document.parse(@output_buffer).root
+    Nokogiri::HTML::Document.parse(@output_buffer.presence || @rendered).root
   end
 end

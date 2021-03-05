@@ -27,5 +27,12 @@ module Super
     # Error raised when something wasn't initalized correctly, and if there isn't
     # a more specific error
     class Initalization < Error; end
+    class ArgumentError < Error; end
+
+    class Enum < Error
+      class ImpossibleValue < Enum; end
+      class ArgumentError < Enum; end
+      class UndefinedCase < Enum; end
+    end
   end
 end
