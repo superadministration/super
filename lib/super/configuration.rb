@@ -21,36 +21,27 @@ module Super
   # end
   # ```
   class Configuration
+    include ActiveSupport::Configurable
+
+    config_accessor(:title) { "Super Admin" }
+    config_accessor(:index_records_per_page) { 20 }
+    config_accessor(:javascripts) do
+      [Super::Assets.auto("super/application")]
+    end
+    config_accessor(:stylesheets) do
+      [Super::Assets.auto("super/application")]
+    end
+
+    config_accessor(:path) { "/admin" }
+    config_accessor(:generator_module) { "admin" }
+    config_accessor(:generator_as) { "admin" }
+
     def initialize
-      self.title = "Super Admin"
-      self.index_records_per_page = 20
-      self.controller_namespace = "admin"
-      self.route_namespace = :admin
-
       controller_plugins.use(prepend: Super::Pagination::ControllerMethods)
-
-      self.javascripts = [Super::Assets.auto("super/application")]
-      self.stylesheets = [Super::Assets.auto("super/application")]
     end
-
-    attr_accessor :title
-    attr_accessor :index_records_per_page
-    attr_accessor :controller_namespace
-    attr_writer :route_namespace
-    def route_namespace
-      [@route_namespace].flatten
-    end
-
-    attr_accessor :javascripts
-    attr_accessor :stylesheets
 
     def controller_plugins
       Plugin::Registry.controller
-    end
-
-    # @api private
-    def path_parts(*parts)
-      route_namespace + parts
     end
   end
 end

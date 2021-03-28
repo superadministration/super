@@ -5,8 +5,8 @@ module Super
     # Traverses the defined Rails Routes and attempts to build a list of links.
     # This is used for building the nav bar on each admin page.
     class Automatic
-      def initialize(route_namespace:)
-        route_namespace = route_namespace.to_s
+      def initialize(route_namespace: Super.configuration.path)
+        route_namespace = route_namespace.strip.gsub(%r{\A/+}, "").gsub(%r{/+\z}, "").strip
 
         if route_namespace.include?("/")
           raise "Can't be nested namespace"

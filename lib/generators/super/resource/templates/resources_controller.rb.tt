@@ -1,5 +1,5 @@
-<% wrap_with_configured_module do -%>
-class <%= class_name.pluralize %>Controller < <%= parent_controller_name %>
+<% module_namespacing do -%>
+class <%= controller_class_name %>Controller < <%= parent_controller_name %>
   private
 
   def new_controls

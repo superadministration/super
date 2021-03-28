@@ -1,5 +1,12 @@
 Super.configuration do |c|
   c.title = "My Admin Site"
-  c.controller_namespace = "<%= options["controller_namespace"] %>"
-  c.route_namespace = "<%= options["route_namespace"] %>"
+<% if route_namespace != "admin" -%>
+  c.path = "/<%= route_namespace %>"
+<% end -%>
+<% if route_namespace != "admin" -%>
+  c.generator_as = "<%= route_namespace %>"
+<% end -%>
+<% if controller_namespace != "admin" -%>
+  c.generator_module = "<%= controller_namespace %>"
+<% end -%>
 end

@@ -38,9 +38,7 @@
     <div class="px-4">
       <header class="pt-4">
         <h1 class="text-lg font-bold mr-6 mb-1"><%= Super.configuration.title %></h1>
-        <%
-        route_namespace = Super.configuration.route_namespace.map(&:to_s).join("/")
-        Super::Navigation::Automatic.new(route_namespace: route_namespace).each do |text, href| %>
+        <% Super::Navigation::Automatic.new.each do |text, href| %>
           <%= link_to(text, href, class: "inline-block mr-6") %>
         <% end %>
       </header>

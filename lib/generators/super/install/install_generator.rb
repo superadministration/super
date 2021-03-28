@@ -9,6 +9,12 @@ module Super
     class_option :route_namespace, type: :string, default: "admin",
       banner: "Specifies the route namespace for admin controllers"
 
+    def assert_not_controller_namespace_not_super
+      if controller_namespace == "super"
+        raise Super::Error::ArgumentError, "controller_namespace can not be `super`"
+      end
+    end
+
     def create_initializer
       template("initializer.rb", "config/initializers/super.rb")
     end
@@ -16,8 +22,7 @@ module Super
     def create_base_admin_controller
       template(
         "base_controller.rb",
-        "app/controllers/#{controller_namespace}_controller.rb",
-        controller_namespace: controller_namespace
+        "app/controllers/#{parent_controller_name}_controller.rb"
       )
     end
 
@@ -53,12 +58,16 @@ module Super
 
     private
 
+    def route_namespace
+      options[:route_namespace].strip.gsub(%r{\A/+}, "").gsub(%r{/+\z}, "").strip.underscore
+    end
+
     def controller_namespace
-      if options["controller_namespace"].blank?
-        "admin"
-      else
-        options["controller_namespace"]
-      end
+      options["controller_namespace"].strip.gsub(%r{\A/+}, "").gsub(%r{/+\z}, "").strip.underscore
+    end
+
+    def parent_controller_name
+      controller_namespace.presence || "admin"
     end
   end
 end

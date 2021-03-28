@@ -5,7 +5,10 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
   tests Super::InstallGenerator
   destination Rails.root.join("tmp/generators")
   setup :prepare_destination
-  setup { @original_configuration = Super.configuration }
+  setup do
+    @original_configuration = Super.configuration
+    Super.instance_variable_set(:@configuration, nil)
+  end
   teardown { Super.instance_variable_set(:@configuration, @original_configuration) }
   setup do
     mkdir_p(File.join(destination_root, "app/assets/config"))
@@ -22,8 +25,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     assert_file("config/initializers/super.rb", <<~RUBY)
       Super.configuration do |c|
         c.title = "My Admin Site"
-        c.controller_namespace = "admin"
-        c.route_namespace = "admin"
       end
     RUBY
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
@@ -42,9 +43,15 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
   def test_generator_correctly_sets_controller_namespace
     run_generator(["--controller-namespace", "badminton"])
 
+    assert_file("config/initializers/super.rb", <<~RUBY)
+      Super.configuration do |c|
+        c.title = "My Admin Site"
+        c.generator_module = "badminton"
+      end
+    RUBY
     assert_file("config/initializers/super.rb") do |contents|
       eval(contents)
-      assert_equal("badminton", Super.configuration.controller_namespace)
+      assert_equal("badminton", Super.configuration.generator_module)
     end
 
     assert_file("app/controllers/badminton_controller.rb", <<~RUBY)
@@ -61,7 +68,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("config/initializers/super.rb") do |contents|
       eval(contents)
-      assert_equal("", Super.configuration.controller_namespace)
+      assert_equal("", Super.configuration.generator_module)
     end
 
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
@@ -71,5 +78,32 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_directory("app/controllers")
     assert_file("app/controllers/README.md")
+  end
+
+  def test_removes_trailing_and_following_slashes
+    run_generator(["--controller-namespace", "/one/", "--route-namespace", "/two/"])
+
+    assert_file("config/initializers/super.rb", <<~RUBY)
+      Super.configuration do |c|
+        c.title = "My Admin Site"
+        c.path = "/two"
+        c.generator_as = "two"
+        c.generator_module = "one"
+      end
+    RUBY
+    assert_file("config/initializers/super.rb") do |contents|
+      eval(contents)
+    end
+
+    assert_file("app/controllers/one_controller.rb", <<~RUBY)
+      class OneController < Super::ApplicationController
+      end
+    RUBY
+  end
+
+  def test_controller_namespace_cannot_be_super
+    assert_raises(Super::Error::ArgumentError) do
+      run_generator(["--controller-namespace", "super"])
+    end
   end
 end

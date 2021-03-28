@@ -1,2 +1,2 @@
-class <%= config[:controller_namespace].classify %>Controller < Super::ApplicationController
+class <%= parent_controller_name.classify %>Controller < Super::ApplicationController
 end

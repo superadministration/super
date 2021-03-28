@@ -38,7 +38,7 @@ module Super
       @record = controls.build_record_with_params(action: action_inquirer, params: params)
 
       if controls.save_record(action: action_inquirer, record: @record, params: params)
-        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
+        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("new"))
         @view = controls.new_view
@@ -58,7 +58,7 @@ module Super
       @record = controls.load_record(action: action_inquirer, params: params)
 
       if controls.update_record(action: action_inquirer, record: @record, params: params)
-        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
+        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
         @form = controls.form_schema(action: action_inquirer_for("edit"))
         @view = controls.edit_view
@@ -71,14 +71,14 @@ module Super
       @record = controls.load_record(action: action_inquirer, params: params)
 
       if controls.destroy_record(action: action_inquirer, record: @record, params: params)
-        redirect_to polymorphic_path(Super.configuration.path_parts(controls.model))
+        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
         flash.alert = "Couldn't delete record"
-        redirect_to polymorphic_path(Super.configuration.path_parts(@record))
+        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       end
     rescue ActiveRecord::InvalidForeignKey => e
       flash.alert = "Couldn't delete record: #{e.class}"
-      redirect_to polymorphic_path(Super.configuration.path_parts(@record))
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
     end
 
     private

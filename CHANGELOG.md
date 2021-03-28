@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Support for "virtual" fields that don't need to be correlated to a method on
   the model. Although it's not possible to sort by virtual fields (sorting is
   only done by the database), this will make it possible to show derived values
+* Route generation when using `bin/rails g super:resource MyModel`. It can
+  generate routes under a `namespace`, `scope`, or keep it at the top level.
+
+### Changed
+
+* A few configuration keys
 
 ## [0.0.11] - 2021-03-02
 
