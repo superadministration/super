@@ -7,12 +7,19 @@ require "super/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "super"
-  spec.version     = Super::VERSION
-  spec.authors     = ["Zach Ahn"]
-  spec.email       = ["engineering@zachahn.com"]
-  spec.summary     = "A simple, powerful, zero dependency Rails admin framework"
-  spec.license     = "LGPL-3.0-only"
+  spec.name = "super"
+  spec.version = Super::VERSION
+  spec.authors = ["Zach Ahn"]
+  spec.email = ["engineering@zachahn.com"]
+  spec.summary = "A simple, powerful, zero dependency Rails admin framework"
+  spec.license = "LGPL-3.0-only"
+  spec.metadata = {
+    "bug_tracker_uri" => "https://github.com/zachahn/super/issues",
+    "changelog_uri" => "https://github.com/zachahn/super/blob/main/CHANGELOG.md",
+    "documentation_uri" => "https://superadministration.github.io/",
+    "homepage_uri" => "https://github.com/zachahn/super",
+    "source_code_uri" => "https://github.com/zachahn/super",
+  }
 
   files_allowlist = Dir[
     "{app,config,db,lib,docs}/**/*",
@@ -20,7 +27,6 @@ Gem::Specification.new do |spec|
     "Rakefile",
     "LICENSE",
     "CONTRIBUTING.md",
-    "STABILITY.md",
     "README.md",
     ".yardopts",
   ]

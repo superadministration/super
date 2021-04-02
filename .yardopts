@@ -1,13 +1,5 @@
 --exclude lib/generators
 --markup markdown
---load ./docs/yard_customizations.rb
 -
 CONTRIBUTING.md
-STABILITY.md
 LICENSE
-docs/quick_start.md
-docs/installation.md
-docs/webpacker.md
-docs/action_text.md
-docs/cheat.md
-docs/faq.md

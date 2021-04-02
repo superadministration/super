@@ -2,7 +2,8 @@
 
 ![Unit tests status](https://github.com/zachahn/super/workflows/Unit%20tests/badge.svg?branch=master)
 [![Gem](https://img.shields.io/gem/v/super)][gem]
-[![Try the demo](https://img.shields.io/badge/try-demo-blue)][demo]
+[![Try the demo](https://img.shields.io/badge/demo-try-blue)][demo]
+[![Read the docs](https://img.shields.io/badge/docs-available-brightgreen)][docs]
 
 
 Super is an admin framework for Ruby on Rails applications. Super helps you make
@@ -48,13 +49,7 @@ See the [stability doc](./STABILITY.md) for an idea of what might be changed.
 
 
 See the [demo][demo] and its [source][demo_source] for an example of some of its
-features.
-
-
-## Installation and Usage
-
-See [Installation](./docs/quick_start.md) and
-[Quick start](./docs/quick_start.md)
+features. See the [docs][docs] for a walkthrough.
 
 
 ## Editions
@@ -101,6 +96,7 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 
 [gem]: https://rubygems.org/gems/super
 [discussions]: https://github.com/zachahn/super/discussions
+[docs]: https://superadministration.github.io/
 [newsletter]: https://tinyletter.com/zachahn
 [demo]: https://demo-super.herokuapp.com/admin/members
 [demo_source]: https://github.com/zachahn/super_demo
