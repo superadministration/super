@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * A few configuration keys
 * The number of records per paginated page. It's now at 100.
+* Moved generated definition of `#new_controls` into the parent class.
 
 ## [0.0.11] - 2021-03-02
 

@@ -1,11 +1,5 @@
 module Admin
   class ShipsController < AdminController
-    private
-
-    def new_controls
-      Controls.new
-    end
-
     class Controls < AdminControls
       def title
         Ship.name.pluralize

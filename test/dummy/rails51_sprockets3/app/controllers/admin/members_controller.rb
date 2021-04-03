@@ -5,12 +5,6 @@ module Admin
       @view.mains.push(Super::Partial.new("favorite_things"))
     end
 
-    private
-
-    def new_controls
-      Controls.new
-    end
-
     class Controls < AdminControls
       def title
         Member.name.pluralize

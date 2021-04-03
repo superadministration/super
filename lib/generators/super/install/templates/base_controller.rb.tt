@@ -1,4 +1,10 @@
 class <%= parent_controller_name.classify %>Controller < Super::ApplicationController
   class <%= parent_controller_name.classify.demodulize %>Controls < Super::Controls
   end
+
+  private
+
+  def new_controls
+    self.class::Controls.new
+  end
 end
