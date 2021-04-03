@@ -73,12 +73,11 @@ module Super
     private
 
     def parent_controller_name
-      controller_namespace = Super.configuration.generator_module
-      if controller_namespace.present?
-        "#{controller_namespace.camelize}Controller"
-      else
-        "AdminController"
-      end
+      controller_namespace.presence || "admin"
+    end
+
+    def controller_namespace
+      Super.configuration.generator_module.strip.gsub(%r{\A/+}, "").gsub(%r{/+\z}, "").strip.underscore
     end
 
     def route_scope

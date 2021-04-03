@@ -1,12 +1,12 @@
 <% module_namespacing do -%>
-class <%= controller_class_name %>Controller < <%= parent_controller_name %>
+class <%= controller_class_name %>Controller < <%= parent_controller_name.classify %>Controller
   private
 
   def new_controls
     Controls.new
   end
 
-  class Controls < Super::Controls
+  class Controls < <%= parent_controller_name.classify.demodulize %>Controls
     def model
       <%= class_name %>
     end

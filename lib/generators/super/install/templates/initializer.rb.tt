@@ -4,7 +4,7 @@ Super.configuration do |c|
   c.path = "/<%= route_namespace %>"
 <% end -%>
 <% if route_namespace != "admin" -%>
-  c.generator_as = "<%= route_namespace %>"
+  c.generator_as = "<%= route_namespace.gsub(%r{/}, "_") %>"
 <% end -%>
 <% if controller_namespace != "admin" -%>
   c.generator_module = "<%= controller_namespace %>"

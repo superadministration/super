@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   only done by the database), this will make it possible to show derived values
 * Route generation when using `bin/rails g super:resource MyModel`. It can
   generate routes under a `namespace`, `scope`, or keep it at the top level.
+* Generation of `AdminController::AdminControls`, which subclasses
+  `Super::Controls`. (The name changes automatically depending on the controller
+  namespace)
 
 ### Changed
 

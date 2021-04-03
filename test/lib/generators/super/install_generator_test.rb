@@ -27,8 +27,13 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
         c.title = "My Admin Site"
       end
     RUBY
+    assert_file("config/initializers/super.rb") do |contents|
+      eval(contents)
+    end
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
       class AdminController < Super::ApplicationController
+        class AdminControls < Super::Controls
+        end
       end
     RUBY
     assert_file("app/controllers/admin/.keep", "")
@@ -51,11 +56,12 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     RUBY
     assert_file("config/initializers/super.rb") do |contents|
       eval(contents)
-      assert_equal("badminton", Super.configuration.generator_module)
     end
 
     assert_file("app/controllers/badminton_controller.rb", <<~RUBY)
       class BadmintonController < Super::ApplicationController
+        class BadmintonControls < Super::Controls
+        end
       end
     RUBY
 
@@ -73,6 +79,8 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
       class AdminController < Super::ApplicationController
+        class AdminControls < Super::Controls
+        end
       end
     RUBY
 
@@ -97,6 +105,31 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/one_controller.rb", <<~RUBY)
       class OneController < Super::ApplicationController
+        class OneControls < Super::Controls
+        end
+      end
+    RUBY
+  end
+
+  def test_nested
+    run_generator(["--controller-namespace", "one/two", "--route-namespace", "three/four"])
+
+    assert_file("config/initializers/super.rb", <<~RUBY)
+      Super.configuration do |c|
+        c.title = "My Admin Site"
+        c.path = "/three/four"
+        c.generator_as = "three_four"
+        c.generator_module = "one/two"
+      end
+    RUBY
+    assert_file("config/initializers/super.rb") do |contents|
+      eval(contents)
+    end
+
+    assert_file("app/controllers/one/two_controller.rb", <<~RUBY)
+      class One::TwoController < Super::ApplicationController
+        class TwoControls < Super::Controls
+        end
       end
     RUBY
   end

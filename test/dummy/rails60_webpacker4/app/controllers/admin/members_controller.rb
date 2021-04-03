@@ -11,7 +11,7 @@ module Admin
       Controls.new
     end
 
-    class Controls < Super::Controls
+    class Controls < AdminControls
       def title
         Member.name.pluralize
       end
