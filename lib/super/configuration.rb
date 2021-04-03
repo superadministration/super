@@ -24,7 +24,7 @@ module Super
     include ActiveSupport::Configurable
 
     config_accessor(:title) { "Super Admin" }
-    config_accessor(:index_records_per_page) { 20 }
+    config_accessor(:index_records_per_page) { 100 }
     config_accessor(:javascripts) do
       [Super::Assets.auto("super/application")]
     end

@@ -1,6 +1,14 @@
 require "test_helper"
 
 class FilterTest < CapybaraTest
+  setup do
+    @original_configuration = Super.configuration
+    Super.instance_variable_set(:@configuration, @original_configuration.dup)
+    Super.configuration.index_records_per_page = 20
+  end
+
+  teardown { Super.instance_variable_set(:@configuration, @original_configuration) }
+
   def test_filtering_via_equality
     visit admin_members_path
 

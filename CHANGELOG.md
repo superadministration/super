@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * A few configuration keys
+* The number of records per paginated page. It's now at 100.
 
 ## [0.0.11] - 2021-03-02
 
