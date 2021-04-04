@@ -9,6 +9,9 @@ appraise "rails50_sprockets3_ruby23" do
   gem "nio4r", "~> 2.4.0"
   gem "rubyzip", "~> 1.0"
   gem "webdrivers", "~> 4.2.0"
+  gem "nokogiri", "~> 1.10.10"
+  gem "simplecov", "~> 0.17.0"
+  gem "simplecov-html", "~> 0.10.0"
 end
 
 appraise "rails50_sprockets3" do
@@ -17,6 +20,9 @@ appraise "rails50_sprockets3" do
   gem "capybara", "~> 3.32.2" # Last version to support Ruby 2.4
   gem "sqlite3", "~> 1.3.0"
   gem "minitest", "~> 5.9.0"
+  gem "nokogiri", "~> 1.10.10"
+  gem "simplecov", "~> 0.17.0"
+  gem "simplecov-html", "~> 0.10.0"
 end
 
 appraise "rails51_sprockets3" do

@@ -10,6 +10,7 @@ gem "minitest", "~> 5.9.0"
 gem "nio4r", "~> 2.4.0"
 gem "rubyzip", "~> 1.0"
 gem "webdrivers", "~> 4.2.0"
+gem "nokogiri", "~> 1.10.10"
 gem "simplecov", "~> 0.17.0"
 gem "simplecov-html", "~> 0.10.0"
 
