@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.12] - 2021-04-04
+
 ### Added
 
 * Support for "virtual" fields that don't need to be correlated to a method on
