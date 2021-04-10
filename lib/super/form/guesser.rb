@@ -22,7 +22,16 @@ module Super
       private
 
       def attribute_type_for(attribute_name)
-        @type.string
+        case @model.type_for_attribute(attribute_name).type
+        when :datetime
+          @type.flatpickr_datetime
+        when :time
+          @type.flatpickr_time
+        when :date
+          @type.flatpickr_date
+        else
+          @type.string
+        end
       end
     end
   end

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Add a time display type that only shows the time
+* Add a date-, datetime-, and time-picker to forms
 
 ## [0.0.12] - 2021-04-04
 

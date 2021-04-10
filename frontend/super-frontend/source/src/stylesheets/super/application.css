@@ -10,6 +10,8 @@ a {
 
 @tailwind components;
 
+@import "flatpickr/dist/themes/light.css";
+
 .feather {
   height: auto;
   max-width: 100%;

@@ -60,6 +60,18 @@ class CapybaraTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  def browser_tz(tz)
+    original_time_zone = Time.zone
+    original_env_tz = ENV["TZ"]
+    ENV["TZ"] = tz
+    Capybara.using_session(tz) do
+      yield
+    end
+  ensure
+    ENV["TZ"] = original_env_tz
+    Time.zone = original_time_zone
+  end
 end
 
 ActionView::TestCase.class_eval do

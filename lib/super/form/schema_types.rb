@@ -11,6 +11,7 @@ module Super
         end
 
         attr_reader :nested_fields
+        attr_reader :extras
 
         def each_attribute
           if block_given?
@@ -84,6 +85,18 @@ module Super
 
       def checkbox(**extras)
         Generic.new(partial_path: "form_field_checkbox", extras: extras, nested: {})
+      end
+
+      def flatpickr_date(**extras)
+        Generic.new(partial_path: "form_field_flatpickr_date", extras: extras, nested: {})
+      end
+
+      def flatpickr_datetime(**extras)
+        Generic.new(partial_path: "form_field_flatpickr_datetime", extras: extras, nested: {})
+      end
+
+      def flatpickr_time(**extras)
+        Generic.new(partial_path: "form_field_flatpickr_time", extras: extras, nested: {})
       end
 
       def has_many(reader, **extras)

@@ -4,6 +4,7 @@ import ApplyTemplateController from "./apply_template_controller";
 import CleanFilterParamController from "./clean_filter_param_controller";
 import CleanFilterParamsController from "./clean_filter_params_controller";
 import DeleteController from "./delete_controller";
+import FlatpickrController from "./flatpickr_controller";
 import TogglePendingDestructionController from "./toggle_pending_destruction_controller";
 
 RailsUjs.start();
@@ -16,6 +17,7 @@ StimulusApplication.register(
   CleanFilterParamsController
 );
 StimulusApplication.register("delete", DeleteController);
+StimulusApplication.register("flatpickr", FlatpickrController);
 StimulusApplication.register(
   "toggle-pending-destruction",
   TogglePendingDestructionController

@@ -58,6 +58,62 @@ module Super
           @builder.check_box(attribute, options, checked_value, unchecked_value)
         end
 
+        def flatpickr_date(attribute, options = {})
+          options, defaults = split_defaults(
+            options,
+            class: "super-input w-full",
+            data: {
+              controller: "flatpickr",
+              flatpickr_options_value: {
+                dateFormat: "Y-m-d",
+              }
+            }
+          )
+          options[:class] = join_classes(defaults[:class], options[:class])
+          options[:data] = defaults[:data].deep_merge(options[:data] || {})
+
+          @builder.text_field(attribute, options)
+        end
+
+        def flatpickr_datetime(attribute, options = {})
+          options, defaults = split_defaults(
+            options,
+            class: "super-input w-full",
+            data: {
+              controller: "flatpickr",
+              flatpickr_options_value: {
+                enableSeconds: true,
+                enableTime: true,
+                dateFormat: "Z",
+              }
+            }
+          )
+          options[:class] = join_classes(defaults[:class], options[:class])
+          options[:data] = defaults[:data].deep_merge(options[:data] || {})
+
+          @builder.text_field(attribute, options)
+        end
+
+        def flatpickr_time(attribute, options = {})
+          options, defaults = split_defaults(
+            options,
+            class: "super-input w-full",
+            data: {
+              controller: "flatpickr",
+              flatpickr_options_value: {
+                enableSeconds: true,
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i:S",
+              }
+            }
+          )
+          options[:class] = join_classes(defaults[:class], options[:class])
+          options[:data] = defaults[:data].deep_merge(options[:data] || {})
+
+          @builder.text_field(attribute, options)
+        end
+
         def password_field(attribute, options = {})
           options, defaults = split_defaults(options, class: "super-input w-full")
           options[:class] = join_classes(defaults[:class], options[:class])
@@ -125,6 +181,42 @@ module Super
               public_send(:label, attribute, nil, label),
               "</div>".html_safe,
               show_errors && inline_errors(attribute),
+            ])
+          end
+        end
+
+        def flatpickr_date!(attribute, label: {}, field: {}, show_errors: true)
+          container do
+            compact_join([
+              public_send(:label, attribute, label),
+              %(<div class="mt-1">).html_safe,
+              public_send(:flatpickr_date, attribute, field),
+              show_errors && inline_errors(attribute),
+              %(</div>).html_safe,
+            ])
+          end
+        end
+
+        def flatpickr_datetime!(attribute, label: {}, field: {}, show_errors: true)
+          container do
+            compact_join([
+              public_send(:label, attribute, label),
+              %(<div class="mt-1">).html_safe,
+              public_send(:flatpickr_datetime, attribute, field),
+              show_errors && inline_errors(attribute),
+              %(</div>).html_safe,
+            ])
+          end
+        end
+
+        def flatpickr_time!(attribute, label: {}, field: {}, show_errors: true)
+          container do
+            compact_join([
+              public_send(:label, attribute, label),
+              %(<div class="mt-1">).html_safe,
+              public_send(:flatpickr_time, attribute, field),
+              show_errors && inline_errors(attribute),
+              %(</div>).html_safe,
             ])
           end
         end

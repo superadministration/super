@@ -1,0 +1,8 @@
+<%= form.super.flatpickr_datetime!(
+  column,
+  **form_field_flatpickr_datetime.extras.deep_merge(
+    field: {
+      value: form.object.public_send(column)&.iso8601,
+    }
+  )
+) %>
