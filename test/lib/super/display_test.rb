@@ -1,10 +1,6 @@
 require "test_helper"
 
 class Super::DisplayTest < ActionView::TestCase
-  setup do
-    view.lookup_context.prefixes << "super/application"
-  end
-
   def test_index_with_computed
     index_action = new_action(:index)
     view.define_singleton_method(:action_inquirer) { index_action }

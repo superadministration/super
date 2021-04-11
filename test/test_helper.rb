@@ -13,6 +13,7 @@ require "capybara/rails"
 require "capybara/dsl"
 require "capybara/minitest"
 require "mocha/minitest"
+require_relative "support/ad_hoc_view_helpers"
 require_relative "support/custom_database_schema"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
@@ -62,6 +63,12 @@ class CapybaraTest < ActionDispatch::IntegrationTest
 end
 
 ActionView::TestCase.class_eval do
+  include AdHocViewHelpers
+
+  setup do
+    view.lookup_context.prefixes << "super/application"
+  end
+
   private
 
   # The behavior of this method (since 2009!) has been to prefer `@rendered`
