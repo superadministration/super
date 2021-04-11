@@ -13,6 +13,7 @@ require "capybara/rails"
 require "capybara/dsl"
 require "capybara/minitest"
 require "mocha/minitest"
+require_relative "support/custom_database_schema"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.

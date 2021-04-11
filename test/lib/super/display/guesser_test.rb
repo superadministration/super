@@ -2,11 +2,9 @@ require "test_helper"
 
 module Super
   class DisplayGuessTest < ActiveSupport::TestCase
-    setup do
-      @new_connection = ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
-      @original_migration_verbosity = ActiveRecord::Migration.verbose
-      ActiveRecord::Migration.verbose = false
+    include CustomDatabaseSchema
 
+    custom_schema do
       ActiveRecord::Schema.define(version: 1) do
         create_table :chthonics do |t|
           t.text :hades
@@ -30,12 +28,6 @@ module Super
           t.string :name
         end
       end
-    end
-
-    teardown do
-      ActiveRecord::Migration.verbose = @original_migration_verbosity
-      ActiveRecord::Base.remove_connection(@new_connection)
-      ActiveRecord::Base.establish_connection(:test)
     end
 
     class Chthonic < ActiveRecord::Base
