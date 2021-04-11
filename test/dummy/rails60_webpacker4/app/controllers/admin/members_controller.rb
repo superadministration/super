@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class MembersController < AdminController
     def show
@@ -11,7 +13,7 @@ module Admin
       Controls.new
     end
 
-    class Controls < AdminControls
+    class Controls < Super::Controls
       def title
         Member.name.pluralize
       end

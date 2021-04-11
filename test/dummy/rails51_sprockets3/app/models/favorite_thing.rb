@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FavoriteThing < ApplicationRecord
   belongs_to :member
 

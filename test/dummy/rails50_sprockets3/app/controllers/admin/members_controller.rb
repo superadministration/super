@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class MembersController < AdminController
     def show
@@ -5,7 +7,13 @@ module Admin
       @view.mains.push(Super::Partial.new("favorite_things"))
     end
 
-    class Controls < AdminControls
+    private
+
+    def new_controls
+      Controls.new
+    end
+
+    class Controls < Super::Controls
       def title
         Member.name.pluralize
       end

@@ -1,0 +1,2 @@
+class Sink < ApplicationRecord
+end

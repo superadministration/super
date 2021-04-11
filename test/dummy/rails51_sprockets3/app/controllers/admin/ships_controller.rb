@@ -1,6 +1,14 @@
+# frozen_string_literal: true
+
 module Admin
   class ShipsController < AdminController
-    class Controls < AdminControls
+    private
+
+    def new_controls
+      Controls.new
+    end
+
+    class Controls < Super::Controls
       def title
         Ship.name.pluralize
       end

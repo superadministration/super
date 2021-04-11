@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191126050453) do
+ActiveRecord::Schema.define(version: 20210411180249) do
 
   create_table "favorite_things", force: :cascade do |t|
     t.integer "member_id", null: false
@@ -34,6 +34,23 @@ ActiveRecord::Schema.define(version: 20191126050453) do
     t.string "name"
     t.string "registry"
     t.string "class_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sinks", force: :cascade do |t|
+    t.string "string_column"
+    t.text "text_column"
+    t.integer "integer_column"
+    t.bigint "bigint_column"
+    t.float "float_column"
+    t.decimal "decimal_column"
+    t.decimal "numeric_column"
+    t.datetime "datetime_column"
+    t.time "time_column"
+    t.date "date_column"
+    t.binary "binary_column"
+    t.boolean "boolean_column"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

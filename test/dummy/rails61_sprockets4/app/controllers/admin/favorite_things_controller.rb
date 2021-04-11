@@ -1,6 +1,14 @@
+# frozen_string_literal: true
+
 module Admin
   class FavoriteThingsController < AdminController
-    class Controls < AdminControls
+    private
+
+    def new_controls
+      Controls.new
+    end
+
+    class Controls < Super::Controls
       def title
         FavoriteThing.name.pluralize
       end
