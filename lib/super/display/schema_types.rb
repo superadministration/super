@@ -95,7 +95,7 @@ module Super
       def time; real { |value| value.strftime("%H:%M:%S") }; end
 
       def rich_text
-        real do |value|
+        computed do |value|
           Partial.new("display_rich_text", locals: { rich_text: value })
         end
       end
