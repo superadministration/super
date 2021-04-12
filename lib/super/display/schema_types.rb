@@ -92,6 +92,7 @@ module Super
       alias text string
 
       def timestamp; real(&:to_s); end
+      def time; real { |value| value.strftime("%H:%M:%S") }; end
 
       def rich_text
         real do |value|

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Add a time display type that only shows the time
+
 ## [0.0.12] - 2021-04-04
 
 ### Added

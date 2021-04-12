@@ -27,6 +27,8 @@ module Super
         case type
         when :datetime
           @type.timestamp
+        when :time
+          @type.time
         else
           @type.text
         end
