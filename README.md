@@ -7,26 +7,12 @@
 
 
 Super is an admin framework for Ruby on Rails applications. Super helps you make
-powerful admin pages quickly so that you can concentrate on the parts of your
-app that make it great.
+admin pages quickly and provides a powerful interface for admins to use.
 
-Super strives to let engineers build great admin pages quickly and easily by:
-
-* Providing a configurable CRUD interface with usable defaults
-* Building on top of standard Rails controllers and ERB views
-* Preferring plain Ruby objects and initializers instead of DSLs
-
-
-Super's distinguishing feature is that it's easy to maintain in your
-application. It does this by:
-
-* Supporting a wide range of Ruby (2.3–3.0+) and Rails (5.0–6.1+) versions,
-  which makes it easy to upgrade your Ruby and Rails versions without breaking
-  your admin pages
-* Having zero dependencies, so that you can upgrade your app's dependencies
-  without affecting your admin pages (or upgrade your admin pages without
-  worrying it might break your app)
-
+It's distinguishing feature is that it's easy for you to maintain in your
+application. It does this by having zero dependencies—this lets you update your
+app's dependencies without worrying about breaking your admin pages, and vice
+versa, update your admin pages without breaking your app.
 
 Note: There may be lots of breaking changes since Super is still fairly young.
 See the [stability doc](./STABILITY.md) for an idea of what might be changed.
@@ -34,45 +20,52 @@ See the [stability doc](./STABILITY.md) for an idea of what might be changed.
 
 ## Features
 
-* Responsive and mobile-friendly
-* Compatible with Sprockets and Webpacker
+* Responsive and mobile-friendly web pages
+* Automatic controllers that work without any configuration
 * Configurable forms
     * Supports nested attributes `accepts_nested_attributes_for`
+    * New and edit forms can be totally different
 * Configurable display (index and show tables)
-* Advanced filtering for ActiveRecord
-* Pre-built frontend assets (doesn't require Sass, PostCSS, Babel, etc)
-    * Vendored assets include
-        * Stimulus JS
-        * Tailwind CSS
-        * Rails UJS
-* Supports Rails 5.0+, Ruby 2.3+
+    * Supports showing computed values that aren't backed by database fields
+* Advanced filtering/search
+* Compatible with Sprockets and Webpacker
+* Pre-built frontend assets. Super doesn't depend on Sass, PostCSS, Babel, etc
+* Carefully chosen, vendored frontend assets
+    * Stimulus JS v2
+    * Tailwind CSS v1
+    * Rails UJS
+    * Flatpickr
+* Builds on top of standard Rails controllers and ERB views
+* Plenty of escape hatches for those very customized pages
+* No DSL. Configure your admin pages by setting methods and returning objects
+* Supports Rails 5.0+, 6.0+
+* Supports Ruby 2.3+, 3.0+
 
 
 See the [demo][demo] and its [source][demo_source] for an example of some of its
 features. See the [docs][docs] for a walkthrough.
 
 
-## Editions
+## Quick start
 
-There are several editions to consider.
+Add this line anywhere in your Gemfile:
 
-**Super FOSS** provides:
+```ruby
+gem "super"
+```
 
-* A great admin framework that's free and easy to maintain
-* Community support, see the [discussion forum][discussions]
+Then install Super by running:
 
-**Super Premium** (not available yet) provides:
+```
+bundle install
+bin/rails g super:install
+```
 
-* Private email support
-* Ensuring long term development of Super
+You can create admin pages by running this for all the models you want:
 
-**Super Professional** (not available yet) provides everything in Premium and:
-
-* Productivity improvements and quality of life features for admins
-* An LGPL exemption
-
-Subscribe to the [newsletter][newsletter] to be notified of their availabilities
-and for brief, quarterly-at-most updates to Super.
+```
+bin/rails g super:resource ModelName
+```
 
 
 ## Super doesn't fit my needs. What are some alternatives?
@@ -97,6 +90,5 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 [gem]: https://rubygems.org/gems/super
 [discussions]: https://github.com/zachahn/super/discussions
 [docs]: https://superadministration.github.io/
-[newsletter]: https://tinyletter.com/zachahn
 [demo]: https://demo-super.herokuapp.com/admin/members
 [demo_source]: https://github.com/zachahn/super_demo
