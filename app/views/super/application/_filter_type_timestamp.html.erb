@@ -11,13 +11,13 @@
     </div>
     <div class="flex items-center mt-3">
       <div class="flex-initial">
-        <%= form_field.super.text_field(:q0, data: { clean_filter_param_target: "control candidate" }) %>
+        <%= form_field.super.flatpickr_datetime(:q0, data: { clean_filter_param_target: "control candidate" }) %>
       </div>
       <div class="flex-initial px-2">
         &ndash;
       </div>
       <div class="flex-initial">
-        <%= form_field.super.text_field(:q1, data: { clean_filter_param_target: "control candidate" }) %>
+        <%= form_field.super.flatpickr_datetime(:q1, data: { clean_filter_param_target: "control candidate" }) %>
       </div>
     </div>
   <% end %>
