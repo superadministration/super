@@ -16,25 +16,25 @@ stability.
 <tr><td>Frontend JS</td>                                    <td>❌</td></tr>
 <tr><td><code>Super::ActionInquirer</code></td>             <td>✅</td></tr>
 <tr><td><code>Super::ApplicationController</code></td>      <td>✅</td></tr>
-<tr><td><code>Super::Assets</code></td>                     <td>🚧</td></tr>
+<tr><td><code>Super::Assets</code></td>                     <td>✅</td></tr>
 <tr><td><code>Super::ClientError</code></td>                <td>✅</td></tr>
 <tr><td><code>Super::Compatability</code></td>              <td>🙈</td></tr>
-<tr><td><code>Super::Configuration</code></td>              <td>🚧</td></tr>
+<tr><td><code>Super::Configuration</code></td>              <td>✅</td></tr>
 <tr><td><code>Super::Controls::Optional</code></td>         <td>✅</td></tr>
 <tr><td><code>Super::Controls::Required</code></td>         <td>✅</td></tr>
-<tr><td><code>Super::Controls::Steps</code></td>            <td>🚧</td></tr>
+<tr><td><code>Super::Controls::Steps</code></td>            <td>✅</td></tr>
 <tr><td><code>Super::Controls</code></td>                   <td>✅</td></tr>
-<tr><td><code>Super::Display</code></td>                    <td>🤔</td></tr>
+<tr><td><code>Super::Display</code></td>                    <td>✅</td></tr>
 <tr><td><code>Super::Engine</code></td>                     <td>🙈</td></tr>
 <tr><td><code>Super::Error</code></td>                      <td>✅</td></tr>
 <tr><td><code>Super::Filter</code></td>                     <td>❌</td></tr>
-<tr><td><code>Super::Form</code></td>                       <td>🤔</td></tr>
-<tr><td><code>Super::Layout</code></td>                     <td>🤔</td></tr>
-<tr><td><code>Super::Link</code></td>                       <td>✅</td></tr>
-<tr><td><code>Super::Navigation</code></td>                 <td>🤔</td></tr>
-<tr><td><code>Super::Pagination</code></td>                 <td>🤔</td></tr>
-<tr><td><code>Super::Panel</code></td>                      <td>🤔</td></tr>
-<tr><td><code>Super::Partial</code></td>                    <td>🤔</td></tr>
+<tr><td><code>Super::Form</code></td>                       <td>✅</td></tr>
+<tr><td><code>Super::Layout</code></td>                     <td>✅</td></tr>
+<tr><td><code>Super::Link</code></td>                       <td>🚧</td></tr>
+<tr><td><code>Super::Navigation</code></td>                 <td>🚧</td></tr>
+<tr><td><code>Super::Pagination</code></td>                 <td>✅</td></tr>
+<tr><td><code>Super::Panel</code></td>                      <td>✅</td></tr>
+<tr><td><code>Super::Partial</code></td>                    <td>✅</td></tr>
 <tr><td><code>Super::Plugin</code></td>                     <td>✅</td></tr>
 <tr><td><code>Super::ViewHelper</code></td>                 <td>❌</td></tr>
 </tbody>
