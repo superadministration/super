@@ -1,0 +1,7 @@
+html {
+  font-size: 15px;
+}
+
+a {
+  @apply .text-blue-700;
+}
