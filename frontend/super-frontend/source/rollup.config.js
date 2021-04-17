@@ -6,7 +6,7 @@ import duplicateFile from "./rollup.duplicate";
 
 export default [
   {
-    input: "src/stylesheets/super/application.css",
+    input: "src/stylesheets/application.css",
     output: [
       {
         file: "../../../app/assets/stylesheets/super/application.css",
@@ -17,7 +17,7 @@ export default [
   },
   {
     context: "window",
-    input: "src/javascripts/super/application.js",
+    input: "src/javascripts/application.js",
     output: [
       {
         file: "../../../app/assets/javascripts/super/application.js",
