@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    super (0.0.12)
+    super (0.0.13)
       railties (>= 5.0)
 
 GEM
