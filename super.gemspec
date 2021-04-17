@@ -24,9 +24,7 @@ Gem::Specification.new do |spec|
   files_allowlist = Dir[
     "{app,config,db,lib,docs}/**/*",
     "frontend/*/dist/**/*",
-    "Rakefile",
     "LICENSE",
-    "CONTRIBUTING.md",
     "README.md",
     ".yardopts",
   ]
