@@ -32,7 +32,7 @@ See the [stability doc](./STABILITY.md) for an idea of what might be changed.
 * Pre-built frontend assets. Super doesn't depend on Sass, PostCSS, Babel, etc
 * Carefully chosen, vendored frontend assets
     * Stimulus JS v2
-    * Tailwind CSS v1
+    * Tailwind CSS v2
     * Rails UJS
     * Flatpickr
 * Builds on top of standard Rails controllers and ERB views

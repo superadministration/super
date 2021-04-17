@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Upgraded to Tailwind v2.1.1. This drops support for IE 11. Note that I'm still
+  on v1 colors.
+
 ## [0.0.13] - 2021-04-16
 
 ### Added

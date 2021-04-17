@@ -9,7 +9,7 @@
     <%= Super::Partial.render(partial, template: self) %>
   <% end %>
 <% else %>
-  <div class="clearfix -mx-2">
+  <div class="flow-root -mx-2">
     <div class="md:float-left md:w-9/12 px-2">
       <% layout.resolved_mains.each do |partial| %>
         <%= Super::Partial.render(partial, template: self) %>
