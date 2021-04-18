@@ -1580,6 +1580,21 @@ span.flatpickr-day.selected {
   margin-top: 1rem;
 }
 
+/*
+ * https://github.com/primer/css/blob/882901737f29b73985bf899be2059406ac4fd6fa/src/utilities/details.scss#L22-L29
+ * Copyright (c) 2021 GitHub Inc.
+ * MIT License
+ */
+
+.details-reset > summary { list-style: none;
+}
+
+.details-reset > summary::before { display: none;
+}
+
+.details-reset > summary::-webkit-details-marker { display: none;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

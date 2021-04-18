@@ -7,6 +7,7 @@ module Super
 
     helper_method :action_inquirer
     helper_method :controls
+    helper_method :navigation
 
     # Displays a list of records to the user
     def index
@@ -96,6 +97,10 @@ module Super
         ActionInquirer.default_for_resources,
         action
       )
+    end
+
+    def navigation
+      Navigation.new(&:all)
     end
   end
 end

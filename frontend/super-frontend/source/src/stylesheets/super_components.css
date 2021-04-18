@@ -61,3 +61,12 @@
 .super-field-group {
   @apply mt-4;
 }
+
+/*
+ * https://github.com/primer/css/blob/882901737f29b73985bf899be2059406ac4fd6fa/src/utilities/details.scss#L22-L29
+ * Copyright (c) 2021 GitHub Inc.
+ * MIT License
+ */
+.details-reset > summary { list-style: none; }
+.details-reset > summary::before { display: none; }
+.details-reset > summary::-webkit-details-marker { display: none; }

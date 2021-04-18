@@ -23,5 +23,24 @@ module Super
         ActiveRecord::Base.sanitize_sql_like(query)
       end
     end
+
+    def polymorphic_path_container
+      if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
+        @polymorphic_path_container ||=
+          begin
+            klass = Class.new do
+              include ActionDispatch::Routing::PolymorphicRoutes
+
+              def method_missing(method_name)
+                Rails.application.routes.url_helpers.public_send(method_name)
+              end
+            end
+
+            klass.new
+          end
+      else
+        Rails.application.routes.url_helpers
+      end
+    end
   end
 end

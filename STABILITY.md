@@ -30,8 +30,8 @@ stability.
 <tr><td><code>Super::Filter</code></td>                     <td>❌</td></tr>
 <tr><td><code>Super::Form</code></td>                       <td>✅</td></tr>
 <tr><td><code>Super::Layout</code></td>                     <td>✅</td></tr>
-<tr><td><code>Super::Link</code></td>                       <td>🚧</td></tr>
-<tr><td><code>Super::Navigation</code></td>                 <td>🚧</td></tr>
+<tr><td><code>Super::Link</code></td>                       <td>✅</td></tr>
+<tr><td><code>Super::Navigation</code></td>                 <td>✅</td></tr>
 <tr><td><code>Super::Pagination</code></td>                 <td>✅</td></tr>
 <tr><td><code>Super::Panel</code></td>                      <td>✅</td></tr>
 <tr><td><code>Super::Partial</code></td>                    <td>✅</td></tr>

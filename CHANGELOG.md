@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Navigation can be configured now. But it's still automatic by default
+* Navigation can be nested one level deep
+
 ### Changed
 
 * Upgraded to Tailwind v2.1.1. This drops support for IE 11. Note that I'm still
