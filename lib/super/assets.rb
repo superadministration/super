@@ -21,7 +21,7 @@ module Super
       assets.map do |asset|
         grep_matches = grep && asset === grep
         if grep_matches || !grep
-          asset.instance_variable_set(:@handler, Handler.webpacker)
+          asset.send(:handler=, Handler.webpacker)
         end
 
         asset
@@ -34,7 +34,7 @@ module Super
       assets.map do |asset|
         grep_matches = grep && asset === grep
         if grep_matches || !grep
-          asset.instance_variable_set(:@asset_handler, Handler.sprockets)
+          asset.send(:handler=, Handler.sprockets)
         end
 
         asset
@@ -52,6 +52,14 @@ module Super
       attr_reader :path
       attr_reader :arguments
 
+      def ==(other)
+        return false if handler != other.handler
+        return false if path != other.path
+        return false if arguments != other.arguments
+
+        true
+      end
+
       def ===(other)
         return true if path == other
         return true if other.is_a?(Regexp) && path.match?(other)
@@ -61,6 +69,10 @@ module Super
 
         false
       end
+
+      private
+
+      attr_writer :handler
     end
 
     def self.dist(gem_name, package_name)
@@ -113,6 +125,10 @@ module Super
 
       def initialize(asset_handler)
         @asset_handler = asset_handler
+      end
+
+      def ==(other)
+        to_sym == other.to_sym
       end
 
       def sprockets?
