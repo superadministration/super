@@ -86,29 +86,34 @@ module Super
     end
 
     class Handler
-      def self.auto
-        @auto ||=
-          if Gem::Dependency.new("sprockets", "~> 4.0").matching_specs.any?
-            sprockets
-          elsif Gem::Dependency.new("sprockets", "~> 3.0").matching_specs.any?
-            sprockets
-          elsif Gem::Dependency.new("sprockets", "~> 2.0").matching_specs.any?
-            sprockets
-          elsif Gem::Dependency.new("webpacker", "~> 6.0").matching_specs.any?
-            webpacker
-          elsif Gem::Dependency.new("webpacker", "~> 5.0").matching_specs.any?
-            webpacker
-          elsif Gem::Dependency.new("webpacker", "~> 4.0").matching_specs.any?
-            webpacker
-          elsif Gem::Dependency.new("webpacker", "~> 3.0").matching_specs.any?
-            webpacker
-          else
-            none
+      class << self
+        def auto
+          sprockets_spec = gem_specification("sprockets")
+          if sprockets_spec
+            major = sprockets_spec.version.segments.first
+            if major >= 2
+              return sprockets
+            end
           end
-      end
 
-      def self.sprockets_available?
-        Gem::Dependency.new("sprockets").matching_specs.any? && defined?(Sprockets)
+          webpacker_spec = gem_specification("webpacker")
+          if webpacker_spec
+            major = webpacker_spec.version.segments.first
+            if major >= 4
+              return webpacker
+            end
+          end
+
+          none
+        end
+
+        def sprockets_available?
+          !gem_specification("sprockets").nil? && defined?(Sprockets)
+        end
+
+        def gem_specification(gem_name)
+          Gem::Dependency.new(gem_name).matching_specs&.sort_by(&:version)&.first
+        end
       end
 
       def self.sprockets
