@@ -13,11 +13,7 @@
       <% if stylesheet.handler.sprockets? %>
         <%= stylesheet_link_tag(stylesheet.path, **stylesheet.arguments) %>
       <% elsif stylesheet.handler.webpacker? %>
-        <% if Gem::Dependency.new("webpacker", "> 5.99", "< 7").matching_specs.any? %>
-          <%= stylesheet_packs_with_chunks_tag(stylesheet.path) %>
-        <% else %>
-          <%= stylesheet_pack_tag(stylesheet.path, **stylesheet.arguments) %>
-        <% end %>
+        <%= stylesheet_pack_tag(stylesheet.path, **stylesheet.arguments) %>
       <% end %>
     <% end %>
 
@@ -25,11 +21,7 @@
       <% if javascript.handler.sprockets? %>
         <%= javascript_include_tag(javascript.path) %>
       <% elsif javascript.handler.webpacker? %>
-        <% if Gem::Dependency.new("webpacker", "> 5.99", "< 7").matching_specs.any? %>
-          <%= javascript_packs_with_chunks_tag(javascript.path) %>
-        <% else %>
-          <%= javascript_pack_tag(javascript.path) %>
-        <% end %>
+        <%= javascript_pack_tag(javascript.path) %>
       <% end %>
     <% end %>
   </head>

@@ -5,10 +5,14 @@ module Super
     source_root File.expand_path("templates", __dir__)
 
     def copy_the_pack_file
-      template(
-        "pack_super_application.js.erb",
-        "app/javascript/packs/super/application.js.erb"
-      )
+      path =
+        if Gem::Dependency.new("webpacker", ">= 6.0.0.beta2", "!= 6.0.0.pre1", "!= 6.0.0.pre2").matching_specs.any?
+          "app/packs/entrypoints/super/application.js.erb"
+        else
+          "app/javascript/packs/super/application.js.erb"
+        end
+
+      template("pack_super_application.js.erb", path)
     end
 
     def set_asset_handler_to_webpacker
@@ -16,7 +20,7 @@ module Super
         "config/initializers/super.rb",
         "  c.javascripts = Super::Assets.use_webpacker(c.javascripts)\n" \
         "  c.stylesheets = Super::Assets.use_webpacker(c.stylesheets)\n",
-        before: /\bend\b/
+        before: /^end\b/
       )
     end
 

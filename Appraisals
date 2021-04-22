@@ -71,7 +71,7 @@ end
 
 appraise "rails61_webpacker6" do
   gem "rails", "~> 6.1.0"
-  gem "webpacker", "= 6.0.0.beta.2"
+  gem "webpacker", "= 6.0.0.beta.6"
   gem "sqlite3", "~> 1.4.0"
   gem "rexml"
 end
