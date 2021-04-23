@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+* The README (cheatsheet) that was added when installing Super for the first
+  time. See `bin/rails super:cheat` for an up to date list
+
 ## [0.0.14] - 2021-04-22
 
 ### Added

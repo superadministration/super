@@ -44,11 +44,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     RUBY
     assert_file("app/controllers/admin/.keep", "")
     assert_file("app/assets/config/manifest.js", "//= link super_manifest.js\n")
-
-    assert_file("app/controllers/admin/README.md")
-    cheat = File.read(File.expand_path("app/controllers/admin/README.md", destination_root))
-    assert_includes(cheat, "#model()")
-    refute_includes(cheat, "<!--")
   end
 
   def test_generator_correctly_sets_controller_namespace
@@ -78,7 +73,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     RUBY
 
     assert_file("app/controllers/badminton/.keep", "")
-    assert_file("app/controllers/badminton/README.md")
   end
 
   def test_generator_correctly_sets_controller_namespace_if_explicitly_blank
@@ -103,7 +97,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     RUBY
 
     assert_directory("app/controllers")
-    assert_file("app/controllers/README.md")
   end
 
   def test_removes_trailing_and_following_slashes
