@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Navigation can be configured now. But it's still automatic by default
 * Navigation can be nested one level deep
+* A cheat sheet, run `bin/rails super:cheat`
 
 ### Changed
 
