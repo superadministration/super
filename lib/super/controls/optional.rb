@@ -108,6 +108,15 @@ module Super
       def default_sort
         { id: :desc }
       end
+
+      # Specifies how many records to show per page
+      #
+      # @param action [ActionInquirer]
+      # @param query_params [Hash]
+      # @return [ActiveRecord::Relation]
+      def records_per_page(action:, query_params:)
+        Super.configuration.index_records_per_page
+      end
     end
   end
 end

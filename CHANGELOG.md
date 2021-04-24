@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The README (cheatsheet) that was added when installing Super for the first
   time. See `bin/rails super:cheat` for an up to date list
 
+### Fixed
+
+* Updated `bin/rails super:cheat` to print all of `Super::Controls` methods
+
 ## [0.0.14] - 2021-04-22
 
 ### Added
