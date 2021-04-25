@@ -41,7 +41,8 @@ module Super
       if controls.save_record(action: action_inquirer, record: @record, params: params)
         redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
-        @form = controls.form_schema(action: action_inquirer_for("new"))
+        @action_inquirer = ActionInquirer.new!
+        @form = controls.form_schema(action: action_inquirer)
         @view = controls.new_view
         render :new, status: :bad_request
       end
@@ -61,7 +62,8 @@ module Super
       if controls.update_record(action: action_inquirer, record: @record, params: params)
         redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
-        @form = controls.form_schema(action: action_inquirer_for("edit"))
+        @action_inquirer = ActionInquirer.edit!
+        @form = controls.form_schema(action: action_inquirer)
         @view = controls.edit_view
         render :edit, status: :bad_request
       end
@@ -89,14 +91,11 @@ module Super
     end
 
     def action_inquirer
-      @action_inquirer ||= action_inquirer_for(params[:action])
-    end
-
-    def action_inquirer_for(action)
-      ActionInquirer.new(
-        ActionInquirer.default_for_resources,
-        action
-      )
+      @action_inquirer ||=
+        ActionInquirer.new(
+          ActionInquirer.default_for_resources,
+          params[:action]
+        )
     end
 
     def navigation

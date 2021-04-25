@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Updated `bin/rails super:cheat` to print all of `Super::Controls` methods
+* Mutate the current `action_inquirer` when re-rendering a form due to a
+  validation failure (`#create` to `#new`, or `#update` to `#edit`)
 
 ## [0.0.14] - 2021-04-22
 

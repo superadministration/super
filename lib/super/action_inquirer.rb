@@ -19,11 +19,19 @@ module Super
     #
     def self.default_for_resources
       {
-        read: %i[index show new edit],
-        write: %i[create update destroy],
-        delete: %i[destroy]
+        "read" => %w[index show new edit],
+        "write" => %w[create update destroy],
+        "delete" => %w[destroy],
       }
     end
+
+    def self.index!; new(default_for_resources, "index"); end
+    def self.show!; new(default_for_resources, "show"); end
+    def self.new!; new(default_for_resources, "new"); end
+    def self.edit!; new(default_for_resources, "edit"); end
+    def self.create!; new(default_for_resources, "create"); end
+    def self.update!; new(default_for_resources, "update"); end
+    def self.destroy!; new(default_for_resources, "destroy"); end
 
     def initialize(categories_and_their_actions, action)
       @categories = categories_and_their_actions.keys.map(&:to_s)
