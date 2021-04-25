@@ -1,8 +1,0 @@
-<%= form.super.flatpickr_date!(
-  column,
-  **form_field_flatpickr_date.extras.deep_merge(
-    field: {
-      value: form.object.public_send(column)&.iso8601,
-    }
-  )
-) %>

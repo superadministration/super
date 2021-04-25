@@ -1,8 +1,0 @@
-<%= form.super.flatpickr_time!(
-  column,
-  **form_field_flatpickr_time.extras.deep_merge(
-    field: {
-      value: form.object.public_send(column)&.strftime("%H:%M:%S"),
-    }
-  )
-) %>

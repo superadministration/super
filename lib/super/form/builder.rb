@@ -71,6 +71,7 @@ module Super
           )
           options[:class] = join_classes(defaults[:class], options[:class])
           options[:data] = defaults[:data].deep_merge(options[:data] || {})
+          options[:value] = @builder.object.public_send(attribute).presence&.iso8601
 
           @builder.text_field(attribute, options)
         end
@@ -90,6 +91,7 @@ module Super
           )
           options[:class] = join_classes(defaults[:class], options[:class])
           options[:data] = defaults[:data].deep_merge(options[:data] || {})
+          options[:value] = @builder.object.public_send(attribute).presence&.iso8601
 
           @builder.text_field(attribute, options)
         end
@@ -110,6 +112,7 @@ module Super
           )
           options[:class] = join_classes(defaults[:class], options[:class])
           options[:data] = defaults[:data].deep_merge(options[:data] || {})
+          options[:value] = @builder.object.public_send(attribute).presence&.strftime("%H:%M:%S")
 
           @builder.text_field(attribute, options)
         end

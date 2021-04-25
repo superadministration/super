@@ -3,6 +3,38 @@
 module Super
   class Form
     class SchemaTypes
+      class Direct
+        def initialize(super_builder:, method_name:, args:, kwargs:)
+          @super_builder = super_builder
+          @method_name = method_name
+          @args = args
+          @kwargs = kwargs
+        end
+
+        attr_reader :super_builder
+        attr_reader :method_name
+        attr_reader :args
+        attr_reader :kwargs
+
+        def nested_fields
+          {}
+        end
+
+        def to_partial_path
+          "form_field"
+        end
+
+        def ==(other)
+          return false if other.class != self.class
+          return false if other.super_builder != super_builder
+          return false if other.method_name != method_name
+          return false if other.args != args
+          return false if other.kwargs != kwargs
+
+          true
+        end
+      end
+
       class Generic
         def initialize(partial_path:, extras:, nested:)
           @partial_path = partial_path
@@ -73,30 +105,30 @@ module Super
         Generic.new(partial_path: "form_field_select", extras: extras, nested: {})
       end
 
-      def string(**extras)
-        Generic.new(partial_path: "form_field_text", extras: extras, nested: {})
+      def string(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :text_field!, args: args, kwargs: kwargs)
       end
 
       alias text string
 
-      def rich_text_area(**extras)
-        Generic.new(partial_path: "form_field_rich_text_area", extras: extras, nested: {})
+      def rich_text_area(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :rich_text_area!, args: args, kwargs: kwargs)
       end
 
-      def checkbox(**extras)
-        Generic.new(partial_path: "form_field_checkbox", extras: extras, nested: {})
+      def checkbox(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :check_box!, args: args, kwargs: kwargs)
       end
 
-      def flatpickr_date(**extras)
-        Generic.new(partial_path: "form_field_flatpickr_date", extras: extras, nested: {})
+      def flatpickr_date(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :flatpickr_date!, args: args, kwargs: kwargs)
       end
 
-      def flatpickr_datetime(**extras)
-        Generic.new(partial_path: "form_field_flatpickr_datetime", extras: extras, nested: {})
+      def flatpickr_datetime(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :flatpickr_datetime!, args: args, kwargs: kwargs)
       end
 
-      def flatpickr_time(**extras)
-        Generic.new(partial_path: "form_field_flatpickr_time", extras: extras, nested: {})
+      def flatpickr_time(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :flatpickr_time!, args: args, kwargs: kwargs)
       end
 
       def has_many(reader, **extras)

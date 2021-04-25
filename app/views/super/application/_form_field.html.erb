@@ -1,0 +1,5 @@
+<% if form_field.super_builder %>
+  <%= form.super.public_send(form_field.method_name, column, *form_field.args, **form_field.kwargs) %>
+<% else %>
+  <%= form.public_send(form_field.method_name, column, *form_field.args, **form_field.kwargs) %>
+<% end %>
