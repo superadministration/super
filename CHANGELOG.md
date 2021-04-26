@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * The `<select>` tag has its "down" icon set in CSS, instead of in HTML
+* The recommended form schema types. For example, instead of `type.string`, use
+  `type.text_field`.
 
 ### Removed
 

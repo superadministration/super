@@ -105,19 +105,22 @@ module Super
         Generic.new(partial_path: "form_field_select", extras: extras, nested: {})
       end
 
-      def string(*args, **kwargs)
+      def text_field(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :text_field!, args: args, kwargs: kwargs)
       end
 
-      alias text string
+      alias string text_field
+      alias text text_field
 
       def rich_text_area(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :rich_text_area!, args: args, kwargs: kwargs)
       end
 
-      def checkbox(*args, **kwargs)
+      def check_box(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :check_box!, args: args, kwargs: kwargs)
       end
+
+      alias checkbox check_box
 
       def flatpickr_date(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :flatpickr_date!, args: args, kwargs: kwargs)
