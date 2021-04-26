@@ -69,12 +69,8 @@ class FormTest < ActionView::TestCase
     end
 
     assert_select("form") do
-      assert_select("select") do
+      assert_select("select.super-input-select") do
         assert_select("option", Member.ranks.size + 1) # because of the blank option
-      end
-
-      assert_select(".super-input-select-icon") do
-        assert_select("svg")
       end
     end
   end

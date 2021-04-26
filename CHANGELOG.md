@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `Super::Reset`. Include it in your controller to remove all the controller
   methods and actions that Super defines
 
+### Changed
+
+* The `<select>` tag has its "down" icon set in CSS, instead of in HTML
+
 ### Removed
 
 * The README (cheatsheet) that was added when installing Super for the first

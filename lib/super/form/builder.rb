@@ -134,25 +134,10 @@ module Super
         def select(attribute, choices, options = {}, html_options = {}, &block)
           options, defaults = split_defaults(options, include_blank: true)
           options = defaults.merge(options)
-          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select-field")
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
           html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
 
-          parts = [
-            %(<div class="super-input-select">).html_safe,
-            @builder.select(attribute, choices, options, html_options, &block),
-            <<~HTML.html_safe,
-              <div class="super-input-select-icon text-blue-700">
-                <span class="h-4 w-4">
-            HTML
-            @template.render("super/feather/chevron_down"),
-            <<~HTML.html_safe,
-                </span>
-              </div>
-            HTML
-            %(</div>).html_safe,
-          ]
-
-          @template.safe_join(parts)
+          @builder.select(attribute, choices, options, html_options, &block)
         end
 
         def submit(value = nil, options = {})

@@ -13,17 +13,10 @@
 }
 
 .super-input-select {
-  @apply relative;
-}
-.super-input-select-field {
   @apply w-full pr-8;
-}
-.super-input-select-icon {
-  @apply pointer-events-none;
-  @apply absolute inset-y-0 right-0;
-  @apply flex items-center;
-  @apply px-2;
-  @apply fill-current;
+  @apply bg-no-repeat;
+  background-image: svg-load('../icons/feather/chevron-down.svg', stroke=#2b6cb0);
+  background-position: right 0.5rem center;
 }
 
 .super-button {

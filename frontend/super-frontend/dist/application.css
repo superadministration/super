@@ -1478,25 +1478,11 @@ span.flatpickr-day.selected {
 }
 
 .super-input-select {
-  position: relative;
-}
-
-.super-input-select-field {
   padding-right: 2rem;
   width: 100%;
-}
-
-.super-input-select-icon {
-  pointer-events: none;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  display: flex;
-  align-items: center;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  fill: currentColor;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232b6cb0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E %3Cpolyline points='6 9 12 15 18 9'/%3E %3C/svg%3E");
+  background-position: right 0.5rem center;
 }
 
 .super-button {
