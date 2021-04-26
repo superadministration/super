@@ -29,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Updated `bin/rails super:cheat` to print all of `Super::Controls` methods
 * Mutate the current `action_inquirer` when re-rendering a form due to a
   validation failure (`#create` to `#new`, or `#update` to `#edit`)
+* The navigation menu was placed behind `<select>` tags, which made it hard to
+  navigate. The navigation menu shows up on top now
 
 ## [0.0.14] - 2021-04-22
 

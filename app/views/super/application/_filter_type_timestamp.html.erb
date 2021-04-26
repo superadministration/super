@@ -1,7 +1,7 @@
 <div class="super-field-group" data-controller="clean-filter-param">
   <%= form.fields_for(filter_type_timestamp.field_name, filter_type_timestamp) do |form_field| %>
     <%= form_field.label(:q0, filter_type_timestamp.humanized_field_name) %>
-    <div class="relative inline-block mt-2">
+    <div class="inline-block mt-2">
       <%= form_field.super.select(
         :op,
         filter_type_timestamp.operators,
