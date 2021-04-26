@@ -134,6 +134,14 @@ module Super
         Direct.new(super_builder: true, method_name: :flatpickr_time!, args: args, kwargs: kwargs)
       end
 
+      def hidden_field(*args, **kwargs)
+        Direct.new(super_builder: false, method_name: :hidden_field, args: args, kwargs: kwargs)
+      end
+
+      def password_field(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :password_field!, args: args, kwargs: kwargs)
+      end
+
       def has_many(reader, **extras)
         nested = @fields.nested do
           yield
