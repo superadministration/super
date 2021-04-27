@@ -61,6 +61,47 @@ module Super
         end
       end
 
+      class Badge
+        extend Useful::Builder
+
+        def initialize(builder)
+          @builder = builder
+          @whens = {}
+          format_for_lookup(&:itself)
+          format_for_display(&:itself)
+        end
+
+        builder_with_block def when(*patterns, &block)
+          patterns.each do |pattern|
+            @whens[pattern] = block
+          end
+        end
+
+        builder_with_block def else(&block)
+          @else = block
+        end
+
+        builder_with_block def format_for_lookup(&block)
+          @format_for_lookup = block
+        end
+
+        builder_with_block def format_for_display(&block)
+          @format_for_display = block
+        end
+
+        def build
+          @builder.transform do |value|
+            lookup_value = @format_for_lookup.call(value)
+            block = @whens[lookup_value] || @else
+            Super::Badge.new(
+              @format_for_display.call(value),
+              styles: block&.call
+            )
+          end
+          @builder.build
+        end
+      end
+
       def initialize(fields:)
         @actions_called = false
         @fields = fields
@@ -98,6 +139,14 @@ module Super
         computed do |value|
           Partial.new("display_rich_text", locals: { rich_text: value })
         end
+      end
+
+      def badge(*builder_methods)
+        builder_methods = %i[real ignore_nil column] if builder_methods.empty?
+        builder = builder_methods.each_with_object(Builder.new) do |builder_method, builder|
+          builder.public_send(builder_method)
+        end
+        Badge.new(builder)
       end
 
       def actions

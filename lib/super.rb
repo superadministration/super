@@ -10,6 +10,7 @@ require "super/useful/enum"
 
 require "super/action_inquirer"
 require "super/assets"
+require "super/badge"
 require "super/client_error"
 require "super/compatibility"
 require "super/configuration"

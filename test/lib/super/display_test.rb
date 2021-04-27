@@ -40,6 +40,30 @@ class Super::DisplayTest < ActionView::TestCase
     assert_select "table td", "Jean-Luc Picard"
   end
 
+  def test_enums
+    index_action = new_action(:index)
+    view.define_singleton_method(:action_inquirer) { index_action }
+    controls = new_controls
+    view.define_singleton_method(:controls) { controls }
+
+    display = Super::Display.new do |f, type|
+      f[:testing_badges] =
+        type.badge(:computed, :record)
+        .format_for_display { |record| record.rank }
+        .format_for_display { |record| record.name }
+        .when("captain") { [:blue] }
+        .else { [:red] }
+    end
+    display.apply(action: view.action_inquirer)
+
+    @records = [members(:picard)]
+    render(display)
+    span = document_root_element.at_css("span")
+    assert_equal("Jean-Luc Picard", span.text)
+    assert_includes(span.attr("class"), "bg-red-")
+    assert_includes(span.attr("class"), "text-white")
+  end
+
   private
 
   def new_action(action)
