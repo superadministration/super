@@ -9,7 +9,7 @@
   @apply bg-white text-gray-900 border-gray-400;
 }
 .super-input:focus {
-  @apply border-blue-400;
+  @apply border-blue-400 outline-none;
 }
 
 .super-input-select {

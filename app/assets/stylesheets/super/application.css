@@ -1475,6 +1475,8 @@ span.flatpickr-day.selected {
 .super-input:focus {
   --tw-border-opacity: 1;
   border-color: rgba(99, 179, 237, var(--tw-border-opacity));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .super-input-select {

@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   validation failure (`#create` to `#new`, or `#update` to `#edit`)
 * The navigation menu was placed behind `<select>` tags, which made it hard to
   navigate. The navigation menu shows up on top now
+* A regression from upgrading to Tailwind CSS v2. It had a dotted border
+  around inputs, which is unnecessary since we have custom styles
 
 ## [0.0.14] - 2021-04-22
 
