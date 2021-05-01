@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `<input type=hidden>` and `<input type=password>` fields
 * Pill-like badges for displaying statuses
 * Easy label text configurability
+* A new form type for calling form methods directly
 
 ### Changed
 

@@ -101,6 +101,10 @@ module Super
         Generic.new(partial_path: partial_path, extras: extras, nested: {})
       end
 
+      def direct(method_name, *args, super_builder: true, **kwargs)
+        Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
+      end
+
       def select(**extras)
         Generic.new(partial_path: "form_field_select", extras: extras, nested: {})
       end
