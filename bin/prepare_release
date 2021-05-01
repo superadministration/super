@@ -10,6 +10,11 @@ ruby \
   -e 'load "lib/super/version.rb"' \
   -e 'contents = File.read("CHANGELOG.md")' \
   -e 'new_header = "Unreleased]\n\n## [#{Super::VERSION}] - #{Time.now.strftime("%F")}"' \
-  -e 'File.write("CHANGELOG.md", contents.sub(/Unreleased\]/, new_header)) if !contents.include?(Super::VERSION)'
+  -e 'contents = contents.sub(/Unreleased\]/, new_header)' \
+  -e 'unreleased_link = contents[/^\[Unreleased\]:.*/]' \
+  -e 'new_release_link = unreleased_link.sub("Unreleased", Super::VERSION).sub("HEAD", "v#{Super::VERSION}")' \
+  -e 'unreleased_link = unreleased_link.sub(%r{/compare/.*}, "/compare/v#{Super::VERSION}...HEAD")' \
+  -e 'contents = contents.sub(/^\[Unreleased\]:.*/, "#{unreleased_link}\n#{new_release_link}")' \
+  -e 'File.write("CHANGELOG.md", contents)'
 
 git commit --all --message="Release v`ruby -e 'load "lib/super/version.rb"' -e 'print Super::VERSION'`"
