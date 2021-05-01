@@ -307,3 +307,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Tailwind CSS
 * Sprockets and Webpacker support. Defaults to Sprockets
 * Navigation bar with links to all admin controllers
+
+[Unreleased]: https://github.com/zachahn/super/compare/v0.0.14...HEAD
+[0.0.14]: https://github.com/zachahn/super/compare/v0.0.13...v0.0.14
+[0.0.13]: https://github.com/zachahn/super/compare/v0.0.12...v0.0.13
+[0.0.12]: https://github.com/zachahn/super/compare/v0.0.11...v0.0.12
+[0.0.11]: https://github.com/zachahn/super/compare/v0.0.10...v0.0.11
+[0.0.10]: https://github.com/zachahn/super/compare/v0.0.9...v0.0.10
+[0.0.8]: https://github.com/zachahn/super/compare/v0.0.7...v0.0.8
+[0.0.7]: https://github.com/zachahn/super/compare/v0.0.6...v0.0.7
+[0.0.6]: https://github.com/zachahn/super/compare/v0.0.5...v0.0.6
+[0.0.5]: https://github.com/zachahn/super/compare/v0.0.4...v0.0.5
+[0.0.4]: https://github.com/zachahn/super/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/zachahn/super/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/zachahn/super/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/zachahn/super/compare/v0.0.0...v0.0.1
