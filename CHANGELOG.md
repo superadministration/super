@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.15] - 2021-05-01
+
 ### Added
 
 * `Super::Reset`. Include it in your controller to remove all the controller
@@ -308,7 +310,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Sprockets and Webpacker support. Defaults to Sprockets
 * Navigation bar with links to all admin controllers
 
-[Unreleased]: https://github.com/zachahn/super/compare/v0.0.14...HEAD
+[Unreleased]: https://github.com/zachahn/super/compare/v0.0.15...HEAD
+[0.0.15]: https://github.com/zachahn/super/compare/v0.0.14...v0.0.15
 [0.0.14]: https://github.com/zachahn/super/compare/v0.0.13...v0.0.14
 [0.0.13]: https://github.com/zachahn/super/compare/v0.0.12...v0.0.13
 [0.0.12]: https://github.com/zachahn/super/compare/v0.0.11...v0.0.12
