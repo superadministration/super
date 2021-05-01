@@ -95,7 +95,7 @@ class FlatpickrTest < CapybaraTest
   def set_date!(page, tomorrow)
     page.first(".flatpickr-monthDropdown-month[value='#{tomorrow.month - 1}']").select_option
     page.first(".flatpickr-calendar .cur-year").fill_in(with: tomorrow.year)
-    page.find(".flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)", text: tomorrow.day).click
+    page.find(".flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)", text: /^#{tomorrow.day}$/).click
   end
 
   def set_time!(page, tomorrow)
