@@ -2,10 +2,10 @@ require "test_helper"
 
 class Super::DisplayTest < ActionView::TestCase
   def test_index_with_computed
-    index_action = new_action(:index)
+    index_action = Super::ActionInquirer.index!
     view.define_singleton_method(:current_action) { index_action }
-    controls = new_controls
-    view.define_singleton_method(:controls) { controls }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:member_actions) { |*| [] }
 
     display = Super::Display.new do |f, type|
       f[:just_a_test] = type.computed(:record) { |record| record.name.upcase }
@@ -25,12 +25,17 @@ class Super::DisplayTest < ActionView::TestCase
   end
 
   def test_show_default
-    show_action = new_action(:show)
+    show_action = Super::ActionInquirer.show!
     view.define_singleton_method(:current_action) { show_action }
-    controls = new_controls
-    view.define_singleton_method(:controls) { controls }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:member_actions) { |*| [] }
+    view.define_singleton_method(:display_schema) do
+      Display.new do |fields, type|
+        Display::Guesser.new(model: Member, action: show_action, fields: fields, type: type).call
+      end
+    end
 
-    display = controls.display_schema(action: show_action)
+    display = view.display_schema
     display.apply(action: view.current_action)
 
     @record = members(:picard)
@@ -41,10 +46,10 @@ class Super::DisplayTest < ActionView::TestCase
   end
 
   def test_enums
-    index_action = new_action(:index)
+    index_action = Super::ActionInquirer.index!
     view.define_singleton_method(:current_action) { index_action }
-    controls = new_controls
-    view.define_singleton_method(:controls) { controls }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:member_actions) { |*| [] }
 
     display = Super::Display.new do |f, type|
       f[:testing_badges] =
@@ -68,20 +73,5 @@ class Super::DisplayTest < ActionView::TestCase
 
   def new_action(action)
     Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, action)
-  end
-
-  def new_controls
-    klass =
-      Class.new(Super::Controls) do
-        def model
-          Member
-        end
-
-        def member_actions(*)
-          []
-        end
-      end
-
-    klass.new
   end
 end

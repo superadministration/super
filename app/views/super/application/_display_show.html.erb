@@ -1,7 +1,7 @@
 <table class="max-w-full mt-4">
   <% display_show.each_attribute_name do |attribute_name| %>
     <tr>
-      <th class="py-1 align-baseline text-right px-4"><%= controls.model.human_attribute_name(attribute_name) %></th>
+      <th class="py-1 align-baseline text-right px-4"><%= model.human_attribute_name(attribute_name) %></th>
       <td class="py-1 align-baseline"><%= display_show.render_attribute(template: self, record: @record, column: attribute_name) %></td>
     </tr>
   <% end %>

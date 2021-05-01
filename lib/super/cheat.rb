@@ -2,15 +2,15 @@
 
 module Super
   class Cheat
-    def controls
-      paths = %w[controls.rb controls/optional.rb controls/steps.rb controls/view.rb]
+    def controller
+      paths = %w[../../app/controllers/super/substructure_controller.rb]
       methods =
         paths
-        .map { |f| File.read(File.join(__dir__, f)) }
-        .flat_map { |content| content.scan(/^\s+def .*$/) }
-        .map { |method| method.strip.sub(/^def /, "#") }
+        .map { |f| File.read(File.expand_path(f, __dir__)) }
+        .flat_map { |content| content.scan(/^\s+(?:helper_method )?def .*$/) }
+        .map { |method| method.strip.sub(/^(?:helper_method )?def /, "#") }
 
-      puts "== Super::Controls"
+      puts "== Super::ApplicationController"
       puts methods.join("\n")
     end
   end

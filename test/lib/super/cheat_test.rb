@@ -2,18 +2,18 @@ require "test_helper"
 require "super/cheat"
 
 class CheatTest < ActiveSupport::TestCase
-  def test_controls_has_everything
+  def test_controller_has_everything
     instance = Super::Cheat.new
     out, err = capture_io do
-      instance.controls
+      instance.controller
     end
     recorded_methods = out.lines.map(&:strip).to_set
-    all_instace_methods = Super::Controls.instance_methods(true) - Object.instance_methods
+    all_instace_methods = Super::SubstructureController.private_instance_methods(false) - [:_layout]
 
-    assert(recorded_methods.delete?("== Super::Controls"), "couldn't find the header. #{recorded_methods}")
+    assert(recorded_methods.delete?("== Super::ApplicationController"), "couldn't find the header in #{recorded_methods}")
     all_instace_methods.each do |method_name|
       expected = "##{method_name}"
-      params = Super::Controls.instance_method(method_name).parameters
+      params = Super::ApplicationController.instance_method(method_name).parameters
       expected_params =
         if params.empty?
           ""

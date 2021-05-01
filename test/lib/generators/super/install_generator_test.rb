@@ -32,14 +32,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     end
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
       class AdminController < Super::ApplicationController
-        class AdminControls < Super::Controls
-        end
-
-        private
-
-        def new_controls
-          self.class::Controls.new
-        end
       end
     RUBY
     assert_file("app/controllers/admin/.keep", "")
@@ -61,14 +53,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/badminton_controller.rb", <<~RUBY)
       class BadmintonController < Super::ApplicationController
-        class BadmintonControls < Super::Controls
-        end
-
-        private
-
-        def new_controls
-          self.class::Controls.new
-        end
       end
     RUBY
 
@@ -85,14 +69,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
       class AdminController < Super::ApplicationController
-        class AdminControls < Super::Controls
-        end
-
-        private
-
-        def new_controls
-          self.class::Controls.new
-        end
       end
     RUBY
 
@@ -116,14 +92,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/one_controller.rb", <<~RUBY)
       class OneController < Super::ApplicationController
-        class OneControls < Super::Controls
-        end
-
-        private
-
-        def new_controls
-          self.class::Controls.new
-        end
       end
     RUBY
   end
@@ -145,14 +113,6 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/one/two_controller.rb", <<~RUBY)
       class One::TwoController < Super::ApplicationController
-        class TwoControls < Super::Controls
-        end
-
-        private
-
-        def new_controls
-          self.class::Controls.new
-        end
       end
     RUBY
   end

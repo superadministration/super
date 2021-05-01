@@ -20,10 +20,6 @@ stability.
 <tr><td><code>Super::ClientError</code></td>                <td>✅</td></tr>
 <tr><td><code>Super::Compatability</code></td>              <td>🙈</td></tr>
 <tr><td><code>Super::Configuration</code></td>              <td>✅</td></tr>
-<tr><td><code>Super::Controls::Optional</code></td>         <td>✅</td></tr>
-<tr><td><code>Super::Controls::Required</code></td>         <td>✅</td></tr>
-<tr><td><code>Super::Controls::Steps</code></td>            <td>✅</td></tr>
-<tr><td><code>Super::Controls</code></td>                   <td>✅</td></tr>
 <tr><td><code>Super::Display</code></td>                    <td>✅</td></tr>
 <tr><td><code>Super::Engine</code></td>                     <td>🙈</td></tr>
 <tr><td><code>Super::Error</code></td>                      <td>✅</td></tr>

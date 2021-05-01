@@ -31,10 +31,10 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/badminton/ships_controller.rb", <<~RUBY)
       class Badminton::ShipsController < BadmintonController
-        class Controls < BadmintonControls
-          def model
-            Ship
-          end
+        private
+
+        def model
+          Ship
         end
       end
     RUBY
@@ -49,10 +49,10 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/ships_controller.rb", <<~RUBY)
       class ShipsController < AdminController
-        class Controls < AdminControls
-          def model
-            Ship
-          end
+        private
+
+        def model
+          Ship
         end
       end
     RUBY
@@ -67,10 +67,10 @@ class Super::ResourceGeneratorTest < Rails::Generators::TestCase
 
     assert_file("app/controllers/admin/management/ships_controller.rb", <<~RUBY)
       class Admin::Management::ShipsController < Admin::ManagementController
-        class Controls < ManagementControls
-          def model
-            Ship
-          end
+        private
+
+        def model
+          Ship
         end
       end
     RUBY

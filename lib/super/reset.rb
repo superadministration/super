@@ -12,6 +12,11 @@ module Super
       undef_method :edit
       undef_method :update
       undef_method :destroy
+
+      Super::SubstructureController.private_instance_methods(false).each do |imethod|
+        next if imethod == :navigation
+        undef_method imethod
+      end
     end
   end
 end

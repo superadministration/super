@@ -76,8 +76,8 @@ module Super
     module ControllerMethods
       def index
         super
-        @pagination = controls.initialize_pagination(action: current_action, records: @records, query_params: request.GET)
-        @records = controls.paginate_records(action: current_action, records: @records, pagination: @pagination)
+        @pagination = initialize_pagination
+        @records = paginate_records
         @view.mains.first.parts.push(:@pagination)
       end
     end

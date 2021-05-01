@@ -1,9 +1,9 @@
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < <%= parent_controller_name.classify %>Controller
-  class Controls < <%= parent_controller_name.classify.demodulize %>Controls
-    def model
-      <%= class_name %>
-    end
+  private
+
+  def model
+    <%= class_name %>
   end
 end
 <% end -%>

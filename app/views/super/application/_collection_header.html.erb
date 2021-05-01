@@ -1,9 +1,9 @@
 <header class="flex justify-between content-end">
   <h1 class="text-xl">
-    <%= controls.title %>
+    <%= title %>
   </h1>
   <div>
-    <% controls.collection_actions(action: current_action).each do |link| %>
+    <% collection_actions.each do |link| %>
       <%= link.to_s(
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
