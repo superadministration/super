@@ -58,7 +58,7 @@ module Super
           @builder.check_box(attribute, options, checked_value, unchecked_value)
         end
 
-        def flatpickr_date(attribute, options = {})
+        def date_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
             options,
             class: "super-input w-full",
@@ -76,7 +76,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        def flatpickr_datetime(attribute, options = {})
+        def datetime_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
             options,
             class: "super-input w-full",
@@ -96,7 +96,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        def flatpickr_time(attribute, options = {})
+        def time_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
             options,
             class: "super-input w-full",
@@ -173,36 +173,36 @@ module Super
           end
         end
 
-        def flatpickr_date!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
+        def date_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
               public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
-              public_send(:flatpickr_date, attribute, field),
+              public_send(:date_flatpickr, attribute, field),
               show_errors && inline_errors(attribute),
               %(</div>).html_safe,
             ])
           end
         end
 
-        def flatpickr_datetime!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
+        def datetime_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
               public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
-              public_send(:flatpickr_datetime, attribute, field),
+              public_send(:datetime_flatpickr, attribute, field),
               show_errors && inline_errors(attribute),
               %(</div>).html_safe,
             ])
           end
         end
 
-        def flatpickr_time!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
+        def time_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
               public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
-              public_send(:flatpickr_time, attribute, field),
+              public_send(:time_flatpickr, attribute, field),
               show_errors && inline_errors(attribute),
               %(</div>).html_safe,
             ])

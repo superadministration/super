@@ -126,17 +126,17 @@ module Super
 
       alias checkbox check_box
 
-      def flatpickr_date(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :flatpickr_date!, args: args, kwargs: kwargs)
+      def date_flatpickr(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :date_flatpickr!, args: args, kwargs: kwargs)
       end
 
-      def flatpickr_datetime(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :flatpickr_datetime!, args: args, kwargs: kwargs)
+      alias flatpickr_date date_flatpickr
+
+      def datetime_flatpickr(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :datetime_flatpickr!, args: args, kwargs: kwargs)
       end
 
-      def flatpickr_time(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :flatpickr_time!, args: args, kwargs: kwargs)
-      end
+      alias flatpickr_datetime datetime_flatpickr
 
       def hidden_field(*args, **kwargs)
         Direct.new(super_builder: false, method_name: :hidden_field, args: args, kwargs: kwargs)
@@ -145,6 +145,12 @@ module Super
       def password_field(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :password_field!, args: args, kwargs: kwargs)
       end
+
+      def time_flatpickr(*args, **kwargs)
+        Direct.new(super_builder: true, method_name: :time_flatpickr!, args: args, kwargs: kwargs)
+      end
+
+      alias flatpickr_time time_flatpickr
 
       def has_many(reader, **extras)
         nested = @fields.nested do

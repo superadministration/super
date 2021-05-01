@@ -24,11 +24,11 @@ module Super
       def attribute_type_for(attribute_name)
         case @model.type_for_attribute(attribute_name).type
         when :datetime
-          @type.flatpickr_datetime
+          @type.datetime_flatpickr
         when :time
-          @type.flatpickr_time
+          @type.time_flatpickr
         when :date
-          @type.flatpickr_date
+          @type.date_flatpickr
         else
           @type.string
         end
