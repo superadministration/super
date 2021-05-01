@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Renamed the controller method name `#action_inquirer` to `#current_action`
+
 ## [0.0.15] - 2021-05-01
 
 ### Added

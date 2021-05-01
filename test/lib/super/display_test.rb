@@ -3,7 +3,7 @@ require "test_helper"
 class Super::DisplayTest < ActionView::TestCase
   def test_index_with_computed
     index_action = new_action(:index)
-    view.define_singleton_method(:action_inquirer) { index_action }
+    view.define_singleton_method(:current_action) { index_action }
     controls = new_controls
     view.define_singleton_method(:controls) { controls }
 
@@ -11,7 +11,7 @@ class Super::DisplayTest < ActionView::TestCase
       f[:just_a_test] = type.computed(:record) { |record| record.name.upcase }
       f[:just_a_link] = type.computed(:record) { |record| Super::Link.new(record.rank, "https://rubyonrails.org/") }
     end
-    display.apply(action: view.action_inquirer)
+    display.apply(action: view.current_action)
 
     @records = [members(:picard)]
     render(display)
@@ -26,12 +26,12 @@ class Super::DisplayTest < ActionView::TestCase
 
   def test_show_default
     show_action = new_action(:show)
-    view.define_singleton_method(:action_inquirer) { show_action }
+    view.define_singleton_method(:current_action) { show_action }
     controls = new_controls
     view.define_singleton_method(:controls) { controls }
 
     display = controls.display_schema(action: show_action)
-    display.apply(action: view.action_inquirer)
+    display.apply(action: view.current_action)
 
     @record = members(:picard)
     render(display)
@@ -42,7 +42,7 @@ class Super::DisplayTest < ActionView::TestCase
 
   def test_enums
     index_action = new_action(:index)
-    view.define_singleton_method(:action_inquirer) { index_action }
+    view.define_singleton_method(:current_action) { index_action }
     controls = new_controls
     view.define_singleton_method(:controls) { controls }
 
@@ -54,7 +54,7 @@ class Super::DisplayTest < ActionView::TestCase
         .when("captain") { [:blue] }
         .else { [:red] }
     end
-    display.apply(action: view.action_inquirer)
+    display.apply(action: view.current_action)
 
     @records = [members(:picard)]
     render(display)

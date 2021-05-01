@@ -1,5 +1,5 @@
 <div>
-  <% controls.member_actions(action: action_inquirer).each do |link| %>
+  <% controls.member_actions(action: current_action).each do |link| %>
     <span class="pr-2 last:pr-0"><%= link.to_s(record: record, params: params) %></span>
   <% end %>
 </div>

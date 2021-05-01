@@ -3,7 +3,7 @@
     <%= controls.title %>
   </h1>
   <div>
-    <% controls.collection_actions(action: action_inquirer).each do |link| %>
+    <% controls.collection_actions(action: current_action).each do |link| %>
       <%= link.to_s(
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
