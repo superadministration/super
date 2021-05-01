@@ -34,6 +34,10 @@ class CapybaraTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
 
+  setup do
+    skip if ENV["SKIP_CAPYBARA"]
+  end
+
   teardown do
     Capybara.reset_sessions!
     Capybara.use_default_driver
@@ -41,6 +45,7 @@ class CapybaraTest < ActionDispatch::IntegrationTest
 
   def self.selenium!(kind = :headless)
     setup do
+      skip if ENV["SKIP_SELENIUM"]
       if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
         skip
       else
