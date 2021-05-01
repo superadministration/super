@@ -159,24 +159,24 @@ module Super
           @template.content_tag(:div, class: "super-field-group", &block)
         end
 
-        def check_box!(attribute, checked_value = "1", unchecked_value = "0", label: {}, field: {}, show_errors: true)
+        def check_box!(attribute, checked_value: "1", unchecked_value: "0", label_text: nil, label: {}, field: {}, show_errors: true)
           label[:super] ||= {}
           label[:super] = { class: "select-none ml-1" }.merge(label[:super])
           container do
             compact_join([
               "<div>".html_safe,
               public_send(:check_box, attribute, field, checked_value, unchecked_value),
-              public_send(:label, attribute, nil, label),
+              public_send(:label, attribute, label_text, label),
               "</div>".html_safe,
               show_errors && inline_errors(attribute),
             ])
           end
         end
 
-        def flatpickr_date!(attribute, label: {}, field: {}, show_errors: true)
+        def flatpickr_date!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:flatpickr_date, attribute, field),
               show_errors && inline_errors(attribute),
@@ -185,10 +185,10 @@ module Super
           end
         end
 
-        def flatpickr_datetime!(attribute, label: {}, field: {}, show_errors: true)
+        def flatpickr_datetime!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:flatpickr_datetime, attribute, field),
               show_errors && inline_errors(attribute),
@@ -197,10 +197,10 @@ module Super
           end
         end
 
-        def flatpickr_time!(attribute, label: {}, field: {}, show_errors: true)
+        def flatpickr_time!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:flatpickr_time, attribute, field),
               show_errors && inline_errors(attribute),
@@ -209,10 +209,10 @@ module Super
           end
         end
 
-        def password_field!(attribute, label: {}, field: {}, show_errors: true)
+        def password_field!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:password_field, attribute, field),
               show_errors && inline_errors(attribute),
@@ -221,10 +221,10 @@ module Super
           end
         end
 
-        def rich_text_area!(attribute, label: {}, field: {}, show_errors: true)
+        def rich_text_area!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:rich_text_area, attribute, field),
               show_errors && inline_errors(attribute),
@@ -233,10 +233,10 @@ module Super
           end
         end
 
-        def select!(attribute, collection, label: {}, field: {}, show_errors: true)
+        def select!(attribute, collection, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:select, attribute, collection, field),
               show_errors && inline_errors(attribute),
@@ -245,10 +245,10 @@ module Super
           end
         end
 
-        def text_field!(attribute, label: {}, field: {}, show_errors: true)
+        def text_field!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
           container do
             compact_join([
-              public_send(:label, attribute, label),
+              public_send(:label, attribute, label_text, label),
               %(<div class="mt-1">).html_safe,
               public_send(:text_field, attribute, field),
               show_errors && inline_errors(attribute),

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   methods and actions that Super defines
 * `<input type=hidden>` and `<input type=password>` fields
 * Pill-like badges for displaying statuses
+* Easy label text configurability
 
 ### Changed
 
