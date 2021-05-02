@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 module Super
+  # These are form builder view helpers. They are similar to what Rails ships
+  # out of the box but adds some styling and functionality.
+  #
+  # These helpers are available both in Super views and in your application's
+  # views.
   module FormBuilderHelper
+    # Super's version of `#form_for`
     def super_form_for(record, options = {}, &block)
       original = ActionView::Base.field_error_proc
       ActionView::Base.field_error_proc = Form::Builder::FIELD_ERROR_PROC
@@ -12,6 +18,7 @@ module Super
       ActionView::Base.field_error_proc = original
     end
 
+    # Super's version of `#form_with`
     def super_form_with(**options, &block)
       original = ActionView::Base.field_error_proc
       ActionView::Base.field_error_proc = Form::Builder::FIELD_ERROR_PROC

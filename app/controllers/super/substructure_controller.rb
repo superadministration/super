@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Super
+  # Various methods that determine the behavior of your controllers. These
+  # methods can and should be overridden.
   class SubstructureController < ActionController::Base
     private
 
@@ -36,7 +38,6 @@ module Super
     # Configures the editable fields on the new and edit actions. This is a
     # required method
     #
-    # @param action [ActionInquirer]
     # @return [Form]
     helper_method def form_schema
       Form.new do |fields, type|
@@ -47,8 +48,6 @@ module Super
     # Configures which parameters could be written to the database. This is a
     # required method
     #
-    # @param params [ActionController::Parameters]
-    # @param action [ActionInquirer]
     # @return [ActionController::Parameters]
     helper_method def permitted_params
       strong_params = Super::Form::StrongParams.new(form_schema)
@@ -58,7 +57,6 @@ module Super
     # Configures the actions linked to on the index page. This is an optional
     # method
     #
-    # @param action [ActionInquirer]
     # @return [Array<Link>]
     helper_method def collection_actions
       Super::Link.find_all(:new)
@@ -67,7 +65,6 @@ module Super
     # Configures the actions linked to on the show page as well as each row of
     # the table on the index page. This is an optional method
     #
-    # @param action [ActionInquirer]
     # @return [Array<Link>]
     helper_method def member_actions
       if current_action.show?
@@ -117,8 +114,6 @@ module Super
 
     # Specifies how many records to show per page
     #
-    # @param action [ActionInquirer]
-    # @param query_params [Hash]
     # @return [ActiveRecord::Relation]
     helper_method def records_per_page
       Super.configuration.index_records_per_page

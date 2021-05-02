@@ -25,12 +25,19 @@ module Super
       }
     end
 
+    # @return [ActionInquirer]
     def self.index!; new(default_for_resources, "index"); end
+    # @return [ActionInquirer]
     def self.show!; new(default_for_resources, "show"); end
+    # @return [ActionInquirer]
     def self.new!; new(default_for_resources, "new"); end
+    # @return [ActionInquirer]
     def self.edit!; new(default_for_resources, "edit"); end
+    # @return [ActionInquirer]
     def self.create!; new(default_for_resources, "create"); end
+    # @return [ActionInquirer]
     def self.update!; new(default_for_resources, "update"); end
+    # @return [ActionInquirer]
     def self.destroy!; new(default_for_resources, "destroy"); end
 
     def initialize(categories_and_their_actions, action)
