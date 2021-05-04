@@ -21,7 +21,7 @@ module Super
     # method, it defaults to "`all`" methods
     #
     # @return [ActiveRecord::Relation]
-    helper_method def scope
+    helper_method def base_scope
       model.all
     end
 
@@ -120,19 +120,19 @@ module Super
     end
 
     def load_records
-      scope
+      base_scope
     end
 
     def load_record
-      scope.find(params[:id])
+      base_scope.find(params[:id])
     end
 
     def build_record
-      scope.build
+      base_scope.build
     end
 
     def build_record_with_params
-      scope.build(permitted_params)
+      base_scope.build(permitted_params)
     end
 
     def save_record

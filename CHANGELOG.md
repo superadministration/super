@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Renamed the controller method name `#action_inquirer` to `#current_action`
 * Merged `Super::Controls` into `Super::ApplicationController`
+* Renamed `#scope` to `#base_scope`
 
 ## [0.0.15] - 2021-05-01
 
