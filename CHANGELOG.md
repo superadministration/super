@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Merged `Super::Controls` into `Super::ApplicationController`
 * Renamed `#scope` to `#base_scope`
 
+### Removed
+
+* The orange badge, since Tailwind v2 doesn't include orange by default
+
 ## [0.0.15] - 2021-05-01
 
 ### Added

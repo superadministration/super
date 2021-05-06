@@ -6,7 +6,6 @@ module Super
       light: "bg-gray-100 text-black",
       dark: "bg-gray-900 text-white",
       red: "bg-red-700 text-white",
-      orange: "bg-orange-400 text-black",
       yellow: "bg-yellow-400 text-black",
       green: "bg-green-700 text-white",
       blue: "bg-blue-700 text-white",
