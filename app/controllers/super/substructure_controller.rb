@@ -247,10 +247,15 @@ module Super
 
     concerning :Sitewide do
       included do
+        helper_method :site_title
         helper_method :site_navigation
       end
 
       private
+
+      def site_title
+        Super.configuration.title
+      end
 
       def site_navigation
         Super::Navigation.new(&:all)

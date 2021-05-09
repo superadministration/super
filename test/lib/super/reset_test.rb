@@ -28,7 +28,10 @@ class ResetTest < ActiveSupport::TestCase
       ResetController.private_instance_methods -
       ActionController::Base.private_instance_methods -
       [:_generate_paths_by_default]
-    assert_equal([:current_action, :site_navigation].sort, imethods.sort)
+    assert_equal(
+      Super::SubstructureController::Sitewide.private_instance_methods(false).dup.push(:current_action).sort,
+      imethods.sort
+    )
   end
 
   def test_override_has_only_redefined_methods
