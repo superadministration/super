@@ -76,10 +76,6 @@ module Super
       end
     end
 
-    helper_method def navigation
-      Super::Navigation.new(&:all)
-    end
-
     helper_method def filters_enabled?
       true
     end
@@ -247,6 +243,18 @@ module Super
           ),
         ]
       )
+    end
+
+    concerning :Sitewide do
+      included do
+        helper_method :site_navigation
+      end
+
+      private
+
+      def site_navigation
+        Super::Navigation.new(&:all)
+      end
     end
   end
 end

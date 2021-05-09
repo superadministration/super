@@ -1,6 +1,6 @@
 <header class="pt-4">
   <h1 class="text-lg font-bold mr-6 mb-1"><%= Super.configuration.title %></h1>
-  <% navigation.definition.each do |link_or_menu| %>
+  <% site_navigation.definition.each do |link_or_menu| %>
     <% if link_or_menu.is_a?(Super::Link) %>
       <%= link_or_menu.to_s(default_options: { class: "inline-block mr-6" }) %>
     <% else %>

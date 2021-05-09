@@ -8,7 +8,10 @@ class CheatTest < ActiveSupport::TestCase
       instance.controller
     end
     recorded_methods = out.lines.map(&:strip).to_set
-    all_instace_methods = Super::SubstructureController.private_instance_methods(false) - [:_layout]
+    all_instace_methods =
+      Super::SubstructureController.private_instance_methods -
+      ActionController::Base.private_instance_methods -
+      [:_layout, :_generate_paths_by_default]
 
     assert(recorded_methods.delete?("== Super::ApplicationController"), "couldn't find the header in #{recorded_methods}")
     all_instace_methods.each do |method_name|
