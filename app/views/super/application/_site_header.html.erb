@@ -1,0 +1,17 @@
+<header class="pt-4">
+  <h1 class="text-lg font-bold mr-6 mb-1"><%= Super.configuration.title %></h1>
+  <% navigation.definition.each do |link_or_menu| %>
+    <% if link_or_menu.is_a?(Super::Link) %>
+      <%= link_or_menu.to_s(default_options: { class: "inline-block mr-6" }) %>
+    <% else %>
+      <details class="details-reset select-none inline-block mr-6" data-controller="click-outside-to-close" data-action="click@window->click-outside-to-close#close">
+        <summary class="text-blue-700"><%= link_or_menu.title %></summary>
+        <ul class="absolute bg-white shadow-md px-4 py-3">
+          <% link_or_menu.links.each do |link| %>
+            <li><%= link.to_s(default_options: { class: "" }) %></li>
+          <% end %>
+        </ul>
+      </details>
+    <% end %>
+  <% end %>
+</header>

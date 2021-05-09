@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Partials `site_header` and `site_footer` for easy overrides
+
 ### Changed
 
 * Renamed the controller method name `#action_inquirer` to `#current_action`
