@@ -1479,6 +1479,12 @@ span.flatpickr-day.selected {
   outline-offset: 2px;
 }
 
+.super-input:disabled {
+  opacity: 0.5;
+  --tw-bg-opacity: 1;
+  background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
+}
+
 .super-input-select {
   padding-right: 2rem;
   width: 100%;

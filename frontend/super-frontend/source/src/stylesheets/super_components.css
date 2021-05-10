@@ -11,6 +11,10 @@
 .super-input:focus {
   @apply border-blue-400 outline-none;
 }
+.super-input:disabled {
+  @apply opacity-50;
+  @apply bg-gray-100;
+}
 
 .super-input-select {
   @apply w-full pr-8;
