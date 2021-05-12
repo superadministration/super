@@ -237,7 +237,7 @@ var Super = (function (exports) {
 
   /*
   Unobtrusive JavaScript
-  https://github.com/rails/rails/blob/master/actionview/app/assets/javascripts
+  https://github.com/rails/rails/blob/main/actionview/app/assets/javascripts
   Released under the MIT license
    */
   createCommonjsModule(function (module) {
@@ -489,9 +489,9 @@ var Super = (function (exports) {
 
             if (!options.crossDomain) {
               xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+              CSRFProtection(xhr);
             }
 
-            CSRFProtection(xhr);
             xhr.withCredentials = !!options.withCredentials;
 
             xhr.onreadystatechange = function () {
