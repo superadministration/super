@@ -82,7 +82,7 @@ module Super
 
     def self.polymorphic_parts(*parts_tail)
       parts_head = Super.configuration.path.strip.gsub(%r{\A/+}, "").gsub(%r{/+\z}, "").strip.split("/")
-      parts_head + parts_tail
+      parts_head.map { |part| part.is_a?(String) ? part.to_sym : part } + parts_tail
     end
 
     def initialize(text, href, **options)
