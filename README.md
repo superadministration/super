@@ -14,8 +14,8 @@ application. It does this by having zero dependencies—this lets you update you
 app's dependencies without worrying about breaking your admin pages, and vice
 versa, update your admin pages without breaking your app.
 
-Note: There may be lots of breaking changes since Super is still fairly young.
-See the [stability doc](./STABILITY.md) for an idea of what might be changed.
+Note: Super is under active development and will likely have a few more breaking
+changes before 1.0.
 
 
 ## Features
