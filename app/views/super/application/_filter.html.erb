@@ -1,6 +1,66 @@
 <h1 class="text-lg">Filter</h1>
-<% filter.each_field do |filter_field| %>
+<% filter.each_attribute do |attribute_form_object| %>
   <div class="mt-4">
-    <%= render(filter_field, form: form) %>
+    <%= form.fields_for(attribute_form_object.field_name, attribute_form_object) do |attribute_form| %>
+      <% selected_index = 0 %>
+      <div data-controller="tab-container" data-tab-container-tab-identifier-getter-value="tabIdentifierValue" data-tab-container-tab-controller-name-value="tab">
+        <div>
+          <span class="inline-block"><%= attribute_form_object.humanized_attribute_name %></span>
+          <select data-tab-container-target="control" data-action="tab-container#change" class="super-input super-input-select inline-block">
+            <% selected = false %>
+            <% attribute_form_object.each_operator.with_index do |operator_form_object, index| %>
+              <%
+                selected_attribute =
+                  if !selected && operator_form_object.specified?
+                    selected = true
+                    selected_index = index
+                    %(selected=selected)
+                  else
+                    ""
+                  end
+              %>
+              <option value="<%= operator_form_object.identifier %>" <%= selected_attribute %>><%= operator_form_object.operator.humanized_operator_name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div>
+          <% attribute_form_object.each_operator.with_index do |operator_form_object, index| %>
+            <div data-controller="tab" data-tab-tab-container-getter-value="tabContainer" data-tab-container-target="tab" data-tab-identifier-value="<%= operator_form_object.identifier %>">
+              <% form_html = capture do %>
+                <div data-tab-target="content">
+                  <%= attribute_form.fields_for(operator_form_object.identifier, operator_form_object) do |operator_form| %>
+                    <div class="flex gap-x-2 mt-2">
+                      <% operator_form_object.each_field.with_index do |operator_field_name, index| %>
+                        <div class="flex-1">
+                          <% if operator_field_name == Super::Filter::FormObject::OperatorForm::NULLARY %>
+                            <%= operator_form.super.check_box(operator_field_name, {}, "1", "") %>
+                            <%= operator_form.super.label(operator_field_name, nil, super: { class: "select-none ml-1" }) %>
+                          <% elsif operator_form_object.operator.respond_to?(:field_transcript) && operator_form_object.operator.field_transcript %>
+                            <% field_transcript = operator_form_object.operator.field_transcript %>
+                            <% if field_transcript.super? %>
+                              <%= operator_form.super.public_send(field_transcript.method_name, operator_field_name, *field_transcript.args, **field_transcript.kwargs) %>
+                            <% else %>
+                              <%= operator_form.public_send(field_transcript.method_name, operator_field_name, *field_transcript.args, **field_transcript.kwargs) %>
+                            <% end %>
+                          <% else %>
+                            <%= operator_form.super.text_field(operator_field_name) %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <%= form_html if index == selected_index %>
+
+              <template data-tab-target="pocket">
+                <%= form_html %>
+              </template>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

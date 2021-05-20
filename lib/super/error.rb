@@ -28,6 +28,8 @@ module Super
     # a more specific error
     class Initalization < Error; end
     class ArgumentError < Error; end
+    class AlreadyRegistered < Error; end
+    class AlreadyTranscribed < Error; end
 
     class Enum < Error
       class ImpossibleValue < Enum; end

@@ -2,112 +2,91 @@
 
 module Super
   class Filter
-    # This schema type is used to configure the filtering form on your +#index+
-    # action.
-    #
-    # The +operators:+ keyword argument can be left out in each case. There is
-    # a default set of operators that are provided.
-    #
     # Note: The constants under "Defined Under Namespace" are considered
     # private.
-    #
-    #   class MemberDashboard
-    #     # ...
-    #
-    #     def filter_schema
-    #       Super::Filter.new do |fields, type|
-    #         fields[:name] = type.text(operators: [
-    #           Super::Filter::Operator.eq,
-    #           Super::Filter::Operator.contain,
-    #           Super::Filter::Operator.ncontain,
-    #           Super::Filter::Operator.start,
-    #           Super::Filter::Operator.end,
-    #         ])
-    #         fields[:rank] = type.select(collection: Member.ranks.values)
-    #         fields[:position] = type.text(operators: [
-    #           Super::Filter::Operator.eq,
-    #           Super::Filter::Operator.neq,
-    #           Super::Filter::Operator.contain,
-    #           Super::Filter::Operator.ncontain,
-    #         ])
-    #         fields[:ship_id] = type.select(
-    #           collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
-    #         )
-    #         fields[:created_at] = type.timestamp
-    #         fields[:updated_at] = type.timestamp
-    #       end
-    #     end
-    #
-    #     # ...
-    #   end
     class SchemaTypes
-      class Text
-        def initialize(partial_path:, operators:)
-          @partial_path = partial_path
-          @operators = operators
+      class OperatorList
+        include Enumerable
+
+        def initialize(*new_operators)
+          @operators = {}
+          @operator_transcript = {}
+          @fallback_transcript = nil
+
+          push(*new_operators)
         end
 
-        attr_reader :operators
+        def push(*new_operators)
+          new_operators.flatten.map(&:dup).each do |new_operator|
+            new_identifier = new_operator.identifier.to_s
 
-        def to_partial_path
-          @partial_path
+            raise Error::AlreadyRegistered if @operators.key?(new_identifier)
+
+            @operators[new_identifier] = new_operator
+          end
+
+          nil
         end
 
-        def q
-          [:q]
+        alias add push
+
+        def each
+          return enum_for(:each) if !block_given?
+
+          @operators.each do |identifier, operator|
+            yield(
+              OperatorWithFieldTranscript.new(
+                operator,
+                @operator_transcript[identifier] || @fallback_transcript
+              )
+            )
+          end
+        end
+
+        def transcribe(operator_identifier = nil)
+          transcript = Form::FieldTranscript.new
+          yield transcript
+
+          if operator_identifier.nil?
+            @fallback_transcript = transcript
+          else
+            @operator_transcript[operator_identifier.to_s] = transcript
+          end
+
+          self
         end
       end
 
-      class Select
-        def initialize(collection:, operators:)
-          @collection = collection
-          @operators = operators
+      class OperatorWithFieldTranscript
+        def initialize(operator, field_transcript)
+          @operator = operator
+          @field_transcript = field_transcript
         end
 
-        attr_reader :collection
-        attr_reader :operators
-
-        def to_partial_path
-          "filter_type_select"
+        Super::Filter::Operator.instance_methods(false).each do |name|
+          delegate name, to: :@operator
         end
 
-        def q
-          [:q]
-        end
+        attr_reader :field_transcript
       end
 
-      class Timestamp
-        def initialize(operators:)
-          @operators = operators
-        end
-
-        attr_reader :operators
-
-        def to_partial_path
-          "filter_type_timestamp"
-        end
-
-        def q
-          [:q0, :q1]
-        end
+      def use(*identifiers)
+        found_operators = identifiers.flatten.map { |id| Operator[id] }
+        OperatorList.new(*found_operators)
       end
 
-      def select(collection:, operators: Filter::Operator.select_defaults)
-        Select.new(
-          collection: collection,
-          operators: operators
-        )
+      def select(collection:)
+        use("eq", "null", "nnull")
+          .transcribe { |f| f.super.select(collection) }
       end
 
-      def text(operators: Filter::Operator.text_defaults)
-        Text.new(
-          partial_path: "filter_type_text",
-          operators: operators
-        )
+      def text
+        use("contain", "ncontain", "blank", "nblank")
       end
 
-      def timestamp(operators: Filter::Operator.range_defaults)
-        Timestamp.new(operators: operators)
+      def timestamp
+        use("between", "null", "nnull")
+          .transcribe { |f| f.super.datetime_flatpickr }
       end
     end
   end

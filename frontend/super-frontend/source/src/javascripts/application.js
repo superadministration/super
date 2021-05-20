@@ -8,6 +8,8 @@ import CleanFilterParamsController from "./clean_filter_params_controller";
 import ClickOutsideToCloseController from "./click_outside_to_close_controller";
 import DeleteController from "./delete_controller";
 import FlatpickrController from "./flatpickr_controller";
+import TabContainerController from "./tab_container_controller";
+import TabController from "./tab_controller";
 import TogglePendingDestructionController from "./toggle_pending_destruction_controller";
 
 let StimulusApplication = Application.start();
@@ -23,6 +25,8 @@ StimulusApplication.register(
 );
 StimulusApplication.register("delete", DeleteController);
 StimulusApplication.register("flatpickr", FlatpickrController);
+StimulusApplication.register("tab-container", TabContainerController);
+StimulusApplication.register("tab", TabController);
 StimulusApplication.register(
   "toggle-pending-destruction",
   TogglePendingDestructionController

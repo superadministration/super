@@ -3975,7 +3975,7 @@ var Super = (function (exports) {
     };
   }
 
-  var _default$6 = /*#__PURE__*/function (_Controller) {
+  var _default$8 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4004,7 +4004,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$5 = /*#__PURE__*/function (_Controller) {
+  var _default$7 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4040,7 +4040,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$4 = /*#__PURE__*/function (_Controller) {
+  var _default$6 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4064,7 +4064,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$3 = /*#__PURE__*/function (_Controller) {
+  var _default$5 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4094,7 +4094,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$2 = /*#__PURE__*/function (_Controller) {
+  var _default$4 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -6354,7 +6354,7 @@ var Super = (function (exports) {
     window.flatpickr = flatpickr;
   }
 
-  var _default$1 = /*#__PURE__*/function (_Controller) {
+  var _default$3 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -6375,6 +6375,137 @@ var Super = (function (exports) {
       get: function get() {
         return {
           options: Object
+        };
+      }
+    }]);
+
+    return _default;
+  }(Controller);
+
+  var _default$2 = /*#__PURE__*/function (_Controller) {
+    _inherits(_default, _Controller);
+
+    var _super = _createSuper(_default);
+
+    function _default() {
+      _classCallCheck(this, _default);
+
+      return _super.apply(this, arguments);
+    }
+
+    _createClass(_default, [{
+      key: "connect",
+      value: function connect() {
+        var _this = this;
+
+        this.tabTargets.forEach(function (tab) {
+          tab.tabContainer = _this;
+        });
+      }
+    }, {
+      key: "activeTabIdentifier",
+      get: function get() {
+        return this.controlTarget.value;
+      }
+    }, {
+      key: "change",
+      value: function change(event) {
+        this.update(event.target.value);
+      }
+    }, {
+      key: "update",
+      value: function update(newActiveTabIdentifier) {
+        var _this2 = this;
+
+        this.tabTargets.forEach(function (tab) {
+          var tabController = _this2.application.getControllerForElementAndIdentifier(tab, _this2.tabControllerNameValue);
+
+          if (tab.dataset[_this2.tabIdentifierGetterValue] == newActiveTabIdentifier) {
+            tabController.show();
+          } else {
+            tabController.hide();
+          }
+        });
+      }
+    }], [{
+      key: "targets",
+      get: function get() {
+        return ["control", "tab"];
+      }
+    }, {
+      key: "values",
+      get: function get() {
+        return {
+          tabIdentifierGetter: String,
+          tabControllerName: String
+        };
+      }
+    }]);
+
+    return _default;
+  }(Controller);
+
+  var _default$1 = /*#__PURE__*/function (_Controller) {
+    _inherits(_default, _Controller);
+
+    var _super = _createSuper(_default);
+
+    function _default() {
+      _classCallCheck(this, _default);
+
+      return _super.apply(this, arguments);
+    }
+
+    _createClass(_default, [{
+      key: "connect",
+      value: function connect() {
+        var tabContainer = this.element[this.tabContainerGetterValue];
+
+        if (tabContainer.activeTabIdentifier === this.identifierValue) {
+          this.show();
+        } else {
+          this.hide();
+        }
+      }
+    }, {
+      key: "toggle",
+      value: function toggle() {
+        if (this.hasContentTarget) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      }
+    }, {
+      key: "show",
+      value: function show() {
+        if (this.hasContentTarget) {
+          return;
+        }
+
+        var pocketContent = this.pocketTarget.content.cloneNode(true);
+        this.element.appendChild(pocketContent);
+      }
+    }, {
+      key: "hide",
+      value: function hide() {
+        if (!this.hasContentTarget) {
+          return;
+        }
+
+        this.contentTarget.remove();
+      }
+    }], [{
+      key: "targets",
+      get: function get() {
+        return ["pocket", "content"];
+      }
+    }, {
+      key: "values",
+      get: function get() {
+        return {
+          identifier: String,
+          tabContainerGetter: String
         };
       }
     }]);
@@ -6412,12 +6543,14 @@ var Super = (function (exports) {
   }(Controller);
 
   var StimulusApplication = Application.start();
-  StimulusApplication.register("apply-template", _default$6);
-  StimulusApplication.register("clean-filter-param", _default$5);
-  StimulusApplication.register("clean-filter-params", _default$4);
-  StimulusApplication.register("click-outside-to-close", _default$3);
-  StimulusApplication.register("delete", _default$2);
-  StimulusApplication.register("flatpickr", _default$1);
+  StimulusApplication.register("apply-template", _default$8);
+  StimulusApplication.register("clean-filter-param", _default$7);
+  StimulusApplication.register("clean-filter-params", _default$6);
+  StimulusApplication.register("click-outside-to-close", _default$5);
+  StimulusApplication.register("delete", _default$4);
+  StimulusApplication.register("flatpickr", _default$3);
+  StimulusApplication.register("tab-container", _default$2);
+  StimulusApplication.register("tab", _default$1);
   StimulusApplication.register("toggle-pending-destruction", _default);
 
   exports.StimulusApplication = StimulusApplication;

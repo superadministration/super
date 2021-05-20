@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Some new filter types
+
+### Changed
+
+* Filter operators can have any number of inputs
+
+### Removed
+
+* Some filter types that had overlapping functionality with existing ones
+
 ### Fixed
 
 * `#permitted_params`'s handling of `#current_action`

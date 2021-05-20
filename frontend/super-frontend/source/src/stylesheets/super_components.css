@@ -17,7 +17,7 @@
 }
 
 .super-input-select {
-  @apply w-full pr-8;
+  @apply pr-8;
   @apply bg-no-repeat;
   background-image: svg-load('../icons/feather/chevron-down.svg', stroke=#2b6cb0);
   background-position: right 0.5rem center;

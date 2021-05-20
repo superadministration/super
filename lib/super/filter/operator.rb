@@ -2,100 +2,118 @@
 
 module Super
   class Filter
-    module Operator
-      class Definition
-        def initialize(identifier, name, filter)
-          @identifier = identifier
-          @name = name
-          @filter = filter
-        end
-
-        attr_reader :identifier
-        attr_reader :name
-
-        def filter(*args)
-          @filter.call(args)
-        end
-      end
-
+    class Operator
       class << self
         def registry
           @registry ||= {}
         end
 
-        def range_defaults
-          [
-            registry["between"],
-          ]
+        def [](key)
+          registry.fetch(key.to_s)
         end
 
-        def select_defaults
-          [
-            registry["eq"],
-            registry["neq"],
-          ]
-        end
-
-        def text_defaults
-          [
-            registry["eq"],
-            registry["neq"],
-            registry["contain"],
-            registry["ncontain"],
-            registry["start"],
-            registry["end"],
-          ]
-        end
-
-        def define(identifier, name, &filter)
+        def register(identifier, operator)
           identifier = identifier.to_s
-          name = name.to_s
-
-          definition = Definition.new(identifier, name, filter)
-
-          registry[identifier] = definition
-
-          define_singleton_method(identifier) do
-            registry[identifier]
+          if registry.key?(identifier)
+            raise Error::AlreadyRegistered, "Already registered: #{identifier}"
           end
+
+          registry[identifier] = operator
+        end
+
+        def define(identifier, display, &block)
+          operator = new(identifier, display, &block).freeze
+          register(identifier, operator)
+          operator
         end
       end
 
-      define("eq", "equals") do |relation, field, query|
-        relation.where(field => query)
+      def initialize(identifier, display, &behavior)
+        @identifier = identifier.to_s
+        @humanized_operator_name = display
+        self.behavior = behavior
       end
 
-      define("neq", "doesn't equal") do |relation, field, query|
-        relation.where.not(field => query)
+      def behavior=(behavior)
+        behavior_params = behavior.parameters
+        if behavior_params.size < 2
+          raise Error::ArgumentError, "Operator behavior must include `column_name` and `relation`"
+        end
+        if behavior_params[0][0] != :req && behavior_params[0][0] != :opt
+          raise Error::ArgumentError, "First argument `relation` must be a required, positional argument"
+        end
+        if behavior_params[1][0] != :req && behavior_params[1][0] != :opt
+          raise Error::ArgumentError, "Second argument `column_name` must be a required, positional argument"
+        end
+        if !behavior_params[2..-1].all? { |(type, _name)| type == :keyreq }
+          raise Error::ArgumentError, "All query parameter keys must be required, keyword arguments"
+        end
+        @behavior = behavior
+        @query_parameter_keys = behavior_params[2..-1].map(&:last)
       end
 
-      define("contain", "contains") do |relation, field, query|
-        query = "%#{Compatability.sanitize_sql_like(query)}%"
-        relation.where("#{field} LIKE ?", "%#{query}%")
+      attr_reader :identifier
+      attr_reader :query_parameter_keys
+      attr_reader :humanized_operator_name
+
+      def behavior(&block)
+        self.behavior = block if block_given?
+        @behavior
       end
 
-      define("ncontain", "doesn't contain") do |relation, field, query|
-        query = "%#{Compatability.sanitize_sql_like(query)}%"
+      define("eq", "Equals") do |relation, field, q:|
+        relation.where(field => q)
+      end
+
+      define("neq", "Doesn't equal") do |relation, field, q:|
+        relation.where.not(field => q)
+      end
+
+      define("null", "Is NULL") do |relation, field|
+        relation.where(field => nil)
+      end
+
+      define("nnull", "Isn't NULL") do |relation, field|
+        relation.where.not(field => nil)
+      end
+
+      define("empty", "Is empty") do |relation, field|
+        relation.where(field => "")
+      end
+
+      define("nempty", "Isn't empty") do |relation, field|
+        relation.where.not(field => "")
+      end
+
+      define("blank", "Is blank") do |relation, field|
+        relation.where(field => [nil, ""])
+      end
+
+      define("nblank", "Isn't blank") do |relation, field|
+        relation.where.not(field => [nil, ""])
+      end
+
+      define("contain", "Contains") do |relation, field, q:|
+        query = "%#{Compatability.sanitize_sql_like(q)}%"
+        if relation.connection.adapter_name == "PostgreSQL"
+          relation.where("#{field} ILIKE ?", query)
+        else
+          relation.where("#{field} LIKE ?", query)
+        end
+      end
+
+      define("ncontain", "Doesn't contain") do |relation, field, q:|
+        query = "%#{Compatability.sanitize_sql_like(q)}%"
         relation.where("#{field} NOT LIKE ?", query)
       end
 
-      define("start", "starts with") do |relation, field, query|
-        query = "#{Compatability.sanitize_sql_like(query)}%"
-        relation.where("#{field} LIKE ?", query)
-      end
-
-      define("end", "ends with") do |relation, field, query|
-        query = "%#{Compatability.sanitize_sql_like(query)}"
-        relation.where("#{field} LIKE ?", query)
-      end
-
-      define("between", "between") do |relation, field, query0, query1|
-        if query0.present?
-          relation = relation.where("#{field} >= ?", query0)
+      define("between", "Between") do |relation, field, q0:, q1:|
+        if q0.present?
+          relation = relation.where("#{field} >= ?", q0)
         end
 
-        if query1.present?
-          relation = relation.where("#{field} <= ?", query1)
+        if q1.present?
+          relation = relation.where("#{field} <= ?", q1)
         end
 
         relation
