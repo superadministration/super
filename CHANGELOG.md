@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* `#permitted_params`'s handling of `#current_action`
+
 ## [0.0.16] - 2021-05-15
 
 ### Added

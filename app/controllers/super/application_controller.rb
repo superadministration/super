@@ -91,5 +91,16 @@ module Super
           params[:action]
         )
     end
+
+    def with_current_action(action)
+      original = @current_action
+      @current_action = ActionInquirer.new(
+        ActionInquirer.default_for_resources,
+        action
+      )
+      yield
+    ensure
+      @current_action = original
+    end
   end
 end

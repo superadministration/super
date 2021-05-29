@@ -50,7 +50,18 @@ module Super
     #
     # @return [ActionController::Parameters]
     helper_method def permitted_params
-      strong_params = Super::Form::StrongParams.new(form_schema)
+      strong_params =
+        if current_action.create?
+          with_current_action("new") do
+            Super::Form::StrongParams.new(form_schema)
+          end
+        elsif current_action.update?
+          with_current_action("edit") do
+            Super::Form::StrongParams.new(form_schema)
+          end
+        else
+          Super::Form::StrongParams.new(form_schema)
+        end
       params.require(strong_params.require(model)).permit(strong_params.permit)
     end
 
