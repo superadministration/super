@@ -107,8 +107,9 @@ module Super
         Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
       end
 
-      def select(**extras)
-        Generic.new(partial_path: "form_field_select", extras: extras, nested: {})
+      def select(preferred_collection = nil, *args, collection: nil, **kwargs)
+        args.unshift(preferred_collection || collection)
+        Direct.new(super_builder: true, method_name: :select!, args: args, kwargs: kwargs)
       end
 
       def text_field(*args, **kwargs)

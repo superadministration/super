@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 * Form schema's `#generic`. Prefer `#partial`
+* Form schema's `#select(collection:)` keyword argument. Prefer specifying the
+  positional argument: `#select(collection)`
+* Form schema's `#has_many` and `#has_one` without a block argument. This brings
+  the method signature closer to the form builder's
 
 ### Removed
 
