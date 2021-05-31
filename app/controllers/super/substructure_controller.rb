@@ -76,8 +76,12 @@ module Super
     # Configures the actions linked to on the show page as well as each row of
     # the table on the index page. This is an optional method
     #
+    # Favor the `record` argument over the `@record` instance variable;
+    # `@record` won't always be set, notably on the index page where it's
+    # called on every row
+    #
     # @return [Array<Link>]
-    helper_method def member_actions
+    helper_method def member_actions(record)
       if current_action.show?
         Super::Link.find_all(:edit, :destroy)
       elsif current_action.edit?

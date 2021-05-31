@@ -1,5 +1,5 @@
 <div>
-  <% member_actions.each do |link| %>
+  <% member_actions(record).each do |link| %>
     <span class="pr-2 last:pr-0"><%= link.to_s(record: record, params: params) %></span>
   <% end %>
 </div>

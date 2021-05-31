@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Filter operators can have any number of inputs
+* Controller's `#member_actions` now accepts `record` argument
+* Link and LinkBuilder's `#to_s` methods now accept the same arguments
 
 ### Removed
 

@@ -3,7 +3,7 @@
     <%= title %>
   </h1>
   <div>
-    <% member_actions.each do |link| %>
+    <% member_actions(@record).each do |link| %>
       <%= link.to_s(
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
