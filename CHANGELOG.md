@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Controller's `#member_actions` now accepts `record` argument
 * Link and LinkBuilder's `#to_s` methods now accept the same arguments
 
+### Deprecated
+
+* Form schema's `#generic`. Prefer `#partial`
+
 ### Removed
 
 * Some filter types that had overlapping functionality with existing ones

@@ -97,9 +97,11 @@ module Super
         @fields = fields
       end
 
-      def generic(partial_path, **extras)
+      def partial(partial_path, **extras)
         Generic.new(partial_path: partial_path, extras: extras, nested: {})
       end
+
+      alias generic partial
 
       def direct(method_name, *args, super_builder: true, **kwargs)
         Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
