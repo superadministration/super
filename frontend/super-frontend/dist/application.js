@@ -413,7 +413,7 @@ var Super = (function (exports) {
         }).call(this);
         (function () {
           var AcceptHeaders, CSRFProtection, createXHR, cspNonce, prepareOptions, processResponse;
-          cspNonce = Rails.cspNonce, CSRFProtection = Rails.CSRFProtection, Rails.fire;
+          cspNonce = Rails.cspNonce, CSRFProtection = Rails.CSRFProtection;
           AcceptHeaders = {
             '*': '*/*',
             text: 'text/plain',

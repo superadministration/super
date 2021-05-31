@@ -2,34 +2,38 @@ import "details-element-polyfill";
 
 import RailsUjs from "@rails/ujs";
 import { Application, Controller as StimulusController } from "stimulus";
-import ApplyTemplateController from "./apply_template_controller";
-import CleanFilterParamController from "./clean_filter_param_controller";
-import CleanFilterParamsController from "./clean_filter_params_controller";
-import ClickOutsideToCloseController from "./click_outside_to_close_controller";
-import DeleteController from "./delete_controller";
-import FlatpickrController from "./flatpickr_controller";
-import TabContainerController from "./tab_container_controller";
-import TabController from "./tab_controller";
-import TogglePendingDestructionController from "./toggle_pending_destruction_controller";
+
+import apply_template_controller from "./apply_template_controller";
+import clean_filter_param_controller from "./clean_filter_param_controller";
+import clean_filter_params_controller from "./clean_filter_params_controller";
+import click_outside_to_close_controller from "./click_outside_to_close_controller";
+import delete_controller from "./delete_controller";
+import flatpickr_controller from "./flatpickr_controller";
+import tab_container_controller from "./tab_container_controller";
+import tab_controller from "./tab_controller";
+import toggle_pending_destruction_controller from "./toggle_pending_destruction_controller";
 
 let StimulusApplication = Application.start();
-StimulusApplication.register("apply-template", ApplyTemplateController);
-StimulusApplication.register("clean-filter-param", CleanFilterParamController);
+StimulusApplication.register("apply-template", apply_template_controller);
+StimulusApplication.register(
+  "clean-filter-param",
+  clean_filter_param_controller
+);
 StimulusApplication.register(
   "clean-filter-params",
-  CleanFilterParamsController
+  clean_filter_params_controller
 );
 StimulusApplication.register(
   "click-outside-to-close",
-  ClickOutsideToCloseController
+  click_outside_to_close_controller
 );
-StimulusApplication.register("delete", DeleteController);
-StimulusApplication.register("flatpickr", FlatpickrController);
-StimulusApplication.register("tab-container", TabContainerController);
-StimulusApplication.register("tab", TabController);
+StimulusApplication.register("delete", delete_controller);
+StimulusApplication.register("flatpickr", flatpickr_controller);
+StimulusApplication.register("tab-container", tab_container_controller);
+StimulusApplication.register("tab", tab_controller);
 StimulusApplication.register(
   "toggle-pending-destruction",
-  TogglePendingDestructionController
+  toggle_pending_destruction_controller
 );
 
 export { StimulusApplication, StimulusController };

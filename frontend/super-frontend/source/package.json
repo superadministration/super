@@ -23,8 +23,8 @@
   "scripts": {
     "build": "rollup --config",
     "watch": "rollup --config --watch",
-    "lint": "prettier --write src/**/*.js *.js",
-    "lintci": "prettier --check src/**/*.js *.js"
+    "lint": "prettier --write 'src/**/*.js' '*.js'",
+    "lintci": "prettier --check 'src/**/*.js' '*.js'"
   },
   "prettier": {
     "trailingComma": "es5"
