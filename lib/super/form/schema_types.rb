@@ -156,9 +156,17 @@ module Super
       alias flatpickr_time time_flatpickr
 
       def has_many(reader, **extras)
-        nested = @fields.nested do
-          yield
+        subfields = Schema::Fields.new
+        deprecated_nested = @fields.nested do
+          yield subfields
         end
+
+        nested =
+          if subfields.to_h.any?
+            subfields.to_h
+          else
+            deprecated_nested
+          end
 
         Generic.new(
           partial_path: "form_has_many",
@@ -168,9 +176,17 @@ module Super
       end
 
       def has_one(reader, **extras)
-        nested = @fields.nested do
-          yield
+        subfields = Schema::Fields.new
+        deprecated_nested = @fields.nested do
+          yield subfields
         end
+
+        nested =
+          if subfields.to_h.any?
+            subfields.to_h
+          else
+            deprecated_nested
+          end
 
         Generic.new(
           partial_path: "form_has_one",
