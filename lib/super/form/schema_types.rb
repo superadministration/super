@@ -101,12 +101,14 @@ module Super
         Generic.new(partial_path: partial_path, extras: extras, nested: {})
       end
 
+      # DEPRECATED: Use {#partial}
       alias generic partial
 
       def direct(method_name, *args, super_builder: true, **kwargs)
         Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
       end
 
+      # PARTIALLY DEPRECATED: When used with a collection keyeword argument. Set collection as a positional argument
       def select(preferred_collection = nil, *args, collection: nil, **kwargs)
         args.unshift(preferred_collection || collection)
         Direct.new(super_builder: true, method_name: :select!, args: args, kwargs: kwargs)
@@ -116,7 +118,9 @@ module Super
         Direct.new(super_builder: true, method_name: :text_field!, args: args, kwargs: kwargs)
       end
 
+      # DEPRECATED: Use {#text_field}
       alias string text_field
+      # DEPRECATED: Use {#text_field}
       alias text text_field
 
       def rich_text_area(*args, **kwargs)
@@ -127,18 +131,21 @@ module Super
         Direct.new(super_builder: true, method_name: :check_box!, args: args, kwargs: kwargs)
       end
 
+      # DEPRECATED: Use {#check_box}
       alias checkbox check_box
 
       def date_flatpickr(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :date_flatpickr!, args: args, kwargs: kwargs)
       end
 
+      # DEPRECATED: Use {#date_flatpickr}
       alias flatpickr_date date_flatpickr
 
       def datetime_flatpickr(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :datetime_flatpickr!, args: args, kwargs: kwargs)
       end
 
+      # DEPRECATED: Use {#datetime_flatpickr}
       alias flatpickr_datetime datetime_flatpickr
 
       def hidden_field(*args, **kwargs)
@@ -153,8 +160,10 @@ module Super
         Direct.new(super_builder: true, method_name: :time_flatpickr!, args: args, kwargs: kwargs)
       end
 
+      # DEPRECATED: Use {#time_flatpickr}
       alias flatpickr_time time_flatpickr
 
+      # PARTIALLY DEPRECATED: When used without the yielded argument
       def has_many(reader, **extras)
         subfields = Schema::Fields.new
         deprecated_nested = @fields.nested do
@@ -175,6 +184,7 @@ module Super
         )
       end
 
+      # PARTIALLY DEPRECATED: When used without the yielded argument
       def has_one(reader, **extras)
         subfields = Schema::Fields.new
         deprecated_nested = @fields.nested do

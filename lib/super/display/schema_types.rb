@@ -130,6 +130,7 @@ module Super
       end
 
       def string; real(&:to_s); end
+      # DEPRECATED: Use {#string}
       alias text string
 
       def timestamp; real(&:to_s); end
