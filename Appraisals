@@ -12,6 +12,7 @@ appraise "rails50_sprockets3_ruby23" do
   gem "nokogiri", "~> 1.10.10"
   gem "simplecov", "~> 0.17.0"
   gem "simplecov-html", "~> 0.10.0"
+  gem "docile", "~> 1.3.5"
 end
 
 appraise "rails50_sprockets3" do
@@ -23,6 +24,7 @@ appraise "rails50_sprockets3" do
   gem "nokogiri", "~> 1.10.10"
   gem "simplecov", "~> 0.17.0"
   gem "simplecov-html", "~> 0.10.0"
+  gem "docile", "~> 1.3.5"
 end
 
 appraise "rails51_sprockets3" do
@@ -71,7 +73,7 @@ end
 
 appraise "rails61_webpacker6" do
   gem "rails", "~> 6.1.0"
-  gem "webpacker", "= 6.0.0.beta.6"
+  gem "webpacker", "= 6.0.0.beta.7"
   gem "sqlite3", "~> 1.4.0"
   gem "rexml"
 end
