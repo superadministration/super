@@ -34,7 +34,8 @@ module Super
 
     # Creates a record, or shows the validation errors
     def create
-      @record = build_record_with_params
+      @record = build_record
+      set_record_attributes
 
       if save_record
         redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
@@ -56,8 +57,9 @@ module Super
     # Updates a record, or shows validation errors
     def update
       @record = load_record
+      set_record_attributes
 
-      if update_record
+      if save_record
         redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
       else
         @current_action = ActionInquirer.edit!

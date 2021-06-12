@@ -142,16 +142,12 @@ module Super
       base_scope.build
     end
 
-    def build_record_with_params
-      base_scope.build(permitted_params)
+    def set_record_attributes
+      @record.attributes = permitted_params
     end
 
     def save_record
       @record.save
-    end
-
-    def update_record
-      @record.update(permitted_params)
     end
 
     def destroy_record

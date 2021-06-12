@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Filter operators can have any number of inputs
 * Controller's `#member_actions` now accepts `record` argument
 * Link and LinkBuilder's `#to_s` methods now accept the same arguments
+* Unified how the `#create` and `#update` actions set the record's attributes.
+  Use `#set_record_attributes` to customize what gets set
 
 ### Deprecated
 
@@ -28,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 * Some filter types that had overlapping functionality with existing ones
+* `#build_record_with_params` which used to set attributes on the create action
+* `#update_record` which was used to set attributes on the update action
 
 ### Fixed
 
