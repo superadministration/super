@@ -42,6 +42,10 @@ module Super
         enum_for(:each)
       end
 
+      def delete(key)
+        @backing.delete(key)
+      end
+
       def replace(other)
         @backing = other
       end

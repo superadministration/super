@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Some new filter types
+* `Super::Schema::Fields#delete(key)` for deleting fields from a defined schema.
+  It works like `Hash#delete`
 
 ### Changed
 
