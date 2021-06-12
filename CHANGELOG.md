@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * `#permitted_params`'s handling of `#current_action`
+* Flatpickr form fields where the value was a string, but more specifically when
+  used with filtering
 
 ## [0.0.16] - 2021-05-15
 

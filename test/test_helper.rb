@@ -15,6 +15,7 @@ require "capybara/minitest"
 require "mocha/minitest"
 require_relative "support/ad_hoc_view_helpers"
 require_relative "support/custom_database_schema"
+require_relative "support/input_flatpickr"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
@@ -33,6 +34,7 @@ Capybara.server = :puma
 class CapybaraTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
+  include InputFlatpickr
 
   setup do
     skip if ENV["SKIP_CAPYBARA"]

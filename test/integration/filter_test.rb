@@ -35,3 +35,22 @@ class FilterIntegrationTest < CapybaraTest
     assert_equal("O'Brien", page.find("#q_f_name_contain_q").value)
   end
 end
+
+class FilterFrontendIntegrationTest < CapybaraTest
+  selenium!
+
+  def test_filtering_via_timestamp
+    members(:picard).update!(created_at: Time.utc(2020, 1, 1, 0, 0, 0))
+    browser_tz("America/New_York") do
+      visit admin_members_path
+      find_field("q_f_created_at_between_q1").click
+      set_date!(members(:picard).created_at.in_time_zone("America/New_York") + 1.day)
+      set_time!(members(:picard).created_at.in_time_zone("America/New_York") + 1.day)
+      members(:picard).created_at.in_time_zone("America/New_York") + 1.day
+      click_button "Apply"
+      assert_equal(1, page.find_all("tbody tr").size)
+      assert(page.has_content?("Jean-Luc Picard"))
+      assert_equal((members(:picard).created_at + 1.day).iso8601(3), page.find("#q_f_created_at_between_q1").value)
+    end
+  end
+end
