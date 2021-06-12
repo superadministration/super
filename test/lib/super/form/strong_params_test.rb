@@ -4,7 +4,7 @@ module Super
   class StrongParamsTest < ActiveSupport::TestCase
     def test_basic
       form = Super::Form.new do |fields, type|
-        fields[:name] = type.string
+        fields[:name] = type.text_field
       end
 
       assert_equal(
@@ -15,15 +15,15 @@ module Super
 
     def test_has_many
       form = Super::Form.new do |fields, type|
-        fields[:name] = type.string
-        fields[:widgets_attributes] = type.has_many(:widgets) do
-          fields[:knob] = type.string
-          fields[:lever] = type.string
-          fields[:display] = type.string
-          fields[:_destroy] = type._destroy
+        fields[:name] = type.text_field
+        fields[:widgets_attributes] = type.has_many(:widgets) do |wf|
+          wf[:knob] = type.text_field
+          wf[:lever] = type.text_field
+          wf[:display] = type.text_field
+          wf[:_destroy] = type._destroy
         end
-        fields[:buttons_attributes] = type.has_many(:buttons) do
-          fields[:label] = type.string
+        fields[:buttons_attributes] = type.has_many(:buttons) do |bf|
+          bf[:label] = type.text_field
         end
       end
 
@@ -39,15 +39,15 @@ module Super
 
     def test_has_one
       form = Super::Form.new do |fields, type|
-        fields[:name] = type.string
-        fields[:widget_attributes] = type.has_one(:widget) do
-          fields[:knob] = type.string
-          fields[:lever] = type.string
-          fields[:display] = type.string
-          fields[:_destroy] = type._destroy
+        fields[:name] = type.text_field
+        fields[:widget_attributes] = type.has_one(:widget) do |wf|
+          wf[:knob] = type.text_field
+          wf[:lever] = type.text_field
+          wf[:display] = type.text_field
+          wf[:_destroy] = type._destroy
         end
-        fields[:button_attributes] = type.belongs_to(:button) do
-          fields[:label] = type.string
+        fields[:button_attributes] = type.belongs_to(:button) do |bf|
+          bf[:label] = type.text_field
         end
       end
 

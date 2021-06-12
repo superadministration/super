@@ -3,7 +3,7 @@ require "test_helper"
 class FormSchemaTypesTest < ActiveSupport::TestCase
   def test_basic
     result = Super::Form.new do |fields, type|
-      fields[:name] = type.generic("cool_partial_path")
+      fields[:name] = type.partial("cool_partial_path")
     end
 
     assert_equal(
@@ -21,7 +21,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
   def test_has_many_with_yield
     result = Super::Form.new do |fields, type|
       fields[:widgets_attributes] = type.has_many(:widgets) do |subfields|
-        subfields[:name] = type.generic("cool_partial_path")
+        subfields[:name] = type.partial("cool_partial_path")
       end
     end
 
@@ -45,8 +45,8 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
 
   def test_has_many
     result = Super::Form.new do |fields, type|
-      fields[:widgets_attributes] = type.has_many(:widgets) do
-        fields[:name] = type.generic("cool_partial_path")
+      fields[:widgets_attributes] = type.has_many(:widgets) do |wf|
+        wf[:name] = type.partial("cool_partial_path")
       end
     end
 
@@ -96,9 +96,9 @@ class FormSchemaTypesViewTest < ActionView::TestCase
     self.table_name = :rows
   end
 
-  def test_flatpickr_date
+  def test_date_flatpickr
     form = Super::Form.new do |fields, type|
-      fields[:date_col] = type.flatpickr_date
+      fields[:date_col] = type.date_flatpickr
     end
 
     @record = Row.create!(date_col: Date.today).reload
@@ -106,9 +106,9 @@ class FormSchemaTypesViewTest < ActionView::TestCase
     render(form)
   end
 
-  def test_flatpickr_datetime
+  def test_datetime_flatpickr
     form = Super::Form.new do |fields, type|
-      fields[:datetime_col] = type.flatpickr_datetime
+      fields[:datetime_col] = type.datetime_flatpickr
     end
 
     @record = Row.create!(datetime_col: Time.now).reload
@@ -116,9 +116,9 @@ class FormSchemaTypesViewTest < ActionView::TestCase
     render(form)
   end
 
-  def test_flatpickr_time
+  def test_time_flatpickr
     form = Super::Form.new do |fields, type|
-      fields[:time_col] = type.flatpickr_time
+      fields[:time_col] = type.time_flatpickr
     end
 
     @record = Row.create!(datetime_col: "04:56").reload

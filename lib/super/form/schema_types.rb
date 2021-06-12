@@ -101,27 +101,17 @@ module Super
         Generic.new(partial_path: partial_path, extras: extras, nested: {})
       end
 
-      # DEPRECATED: Use {#partial}
-      alias generic partial
-
       def direct(method_name, *args, super_builder: true, **kwargs)
         Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
       end
 
-      # PARTIALLY DEPRECATED: When used with a collection keyeword argument. Set collection as a positional argument
-      def select(preferred_collection = nil, *args, collection: nil, **kwargs)
-        args.unshift(preferred_collection || collection)
+      def select(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :select!, args: args, kwargs: kwargs)
       end
 
       def text_field(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :text_field!, args: args, kwargs: kwargs)
       end
-
-      # DEPRECATED: Use {#text_field}
-      alias string text_field
-      # DEPRECATED: Use {#text_field}
-      alias text text_field
 
       def rich_text_area(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :rich_text_area!, args: args, kwargs: kwargs)
@@ -131,22 +121,13 @@ module Super
         Direct.new(super_builder: true, method_name: :check_box!, args: args, kwargs: kwargs)
       end
 
-      # DEPRECATED: Use {#check_box}
-      alias checkbox check_box
-
       def date_flatpickr(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :date_flatpickr!, args: args, kwargs: kwargs)
       end
 
-      # DEPRECATED: Use {#date_flatpickr}
-      alias flatpickr_date date_flatpickr
-
       def datetime_flatpickr(*args, **kwargs)
         Direct.new(super_builder: true, method_name: :datetime_flatpickr!, args: args, kwargs: kwargs)
       end
-
-      # DEPRECATED: Use {#datetime_flatpickr}
-      alias flatpickr_datetime datetime_flatpickr
 
       def hidden_field(*args, **kwargs)
         Direct.new(super_builder: false, method_name: :hidden_field, args: args, kwargs: kwargs)
@@ -160,48 +141,29 @@ module Super
         Direct.new(super_builder: true, method_name: :time_flatpickr!, args: args, kwargs: kwargs)
       end
 
-      # DEPRECATED: Use {#time_flatpickr}
-      alias flatpickr_time time_flatpickr
-
-      # PARTIALLY DEPRECATED: When used without the yielded argument
       def has_many(reader, **extras)
         subfields = Schema::Fields.new
-        deprecated_nested = @fields.nested do
+        @fields.nested do
           yield subfields
         end
-
-        nested =
-          if subfields.to_h.any?
-            subfields.to_h
-          else
-            deprecated_nested
-          end
 
         Generic.new(
           partial_path: "form_has_many",
           extras: extras.merge(reader: reader),
-          nested: nested
+          nested: subfields.to_h
         )
       end
 
-      # PARTIALLY DEPRECATED: When used without the yielded argument
       def has_one(reader, **extras)
         subfields = Schema::Fields.new
-        deprecated_nested = @fields.nested do
+        @fields.nested do
           yield subfields
         end
-
-        nested =
-          if subfields.to_h.any?
-            subfields.to_h
-          else
-            deprecated_nested
-          end
 
         Generic.new(
           partial_path: "form_has_one",
           extras: extras.merge(reader: reader),
-          nested: nested
+          nested: subfields.to_h
         )
       end
 

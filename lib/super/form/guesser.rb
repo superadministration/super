@@ -30,7 +30,7 @@ module Super
         when :date
           @type.date_flatpickr
         else
-          @type.string
+          @type.text_field
         end
       end
     end

@@ -75,7 +75,7 @@ module Super
         OperatorList.new(*found_operators)
       end
 
-      def select(collection:)
+      def select(collection)
         use("eq", "null", "nnull")
           .transcribe { |f| f.super.select(collection) }
       end

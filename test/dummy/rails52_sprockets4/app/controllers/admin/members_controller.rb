@@ -25,16 +25,16 @@ class Admin::MembersController < AdminController
 
   def form_schema
     Super::Form.new do |fields, type|
-      fields[:name] = type.string
-      fields[:rank] = type.select(collection: Member.ranks.keys)
-      fields[:position] = type.string
+      fields[:name] = type.text_field
+      fields[:rank] = type.select(Member.ranks.keys)
+      fields[:position] = type.text_field
       fields[:ship_id] = type.select(
-        collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
       )
 
-      fields[:favorite_things_attributes] = type.has_many(:favorite_things) do
-        fields[:name] = type.string
-        fields[:_destroy] = type._destroy
+      fields[:favorite_things_attributes] = type.has_many(:favorite_things) do |ftaf|
+        ftaf[:name] = type.text_field
+        ftaf[:_destroy] = type._destroy
       end
     end
   end
@@ -42,10 +42,10 @@ class Admin::MembersController < AdminController
   def filter_schema
     Super::Filter.new do |fields, type|
       fields[:name] = type.text
-      fields[:rank] = type.select(collection: Member.ranks.values)
+      fields[:rank] = type.select(Member.ranks.values)
       fields[:position] = type.text
       fields[:ship_id] = type.select(
-        collection: Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
       )
       fields[:created_at] = type.timestamp
       fields[:updated_at] = type.timestamp

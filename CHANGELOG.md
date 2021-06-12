@@ -19,16 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Unified how the `#create` and `#update` actions set the record's attributes.
   Use `#set_record_attributes` to customize what gets set
 
-### Deprecated
+### Removed
 
 * Form schema's `#generic`. Prefer `#partial`
 * Form schema's `#select(collection:)` keyword argument. Prefer specifying the
   positional argument: `#select(collection)`
 * Form schema's `#has_many` and `#has_one` when used without a block argument.
   Those methods now yield a variable, similar to `f.fields_for`
-
-### Removed
-
 * Some filter types that had overlapping functionality with existing ones
 * `#build_record_with_params` which used to set attributes on the create action
 * `#update_record` which was used to set attributes on the update action

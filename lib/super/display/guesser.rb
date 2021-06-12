@@ -30,7 +30,7 @@ module Super
         when :time
           @type.time
         else
-          @type.text
+          @type.string
         end
       end
     end
