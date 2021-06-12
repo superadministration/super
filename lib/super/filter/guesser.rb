@@ -23,6 +23,8 @@ module Super
         case type
         when :datetime
           @type.timestamp
+        when :boolean
+          @type.boolean
         else
           @type.text
         end

@@ -77,6 +77,14 @@ module Super
         relation.where.not(field => nil)
       end
 
+      define("true", "Is true") do |relation, field|
+        relation.where(field => true)
+      end
+
+      define("false", "Is false") do |relation, field|
+        relation.where(field => false)
+      end
+
       define("empty", "Is empty") do |relation, field|
         relation.where(field => "")
       end

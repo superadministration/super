@@ -88,6 +88,10 @@ module Super
         use("between", "null", "nnull")
           .transcribe { |f| f.super.datetime_flatpickr }
       end
+
+      def boolean
+        use("true", "false", "null", "nnull")
+      end
     end
   end
 end
