@@ -13,7 +13,62 @@ module Super
           @builder.select(attribute, choices, options, html_options, &block)
         end
 
-        combine_with_label :select
+        define_with_label_tag :select
+
+        def collection_select(attribute, collection, value_method, text_method, options = {}, html_options = {})
+          options, defaults = split_defaults(options, include_blank: true)
+          options = defaults.merge(options)
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+          html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
+
+          @builder.collection_select(attribute, collection, value_method, text_method, options, html_options)
+        end
+
+        define_with_label_tag :collection_select
+
+        def grouped_collection_select(attribute, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+          options, defaults = split_defaults(options, include_blank: true)
+          options = defaults.merge(options)
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+          html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
+
+          @builder.grouped_collection_select(attribute, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
+
+        define_with_label_tag :grouped_collection_select
+
+        def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {})
+          options, defaults = split_defaults(options, include_blank: true)
+          options = defaults.merge(options)
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+          html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
+
+          @builder.time_zone_select(attribute, priority_zones, options, html_options)
+        end
+
+        define_with_label_tag :time_zone_select, priority_zones: "nil"
+
+        def collection_check_boxes(attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
+          options, defaults = split_defaults(options, include_blank: true)
+          options = defaults.merge(options)
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+          html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
+
+          @builder.collection_check_boxes(attribute, collection, value_method, text_method, options, html_options, &block)
+        end
+
+        define_with_label_tag :collection_check_boxes
+
+        def collection_radio_buttons(attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
+          options, defaults = split_defaults(options, include_blank: true)
+          options = defaults.merge(options)
+          html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+          html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
+
+          @builder.collection_radio_buttons(attribute, collection, value_method, text_method, options, html_options, &block)
+        end
+
+        define_with_label_tag :collection_radio_buttons
       end
     end
   end
