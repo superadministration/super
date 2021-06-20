@@ -11,17 +11,7 @@ module Super
           @builder.rich_text_area(attribute, options)
         end
 
-        def rich_text_area!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-          container do
-            compact_join([
-              public_send(:label, attribute, label_text, label),
-              %(<div class="mt-1">).html_safe,
-              public_send(:rich_text_area, attribute, field),
-              show_errors && inline_errors(attribute),
-              %(</div>).html_safe,
-            ])
-          end
-        end
+        define_with_label_tag :rich_text_area
       end
     end
   end

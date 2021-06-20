@@ -13,17 +13,7 @@ module Super
           @builder.select(attribute, choices, options, html_options, &block)
         end
 
-        def select!(attribute, collection, label_text: nil, label: {}, field: {}, show_errors: true)
-          container do
-            compact_join([
-              public_send(:label, attribute, label_text, label),
-              %(<div class="mt-1">).html_safe,
-              public_send(:select, attribute, collection, field),
-              show_errors && inline_errors(attribute),
-              %(</div>).html_safe,
-            ])
-          end
-        end
+        combine_with_label :select
       end
     end
   end

@@ -23,17 +23,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        def date_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-          container do
-            compact_join([
-              public_send(:label, attribute, label_text, label),
-              %(<div class="mt-1">).html_safe,
-              public_send(:date_flatpickr, attribute, field),
-              show_errors && inline_errors(attribute),
-              %(</div>).html_safe,
-            ])
-          end
-        end
+        define_with_label_tag :date_flatpickr
 
         def datetime_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
@@ -56,17 +46,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        def datetime_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-          container do
-            compact_join([
-              public_send(:label, attribute, label_text, label),
-              %(<div class="mt-1">).html_safe,
-              public_send(:datetime_flatpickr, attribute, field),
-              show_errors && inline_errors(attribute),
-              %(</div>).html_safe,
-            ])
-          end
-        end
+        define_with_label_tag :datetime_flatpickr
 
         def time_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
@@ -90,17 +70,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        def time_flatpickr!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-          container do
-            compact_join([
-              public_send(:label, attribute, label_text, label),
-              %(<div class="mt-1">).html_safe,
-              public_send(:time_flatpickr, attribute, field),
-              show_errors && inline_errors(attribute),
-              %(</div>).html_safe,
-            ])
-          end
-        end
+        define_with_label_tag :time_flatpickr
       end
     end
   end

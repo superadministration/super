@@ -14,17 +14,7 @@ module Super
               @builder.#{builder_method_name}(attribute, options)
             end
 
-            def #{builder_method_name}!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-              container do
-                compact_join([
-                  public_send(:label, attribute, label_text, label),
-                  %(<div class="mt-1">).html_safe,
-                  public_send(:#{builder_method_name}, attribute, field),
-                  show_errors && inline_errors(attribute),
-                  %(</div>).html_safe,
-                ])
-              end
-            end
+            define_with_label_tag :#{builder_method_name}
           RUBY
         end
 
