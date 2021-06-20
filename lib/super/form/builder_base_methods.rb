@@ -43,6 +43,23 @@ module Super
           end
         end
 
+        # def file_field(attribute, options = {})
+        # end
+
+        # def file_field!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
+        # end
+
+        def hidden_field(attribute, options = {})
+          @builder.hidden_field(attribute, options)
+        end
+
+        # def radio_button(attribute, tag_value, options = {})
+        #   @builder.radio_button(attribute, tag_value, options)
+        # end
+
+        # def radio_button(attribute, tag_value, label_text: nil, label: {}, field: {}, show_errors: true)
+        # end
+
         def submit(value = nil, options = {})
           value, options = nil, value if value.is_a?(Hash)
           options, defaults = split_defaults(options, class: "super-button")
