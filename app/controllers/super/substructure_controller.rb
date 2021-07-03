@@ -17,6 +17,14 @@ module Super
       model.name.pluralize
     end
 
+    # This defines what to set in the <title> tag. It works in conjunction with
+    # the `#site_title` method
+    #
+    # @return [String, void]
+    helper_method def page_title
+      model.name.pluralize
+    end
+
     # Configures what database records are visible on load. This is an optional
     # method, it defaults to "`all`" methods
     #
@@ -260,6 +268,7 @@ module Super
       included do
         helper_method :site_title
         helper_method :site_navigation
+        helper_method :document_title
       end
 
       private
@@ -270,6 +279,22 @@ module Super
 
       def site_navigation
         Super::Navigation.new(&:all)
+      end
+
+      def document_title
+        if instance_variable_defined?(:@document_title)
+          return @document_title
+        end
+
+        document_title_segments.map(&:presence).compact.join(document_title_separator)
+      end
+
+      def document_title_segments
+        @document_title_segments ||= [page_title, site_title]
+      end
+
+      def document_title_separator
+        @document_title_separator ||= " - "
       end
     end
   end

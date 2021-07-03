@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improvements
+
+* Added `#document_title` and `#page_title` methods for customizing the contents
+  of the `<title>` tag
+
 ## [0.17.0] - 2021-06-12
 
 ### Added
