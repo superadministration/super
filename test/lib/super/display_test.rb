@@ -11,7 +11,7 @@ class Super::DisplayTest < ActionView::TestCase
       f[:just_a_test] = type.computed(:record) { |record| record.name.upcase }
       f[:just_a_link] = type.computed(:record) { |record| Super::Link.new(record.rank, "https://rubyonrails.org/") }
     end
-    display.apply(action: view.current_action)
+    display.apply(action: view.current_action, format: Mime[:html])
 
     @records = [members(:picard)]
     render(display)
@@ -36,7 +36,7 @@ class Super::DisplayTest < ActionView::TestCase
     end
 
     display = view.display_schema
-    display.apply(action: view.current_action)
+    display.apply(action: view.current_action, format: Mime[:html])
 
     @record = members(:picard)
     render(display)
@@ -59,7 +59,7 @@ class Super::DisplayTest < ActionView::TestCase
         .when("captain") { [:blue] }
         .else { [:red] }
     end
-    display.apply(action: view.current_action)
+    display.apply(action: view.current_action, format: Mime[:html])
 
     @records = [members(:picard)]
     render(display)

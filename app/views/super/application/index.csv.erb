@@ -1,0 +1,14 @@
+<%=
+  attribute_names = @display.each_attribute_name.to_a
+
+  CSV
+    .generate(write_headers: true, headers: attribute_names) do |csv|
+      @records.each do |record|
+        row = attribute_names.map do |attribute_name|
+          @display.render_attribute(template: self, record: record, column: attribute_name)
+        end
+        csv << row
+      end
+    end
+    .html_safe
+-%>

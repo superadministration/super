@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added `#document_title` and `#page_title` methods for customizing the contents
   of the `<title>` tag
+* Added a way to export CSVs by appending `.csv` to the URL
 
 ## [0.17.0] - 2021-06-12
 

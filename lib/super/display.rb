@@ -32,10 +32,11 @@ module Super
       yield(@fields, @schema_types)
     end
 
-    def apply(action:)
+    def apply(action:, format:)
       @action_inquirer = action
       return self if !@action_inquirer.index?
       return self if @schema_types.actions_called?
+      return self if !format.html?
       @fields[:actions] = @schema_types.actions
       self
     end

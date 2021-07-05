@@ -10,7 +10,7 @@ module Super
     # Displays a list of records to the user
     def index
       @records = load_records
-      @display = display_schema.apply(action: current_action)
+      @display = display_schema.apply(action: current_action, format: request.format)
       @view = index_view
       @query_form = initialize_query_form
       initialize_filter_form
@@ -21,7 +21,7 @@ module Super
     # Displays a specific record to the user
     def show
       @record = load_record
-      @display = display_schema.apply(action: current_action)
+      @display = display_schema.apply(action: current_action, format: request.format)
       @view = show_view
     end
 
