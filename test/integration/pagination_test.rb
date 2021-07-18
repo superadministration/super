@@ -56,4 +56,10 @@ class PaginationTest < CapybaraTest
     assert(page.has_content?("Christine Chapel"))
     assert(page.has_content?("Hikaru Sulu"))
   end
+
+  def test_disabled_pagination
+    visit(admin_members_path(_all_pages: "all"))
+
+    assert_equal(8, page.find_all("tbody tr").size)
+  end
 end

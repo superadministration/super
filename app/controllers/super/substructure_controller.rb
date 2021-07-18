@@ -196,6 +196,14 @@ module Super
       end
     end
 
+    def pagination_disabled_param
+      :_all_pages
+    end
+
+    def pagination_enabled?
+      !params.key?(pagination_disabled_param)
+    end
+
     # Sets up pagination
     #
     # @return [Pagination]
@@ -212,6 +220,8 @@ module Super
     #
     # @return [ActiveRecord::Relation]
     def paginate_records
+      return @records if !pagination_enabled?
+
       @records
         .limit(@pagination.limit)
         .offset(@pagination.offset)
