@@ -30,6 +30,7 @@ module Super
     class ArgumentError < Error; end
     class AlreadyRegistered < Error; end
     class AlreadyTranscribed < Error; end
+    class NotImplementedError < Error; end
 
     class Enum < Error
       class ImpossibleValue < Enum; end

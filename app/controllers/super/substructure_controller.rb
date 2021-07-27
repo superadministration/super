@@ -7,7 +7,7 @@ module Super
     private
 
     helper_method def model
-      raise NotImplementedError
+      raise Error::NotImplementedError
     end
 
     # This is an optional method
@@ -23,6 +23,8 @@ module Super
     # @return [String, void]
     helper_method def page_title
       model.name.pluralize
+    rescue Error::NotImplementedError, NameError
+      return nil
     end
 
     # Configures what database records are visible on load. This is an optional

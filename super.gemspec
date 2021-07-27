@@ -48,4 +48,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "i18n-debug"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "rails_anonymous_controller_testing"
 end

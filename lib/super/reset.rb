@@ -14,7 +14,10 @@ module Super
       undef_method :destroy
 
       Super::SubstructureController.private_instance_methods(false).each do |imethod|
+        next if imethod == :_layout
+        next if imethod == :_generate_paths_by_default
         next if imethod == :navigation
+        next if imethod == :page_title
         undef_method imethod
       end
     end
