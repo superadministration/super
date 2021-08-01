@@ -13,6 +13,7 @@ appraise "rails50_sprockets3_ruby23" do
   gem "simplecov", "~> 0.17.0"
   gem "simplecov-html", "~> 0.10.0"
   gem "docile", "~> 1.3.5"
+  gem "globalid", "~> 0.4.2"
 end
 
 appraise "rails50_sprockets3" do
@@ -25,18 +26,21 @@ appraise "rails50_sprockets3" do
   gem "simplecov", "~> 0.17.0"
   gem "simplecov-html", "~> 0.10.0"
   gem "docile", "~> 1.3.5"
+  gem "globalid", "~> 0.4.2"
 end
 
 appraise "rails51_sprockets3" do
   gem "rails", "~> 5.1.0"
   gem "sprockets", "~> 3.0"
   gem "sqlite3", "~> 1.3.0"
+  gem "globalid", "~> 0.4.2"
 end
 
 appraise "rails52_sprockets4" do
   gem "rails", "~> 5.2.0"
   gem "sprockets", "~> 4.0"
   gem "sqlite3", "~> 1.3.0"
+  gem "globalid", "~> 0.4.2"
 end
 
 appraise "rails60_sprockets4" do
