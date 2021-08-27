@@ -80,7 +80,14 @@ module Super
     #
     # @return [Array<Link>]
     helper_method def collection_actions
-      Super::Link.find_all(:new)
+      if current_action.index?
+        [
+          Super::Partial.new("batch_button"),
+          Super::Link.find(:new)
+        ]
+      else
+        Super::Link.find_all(:new)
+      end
     end
 
     # Configures the actions linked to on the show page as well as each row of
@@ -138,6 +145,15 @@ module Super
     # @return [ActiveRecord::Relation]
     helper_method def records_per_page
       Super.configuration.index_records_per_page
+    end
+
+    helper_method def batch_actions_enabled?
+      true
+    end
+
+    helper_method def batch_actions
+      [
+      ]
     end
 
     def load_records
@@ -233,6 +249,7 @@ module Super
       Super::Layout.new(
         main: Super::ViewChain.new(
           main_panel: Super::Panel.new,
+          batch_form: Super::Partial.new("batch_form"),
           main_header: Super::Partial.new("collection_header"),
           main: :@display
         ),

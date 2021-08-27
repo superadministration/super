@@ -67,3 +67,11 @@
 .details-reset > summary { list-style: none; }
 .details-reset > summary::before { display: none; }
 .details-reset > summary::-webkit-details-marker { display: none; }
+
+.details-backdrop-transparent[open] > summary:before {
+  @apply block fixed inset-0 z-10;
+  content: " ";
+}
+.details-backdrop-transparent[open] > summary {
+  @apply cursor-default;
+}

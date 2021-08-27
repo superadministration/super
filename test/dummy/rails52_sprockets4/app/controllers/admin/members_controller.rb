@@ -4,6 +4,17 @@ class Admin::MembersController < AdminController
     @view.main.insert(:favorite_things, Super::Partial.new("favorite_things"), before: :main_panel)
   end
 
+  def batch_noop
+    flash.notice =
+      if params[:batch]
+        "Received batch IDs: #{params[:batch].join(", ")}"
+      else
+        "Received no batch IDs"
+      end
+
+    redirect_to admin_members_path
+  end
+
   private
 
   def model
@@ -16,6 +27,7 @@ class Admin::MembersController < AdminController
 
   def display_schema
     Super::Display.new do |fields, type|
+      fields[:id] = type.batch
       fields[:name] = type.string
       fields[:rank] = type.string
       fields[:position] = type.string
@@ -62,5 +74,11 @@ class Admin::MembersController < AdminController
 
   def default_sort
     { id: :asc }
+  end
+
+  def batch_actions
+    [
+      Super::Link.new("No-op", batch_noop_admin_members_path, method: :post),
+    ]
   end
 end

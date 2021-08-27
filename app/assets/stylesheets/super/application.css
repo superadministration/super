@@ -1588,6 +1588,21 @@ span.flatpickr-day.selected {
 .details-reset > summary::-webkit-details-marker { display: none;
 }
 
+.details-backdrop-transparent[open] > summary:before {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 10;
+  content: " ";
+}
+
+.details-backdrop-transparent[open] > summary {
+  cursor: default;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

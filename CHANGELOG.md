@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `#member_actions` and `#collection_actions` can return an array of things that
   respond to `#to_partial_path`, including but not limited to `Link`s.
 * Partials can be ordered
+* Added a batch actions feature
 
 ### Breaking changes
 

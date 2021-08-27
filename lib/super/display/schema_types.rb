@@ -129,6 +129,12 @@ module Super
         real(:column, &transform_block)
       end
 
+      def batch
+        real do |value|
+          Partial.new("batch_checkbox", locals: { value: value })
+        end
+      end
+
       def string; real(&:to_s); end
 
       def timestamp; real(&:to_s); end

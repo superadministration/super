@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   namespace :admin do
-    resources :members
+    resources :members do
+      post :batch_noop, on: :collection
+    end
     resources :ships
     resources :favorite_things
     resources :sinks

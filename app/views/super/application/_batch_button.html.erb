@@ -1,0 +1,12 @@
+<% default_options = {} unless defined?(default_options) %>
+<% if batch_actions_enabled? && batch_actions.any? %>
+  <details class="details-reset details-backdrop-transparent inline-block">
+    <summary class="cursor-pointer <%= default_options[:class] %>" id="batch-actions">Batch actions</summary>
+
+    <ul class="absolute bg-white shadow-md px-4 py-3 z-20">
+      <% batch_actions.each do |batch_action| %>
+        <li><button data-controller="batch" data-batch-method-value="<%= batch_action.options&.dig(:method) || "get" %>" data-batch-action-value="<%= batch_action.href %>" data-action="batch#submit" class="<%= default_options[:class] %>"><%= batch_action.text %></button></li>
+      <% end %>
+    </ul>
+  </details>
+<% end %>
