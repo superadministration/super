@@ -3,12 +3,12 @@
     <%= title %>
   </h1>
   <div>
-    <% collection_actions.each do |link| %>
-      <%= link.to_s(
+    <% resolved_collection_actions.each do |link| %>
+      <%= render(
+        link,
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
-        },
-        params: params
+        }
       ) %>
     <% end %>
   </div>

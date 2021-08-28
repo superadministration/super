@@ -107,13 +107,8 @@ module Super
       @href = Super::Compatability.polymorphic_path_container.polymorphic_path(@href)
     end
 
-    def to_s(default_options: nil, **)
-      default_options ||= {}
-      ActionController::Base.helpers.link_to(
-        text,
-        href,
-        default_options.deep_merge(options)
-      )
+    def to_partial_path
+      "link"
     end
 
     def ==(other)

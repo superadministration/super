@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improvements
+
+* `#member_actions` and `#collection_actions` can return an array of things that
+  respond to `#to_partial_path`, including but not limited to `Link`s.
+
+### Breaking changes
+
+* The `Link` object can now only be rendered via `#to_partial_path` instead
+  of through `#to_s`.
+
 ## [0.18.0] - 2021-08-26
 
 ### Improvements

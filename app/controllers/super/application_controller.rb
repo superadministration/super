@@ -104,5 +104,25 @@ module Super
     ensure
       @current_action = original
     end
+
+    helper_method def resolved_member_actions(record)
+      member_actions(record).map do |action|
+        if action.respond_to?(:resolve)
+          action.resolve(record: record, params: params)
+        else
+          action
+        end
+      end
+    end
+
+    helper_method def resolved_collection_actions
+      collection_actions.map do |action|
+        if action.respond_to?(:resolve)
+          action.resolve(params: params)
+        else
+          action
+        end
+      end
+    end
   end
 end

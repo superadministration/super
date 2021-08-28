@@ -5,7 +5,7 @@ class Super::DisplayTest < ActionView::TestCase
     index_action = Super::ActionInquirer.index!
     view.define_singleton_method(:current_action) { index_action }
     view.define_singleton_method(:model) { Member }
-    view.define_singleton_method(:member_actions) { |*| [] }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
 
     display = Super::Display.new do |f, type|
       f[:just_a_test] = type.computed(:record) { |record| record.name.upcase }
@@ -28,7 +28,7 @@ class Super::DisplayTest < ActionView::TestCase
     show_action = Super::ActionInquirer.show!
     view.define_singleton_method(:current_action) { show_action }
     view.define_singleton_method(:model) { Member }
-    view.define_singleton_method(:member_actions) { |*| [] }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
     view.define_singleton_method(:display_schema) do
       Display.new do |fields, type|
         Display::Guesser.new(model: Member, action: show_action, fields: fields, type: type).call
@@ -49,7 +49,7 @@ class Super::DisplayTest < ActionView::TestCase
     index_action = Super::ActionInquirer.index!
     view.define_singleton_method(:current_action) { index_action }
     view.define_singleton_method(:model) { Member }
-    view.define_singleton_method(:member_actions) { |*| [] }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
 
     display = Super::Display.new do |f, type|
       f[:testing_badges] =

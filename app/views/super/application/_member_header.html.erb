@@ -3,13 +3,12 @@
     <%= title %>
   </h1>
   <div>
-    <% member_actions(@record).each do |link| %>
-      <%= link.to_s(
+    <% resolved_member_actions(@record).each do |link| %>
+      <%= render(
+        link,
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
-        },
-        record: @record,
-        params: params
+        }
       ) %>
     <% end %>
   </div>

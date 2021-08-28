@@ -19,10 +19,6 @@ module Super
 
     attr_reader :requirements
 
-    def to_s(default_options: nil, **kwargs)
-      resolve(**kwargs).to_s(default_options: default_options)
-    end
-
     def resolve(**kwargs)
       Link.new(
         into_value(@text, kwargs),
