@@ -10,6 +10,10 @@ class Admin::MembersController < AdminController
     Member
   end
 
+  def base_scope
+    super.preload(:ship)
+  end
+
   def display_schema
     Super::Display.new do |fields, type|
       fields[:name] = type.string

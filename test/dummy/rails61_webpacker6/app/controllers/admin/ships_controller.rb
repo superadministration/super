@@ -20,9 +20,9 @@ class Admin::ShipsController < AdminController
 
   def form_schema
     Super::Form.new do |fields, type|
-      fields[:name] = type.string
-      fields[:registry] = type.string
-      fields[:class_name] = type.string
+      fields[:name] = type.text_field
+      fields[:registry] = type.text_field
+      fields[:class_name] = type.text_field
     end
   end
 end
