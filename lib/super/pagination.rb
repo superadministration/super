@@ -78,7 +78,7 @@ module Super
         super
         @pagination = initialize_pagination
         @records = paginate_records
-        @view.mains.first.parts.push(:@pagination)
+        @view.main.insert(:pagination, @pagination, before: :main)
       end
     end
   end

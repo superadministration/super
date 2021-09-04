@@ -1,29 +1,28 @@
-<% layout.resolve(self) %>
+<%# <% layout.resolve(self) %1> %>
 
-<% layout.resolved_headers.each do |partial| %>
-  <%= Super::Partial.render(partial, template: self) %>
+<% if layout.header %>
+  <%= render layout.header %>
 <% end %>
 
-<% if layout.resolved_asides.empty? %>
-  <% layout.resolved_mains.each do |partial| %>
-    <%= Super::Partial.render(partial, template: self) %>
-  <% end %>
-<% else %>
+<% if layout.aside %>
   <div class="flow-root -mx-2">
     <div class="md:float-left md:w-9/12 px-2">
-      <% layout.resolved_mains.each do |partial| %>
-        <%= Super::Partial.render(partial, template: self) %>
+      <% if layout.main %>
+        <%= render layout.main %>
       <% end %>
     </div>
 
     <div class="md:float-right md:w-3/12 px-2">
-      <% layout.resolved_asides.each do |partial| %>
-        <%= Super::Partial.render(partial, template: self) %>
-      <% end %>
+      <%= render layout.aside %>
     </div>
   </div>
+<% else %>
+  <% if layout.main %>
+    <%= render layout.main %>
+  <% end %>
 <% end %>
 
-<% layout.resolved_footers.each do |partial| %>
+<% if layout.footer %>
+  <%= render layout.footer %>
   <%= Super::Partial.render(partial, template: self) %>
 <% end %>

@@ -37,5 +37,14 @@ module Super
       class ArgumentError < Enum; end
       class UndefinedCase < Enum; end
     end
+
+    class ReorderableHash < Error
+      class DuplicateKey < ReorderableHash; end
+      class KeyError < ReorderableHash; end
+    end
+
+    class ViewChain < Error
+      class ChainAlreadyStarted < ViewChain; end
+    end
   end
 end

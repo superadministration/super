@@ -1,0 +1,5 @@
+<% current = view_chain.chain.shift %>
+<% current = instance_variable_get(current) if current.kind_of?(Symbol) %>
+<%= render(current) do %>
+  <%= render(view_chain) %>
+<% end %>

@@ -1,7 +1,7 @@
 class Admin::MembersController < AdminController
   def show
     super
-    @view.mains.push(Super::Partial.new("favorite_things"))
+    @view.main.insert(:favorite_things, Super::Partial.new("favorite_things"), before: :main_panel)
   end
 
   private
