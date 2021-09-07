@@ -2,12 +2,12 @@
   <h1 class="text-xl">
     <%= title %>
   </h1>
-  <div>
+  <div class="flex gap-2">
     <% resolved_member_actions(@record).each do |link| %>
       <%= render(
         link,
         default_options: {
-          class: "super-button super-button--border-blue super-button-sm inline-block ml-2"
+          class: "super-button super-button--border-blue super-button-sm inline-block"
         }
       ) %>
     <% end %>
