@@ -82,4 +82,10 @@ appraise "rails61_webpacker6" do
   gem "rexml"
 end
 
+appraise "rails70_sprockets4" do
+  gem "rails", "~> 7.0.0.alpha2"
+  gem "sqlite3", "~> 1.4.0"
+  gem "rexml"
+end
+
 # vim: syntax=ruby

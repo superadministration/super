@@ -17,6 +17,7 @@ jobs:
           - gemfiles/rails60_webpacker5.gemfile
           - gemfiles/rails61_sprockets4.gemfile
           - gemfiles/rails61_webpacker5.gemfile
+          - gemfiles/rails70_sprockets4.gemfile
         ruby:
           - "2.3"
           - "2.4"
@@ -53,6 +54,10 @@ jobs:
           - gemfile: gemfiles/rails61_webpacker5.gemfile
             ruby: "2.7"
           - gemfile: gemfiles/rails61_webpacker5.gemfile
+            ruby: "3.0"
+          - gemfile: gemfiles/rails70_sprockets4.gemfile
+            ruby: "2.7"
+          - gemfile: gemfiles/rails70_sprockets4.gemfile
             ruby: "3.0"
     runs-on: ubuntu-latest
     env:
