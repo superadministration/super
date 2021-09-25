@@ -235,3 +235,16 @@ class NavigationTest < ActiveSupport::TestCase
     )
   end
 end
+
+class NavigationCapybaraTest < CapybaraTest
+  selenium!
+
+  test "it opens and closes" do
+    visit admin_members_path
+    assert_no_selector("a", text: "Favorite things")
+    find("summary", text: "Other").click
+    assert_selector("a", text: "Favorite things")
+    find("summary", text: "Other").click
+    assert_no_selector("a", text: "Favorite things")
+  end
+end

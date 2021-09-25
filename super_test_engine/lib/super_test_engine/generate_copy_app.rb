@@ -33,7 +33,8 @@ class SuperCopyAppGenerator < Rails::Generators::Base
 
   def copy_app
     directory "models", "app/models", exclude_pattern: /\.swp$/
-    directory "controllers", "app/controllers/admin", exclude_pattern: /\.swp$/
+    directory "controllers/admin", "app/controllers/admin", exclude_pattern: /\.swp$/
+    copy_file "controllers/admin_controller.rb", "app/controllers/admin_controller.rb", exclude_pattern: /\.swp$/
     directory "views/members", "app/views/admin/members", exclude_pattern: /\.swp$/
   end
 
