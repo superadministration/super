@@ -7,7 +7,6 @@ import apply_template_controller from "./apply_template_controller";
 import batch from "./batch_controller";
 import clean_filter_param_controller from "./clean_filter_param_controller";
 import clean_filter_params_controller from "./clean_filter_params_controller";
-import click_outside_to_close_controller from "./click_outside_to_close_controller";
 import delete_controller from "./delete_controller";
 import flatpickr_controller from "./flatpickr_controller";
 import tab_container_controller from "./tab_container_controller";
@@ -24,10 +23,6 @@ StimulusApplication.register(
 StimulusApplication.register(
   "clean-filter-params",
   clean_filter_params_controller
-);
-StimulusApplication.register(
-  "click-outside-to-close",
-  click_outside_to_close_controller
 );
 StimulusApplication.register("delete", delete_controller);
 StimulusApplication.register("flatpickr", flatpickr_controller);

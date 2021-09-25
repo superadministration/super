@@ -4,9 +4,9 @@
     <% if link_or_menu.is_a?(Super::Link) %>
       <%= render(link_or_menu, default_options: { class: "inline-block mr-6" }) %>
     <% else %>
-      <details class="details-reset select-none inline-block mr-6" data-controller="click-outside-to-close" data-action="click@window->click-outside-to-close#close">
+      <details class="details-reset details-backdrop-transparent select-none inline-block mr-6">
         <summary class="text-blue-700"><%= link_or_menu.title %></summary>
-        <ul class="absolute bg-white shadow-md px-4 py-3">
+        <ul class="absolute bg-white shadow-md px-4 py-3 z-20">
           <% link_or_menu.links.each do |link| %>
             <li><%= render(link, default_options: { class: "" }) %></li>
           <% end %>

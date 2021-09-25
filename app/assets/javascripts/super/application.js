@@ -3927,7 +3927,7 @@ var Super = (function (exports) {
     };
   }
 
-  var _default$9 = /*#__PURE__*/function (_Controller) {
+  var _default$8 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -3956,7 +3956,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$8 = /*#__PURE__*/function (_Controller) {
+  var _default$7 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -3992,7 +3992,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$7 = /*#__PURE__*/function (_Controller) {
+  var _default$6 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4028,7 +4028,7 @@ var Super = (function (exports) {
     return _default;
   }(Controller);
 
-  var _default$6 = /*#__PURE__*/function (_Controller) {
+  var _default$5 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
 
     var _super = _createSuper(_default);
@@ -4046,36 +4046,6 @@ var Super = (function (exports) {
           var controller = this.application.getControllerForElementAndIdentifier(el, "clean-filter-param");
           controller.call();
         }.bind(this));
-      }
-    }]);
-
-    return _default;
-  }(Controller);
-
-  var _default$5 = /*#__PURE__*/function (_Controller) {
-    _inherits(_default, _Controller);
-
-    var _super = _createSuper(_default);
-
-    function _default() {
-      _classCallCheck(this, _default);
-
-      return _super.apply(this, arguments);
-    }
-
-    _createClass(_default, [{
-      key: "close",
-      value: function close(event) {
-        if (!this.element.hasAttribute("open")) {
-          return true;
-        }
-
-        if (this.element === event.target || this.element.contains(event.target)) {
-          return true;
-        }
-
-        this.element.removeAttribute("open");
-        return true;
       }
     }]);
 
@@ -6531,11 +6501,10 @@ var Super = (function (exports) {
   }(Controller);
 
   var StimulusApplication = Application.start();
-  StimulusApplication.register("apply-template", _default$9);
-  StimulusApplication.register("batch", _default$8);
-  StimulusApplication.register("clean-filter-param", _default$7);
-  StimulusApplication.register("clean-filter-params", _default$6);
-  StimulusApplication.register("click-outside-to-close", _default$5);
+  StimulusApplication.register("apply-template", _default$8);
+  StimulusApplication.register("batch", _default$7);
+  StimulusApplication.register("clean-filter-param", _default$6);
+  StimulusApplication.register("clean-filter-params", _default$5);
   StimulusApplication.register("delete", _default$4);
   StimulusApplication.register("flatpickr", _default$3);
   StimulusApplication.register("tab-container", _default$2);
