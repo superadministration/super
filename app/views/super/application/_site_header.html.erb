@@ -8,7 +8,7 @@
         <summary class="text-blue-700"><%= link_or_menu.title %></summary>
         <ul class="absolute bg-white shadow-md px-4 py-3">
           <% link_or_menu.links.each do |link| %>
-            <li><%= link.to_s(default_options: { class: "" }) %></li>
+            <li><%= render(link, default_options: { class: "" }) %></li>
           <% end %>
         </ul>
       </details>
