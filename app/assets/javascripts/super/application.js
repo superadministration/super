@@ -1035,9 +1035,7 @@ var Super = (function (exports) {
     }).call(commonjsGlobal);
   });
 
-  var EventListener =
-  /** @class */
-  function () {
+  var EventListener = function () {
     function EventListener(eventTarget, eventName, eventOptions) {
       this.eventTarget = eventTarget;
       this.eventName = eventName;
@@ -1109,9 +1107,7 @@ var Super = (function (exports) {
     }
   }
 
-  var Dispatcher =
-  /** @class */
-  function () {
+  var Dispatcher = function () {
     function Dispatcher(application) {
       this.application = application;
       this.eventListenerMaps = new Map();
@@ -1257,9 +1253,7 @@ var Super = (function (exports) {
     }
   }
 
-  var Action =
-  /** @class */
-  function () {
+  var Action = function () {
     function Action(element, index, descriptor) {
       this.element = element;
       this.index = index;
@@ -1320,9 +1314,7 @@ var Super = (function (exports) {
     throw new Error(message);
   }
 
-  var Binding =
-  /** @class */
-  function () {
+  var Binding = function () {
     function Binding(context, action) {
       this.context = context;
       this.action = action;
@@ -1448,9 +1440,7 @@ var Super = (function (exports) {
     return Binding;
   }();
 
-  var ElementObserver =
-  /** @class */
-  function () {
+  var ElementObserver = function () {
     function ElementObserver(element, delegate) {
       var _this = this;
 
@@ -1617,9 +1607,7 @@ var Super = (function (exports) {
     return ElementObserver;
   }();
 
-  var AttributeObserver =
-  /** @class */
-  function () {
+  var AttributeObserver = function () {
     function AttributeObserver(element, attributeName, delegate) {
       this.attributeName = attributeName;
       this.delegate = delegate;
@@ -1692,9 +1680,7 @@ var Super = (function (exports) {
     return AttributeObserver;
   }();
 
-  var StringMapObserver =
-  /** @class */
-  function () {
+  var StringMapObserver = function () {
     function StringMapObserver(element, delegate) {
       var _this = this;
 
@@ -1845,9 +1831,7 @@ var Super = (function (exports) {
     }
   }
 
-  var Multimap =
-  /** @class */
-  function () {
+  var Multimap = function () {
     function Multimap() {
       this.valuesByKey = new Map();
     }
@@ -1941,7 +1925,6 @@ var Super = (function (exports) {
     };
   }();
 
-  /** @class */
   (function (_super) {
     __extends$1(IndexedMultimap, _super);
 
@@ -1984,9 +1967,7 @@ var Super = (function (exports) {
     return IndexedMultimap;
   })(Multimap);
 
-  var TokenListObserver =
-  /** @class */
-  function () {
+  var TokenListObserver = function () {
     function TokenListObserver(element, attributeName, delegate) {
       this.attributeObserver = new AttributeObserver(element, attributeName, this);
       this.delegate = delegate;
@@ -2122,9 +2103,7 @@ var Super = (function (exports) {
     return left && right && left.index == right.index && left.content == right.content;
   }
 
-  var ValueListObserver =
-  /** @class */
-  function () {
+  var ValueListObserver = function () {
     function ValueListObserver(element, attributeName, delegate) {
       this.tokenListObserver = new TokenListObserver(element, attributeName, this);
       this.delegate = delegate;
@@ -2225,9 +2204,7 @@ var Super = (function (exports) {
     return ValueListObserver;
   }();
 
-  var BindingObserver =
-  /** @class */
-  function () {
+  var BindingObserver = function () {
     function BindingObserver(context, delegate) {
       this.context = context;
       this.delegate = delegate;
@@ -2329,9 +2306,7 @@ var Super = (function (exports) {
     return BindingObserver;
   }();
 
-  var ValueObserver =
-  /** @class */
-  function () {
+  var ValueObserver = function () {
     function ValueObserver(context, receiver) {
       this.context = context;
       this.receiver = receiver;
@@ -2409,9 +2384,7 @@ var Super = (function (exports) {
     return ValueObserver;
   }();
 
-  var Context =
-  /** @class */
-  function () {
+  var Context = function () {
     function Context(module, scope) {
       this.module = module;
       this.scope = scope;
@@ -2684,18 +2657,15 @@ var Super = (function (exports) {
       return extendWithReflect;
     } catch (error) {
       return function (constructor) {
-        return (
-          /** @class */
-          function (_super) {
-            __extends(extended, _super);
+        return function (_super) {
+          __extends(extended, _super);
 
-            function extended() {
-              return _super !== null && _super.apply(this, arguments) || this;
-            }
+          function extended() {
+            return _super !== null && _super.apply(this, arguments) || this;
+          }
 
-            return extended;
-          }(constructor)
-        );
+          return extended;
+        }(constructor);
       };
     }
   }();
@@ -2709,9 +2679,7 @@ var Super = (function (exports) {
     };
   }
 
-  var Module =
-  /** @class */
-  function () {
+  var Module = function () {
     function Module(application, definition) {
       this.application = application;
       this.definition = blessDefinition(definition);
@@ -2770,9 +2738,7 @@ var Super = (function (exports) {
     return Module;
   }();
 
-  var ClassMap =
-  /** @class */
-  function () {
+  var ClassMap = function () {
     function ClassMap(scope) {
       this.scope = scope;
     }
@@ -2817,9 +2783,7 @@ var Super = (function (exports) {
     });
   }
 
-  var DataMap =
-  /** @class */
-  function () {
+  var DataMap = function () {
     function DataMap(scope) {
       this.scope = scope;
     }
@@ -2872,9 +2836,7 @@ var Super = (function (exports) {
     return DataMap;
   }();
 
-  var Guide =
-  /** @class */
-  function () {
+  var Guide = function () {
     function Guide(logger) {
       this.warnedKeysByObject = new WeakMap();
       this.logger = logger;
@@ -2910,9 +2872,7 @@ var Super = (function (exports) {
     return r;
   };
 
-  var TargetSet =
-  /** @class */
-  function () {
+  var TargetSet = function () {
     function TargetSet(scope) {
       this.scope = scope;
     }
@@ -3033,9 +2993,7 @@ var Super = (function (exports) {
     return r;
   };
 
-  var Scope =
-  /** @class */
-  function () {
+  var Scope = function () {
     function Scope(schema, element, identifier, logger) {
       var _this = this;
 
@@ -3075,9 +3033,7 @@ var Super = (function (exports) {
     return Scope;
   }();
 
-  var ScopeObserver =
-  /** @class */
-  function () {
+  var ScopeObserver = function () {
     function ScopeObserver(element, schema, delegate) {
       this.element = element;
       this.schema = schema;
@@ -3158,9 +3114,7 @@ var Super = (function (exports) {
     return ScopeObserver;
   }();
 
-  var Router =
-  /** @class */
-  function () {
+  var Router = function () {
     function Router(application) {
       this.application = application;
       this.scopeObserver = new ScopeObserver(this.element, this.schema, this);
@@ -3456,9 +3410,7 @@ var Super = (function (exports) {
     return r;
   };
 
-  var Application =
-  /** @class */
-  function () {
+  var Application = function () {
     function Application(element, schema) {
       if (element === void 0) {
         element = document.documentElement;
@@ -3802,9 +3754,7 @@ var Super = (function (exports) {
     return "" + value;
   }
 
-  var Controller =
-  /** @class */
-  function () {
+  var Controller = function () {
     function Controller(context) {
       this.context = context;
     }
@@ -3951,6 +3901,8 @@ var Super = (function (exports) {
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -6597,4 +6549,4 @@ var Super = (function (exports) {
 
   return exports;
 
-}({}));
+})({});
