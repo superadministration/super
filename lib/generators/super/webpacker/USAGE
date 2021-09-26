@@ -1,15 +1,9 @@
 Description:
     Creates the necessary files for assets to be served under Webpacker
 
-    Webpacker support requires that you install ERB support for Webpacker.
-
-    Installing ERB on webpacker is usually done by running the command:
-    `rails webpacker:install:erb`
-
 Example:
-    rails webpacker:install:erb             # if you hadn't set up ERB already
     rails generate super:webpacker
 
     This will:
-        Create app/javascript/packs/super/application.js.erb
+        Create app/javascript/packs/super/application.js
         Modify config/initializers/super.rb

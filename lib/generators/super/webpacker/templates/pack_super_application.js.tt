@@ -1,0 +1,2 @@
+import Super from "@superadministration/super";
+import "@superadministration/super/application.css";

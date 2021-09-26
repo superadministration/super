@@ -5,6 +5,15 @@ class Super::WebpackerGeneratorTest < Rails::Generators::TestCase
   tests Super::WebpackerGenerator
   destination Rails.root.join("tmp/generators")
   setup :prepare_destination
+  teardown do
+    package_path = Rails.root.join("package.json")
+    yarn_path = Rails.root.join("yarn.lock")
+    package_json = JSON.parse(package_path.read) rescue {}
+    if package_json.keys.size == 1 && package_json.dig("dependencies", "@superadministration/super")
+      package_path.delete
+      yarn_path.delete if yarn_path.exist?
+    end
+  end
 
   def test_make_sure_the_file_looks_right_webpacker_5_and_below
     Gem::Dependency.any_instance.stubs(:matching_specs).returns([])
@@ -21,9 +30,9 @@ class Super::WebpackerGeneratorTest < Rails::Generators::TestCase
 
     run_generator([])
 
-    assert_file("app/javascript/packs/super/application.js.erb", <<~JS)
-      import Super from "<%= Super::Assets.dist("super", "super-frontend").join("application") %>";
-      import "<%= Super::Assets.dist("super", "super-frontend").join("application.css") %>";
+    assert_file("app/javascript/packs/super/application.js", <<~JS)
+      import Super from "@superadministration/super";
+      import "@superadministration/super/application.css";
     JS
 
     assert_file("config/initializers/super.rb", <<~RUBY)
@@ -52,9 +61,9 @@ class Super::WebpackerGeneratorTest < Rails::Generators::TestCase
 
     run_generator([])
 
-    assert_file("app/packs/entrypoints/super/application.js.erb", <<~JS)
-      import Super from "<%= Super::Assets.dist("super", "super-frontend").join("application") %>";
-      import "<%= Super::Assets.dist("super", "super-frontend").join("application.css") %>";
+    assert_file("app/packs/entrypoints/super/application.js", <<~JS)
+      import Super from "@superadministration/super";
+      import "@superadministration/super/application.css";
     JS
 
     assert_file("config/initializers/super.rb", <<~RUBY)

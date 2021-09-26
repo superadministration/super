@@ -47,15 +47,6 @@ if ENV.fetch("BUNDLE_GEMFILE").include?("webpacker")
     run_or_fail("bundle", "exec", "rails", "webpacker:install")
   end
 
-  if ENV.fetch("BUNDLE_GEMFILE").include?("webpacker6")
-    run_or_fail("bin/yarn", "add", "rails-erb-loader")
-    run_or_fail("bin/yarn", "add", "css-loader", "mini-css-extract-plugin", "css-minimizer-webpack-plugin")
-  else
-    Dir.chdir(SUPER_DUMMY_PATH) do
-      run_or_fail("bundle", "exec", "rails", "webpacker:install:erb")
-    end
-  end
-
   Dir.chdir(SUPER_DUMMY_PATH) do
     run_or_fail("bundle", "exec", "rails", "generate", "super:webpacker")
   end

@@ -7,12 +7,12 @@ module Super
     def copy_the_pack_file
       path =
         if Gem::Dependency.new("webpacker", ">= 6.0.0.beta2", "!= 6.0.0.pre1", "!= 6.0.0.pre2").matching_specs.any?
-          "app/packs/entrypoints/super/application.js.erb"
+          "app/packs/entrypoints/super/application.js"
         else
-          "app/javascript/packs/super/application.js.erb"
+          "app/javascript/packs/super/application.js"
         end
 
-      template("pack_super_application.js.erb", path)
+      template("pack_super_application.js", path)
     end
 
     def set_asset_handler_to_webpacker
@@ -24,9 +24,13 @@ module Super
       )
     end
 
-    def remind_about_erb
-      say "Make sure ERB is set up for Webpacker!", :bold
-      say "Run if needed: bundle exec rails webpacker:install:erb"
+    def install_via_yarn
+      super_root = Pathname.new(__dir__).join("../../../..")
+      if super_root.join("dummy_path.rb").file?
+        run "yarn add file:#{super_root.join("frontend/super-frontend/dist")}"
+      else
+        run "yarn add @superadministration/super@#{Super::VERSION} --tilde"
+      end
     end
   end
 end
