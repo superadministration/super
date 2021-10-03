@@ -3,3 +3,4 @@ en:
   super:
     layout:
       powered_by: "%{env} environment. Powered by Super %{version}."
+    mismatching_package_json_gemfile_versions: "The version of Super specified in your package.json file does not match the version specified in your Gemfile.lock."

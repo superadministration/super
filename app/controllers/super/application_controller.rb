@@ -5,6 +5,12 @@ module Super
   class ApplicationController < SubstructureController
     include ClientError::Handling
 
+    before_action do
+      if Super::PackagedAsset.warning_message
+        flash.now[:mismatching_package_json_gemfile_versions] = Super::PackagedAsset.warning_message
+      end
+    end
+
     helper_method :current_action
 
     # Displays a list of records to the user

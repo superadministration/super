@@ -29,7 +29,7 @@ module Super
       if super_root.join("dummy_path.rb").file?
         run "yarn add file:#{super_root.join("frontend/super-frontend/dist")}"
       else
-        run "yarn add @superadministration/super@#{Super::VERSION} --tilde"
+        run "yarn add @superadministration/super@#{Super::VERSION} --exact"
       end
     end
   end
