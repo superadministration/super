@@ -11,8 +11,6 @@ module Super
       end
     end
 
-    helper_method :current_action
-
     # Displays a list of records to the user
     def index
       @records = load_records
@@ -92,7 +90,7 @@ module Super
 
     private
 
-    def current_action
+    helper_method def current_action
       @current_action ||=
         ActionInquirer.new(
           ActionInquirer.default_for_resources,
