@@ -1522,6 +1522,7 @@ span.flatpickr-day.selected {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   line-height: 1.25;
+  display: inline-block;
   border-radius: 0.25rem;
   border-width: 1px;
   border-color: transparent;

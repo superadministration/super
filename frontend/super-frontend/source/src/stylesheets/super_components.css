@@ -25,6 +25,7 @@
 
 .super-button {
   @apply py-2 leading-tight px-3;
+  @apply inline-block;
   @apply border border-transparent rounded shadow;
   @apply transition duration-150;
 }
