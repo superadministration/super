@@ -76,6 +76,7 @@ module Super
     module ControllerMethods
       def index
         super
+        return if !@records
         @pagination = initialize_pagination
         @records = paginate_records
         @view.main.insert(:pagination, @pagination, before: :main)

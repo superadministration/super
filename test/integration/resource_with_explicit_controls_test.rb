@@ -60,9 +60,4 @@ class ResourceWithExplicitControlsTest < CapybaraTest
     assert_includes(200...300, page.status_code)
     assert_equal(admin_members_path, page.current_path)
   end
-
-  def test_index_csv
-    get admin_members_path(format: "csv")
-    CSV.parse(response.body)
-  end
 end

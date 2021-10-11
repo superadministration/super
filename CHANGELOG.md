@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Partials can be ordered
 * Added a batch actions feature
 * Frontend assets can be set up via `yarn add @superadministration/super`
+* Added a button to export to CSV
 
 ### Breaking changes
 

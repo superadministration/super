@@ -82,6 +82,7 @@ module Super
     helper_method def collection_actions
       if current_action.index?
         [
+          Super::Partial.new("csv_button"),
           Super::Partial.new("batch_button"),
           Super::Link.find(:new)
         ]
@@ -214,7 +215,7 @@ module Super
       end
     end
 
-    def pagination_disabled_param
+    helper_method def pagination_disabled_param
       :_all_pages
     end
 
@@ -243,6 +244,10 @@ module Super
       @records
         .limit(@pagination.limit)
         .offset(@pagination.offset)
+    end
+
+    helper_method def csv_enabled?
+      true
     end
 
     def index_view

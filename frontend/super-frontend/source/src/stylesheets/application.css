@@ -1,4 +1,5 @@
 @import "tailwindcss/base";
+@import "@github/details-dialog-element/dist/index.css";
 @import "./super_base.css";
 
 @import "tailwindcss/components";

@@ -13,6 +13,12 @@ module Super
 
     # Displays a list of records to the user
     def index
+      if request.format.ref == :csv && !csv_enabled?
+        params_for_rebuilding_url = params.to_unsafe_hash
+        params_for_rebuilding_url.delete("format")
+        return redirect_to params_for_rebuilding_url
+      end
+
       @records = load_records
       @display = display_schema.apply(action: current_action, format: request.format)
       @view = index_view

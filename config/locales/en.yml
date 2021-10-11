@@ -1,6 +1,11 @@
 ---
 en:
   super:
+    csv:
+      initial_cta: Export CSV
+      modal_header: Export CSV
+      download_current_cta: Download current view
+      download_all_cta: Download all matching query
     layout:
       powered_by: "%{env} environment. Powered by Super %{version}."
     mismatching_package_json_gemfile_versions: "The version of Super specified in your package.json file does not match the version specified in your Gemfile.lock."

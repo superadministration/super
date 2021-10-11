@@ -76,3 +76,11 @@
 .details-backdrop-transparent[open] > summary {
   @apply cursor-default;
 }
+.details-backdrop-dark[open] > summary:before {
+  @apply block fixed inset-0 z-10;
+  @apply bg-gray-600 bg-opacity-50;
+  content: " ";
+}
+.details-backdrop-dark[open] > summary {
+  @apply cursor-default;
+}

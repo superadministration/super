@@ -1,0 +1,25 @@
+<% default_options = {} unless defined?(default_options) %>
+<% if csv_enabled? %>
+  <details class="details-reset details-backdrop-dark inline-block">
+    <summary class="cursor-pointer <%= default_options[:class] %>"><%= t("super.csv.initial_cta") %></summary>
+    <details-dialog class="bg-white shadow-md px-4 py-4 rounded-lg">
+      <header class="flex items-center">
+        <h1 class="font-semibold border-b-1 flex-1"><%= t("super.csv.modal_header") %></h1>
+        <button type="button" data-close-dialog class="flex-initial h-4 w-4"><%= render("super/feather/x") %></button>
+      </header>
+      <div class="mt-3">
+        <% linkable_params = params.to_unsafe_hash %>
+        <%= link_to(
+          t("super.csv.download_current_cta"),
+          linkable_params.merge(format: :csv),
+          class: "super-button"
+        ) %>
+        <%= link_to(
+          t("super.csv.download_all_cta"),
+          linkable_params.merge(format: :csv, pagination_disabled_param => 1),
+          class: "super-button"
+        ) %>
+      </div>
+    </details-dialog>
+  </details>
+<% end %>

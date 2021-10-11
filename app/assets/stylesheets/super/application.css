@@ -575,6 +575,21 @@ video {
   border-color: rgba(237, 242, 247, var(--tw-border-opacity));
 }
 
+/* This lives outside of element so it can work without JS */
+
+details-dialog {
+  position: fixed;
+  margin: 10vh auto;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  max-height: 80vh;
+  max-width: 90vw;
+  width: 448px;
+  overflow: auto;
+}
+
 html {
   font-size: 15px;
 }
@@ -1625,6 +1640,24 @@ span.flatpickr-day.selected {
 }
 
 .details-backdrop-transparent[open] > summary {
+  cursor: default;
+}
+
+.details-backdrop-dark[open] > summary:before {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 10;
+  display: block;
+  --tw-bg-opacity: 1;
+  background-color: rgba(113, 128, 150, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.5;
+  content: " ";
+}
+
+.details-backdrop-dark[open] > summary {
   cursor: default;
 }
 
