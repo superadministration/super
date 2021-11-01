@@ -1,6 +1,8 @@
 ---
 en:
   super:
+    batch:
+      none_error: This batch action received no items to act upon
     csv:
       initial_cta: Export CSV
       modal_header: Export CSV

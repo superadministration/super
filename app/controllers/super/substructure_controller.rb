@@ -4,6 +4,24 @@ module Super
   # Various methods that determine the behavior of your controllers. These
   # methods can and should be overridden.
   class SubstructureController < ActionController::Base
+    def self.batch(action_name)
+      mod = Module.new do
+        define_method(action_name) do
+          if !params[:batch]
+            flash.alert = I18n.t("super.batch.none_error")
+            return render :nothing, status: :bad_request
+          end
+
+          super()
+        end
+      end
+
+      const_set("Batch__#{action_name}__#{SecureRandom.hex(4)}", mod)
+      prepend(mod)
+
+      action_name
+    end
+
     private
 
     helper_method def model

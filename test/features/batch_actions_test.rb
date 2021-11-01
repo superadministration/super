@@ -20,6 +20,6 @@ class BatchActionsTest < CapybaraTest
     find("#batch-actions").click
     find_button("No-op").click
 
-    assert_text("Received no batch IDs")
+    assert_text(I18n.t("super.batch.none_error"))
   end
 end

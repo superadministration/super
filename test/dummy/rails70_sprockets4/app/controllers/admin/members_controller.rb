@@ -4,13 +4,8 @@ class Admin::MembersController < AdminController
     @view.main.insert(:favorite_things, Super::Partial.new("favorite_things"), before: :main_panel)
   end
 
-  def batch_noop
-    flash.notice =
-      if params[:batch]
-        "Received batch IDs: #{params[:batch].join(", ")}"
-      else
-        "Received no batch IDs"
-      end
+  batch def batch_noop
+    flash.notice = "Received batch IDs: #{params[:batch].join(", ")}"
 
     redirect_to admin_members_path
   end
