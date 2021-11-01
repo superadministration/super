@@ -4,6 +4,10 @@
   "homepage": "https://github.com/zachahn/super",
   "license": "LGPL-3.0-only",
   "main": "application.js",
-  "files": ["application.js", "application.css", "package.json"],
-  "version": "0.18.0-beta.1"
+  "files": [
+    "application.js",
+    "application.css",
+    "package.json"
+  ],
+  "version": "0.18.0-beta.2"
 }
