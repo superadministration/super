@@ -5,7 +5,7 @@ class Admin::MembersController < AdminController
   end
 
   batch def batch_noop
-    flash.notice = "Received batch IDs: #{params[:batch].join(", ")}"
+    flash.notice = "Received batch IDs: #{params[:batch].join(", ").truncate(50)}"
 
     redirect_to admin_members_path
   end
