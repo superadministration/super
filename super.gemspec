@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     "source_code_uri" => "https://github.com/zachahn/super",
   }
 
-  files_allowlist = Dir[
+  spec.files = Dir[
     "{app,config,db,lib,docs}/**/*",
     "frontend/*/dist/**/*",
     "LICENSE",
@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
     ".yardopts",
   ]
 
-  spec.files = files_allowlist & `git ls-files -z`.split("\x0")
+  spec.files = spec.files.select { |path| File.file?(path) }
   spec.required_ruby_version = ">= 2.3.0"
 
   rails_versions = ">= 5.0"
