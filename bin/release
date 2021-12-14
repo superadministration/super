@@ -1,0 +1,91 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "io/console"
+
+def confirm?
+  print "Press q to quit / s to skip / any key to continue: "
+  char = $stdin.getch
+  puts char
+  if char =~ /s/i
+    return false
+  end
+
+  if char == "\u0004" || char =~ /q/i
+    puts "Bye!"
+    exit 1
+  end
+
+  true
+end
+
+def get_next_gem_version
+  puts "Next Gem version: "
+  $GEM_VERSION = gets.chomp
+end
+
+def get_next_package_version
+  puts "Next NPM package version: "
+  $PACKAGE_VERSION = gets.chomp
+end
+
+def confirm_correct_versions
+  puts "Gem version: #{$GEM_VERSION} / Package version: #{$PACKAGE_VERSION}"
+  confirm?
+end
+
+def publish_npm_package
+  puts "In a separate terminal:"
+  puts "  cd ./frontend/super-frontend/dist"
+  puts "  yarn publish --new-version #{$PACKAGE_VERSION}"
+  puts "  cd -"
+  confirm?
+end
+
+def remove_npm_tag
+  puts "In a separate terminal:"
+  puts "  git tag -d v#{$PACKAGE_VERSION}"
+  confirm?
+end
+
+def remove_npm_commit
+  puts "In a separate terminal:"
+  puts "  git reset --soft HEAD~1"
+  puts "  git reset HEAD"
+  confirm?
+end
+
+def update_super_version
+  File.write("lib/super/version.rb", <<~RUBY)
+    # frozen_string_literal: true
+
+    module Super
+      VERSION = "#{$GEM_VERSION}"
+    end
+  RUBY
+  puts File.read("lib/super/version.rb")
+  confirm?
+end
+
+def prepare_gem_release
+  puts "In a separate terminal:"
+  puts "  bin/prepare_release"
+  confirm?
+end
+
+def publish_gem
+  puts "In a separate terminal"
+  puts "  bin/rake release"
+  confirm?
+end
+
+get_next_gem_version
+get_next_package_version
+confirm_correct_versions
+publish_npm_package
+remove_npm_tag
+remove_npm_commit
+update_super_version
+prepare_gem_release
+publish_gem
+puts "Done!"
