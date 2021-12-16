@@ -4,6 +4,8 @@ import postcss from "rollup-plugin-postcss";
 import resolve from "@rollup/plugin-node-resolve";
 import duplicateFile from "./rollup.duplicate";
 
+const jsPlugins = [resolve(), commonjs(), babel({ babelHelpers: "bundled" })];
+
 export default [
   {
     input: "src/stylesheets/application.css",
@@ -25,11 +27,17 @@ export default [
         name: "Super",
       },
     ],
-    plugins: [
-      resolve(),
-      commonjs(),
-      babel({ babelHelpers: "bundled" }),
-      duplicateFile(),
+    plugins: jsPlugins,
+  },
+  {
+    context: "window",
+    input: "src/javascripts/application.js",
+    output: [
+      {
+        file: "../dist/application.js",
+        format: "es",
+      },
     ],
+    plugins: jsPlugins,
   },
 ];
