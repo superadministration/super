@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * You can now use the NPM package in addition to just `import`ing it!
+* Show the member header on the show page
 
 ## [0.19.0] - 2021-12-13
 

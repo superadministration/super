@@ -286,7 +286,7 @@ module Super
       Super::Layout.new(
         main: Super::ViewChain.new(
           main_panel: Super::Panel.new,
-          main_header: Super::Partial.new("collection_header"),
+          main_header: Super::Partial.new("member_header"),
           main: :@display
         )
       )
