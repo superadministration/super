@@ -1,0 +1,55 @@
+---
+only_combinations:
+  - name: rails50_sprockets3_ruby23
+    gemfile: gemfiles/rails50_sprockets3_ruby23.gemfile
+    ruby: "2.3.8"
+  - name: rails50_sprockets3
+    gemfile: gemfiles/rails50_sprockets3.gemfile
+    ruby: "2.4.10"
+  - name: rails51_sprockets3
+    gemfile: gemfiles/rails51_sprockets3.gemfile
+    ruby: "2.5.9"
+  - name: rails52_sprockets4
+    gemfile: gemfiles/rails52_sprockets4.gemfile
+    ruby: "2.5.9"
+  - name: rails60_webpacker4
+    gemfile: gemfiles/rails60_webpacker4.gemfile
+    ruby: "2.6.9"
+  - name: rails60_webpacker5
+    gemfile: gemfiles/rails60_webpacker5.gemfile
+    ruby: "2.7.2"
+  - name: rails60_sprockets4
+    gemfile: gemfiles/rails60_sprockets4.gemfile
+    ruby: "2.7.2"
+  - name: rails61_sprockets4
+    gemfile: gemfiles/rails61_sprockets4.gemfile
+    ruby: "2.7.2"
+  - name: rails61_webpacker5
+    gemfile: gemfiles/rails61_webpacker5.gemfile
+    ruby: "3.0.3"
+  - name: rails70_sprockets4_ruby27
+    gemfile: gemfiles/rails70_sprockets4.gemfile
+    ruby: "2.7.2"
+  - name: rails70_sprockets4
+    gemfile: gemfiles/rails70_sprockets4.gemfile
+    ruby: "3.0.3"
+  - name: default
+    gemfile: Gemfile
+    ruby: "2.7.2"
+run_layout: |
+  sh <<'SH' && echo '\033[0;32m*** Success <%= ruby %> | <%= gemfile %>\033[0m' || echo '\033[0;31m!!! Failed <%= ruby %> | <%= gemfile %>\033[0m'
+    set -e
+    eval "$(rbenv init -)"
+    rbenv shell <%= ruby %>
+    export BUNDLE_GEMFILE=<%= gemfile %>
+    <%= yield %>
+  SH
+run:
+  install: |
+    bundle install
+  update: |
+    bundle update <%= ARGV.join(' ') %>
+  test: |
+    bundle exec rails test
+  config: |
+    bundle config

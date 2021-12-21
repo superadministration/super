@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+
+set -e
+
+SHARED_BOOT=$(cat <<-'RB'
+	# frozen_string_literal: true
+	require "erb"
+	require "yaml"
+
+	config = YAML.load_file("multitask.yaml")
+	only_combinations = config.fetch("only_combinations")
+	runs = config.fetch("run")
+RB
+)
+
+SHARED_ERB_SETUP=$(cat <<-'RB'
+	layout = config.fetch("run_layout", "<%= yield %>")
+	layout_template = ERB.new(layout)
+	scriptname = ARGV.shift
+	if scriptname.nil?
+		$stderr.puts "Must specify script to run"
+		exit 1
+	end
+	script = runs.fetch(scriptname)
+	script_template = ERB.new(script)
+	klass = Class.new
+	script_template.def_method(klass, "render_inner")
+	layout_template.def_method(klass, "render_outer")
+RB
+)
+
+SHARED_EACH_COMBINATION=$(cat <<-'RB'
+	instance = klass.new
+	combination.each do |name, value|
+		instance.singleton_class.attr_accessor(name)
+		instance.send("#{name}=", value)
+	end
+	inner = instance.render_inner
+	result = instance.render_outer { inner }
+	puts result
+RB
+)
+
+if [ "$1" = "run" ] ; then
+	shift
+ruby --disable=gems -- - "$@" <<-RB | sh
+	${SHARED_BOOT}
+	${SHARED_ERB_SETUP}
+	only_combinations.each do |combination|
+		${SHARED_EACH_COMBINATION}
+	end
+RB
+
+elif [ "$1" = "runone" ] ; then
+	shift
+ruby --disable=gems -- - "$@" <<-RB | sh
+	${SHARED_BOOT}
+	only_name = ARGV.shift
+	${SHARED_ERB_SETUP}
+	only_combinations.each do |combination|
+		next unless combination["name"] == only_name
+		${SHARED_EACH_COMBINATION}
+	end
+RB
+
+else
+	echo "Unknown subcommand: $1"
+	exit 1
+fi
