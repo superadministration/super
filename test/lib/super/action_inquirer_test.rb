@@ -23,7 +23,7 @@ class ActionInquirerTest < ActiveSupport::TestCase
     assert_equal(true, inquirer.destroy?)
   end
 
-  def test_match_category
+  def test_match_read_write_category
     inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, :index)
 
     assert_equal(true, inquirer.read?)
@@ -35,6 +35,16 @@ class ActionInquirerTest < ActiveSupport::TestCase
     assert_equal(false, inquirer.read?)
     assert_equal(true, inquirer.write?)
     assert_equal(true, inquirer.delete?)
+  end
+
+  def test_match_collection_member_category
+    inquirer = Super::ActionInquirer.new(Super::ActionInquirer.default_for_resources, :index)
+    assert_equal(true, inquirer.collection?)
+    assert_equal(false, inquirer.member?)
+
+    inquirer.action = :show
+    assert_equal(false, inquirer.collection?)
+    assert_equal(true, inquirer.member?)
   end
 
   def test_respond_to

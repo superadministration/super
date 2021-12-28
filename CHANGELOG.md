@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improvements
+
+* Added two more `current_action` categories: `collection?` and `member?`
+
 ### Breaking changes
 
 * The I18n key `super.layout.powered_by` is now `super.layout.powered_by_html`
@@ -15,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * You can now use the NPM package in addition to just `import`ing it!
 * Show the member header on the show page
+* Hide the batch action checkbox on the show page
 
 ## [0.19.0] - 2021-12-13
 

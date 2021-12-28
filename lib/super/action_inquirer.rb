@@ -22,6 +22,9 @@ module Super
         "read" => %w[index show new edit],
         "write" => %w[create update destroy],
         "delete" => %w[destroy],
+
+        "collection" => %w[index new create],
+        "member" => %w[show edit update destroy],
       }
     end
 
