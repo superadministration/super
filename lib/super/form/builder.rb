@@ -113,6 +113,11 @@ module Super
           RUBY
         end
 
+        private_class_method def self.define_convenience(method_name, *args, **kwargs)
+          define_with_label_tag(method_name, *args, **kwargs)
+          ::Super::Form::SchemaTypes.define_schema_type_for(method_name)
+        end
+
         def split_defaults(options, **internal_defaults)
           defaults = options.delete(:super) || {}
           # prefer options set in `defaults`, since they are user overrides

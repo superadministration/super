@@ -23,7 +23,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        define_with_label_tag :date_flatpickr
+        define_convenience :date_flatpickr
 
         def datetime_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
@@ -46,7 +46,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        define_with_label_tag :datetime_flatpickr
+        define_convenience :datetime_flatpickr
 
         def time_flatpickr(attribute, options = {})
           options, defaults = split_defaults(
@@ -70,7 +70,7 @@ module Super
           @builder.text_field(attribute, options)
         end
 
-        define_with_label_tag :time_flatpickr
+        define_convenience :time_flatpickr
       end
     end
   end

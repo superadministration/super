@@ -11,7 +11,7 @@ module Super
           @builder.rich_text_area(attribute, options)
         end
 
-        define_with_label_tag :rich_text_area
+        define_convenience :rich_text_area
       end
     end
   end

@@ -105,42 +105,6 @@ module Super
         Direct.new(super_builder: super_builder, method_name: method_name, args: args, kwargs: kwargs)
       end
 
-      def select(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :select!, args: args, kwargs: kwargs)
-      end
-
-      def text_field(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :text_field!, args: args, kwargs: kwargs)
-      end
-
-      def rich_text_area(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :rich_text_area!, args: args, kwargs: kwargs)
-      end
-
-      def check_box(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :check_box!, args: args, kwargs: kwargs)
-      end
-
-      def date_flatpickr(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :date_flatpickr!, args: args, kwargs: kwargs)
-      end
-
-      def datetime_flatpickr(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :datetime_flatpickr!, args: args, kwargs: kwargs)
-      end
-
-      def hidden_field(*args, **kwargs)
-        Direct.new(super_builder: false, method_name: :hidden_field, args: args, kwargs: kwargs)
-      end
-
-      def password_field(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :password_field!, args: args, kwargs: kwargs)
-      end
-
-      def time_flatpickr(*args, **kwargs)
-        Direct.new(super_builder: true, method_name: :time_flatpickr!, args: args, kwargs: kwargs)
-      end
-
       def has_many(reader, **extras)
         subfields = Schema::Fields.new
         @fields.nested do
@@ -175,6 +139,14 @@ module Super
           extras: extras,
           nested: {}
         )
+      end
+
+      def self.define_schema_type_for(method_name)
+        class_eval(<<~RUBY)
+          def #{method_name}(*args, **kwargs)
+            Direct.new(super_builder: true, method_name: :#{method_name}!, args: args, kwargs: kwargs)
+          end
+        RUBY
       end
     end
   end

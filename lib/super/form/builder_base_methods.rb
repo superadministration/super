@@ -14,7 +14,7 @@ module Super
               @builder.#{builder_method_name}(attribute, options)
             end
 
-            define_with_label_tag :#{builder_method_name}
+            define_convenience :#{builder_method_name}
           RUBY
         end
 
