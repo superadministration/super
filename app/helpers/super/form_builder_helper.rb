@@ -10,9 +10,9 @@ module Super
     # Super's version of `#form_for`
     def super_form_for(record, options = {}, &block)
       original = ActionView::Base.field_error_proc
-      ActionView::Base.field_error_proc = Form::Builder::FIELD_ERROR_PROC
+      ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
 
-      options[:builder] ||= Form::Builder
+      options[:builder] ||= FormBuilder
       return form_for(record, options, &block)
     ensure
       ActionView::Base.field_error_proc = original
@@ -21,9 +21,9 @@ module Super
     # Super's version of `#form_with`
     def super_form_with(**options, &block)
       original = ActionView::Base.field_error_proc
-      ActionView::Base.field_error_proc = Form::Builder::FIELD_ERROR_PROC
+      ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
 
-      options[:builder] ||= Form::Builder
+      options[:builder] ||= FormBuilder
       return form_with(**options, &block)
     ensure
       ActionView::Base.field_error_proc = original
