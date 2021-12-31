@@ -7,6 +7,7 @@ require "rails/engine"
 require "super/schema/common"
 require "super/useful/builder"
 require "super/useful/enum"
+require "super/useful/i19"
 
 require "super/action_inquirer"
 require "super/assets"

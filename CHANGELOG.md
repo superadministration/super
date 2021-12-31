@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added two more `current_action` categories: `collection?` and `member?`
 * Added many more form field helpers, for use with `#super_form_for`
 * Added many more form field helpers, for use with `Super::Form`
+* Internationalize Super::Link
 
 ### Breaking changes
 

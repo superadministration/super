@@ -23,7 +23,14 @@ module Super
     def self.registry
       @registry ||= {
         new: LinkBuilder.new(
-          "New",
+          -> (params:) {
+            keys = Super::Useful::I19.build_chain(
+              "super",
+              params[:controller].split("/"),
+              "actions.new"
+            )
+            Super::Useful::I19.chain_to_i18n(keys)
+          },
           -> (params:) {
             {
               controller: params[:controller],
@@ -33,7 +40,14 @@ module Super
           }
         ),
         index: LinkBuilder.new(
-          "Index",
+          -> (params:) {
+            keys = Super::Useful::I19.build_chain(
+              "super",
+              params[:controller].split("/"),
+              "actions.index"
+            )
+            Super::Useful::I19.chain_to_i18n(keys)
+          },
           -> (params:) {
             {
               controller: params[:controller],
@@ -43,7 +57,14 @@ module Super
           }
         ),
         show: LinkBuilder.new(
-          "View",
+          -> (params:, **) {
+            keys = Super::Useful::I19.build_chain(
+              "super",
+              params[:controller].split("/"),
+              "actions.show"
+            )
+            Super::Useful::I19.chain_to_i18n(keys)
+          },
           -> (record:, params:) {
             {
               controller: params[:controller],
@@ -54,7 +75,14 @@ module Super
           }
         ),
         edit: LinkBuilder.new(
-          "Edit",
+          -> (params:, **) {
+            keys = Super::Useful::I19.build_chain(
+              "super",
+              params[:controller].split("/"),
+              "actions.edit"
+            )
+            Super::Useful::I19.chain_to_i18n(keys)
+          },
           -> (record:, params:) {
             {
               controller: params[:controller],
@@ -65,7 +93,14 @@ module Super
           }
         ),
         destroy: LinkBuilder.new(
-          "Delete",
+          -> (params:, **) {
+            keys = Super::Useful::I19.build_chain(
+              "super",
+              params[:controller].split("/"),
+              "actions.destroy"
+            )
+            Super::Useful::I19.chain_to_i18n(keys)
+          },
           -> (record:, params:) {
             {
               controller: params[:controller],
@@ -85,14 +120,30 @@ module Super
       parts_head.map { |part| part.is_a?(String) ? part.to_sym : part } + parts_tail
     end
 
+    # The first argument should be the text of the link. If it's an array,
+    # it'll send it directly into `I18n.t`
     def initialize(text, href, **options)
       @text = text
       @href = href
       @options = options
     end
 
-    attr_reader :text
     attr_reader :options
+
+    def text
+      if @text.is_a?(Array)
+        *head, tail = @text
+        if !tail.is_a?(Hash)
+          head.push(tail)
+          tail = {}
+        end
+
+        @text = I18n.t(*head, **tail)
+        return @text
+      end
+
+      @text
+    end
 
     def href
       if @href.is_a?(String)

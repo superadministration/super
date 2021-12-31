@@ -1,6 +1,12 @@
 ---
 en:
   super:
+    actions:
+      new: New
+      index: Index
+      show: View
+      edit: Edit
+      destroy: Delete
     batch:
       none_error: This batch action received no items to act upon
     csv:
