@@ -17,4 +17,11 @@ class LinkTest < ActiveSupport::TestCase
     assert_equal("/admin/members/new", link.href)
     assert_equal({ class: "foo" }, link.options)
   end
+
+  test "it converts Hash href to a url string" do
+    link = Super::Link.new("New", { controller: "admin/members", action: :new, only_path: true }, class: "foo")
+    assert_equal("New", link.text)
+    assert_equal("/admin/members/new", link.href)
+    assert_equal({ class: "foo" }, link.options)
+  end
 end

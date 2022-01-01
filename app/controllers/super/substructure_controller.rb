@@ -93,6 +93,14 @@ module Super
       params.require(strong_params.require(model)).permit(strong_params.permit)
     end
 
+    helper_method def form_record(record)
+      record
+    end
+
+    helper_method def form_action(record)
+      Super::Link.polymorphic_parts(record)
+    end
+
     # Configures the actions linked to on the index page. This is an optional
     # method
     #
@@ -125,6 +133,14 @@ module Super
       else
         Super::Link.find_all(:show, :edit, :destroy)
       end
+    end
+
+    helper_method def resolve_collection_action(action)
+      action.resolve(params: params)
+    end
+
+    helper_method def resolve_member_action(action, record)
+      action.resolve(params: params, record: record)
     end
 
     helper_method def filters_enabled?
@@ -262,6 +278,13 @@ module Super
       @records
         .limit(@pagination.limit)
         .offset(@pagination.offset)
+    end
+
+    helper_method def paginated_link(page_query_params)
+      polymorphic_path(
+        Super::Link.polymorphic_parts(model),
+        page_query_params
+      )
     end
 
     helper_method def csv_enabled?

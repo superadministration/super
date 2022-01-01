@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :members do
       post :batch_noop, on: :collection
+      resources :favorite_things, shallow: true
     end
     resources :ships
-    resources :favorite_things
     resources :sinks
 
     root to: redirect("admin/members", status: 302)

@@ -90,6 +90,14 @@ class FormSchemaTypesViewTest < ActionView::TestCase
     def admin_form_schema_types_view_test_row_path(*)
       "/testing"
     end
+
+    def form_record(record)
+      record
+    end
+
+    def form_action(record)
+      Super::Link.polymorphic_parts(record)
+    end
   end
 
   class Row < ActiveRecord::Base

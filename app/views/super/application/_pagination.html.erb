@@ -5,10 +5,7 @@
       <% @pagination.each do |page_query_params, is_current_page, display| %>
         <%= link_to(
           display,
-          polymorphic_path(
-            Super::Link.polymorphic_parts(model),
-            page_query_params
-          ),
+          paginated_link(page_query_params),
           class: "inline-block ml-2 text-lg #{is_current_page ? " text-gray-900" : ""}"
         ) %>
       <% end %>

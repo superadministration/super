@@ -26,6 +26,10 @@ module Super
 
         [head, { default: tail }]
       end
+
+      def i18n_with_fallback(prefix, optional, suffix)
+        chain_to_i18n(build_chain(prefix, optional, suffix))
+      end
     end
   end
 end

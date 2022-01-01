@@ -9,110 +9,43 @@ module Super
     end
 
     def self.find(link)
-      if link.kind_of?(self)
-        return link
-      end
-
       if registry.key?(link)
-        return registry[link]
+        found = registry[link]
+
+        if found.is_a?(LinkBuilder)
+          return found.dup
+        else
+          return found
+        end
       end
 
       raise Error::LinkNotRegistered, "Unknown link `#{link}`"
     end
 
     def self.registry
-      @registry ||= {
-        new: LinkBuilder.new(
-          -> (params:) {
-            keys = Super::Useful::I19.build_chain(
-              "super",
-              params[:controller].split("/"),
-              "actions.new"
-            )
-            Super::Useful::I19.chain_to_i18n(keys)
-          },
-          -> (params:) {
-            {
-              controller: params[:controller],
-              action: :new,
-              only_path: true
-            }
-          }
-        ),
-        index: LinkBuilder.new(
-          -> (params:) {
-            keys = Super::Useful::I19.build_chain(
-              "super",
-              params[:controller].split("/"),
-              "actions.index"
-            )
-            Super::Useful::I19.chain_to_i18n(keys)
-          },
-          -> (params:) {
-            {
-              controller: params[:controller],
-              action: :index,
-              only_path: true
-            }
-          }
-        ),
-        show: LinkBuilder.new(
-          -> (params:, **) {
-            keys = Super::Useful::I19.build_chain(
-              "super",
-              params[:controller].split("/"),
-              "actions.show"
-            )
-            Super::Useful::I19.chain_to_i18n(keys)
-          },
-          -> (record:, params:) {
-            {
-              controller: params[:controller],
-              action: :show,
-              id: record,
-              only_path: true
-            }
-          }
-        ),
-        edit: LinkBuilder.new(
-          -> (params:, **) {
-            keys = Super::Useful::I19.build_chain(
-              "super",
-              params[:controller].split("/"),
-              "actions.edit"
-            )
-            Super::Useful::I19.chain_to_i18n(keys)
-          },
-          -> (record:, params:) {
-            {
-              controller: params[:controller],
-              action: :edit,
-              id: record,
-              only_path: true
-            }
-          }
-        ),
-        destroy: LinkBuilder.new(
-          -> (params:, **) {
-            keys = Super::Useful::I19.build_chain(
-              "super",
-              params[:controller].split("/"),
-              "actions.destroy"
-            )
-            Super::Useful::I19.chain_to_i18n(keys)
-          },
-          -> (record:, params:) {
-            {
-              controller: params[:controller],
-              action: :destroy,
-              id: record,
-              only_path: true
-            }
-          },
-          method: :delete,
-          data: { confirm: "Really delete?" }
-        ),
-      }
+      @registry ||= {}.tap do |reg|
+        reg[:new] = LinkBuilder.new
+          .text { |params:| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.new") }
+          .href { |params:| { controller: params[:controller], action: :new, only_path: true } }
+          .freeze
+        reg[:index] = LinkBuilder.new
+          .text { |params:| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.index") }
+          .href { |params:| { controller: params[:controller], action: :index, only_path: true } }
+          .freeze
+        reg[:show] = LinkBuilder.new
+          .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.show") }
+          .href { |params:, record:| { controller: params[:controller], action: :show, id: record, only_path: true } }
+          .freeze
+        reg[:edit] = LinkBuilder.new
+          .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.edit") }
+          .href { |params:, record:| { controller: params[:controller], action: :edit, id: record, only_path: true } }
+          .freeze
+        reg[:destroy] = LinkBuilder.new
+          .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.destroy") }
+          .href { |params:, record:| { controller: params[:controller], action: :destroy, id: record, only_path: true } }
+          .options { |**| { method: :delete, data: { confirm: "Really delete?" } } }
+          .freeze
+      end
     end
 
     def self.polymorphic_parts(*parts_tail)

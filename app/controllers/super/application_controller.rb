@@ -118,7 +118,7 @@ module Super
     helper_method def resolved_member_actions(record)
       member_actions(record).map do |action|
         if action.respond_to?(:resolve)
-          action.resolve(record: record, params: params)
+          resolve_member_action(action, record)
         else
           action
         end
@@ -128,7 +128,7 @@ module Super
     helper_method def resolved_collection_actions
       collection_actions.map do |action|
         if action.respond_to?(:resolve)
-          action.resolve(params: params)
+          resolve_collection_action(action)
         else
           action
         end

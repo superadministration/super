@@ -2,30 +2,34 @@
 
 module Super
   class LinkBuilder
-    def initialize(text, href, **options)
-      @text = text
-      @href = href
-      @options = options
-    end
+    %i[text href options].each do |method_name|
+      class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
+        def #{method_name}(&block)
+          @#{method_name} = block
+          self
+        end
 
-    attr_reader :requirements
+        def process_#{method_name}(&block)
+          @process_#{method_name} = block
+          self
+        end
+      RUBY
+    end
 
     def resolve(**kwargs)
-      Link.new(
-        into_value(@text, kwargs),
-        into_value(@href, kwargs),
-        **into_value(@options, kwargs),
+      raise Super::Error::IncompleteBuilder, "LinkBuilder requires that #text is set" if @text.nil?
+      raise Super::Error::IncompleteBuilder, "LinkBuilder requires that #href is set" if @href.nil?
+
+      @options ||= -> (**) { {} }
+      @process_text ||= -> (t) { t }
+      @process_href ||= -> (h) { h }
+      @process_options ||= -> (o) { o }
+
+      Super::Link.new(
+        @process_text.call(@text.call(**kwargs)),
+        @process_href.call(@href.call(**kwargs)),
+        **@process_options.call(@options.call(**kwargs))
       )
-    end
-
-    private
-
-    def into_value(value_or_proc, kwargs)
-      if value_or_proc.kind_of?(Proc)
-        value_or_proc.call(**kwargs)
-      else
-        value_or_proc
-      end
     end
   end
 end

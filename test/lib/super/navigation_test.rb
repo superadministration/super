@@ -53,16 +53,16 @@ class NavigationTest < ActiveSupport::TestCase
 
   def test_builder_menu_with_both_args
     navbar = Super::Navigation.new do |nav|
-      nav.menu("Members", nav.link(Member))[nav.link(FavoriteThing)]
+      nav.menu("Ships", nav.link(Ship))[nav.link(Member)]
     end
 
     assert_equal(
       [
         Super::Navigation::Menu.new(
-          "Members",
+          "Ships",
           [
+            Super::Link.new("Ships", "/admin/ships"),
             Super::Link.new("Members", "/admin/members"),
-            Super::Link.new("Favorite things", "/admin/favorite_things"),
           ]
         )
       ],
@@ -241,10 +241,10 @@ class NavigationCapybaraTest < CapybaraTest
 
   test "it opens and closes" do
     visit admin_members_path
-    assert_no_selector("a", text: "Favorite things")
+    assert_no_selector("a", text: "Sinks")
     find("summary", text: "Other").click
-    assert_selector("a", text: "Favorite things")
+    assert_selector("a", text: "Sinks")
     find("summary", text: "Other").click
-    assert_no_selector("a", text: "Favorite things")
+    assert_no_selector("a", text: "Sinks")
   end
 end

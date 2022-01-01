@@ -1,4 +1,4 @@
-<%= super_form_for(Super::Link.polymorphic_parts(@record), builder: Super::FormBuilder) do |f| %>
+<%= super_form_for(form_record(@record), url: form_action(@record)) do |f| %>
   <div class="max-w-3xl">
     <% form.each_attribute do |field, type| %>
       <%= render(
