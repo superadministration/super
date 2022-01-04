@@ -14,11 +14,11 @@ Gem::Specification.new do |spec|
   spec.summary = "A simple, powerful, zero dependency Rails admin framework"
   spec.license = "LGPL-3.0-only"
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/zachahn/super/issues",
-    "changelog_uri" => "https://github.com/zachahn/super/blob/main/CHANGELOG.md",
+    "bug_tracker_uri" => "https://github.com/superadministration/super/issues",
+    "changelog_uri" => "https://github.com/superadministration/super/blob/main/CHANGELOG.md",
     "documentation_uri" => "https://superadministration.github.io/",
-    "homepage_uri" => "https://github.com/zachahn/super",
-    "source_code_uri" => "https://github.com/zachahn/super",
+    "homepage_uri" => "https://github.com/superadministration/super",
+    "source_code_uri" => "https://github.com/superadministration/super",
   }
 
   spec.files = Dir[

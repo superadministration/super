@@ -1,6 +1,6 @@
 # Super
 
-![Unit tests status](https://github.com/zachahn/super/workflows/Unit%20tests/badge.svg?branch=master)
+![Unit tests status](https://github.com/superadministration/super/workflows/Unit%20tests/badge.svg?branch=master)
 [![Gem](https://img.shields.io/gem/v/super)][gem]
 [![Try the demo](https://img.shields.io/badge/demo-try-blue)][demo]
 [![Read the docs](https://img.shields.io/badge/docs-available-brightgreen)][docs]
@@ -88,7 +88,7 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 
 
 [gem]: https://rubygems.org/gems/super
-[discussions]: https://github.com/zachahn/super/discussions
+[discussions]: https://github.com/superadministration/super/discussions
 [docs]: https://superadministration.github.io/
 [demo]: https://demo-super.herokuapp.com/admin
-[demo_source]: https://github.com/zachahn/super_demo
+[demo_source]: https://github.com/superadministration/super_demo
