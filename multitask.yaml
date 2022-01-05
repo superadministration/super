@@ -53,3 +53,4 @@ run:
     bundle exec rails test
   config: |
     bundle config
+  bundle: bundle <%= ARGV.join(' ') %>
