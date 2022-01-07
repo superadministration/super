@@ -1,5 +1,57 @@
 require "test_helper"
 
+module FormSchemaTypesTests
+  class FormIntegration < ActionDispatch::IntegrationTest
+    private
+
+    def form
+      Nokogiri::HTML::Document.parse(response.body).at_css("form")
+    end
+  end
+
+  class CollectionCheckBoxesTest < FormIntegration
+    controller(Super::ApplicationController) do
+      def model; Sink; end
+
+      def form_schema
+        choices = {
+          lorem: :ipsum,
+          dolor: :sit,
+          amet: :consecutor,
+        }
+        Super::Form.new do |f, type|
+          f[:string_column] = type.collection_check_boxes(choices, :first, :last, field: { include_hidden: false }, field_html: {})
+        end
+      end
+    end
+
+    def test_it
+      get "/anonymous/new"
+      # Rails 5.x seems to add a hidden `utf8` input
+      assert_equal(0, form.css("input[type=hidden]").select { |i| i.attr("name") != "utf8" }.size)
+      assert_equal(["lorem", "dolor", "amet"], form.css("input[type=checkbox]").map { |i| i.attr("value") })
+      assert_equal(["String column", "ipsum", "sit", "consecutor"], form.css("label").map(&:text))
+    end
+  end
+
+  class SelectTest < FormIntegration
+    controller(Super::ApplicationController) do
+      def model; Sink; end
+
+      def form_schema
+        Super::Form.new do |f, type|
+          f[:integer_column] = type.select([1, 2, 3])
+        end
+      end
+    end
+
+    def test_it
+      get "/anonymous/new"
+      assert_equal(["", "1", "2", "3"], form.css("option").map(&:text))
+    end
+  end
+end
+
 class FormSchemaTypesTest < ActiveSupport::TestCase
   def test_basic
     result = Super::Form.new do |fields, type|
