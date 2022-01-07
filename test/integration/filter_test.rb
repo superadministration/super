@@ -3,18 +3,18 @@ require "test_helper"
 class FilterIntegrationTest < CapybaraTest
   setup do
     skip if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
-
-    @original_configuration = Super.configuration
-    Super.instance_variable_set(:@configuration, @original_configuration.dup)
-    Super.configuration.index_records_per_page = 20
   end
 
-  teardown { Super.instance_variable_set(:@configuration, @original_configuration) }
+  controller(Admin::MembersController) do
+    def records_per_page
+      20
+    end
+  end
 
   def test_filtering_via_equality
-    visit admin_members_path
+    visit "/anonymous"
 
-    assert_equal(Super.configuration.index_records_per_page, page.find_all("tbody tr").size)
+    assert_equal(20, page.find_all("tbody tr").size)
 
     fill_in "q[f][name][contain][q]", with: "Jean-Luc Picard"
     click_button "Apply"
@@ -25,7 +25,7 @@ class FilterIntegrationTest < CapybaraTest
   end
 
   def test_filtering_via_contains
-    visit admin_members_path
+    visit "/anonymous"
     fill_in "q[f][name][contain][q]", with: "O'Brien"
     click_button "Apply"
 
