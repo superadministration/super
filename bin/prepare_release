@@ -3,8 +3,7 @@
 set -e
 set -x
 
-bundle
-appraisal
+bin/multitask run bundle install
 
 ruby \
   -e 'load "lib/super/version.rb"' \
