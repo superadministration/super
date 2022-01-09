@@ -50,6 +50,24 @@ module FormSchemaTypesTests
       assert_equal(["", "1", "2", "3"], form.css("option").map(&:text))
     end
   end
+
+  class CheckBoxTest < FormIntegration
+    controller(Super::ApplicationController) do
+      def model; Sink; end
+
+      def form_schema
+        Super::Form.new do |f, type|
+          f[:string_column] = type.check_box(checked_value: "i am checked", unchecked_value: "i am unchecked")
+        end
+      end
+    end
+
+    def test_it
+      get "/anonymous/new"
+      assert_equal("i am unchecked", form.at_css("input[type=hidden][name='sink[string_column]']").attr("value"))
+      assert_equal("i am checked", form.at_css("input[type=checkbox][name='sink[string_column]']").attr("value"))
+    end
+  end
 end
 
 class FormSchemaTypesTest < ActiveSupport::TestCase

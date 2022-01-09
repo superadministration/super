@@ -42,6 +42,8 @@ module Super
         end
       end
 
+      ::Super::Form::SchemaTypes.define_schema_type_for(:check_box)
+
       # def file_field(attribute, options = {})
       # end
 
