@@ -33,6 +33,9 @@ only_combinations:
   - name: rails70_sprockets4
     gemfile: gemfiles/rails70_sprockets4.gemfile
     ruby: "3.0.3"
+  - name: rails70_sprockets4
+    gemfile: gemfiles/rails70_sprockets4.gemfile
+    ruby: "3.1.0"
   - name: default
     gemfile: Gemfile
     ruby: "2.7.2"
