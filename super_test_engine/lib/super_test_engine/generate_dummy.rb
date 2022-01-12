@@ -51,6 +51,7 @@ class SuperDummyGenerator < Rails::Generators::Base
       skip_action_cable: true,
       skip_coffee: true,
       database: "sqlite3",
+      full: true,
     }
 
     Dir.mktmpdir do |dir|
@@ -61,6 +62,7 @@ class SuperDummyGenerator < Rails::Generators::Base
 
       inside(generated_dummy_path) do
         remove_file(".ruby-version")
+        insert_into_file "config/application.rb", %(require "sprockets/railtie"\n), after: /require\s+["']rails["'].*\n/
       end
 
       FileUtils.rm_rf(dummy_path)
