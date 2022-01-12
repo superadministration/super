@@ -42,12 +42,8 @@ run_layout: |
     <%= yield %>
   SH
 run:
-  install: |
-    bundle install
-  update: |
-    bundle update <%= ARGV.join(' ') %>
-  test: |
-    bundle exec rails test
-  config: |
-    bundle config
-  bundle: bundle <%= ARGV.join(' ') %>
+  install: bundle install
+  update: "bundle update <%= ARGV.join(' ') %>"
+  test: bundle exec rails test
+  config: bundle config
+  bundle: "bundle <%= ARGV.join(' ') %>"
