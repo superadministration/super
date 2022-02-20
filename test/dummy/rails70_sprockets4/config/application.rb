@@ -3,6 +3,7 @@ require "csv"
 require_relative "boot"
 
 require "rails"
+require "sprockets/railtie"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -14,7 +15,6 @@ require "action_controller/railtie"
 # require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -25,6 +25,9 @@ require "super"
 module Dummy
   class Application < Rails::Application
     config.load_defaults Rails::VERSION::STRING.to_f
+
+    # For compatibility with applications that use this config
+    config.action_controller.include_all_helpers = false
 
     # Configuration for the application, engines, and railties goes here.
     #
