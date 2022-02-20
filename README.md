@@ -38,7 +38,7 @@ changes before 1.0.
 * Builds on top of standard Rails controllers and ERB views
 * Plenty of escape hatches for those very customized pages
 * No DSL. Configure your admin pages by setting methods and returning objects
-* Supports Rails 5.0+, 6.0+
+* Supports Rails 5.0+, 6.0+, 7.0+
 * Supports Ruby 2.3+, 3.0+
 
 
