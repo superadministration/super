@@ -11,6 +11,12 @@ module Super
       end
     end
 
+    initializer "super.inclusion" do
+      ActiveSupport.on_load(:action_view) do
+        include Super::FormBuilderHelper
+      end
+    end
+
     config.to_prepare do
       Super::Plugin::Registry.controller.ordered do |klass, method_name|
         Super::ApplicationController.public_send(method_name, klass)
