@@ -47,3 +47,4 @@ run:
   test: bundle exec rails test
   config: bundle config
   bundle: "bundle <%= ARGV.join(' ') %>"
+  thorough: bin/thoroughly_test.rb
