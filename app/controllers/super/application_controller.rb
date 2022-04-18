@@ -84,7 +84,7 @@ module Super
       @record = load_record
 
       if destroy_record
-        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+        redirect_to polymorphic_path(Super::Link.polymorphic_parts(model))
       else
         flash.alert = "Couldn't delete record"
         redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
