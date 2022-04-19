@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improvements
+
+* Added overridable controller methods (which are now called by the current
+  controller actions). This'll let you customize controller actions without
+  overriding the entire action.
+* Added customizable error handling for the `#destroy` action
+
 ### Fixed
 
 * `#destroy` now redirects to the index page (instead of to the record that was

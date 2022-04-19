@@ -17,3 +17,6 @@ en:
     layout:
       powered_by_html: "%{env} environment. Powered by Super %{version}. <a href='https://superadministration.github.io/v%{version}/'>Developer docs.</a>"
     mismatching_package_json_gemfile_versions: "The version of Super specified in your package.json file does not match the version specified in your Gemfile.lock."
+    destroy_error:
+      invalid_foreign_key: Couldn't delete record because other records still refer to this one
+      generic: Couldn't delete record

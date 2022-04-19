@@ -48,12 +48,9 @@ module Super
       set_record_attributes
 
       if save_record
-        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+        redirect_to_record
       else
-        @current_action = ActionInquirer.new!
-        @form = form_schema
-        @view = new_view
-        render :new, status: :bad_request
+        render_new_as_bad_request
       end
     end
 
@@ -70,12 +67,9 @@ module Super
       set_record_attributes
 
       if save_record
-        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+        redirect_to_record
       else
-        @current_action = ActionInquirer.edit!
-        @form = form_schema
-        @view = edit_view
-        render :edit, status: :bad_request
+        render_edit_as_bad_request
       end
     end
 
@@ -84,14 +78,12 @@ module Super
       @record = load_record
 
       if destroy_record
-        redirect_to polymorphic_path(Super::Link.polymorphic_parts(model))
+        redirect_to_records
       else
-        flash.alert = "Couldn't delete record"
-        redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+        redirect_to_record_with_destroy_failure_message
       end
-    rescue ActiveRecord::InvalidForeignKey => e
-      flash.alert = "Couldn't delete record: #{e.class}"
-      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+    rescue ActiveRecord::ActiveRecordError => e
+      redirect_to_record_with_destroy_failure_message(e)
     end
 
     private

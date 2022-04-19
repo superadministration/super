@@ -215,6 +215,40 @@ module Super
       @record.destroy
     end
 
+    def redirect_to_record
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+    end
+
+    def redirect_to_records
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(model))
+    end
+
+    def redirect_to_record_with_destroy_failure_message(error = nil)
+      flash.alert =
+        case error
+        when ActiveRecord::InvalidForeignKey
+          I18n.t("super.destroy_error.invalid_foreign_key")
+        else
+          I18n.t("super.destroy_error.generic")
+        end
+
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
+    end
+
+    def render_new_as_bad_request
+      @current_action = ActionInquirer.new!
+      @form = form_schema
+      @view = new_view
+      render :new, status: :bad_request
+    end
+
+    def render_edit_as_bad_request
+      @current_action = ActionInquirer.edit!
+      @form = form_schema
+      @view = edit_view
+      render :edit, status: :bad_request
+    end
+
     def initialize_query_form
       Super::Query::FormObject.new(
         model: model,

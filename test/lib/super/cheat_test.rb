@@ -21,7 +21,16 @@ class CheatTest < ActiveSupport::TestCase
         if params.empty?
           ""
         else
-          "(#{params.map { |(type, name)| type == :req ? name.to_s : "#{name}:" }.join(", ")})"
+          param_strings = params.map do |(type, name)|
+            if type == :req
+              name.to_s
+            elsif type == :opt
+              "#{name} = nil"
+            else
+              "TODO #{name}"
+            end
+          end
+          "(#{param_strings.join(", ")})"
         end
       expected = "##{method_name}#{expected_params}"
 
