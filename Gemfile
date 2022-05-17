@@ -3,9 +3,11 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-require_relative "./dummy_path"
-version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
-instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
+if caller.none? { |line| line =~ /appraisal/ }
+  require_relative "./dummy_path"
+  version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
+  instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
+end
 
 # Declare your gem's dependencies in super.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
