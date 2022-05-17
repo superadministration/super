@@ -3,12 +3,14 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+require_relative "./dummy_path"
+version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
+instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
+
 # Declare your gem's dependencies in super.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
-
-gem "rails", "< 6.1.0"
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
