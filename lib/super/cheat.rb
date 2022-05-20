@@ -3,7 +3,11 @@
 module Super
   class Cheat
     def controller
-      paths = %w[../../app/controllers/super/substructure_controller.rb]
+      paths = %w[
+        ../../app/controllers/super/application_controller.rb
+        ../../app/controllers/super/substructure_controller.rb
+        ../../app/controllers/super/sitewide_controller.rb
+      ]
       methods =
         paths
         .map { |f| File.read(File.expand_path(f, __dir__)) }

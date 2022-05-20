@@ -29,7 +29,7 @@ class ResetTest < ActiveSupport::TestCase
       ActionController::Base.private_instance_methods -
       [:_generate_paths_by_default]
     assert_equal(
-      Super::SubstructureController::Sitewide.private_instance_methods(false).dup.push(:page_title, :current_action, :with_current_action).sort,
+      Super::SitewideController.private_instance_methods(false).dup.push(:page_title, :current_action, :with_current_action).sort - [:_layout],
       imethods.sort
     )
   end

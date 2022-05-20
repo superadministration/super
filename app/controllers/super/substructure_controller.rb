@@ -3,7 +3,7 @@
 module Super
   # Various methods that determine the behavior of your controllers. These
   # methods can and should be overridden.
-  class SubstructureController < ActionController::Base
+  class SubstructureController < SitewideController
     def self.batch(action_name)
       mod = Module.new do
         define_method(action_name) do
@@ -367,40 +367,6 @@ module Super
           main: :@form
         )
       )
-    end
-
-    concerning :Sitewide do
-      included do
-        helper_method :site_title
-        helper_method :site_navigation
-        helper_method :document_title
-      end
-
-      private
-
-      def site_title
-        Super.configuration.title
-      end
-
-      def site_navigation
-        Super::Navigation.new(&:all)
-      end
-
-      def document_title
-        if instance_variable_defined?(:@document_title)
-          return @document_title
-        end
-
-        document_title_segments.map(&:presence).compact.join(document_title_separator)
-      end
-
-      def document_title_segments
-        @document_title_segments ||= [page_title, site_title]
-      end
-
-      def document_title_separator
-        @document_title_separator ||= " - "
-      end
     end
   end
 end

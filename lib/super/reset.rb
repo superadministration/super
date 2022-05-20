@@ -16,6 +16,8 @@ module Super
       # Defined in Super::ApplicationController
       current_action: true,
       with_current_action: true,
+
+      # Keep all of the ones in Super::SitewideController
     }
 
     included do
