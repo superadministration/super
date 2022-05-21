@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   overriding the entire action.
 * Added customizable error handling for the `#destroy` action
 
+### Deprecations
+
+* Deprecated `Super::Display:SchemaTypes#badge`. Prefer using `#real` and
+  `#computed`, and return an instance of `Super::Badge`
+
 ### Fixed
 
 * `#destroy` now redirects to the index page (instead of to the record that was

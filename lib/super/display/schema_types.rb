@@ -61,6 +61,7 @@ module Super
         end
       end
 
+      # @deprecated
       class Badge
         extend Useful::Builder
 
@@ -146,7 +147,9 @@ module Super
         end
       end
 
+      # @deprecated Use {#real} or {#computed} instead, and return an instance of {Super::Badge}
       def badge(*builder_methods)
+        Useful::Deprecation["0.22"].deprecation_warning("#badge", "use #real or #computed instead, and return an instance of Super::Badge")
         builder_methods = %i[real ignore_nil column] if builder_methods.empty?
         builder = builder_methods.each_with_object(Builder.new) do |builder_method, builder|
           builder.public_send(builder_method)
