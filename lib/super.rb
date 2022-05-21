@@ -6,6 +6,7 @@ require "rails/engine"
 
 require "super/schema/common"
 require "super/useful/builder"
+require "super/useful/deprecations"
 require "super/useful/enum"
 require "super/useful/i19"
 
