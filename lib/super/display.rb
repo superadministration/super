@@ -65,7 +65,7 @@ module Super
         .when(:record) do
           formatter.present(column, record)
         end
-        .when(:column) do
+        .when(:attribute) do
           value = record.public_send(column)
           formatter.present(column, value)
         end

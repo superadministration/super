@@ -3,7 +3,7 @@
 module Super
   class Display
     class SchemaTypes
-      TYPES = Useful::Enum.new(:column, :record, :none)
+      TYPES = Useful::Enum.new(:attribute, :record, :none)
 
       class Builder
         extend Useful::Builder
@@ -15,7 +15,12 @@ module Super
         builder def real; @real = true; end
         builder def computed; @real = false; end
 
-        builder def column; @type = :column; end
+        # @deprecated Prefer {#attribute}
+        builder def column
+          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
+          @type = :attribute
+        end
+        builder def attribute; @type = :attribute; end
         builder def record; @type = :record; end
         builder def none; @type = :none; end
 
@@ -45,7 +50,7 @@ module Super
         def present(attribute_name, value = nil)
           if @transform_block.nil?
             if attribute_name
-              raise Error::ArgumentError, "Transformation block is not set for column: #{attribute_name}"
+              raise Error::ArgumentError, "Transformation block is not set for attribute: #{attribute_name}"
             else
               raise Error::ArgumentError, "Transformation block is not set!"
             end
@@ -108,26 +113,36 @@ module Super
         @fields = fields
       end
 
-      def real(type = :column, &transform_block)
+      def real(type = :attribute, &transform_block)
+        if type == :column
+          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
+          type = :attribute
+        end
+
         TYPES
           .case(type)
-          .when(:column) { Builder.new.real.ignore_nil.column.transform(&transform_block) }
-          .when(:record) { Builder.new.real.ignore_nil.record.transform(&transform_block) }
-          .when(:none)   { Builder.new.real.ignore_nil.none.transform(&transform_block) }
+          .when(:attribute) { Builder.new.real.ignore_nil.attribute.transform(&transform_block) }
+          .when(:record)    { Builder.new.real.ignore_nil.record.transform(&transform_block) }
+          .when(:none)      { Builder.new.real.ignore_nil.none.transform(&transform_block) }
           .result
       end
 
-      def computed(type = :column, &transform_block)
+      def computed(type = :attribute, &transform_block)
+        if type == :column
+          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
+          type = :attribute
+        end
+
         TYPES
           .case(type)
-          .when(:column) { Builder.new.computed.ignore_nil.column.transform(&transform_block) }
-          .when(:record) { Builder.new.computed.ignore_nil.record.transform(&transform_block) }
-          .when(:none)   { Builder.new.computed.ignore_nil.none.transform(&transform_block) }
+          .when(:attribute) { Builder.new.computed.ignore_nil.attribute.transform(&transform_block) }
+          .when(:record)    { Builder.new.computed.ignore_nil.record.transform(&transform_block) }
+          .when(:none)      { Builder.new.computed.ignore_nil.none.transform(&transform_block) }
           .result
       end
 
       def manual(&transform_block)
-        real(:column, &transform_block)
+        real(:attribute, &transform_block)
       end
 
       def batch
@@ -150,7 +165,7 @@ module Super
       # @deprecated Use {#real} or {#computed} instead, and return an instance of {Super::Badge}
       def badge(*builder_methods)
         Useful::Deprecation["0.22"].deprecation_warning("#badge", "use #real or #computed instead, and return an instance of Super::Badge")
-        builder_methods = %i[real ignore_nil column] if builder_methods.empty?
+        builder_methods = %i[real ignore_nil attribute] if builder_methods.empty?
         builder = builder_methods.each_with_object(Builder.new) do |builder_method, builder|
           builder.public_send(builder_method)
         end

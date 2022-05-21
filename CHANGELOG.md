@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Deprecated `Super::Display:SchemaTypes#badge`. Prefer using `#real` and
   `#computed`, and return an instance of `Super::Badge`
+* Deprecated `#real(:column)` and `#computed(:column)`. Prefer using
+  `#real(:attribute)` and `#computed(:attribute)`
 
 ### Fixed
 

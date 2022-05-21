@@ -45,6 +45,28 @@ class Super::DisplayTest < ActionView::TestCase
     assert_select "table td", "Jean-Luc Picard"
   end
 
+  def test_real_value
+    show_action = Super::ActionInquirer.show!
+    view.define_singleton_method(:current_action) { show_action }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
+    view.define_singleton_method(:display_schema) do
+      Display.new do |f, type|
+        f[:name] = type.real(:column) { |column| Super::Badge.new(column.upcase, styles: :blue) }
+        f[:rank] = type.real(:attribute) { |attribute| Super::Badge.new(attribute.tr("A-Za-z", "N-ZA-Mn-za-m"), styles: :red) }
+      end
+    end
+
+    display = view.display_schema
+    display.apply(action: view.current_action, format: Mime[:html])
+
+    @record = members(:picard)
+    render(display)
+
+    assert_select "table td", "JEAN-LUC PICARD"
+    assert_select "table td", "pncgnva"
+  end
+
   def test_enums
     index_action = Super::ActionInquirer.index!
     view.define_singleton_method(:current_action) { index_action }
