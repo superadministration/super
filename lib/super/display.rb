@@ -43,7 +43,7 @@ module Super
 
     def to_partial_path
       if @action_inquirer.nil?
-        raise Super::Error::Initalization,
+        raise Super::Error::Initialization,
           "You must call the `#apply` method after instantiating Super::Display"
       elsif @action_inquirer.index?
         "display_index"

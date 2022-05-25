@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * `#destroy` now redirects to the index page (instead of to the record that was
   just deleted)
+* Fixed typo `Super::Error::Initalization` to `Initialization`
 
 ## [0.20.0] - 2022-01-09
 
