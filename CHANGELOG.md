@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `#computed`, and return an instance of `Super::Badge`
 * Deprecated `#real(:column)` and `#computed(:column)`. Prefer using
   `#real(:attribute)` and `#computed(:attribute)`
+* Deprecated `Super::Navigiation.new` needing a block that yields an array
+
+### Breaking changes
+
+* `Super::Navigation` no longer supports `#menu(title)[*links]`; method
+  signature is now `#menu(title) do`
 
 ### Fixed
 

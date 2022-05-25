@@ -5,17 +5,10 @@ class NavigationTest < ActiveSupport::TestCase
     Rails.application.reload_routes!
   end
 
-  def test_returning_one_non_array
-    navbar = Super::Navigation.new do |nav|
-      nav.link_to("Boats", "/admin/boats")
-    end
-
-    assert_equal([Super::Link.new("Boats", "/admin/boats")], navbar.definition)
-  end
-
   def test_builder_link_to
     navbar = Super::Navigation.new do |nav|
       nav.link_to("Members", "/admin/members")
+      []
     end
 
     assert_equal([Super::Link.new("Members", "/admin/members")], navbar.definition)
@@ -29,9 +22,23 @@ class NavigationTest < ActiveSupport::TestCase
     assert_equal([Super::Link.new("Members", "/admin/members")], navbar.definition)
   end
 
-  def test_builder_menu_with_args
+  def test_builder_menu_with_no_link
     navbar = Super::Navigation.new do |nav|
-      nav.menu("Members", nav.link(Member))
+      nav.menu("Members") do
+      end
+    end
+
+    assert_equal(
+      [Super::Navigation::Menu.new("Members", [])],
+      navbar.definition
+    )
+  end
+
+  def test_builder_menu_with_one_link
+    navbar = Super::Navigation.new do |nav|
+      nav.menu("Members") do
+        nav.link(Member)
+      end
     end
 
     assert_equal(
@@ -40,20 +47,12 @@ class NavigationTest < ActiveSupport::TestCase
     )
   end
 
-  def test_builder_menu_with_proc_args
+  def test_builder_menu_with_multiple_links
     navbar = Super::Navigation.new do |nav|
-      nav.menu("Members")[nav.link(Member)]
-    end
-
-    assert_equal(
-      [Super::Navigation::Menu.new("Members", [Super::Link.new("Members", "/admin/members")])],
-      navbar.definition
-    )
-  end
-
-  def test_builder_menu_with_both_args
-    navbar = Super::Navigation.new do |nav|
-      nav.menu("Ships", nav.link(Ship))[nav.link(Member)]
+      nav.menu("Ships") do
+        nav.link(Ship)
+        nav.link(Member)
+      end
     end
 
     assert_equal(
@@ -71,42 +70,14 @@ class NavigationTest < ActiveSupport::TestCase
   end
 
   def test_builder_with_nested_menus
-    navbar = Super::Navigation.new do |nav|
-      nav.menu(
-        "Members",
-        nav.menu("Only", nav.link(Member))
-      )
-    end
-
     assert_raises(Super::Error::ArgumentError, /nested/) do
-      navbar.definition
-    end
-
-    navbar = Super::Navigation.new do |nav|
-      nav.menu(
-        "Members",
-        nav.menu("Only")[nav.link(Member)]
-      )
-    end
-
-    assert_raises(Super::Error::ArgumentError, /nested/) do
-      navbar.definition
-    end
-
-    navbar = Super::Navigation.new do |nav|
-      nav.menu("Members")[nav.menu("Only")[nav.link(Member)]]
-    end
-
-    assert_raises(Super::Error::ArgumentError, /nested/) do
-      navbar.definition
-    end
-
-    navbar = Super::Navigation.new do |nav|
-      nav.menu("Members")[nav.menu("Only", nav.link(Member))]
-    end
-
-    assert_raises(Super::Error::ArgumentError, /nested/) do
-      navbar.definition
+      Super::Navigation.new do |nav|
+        nav.menu("Members") do
+          nav.menu("Only") do
+            nav.link(Member)
+          end
+        end
+      end
     end
   end
 
@@ -124,7 +95,7 @@ class NavigationTest < ActiveSupport::TestCase
     end
 
     navbar = Super::Navigation.new do |nav|
-      [nav.rest]
+      nav.rest
     end
 
     assert_equal(
@@ -151,10 +122,10 @@ class NavigationTest < ActiveSupport::TestCase
     end
 
     navbar = Super::Navigation.new do |nav|
-      [
-        nav.rest,
-        nav.menu("Everything, again", nav.rest),
-      ]
+      nav.rest
+      nav.menu("Everything, again") do
+        nav.rest
+      end
     end
 
     assert_equal(
@@ -187,10 +158,8 @@ class NavigationTest < ActiveSupport::TestCase
     end
 
     navbar = Super::Navigation.new do |nav|
-      [
-        nav.rest,
-        nav.link_to("Boats", "/admin/boats"),
-      ]
+      nav.rest
+      nav.link_to("Boats", "/admin/boats")
     end
 
     assert_equal(
@@ -215,11 +184,9 @@ class NavigationTest < ActiveSupport::TestCase
     end
 
     navbar = Super::Navigation.new do |nav|
-      [
-        nav.link_to("Moats", "/admin/boats"),
-        nav.all,
-        nav.rest,
-      ]
+      nav.link_to("Moats", "/admin/boats")
+      nav.all
+      nav.rest
     end
 
     assert_equal(

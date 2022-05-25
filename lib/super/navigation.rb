@@ -4,14 +4,14 @@ module Super
   class Navigation
     def initialize
       @builder = Builder.new
-      @definition = yield @builder
-      if !@definition.is_a?(Array)
-        @definition = [@definition]
+      result = yield @builder
+      if result.is_a?(Array)
+        Useful::Deprecation["0.22"].deprecation_warning("returning an array", "calling a Super::Navigation builder method defines the navigation")
       end
     end
 
     def definition
-      return @defs if instance_variable_defined?(:@defs)
+      return @definition if instance_variable_defined?(:@definition)
 
       searcher = RouteFormatterButReallySearcher.new
       inspector = ActionDispatch::Routing::RoutesInspector.new(Rails.application.routes.routes)
@@ -19,36 +19,11 @@ module Super
       all_matches = searcher.matches
       unused_matches = all_matches.each_with_object({}) { |match, hash| hash[match] = true }
 
-      defs = expand_proc_syntax_sugar(@definition)
-      defs = validate_and_determine_explicit_links(defs, unused_matches)
-      @defs = expand_directives(defs, all_matches, unused_matches.keys)
+      defs = validate_and_determine_explicit_links(@builder.build, unused_matches)
+      @definition = expand_directives(defs, all_matches, unused_matches.keys)
     end
 
     private
-
-    # This expands the syntax sugar that allows `nav.menu("Name")[nav.link(Item)]`
-    def expand_proc_syntax_sugar(definition)
-      definition.map do |link_or_menu_or_rest_or_menuproc|
-        link_or_menu_or_rest =
-          if link_or_menu_or_rest_or_menuproc.is_a?(Proc)
-            link_or_menu_or_rest_or_menuproc.call
-          else
-            link_or_menu_or_rest_or_menuproc
-          end
-
-        if link_or_menu_or_rest.is_a?(Menu)
-          link_or_menu_or_rest.links = link_or_menu_or_rest.links.map do |menu_item|
-            if menu_item.is_a?(Proc)
-              menu_item.call
-            else
-              menu_item
-            end
-          end
-        end
-
-        link_or_menu_or_rest
-      end
-    end
 
     def validate_and_determine_explicit_links(definition, unused_links)
       definition.each do |link_or_menu_or_rest|
@@ -103,31 +78,56 @@ module Super
     Menu = Struct.new(:title, :links)
 
     class Builder
+      def initialize
+        @links = []
+        @menu_level = 0
+      end
+
+      def build
+        @links
+      end
+
       def link(model, **kwargs)
         text = model.model_name.human.pluralize
         parts = Super::Link.polymorphic_parts(model)
 
-        Super::Link.new(text, parts, **kwargs)
+        @links.push(Super::Link.new(text, parts, **kwargs))
+        self
       end
 
       def link_to(*args, **kwargs)
-        Super::Link.new(*args, **kwargs)
+        @links.push(Super::Link.new(*args, **kwargs))
+        self
       end
 
-      def menu(title, *links)
-        menu = Menu.new(title, links)
-        proc do |*more_links|
-          menu.links += more_links
-          menu
+      def menu(title)
+        if @menu_level > 0
+          raise Super::Error::ArgumentError, "Navigation menus can't be nested"
         end
+
+        begin
+          @menu_level += 1
+          original_links = @links
+          @links = []
+          yield
+          menu_links = @links
+        ensure
+          @links = original_links
+          @menu_level -= 1
+        end
+
+        @links.push(Menu.new(title, menu_links))
+        self
       end
 
       def rest
-        REST
+        @links.push(REST)
+        self
       end
 
       def all
-        ALL
+        @links.push(ALL)
+        self
       end
     end
 
