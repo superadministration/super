@@ -1,5 +1,24 @@
-<% current = view_chain.chain.shift %>
-<% current = instance_variable_get(current) if current.kind_of?(Symbol) %>
-<%= render(current) do %>
-  <%= render(view_chain) %>
+<%
+  name, current = view_chain.shift
+  current =
+    if current.kind_of?(Symbol)
+      instance_variable_get(current)
+    else
+      current
+    end
+
+  if !current
+    Rails.logger.warn do
+      "Super::ViewChain encountered a nil view: #{name.inspect}."
+    end
+  end
+%>
+<% if current %>
+  <% if view_chain.empty? %>
+    <%= render(current) %>
+  <% else %>
+    <%= render(current) do %>
+      <%= render(view_chain) %>
+    <% end %>
+  <% end %>
 <% end %>

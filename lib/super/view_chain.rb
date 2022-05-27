@@ -6,10 +6,6 @@ module Super
       @data = ReorderableHash.new(chain)
     end
 
-    def chain
-      @chain ||= @data.values
-    end
-
     def insert(*args, **kwargs)
       if instance_variable_defined?(:@chain)
         raise Error::ViewChain::ChainAlreadyStarted
@@ -20,6 +16,20 @@ module Super
 
     def to_partial_path
       "view_chain"
+    end
+
+    def shift
+      chain.shift
+    end
+
+    def empty?
+      chain.empty?
+    end
+
+    private
+
+    def chain
+      @chain ||= @data.to_h
     end
   end
 end

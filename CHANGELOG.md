@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   controller actions). This'll let you customize controller actions without
   overriding the entire action.
 * Added customizable error handling for the `#destroy` action
+* Added a warning and an explicit end to `Super::ViewChain`
 
 ### Deprecations
 
