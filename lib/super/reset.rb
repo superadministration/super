@@ -29,6 +29,11 @@ module Super
       undef_method :update
       undef_method :destroy
 
+      Super::ViewController.private_instance_methods(false).each do |imethod|
+        next if KEEP.key?(imethod)
+        undef_method imethod
+      end
+
       Super::SubstructureController.private_instance_methods(false).each do |imethod|
         next if KEEP.key?(imethod)
         undef_method imethod

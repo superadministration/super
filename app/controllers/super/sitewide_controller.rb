@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Super
+  # Various methods that are useful for all Super admin controllers, regardless
+  # of the controller being a resourceful or non-resourceful.
   class SitewideController < ActionController::Base
     private
 

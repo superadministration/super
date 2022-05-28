@@ -6,6 +6,7 @@ module Super
       paths = %w[
         ../../app/controllers/super/application_controller.rb
         ../../app/controllers/super/substructure_controller.rb
+        ../../app/controllers/super/view_controller.rb
         ../../app/controllers/super/sitewide_controller.rb
       ]
       methods =

@@ -12,6 +12,7 @@ class CheatTest < ActiveSupport::TestCase
       Super::ApplicationController.instance_methods(false) +
       Super::ApplicationController.private_instance_methods +
       Super::SubstructureController.private_instance_methods +
+      Super::ViewController.private_instance_methods +
       Super::SitewideController.private_instance_methods
     all_controllers_methods.uniq!
 

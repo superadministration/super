@@ -3,7 +3,7 @@
 module Super
   # Various methods that determine the behavior of your controllers. These
   # methods can and should be overridden.
-  class SubstructureController < SitewideController
+  class SubstructureController < ViewController
     def self.batch(action_name)
       mod = Module.new do
         define_method(action_name) do
@@ -323,50 +323,6 @@ module Super
 
     helper_method def csv_enabled?
       true
-    end
-
-    def index_view
-      Super::Layout.new(
-        main: Super::ViewChain.new(
-          main_panel: Super::Panel.new,
-          batch_form: Super::Partial.new("batch_form"),
-          main_header: Super::Partial.new("collection_header"),
-          main: :@display
-        ),
-        aside: Super::ViewChain.new(
-          main: :@query_form
-        )
-      )
-    end
-
-    def show_view
-      Super::Layout.new(
-        main: Super::ViewChain.new(
-          main_panel: Super::Panel.new,
-          main_header: Super::Partial.new("member_header"),
-          main: :@display
-        )
-      )
-    end
-
-    def new_view
-      Super::Layout.new(
-        main: Super::ViewChain.new(
-          main_panel: Super::Panel.new,
-          main_header: Super::Partial.new("collection_header"),
-          main: :@form
-        )
-      )
-    end
-
-    def edit_view
-      Super::Layout.new(
-        main: Super::ViewChain.new(
-          main_panel: Super::Panel.new,
-          main_header: Super::Partial.new("member_header"),
-          main: :@form
-        )
-      )
     end
   end
 end

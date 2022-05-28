@@ -1,0 +1,54 @@
+# frozen_string_literal: true
+
+module Super
+  # These methods define what each resourceful Super admin page looks like.
+  # Generally, the return value of each of these methods should be set to
+  # `@view`.
+  class ViewController < SitewideController
+    private
+
+    def index_view
+      Super::Layout.new(
+        main: Super::ViewChain.new(
+          main_panel: Super::Panel.new,
+          batch_form: Super::Partial.new("batch_form"),
+          main_header: Super::Partial.new("collection_header"),
+          main: :@display
+        ),
+        aside: Super::ViewChain.new(
+          main: :@query_form
+        )
+      )
+    end
+
+    def show_view
+      Super::Layout.new(
+        main: Super::ViewChain.new(
+          main_panel: Super::Panel.new,
+          main_header: Super::Partial.new("member_header"),
+          main: :@display
+        )
+      )
+    end
+
+    def new_view
+      Super::Layout.new(
+        main: Super::ViewChain.new(
+          main_panel: Super::Panel.new,
+          main_header: Super::Partial.new("collection_header"),
+          main: :@form
+        )
+      )
+    end
+
+    def edit_view
+      Super::Layout.new(
+        main: Super::ViewChain.new(
+          main_panel: Super::Panel.new,
+          main_header: Super::Partial.new("member_header"),
+          main: :@form
+        )
+      )
+    end
+  end
+end
