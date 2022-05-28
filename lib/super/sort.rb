@@ -7,11 +7,9 @@ module Super
 
       def initialize(model:, params:, default:, sortable_columns:)
         @model = model
-        @params = params.dup
+        @params = params
         @default = default
         @sortable_columns = sortable_columns.map(&:to_s)
-
-        @params.permit!
       end
 
       attr_reader :sortable_columns

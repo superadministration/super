@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * `Super::Navigation` no longer supports `#menu(title)[*links]`; method
   signature is now `#menu(title) do`
+* Rework `Super::Query`. This should only affect you if you've fully overrode an
+  action or created your own database querying class
 
 ### Fixed
 

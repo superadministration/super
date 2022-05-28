@@ -1,18 +1,19 @@
-<%= render(Super::Panel.new) do %>
+<% if filters_enabled? || sort_enabled? %>
   <h1 class="text-xl">Query</h1>
-  <%= super_form_for(
-    query,
-    url: query.path,
-    method: :get,
-    as: query.namespace,
-    html: { class: "mt-4" },
-    data: { controller: "clean-filter-params", action: "submit->clean-filter-params#call" }) do |form| %>
-    <% query.addons.each do |namespace, addon| %>
-      <%= form.fields_for namespace do |addon_form| %>
-        <%= render(addon, form: addon_form) %>
+
+  <%= form_tag(query.path, method: :get, data: { controller: "clean-filter-params", action: "submit->clean-filter-params#call" }) do %>
+    <% if filters_enabled? %>
+      <%= render @filter_form %>
+    <% end %>
+    <% if sort_enabled? %>
+      <% if filters_enabled? %>
+        <div class="mt-6"></div>
       <% end %>
+      <%= render @sort_form %>
     <% end %>
 
-    <%= form.super.submit "Apply", class: "super-button--border-gray mt-6" %>
+    <%= submit_tag("Apply", class: "super-button super-button--border-gray mt-6") %>
   <% end %>
 <% end %>
+
+<%= yield if block_given? %>

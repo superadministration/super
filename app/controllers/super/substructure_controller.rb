@@ -249,22 +249,21 @@ module Super
       render :edit, status: :bad_request
     end
 
-    def initialize_query_form
-      Super::Query::FormObject.new(
+    helper_method def query
+      @query ||= Super::Query.new(
         model: model,
-        params: params,
-        namespace: :q,
+        params: request.GET,
         current_path: request.path,
       )
     end
 
     def apply_queries
-      @query_form.apply_changes(@records)
+      query.apply_changes(@records)
     end
 
     def initialize_filter_form
       if filters_enabled?
-        @query_form.add(
+        @filter_form = query.build(
           Super::Filter::FormObject,
           namespace: :f,
           schema: filter_schema
@@ -274,7 +273,7 @@ module Super
 
     def initialize_sort_form
       if sort_enabled?
-        @query_form.add(
+        @sort_form = query.build(
           Super::Sort::FormObject,
           namespace: :s,
           default: default_sort,

@@ -22,7 +22,6 @@ module Super
       @records = load_records
       @display = display_schema.apply(action: current_action, format: request.format)
       @view = index_view
-      @query_form = initialize_query_form
       initialize_filter_form
       initialize_sort_form
       @records = apply_queries

@@ -55,7 +55,7 @@ class Super::Sort::FormObjectTest < ActiveSupport::TestCase
   def new_instance(model: Member, default: { id: :desc }, params:, sortable_columns: model.column_names)
     Super::Sort::FormObject.new(
       model: model,
-      params: ActionController::Parameters.new(params),
+      params: params.with_indifferent_access,
       sortable_columns: sortable_columns,
       default: default
     )

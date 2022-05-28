@@ -28,5 +28,16 @@ module Super
     ensure
       ActionView::Base.field_error_proc = original
     end
+
+    # Super's version of `#fields_for`
+    def super_fields_for(*args, **options, &block)
+      original = ActionView::Base.field_error_proc
+      ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
+
+      options[:builder] ||= FormBuilder
+      return fields_for(*args, **options, &block)
+    ensure
+      ActionView::Base.field_error_proc = original
+    end
   end
 end

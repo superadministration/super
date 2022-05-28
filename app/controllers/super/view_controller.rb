@@ -16,7 +16,8 @@ module Super
           main: :@display
         ),
         aside: Super::ViewChain.new(
-          main: :@query_form
+          query_panel: Super::Panel.new,
+          query: query,
         )
       )
     end
