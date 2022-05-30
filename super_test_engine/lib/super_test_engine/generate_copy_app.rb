@@ -46,13 +46,6 @@ class SuperCopyAppGenerator < Rails::Generators::Base
   def copy_config
     copy_file "routes.rb", "config/routes.rb"
   end
-
-  def edit_config
-    insert_into_file "config/application.rb", <<~RUBY, after: /\A/
-      require "csv"
-
-    RUBY
-  end
 end
 
 SuperCopyAppGenerator.start

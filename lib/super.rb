@@ -2,6 +2,10 @@
 
 require "tsort"
 
+if !ENV["SUPER_SKIP_REQUIRE_CSV"]
+  require "csv"
+end
+
 require "rails/engine"
 
 require "super/schema/common"
