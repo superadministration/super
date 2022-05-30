@@ -56,4 +56,4 @@ require "super/version"
 require "super/view_chain"
 require "super/view_helper"
 
-require "super/engine"
+require "super/railtie"
