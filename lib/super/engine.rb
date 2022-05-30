@@ -2,7 +2,7 @@
 
 module Super
   # Configures the host Rails app to work with Super
-  class Engine < ::Rails::Engine
+  class Railtie < ::Rails::Engine
     isolate_namespace Super
 
     initializer "super.assets.precompile" do |app|
