@@ -26,7 +26,9 @@ module Super
     include Schema::Common
 
     def initialize
-      @fields = Super::Schema::Fields.new
+      @fields = Super::Schema::Fields.new(
+        transform_value_on_set: -> (val) { if val.respond_to?(:build) then val.build else val end }
+      )
       @schema_types = SchemaTypes.new(fields: @fields)
 
       yield(@fields, @schema_types)
@@ -57,7 +59,6 @@ module Super
     # @private
     def render_attribute(template:, record:, column:)
       formatter = @fields[column]
-      formatter = formatter.build if formatter.respond_to?(:build)
 
       formatted =
         SchemaTypes::TYPES

@@ -2,9 +2,15 @@
   <table class="w-full border-separate" cellspacing="0" cellpadding="0">
     <thead class="">
       <tr class="">
-        <% display_index.each_attribute_name do |attribute_name| %>
+        <% display_index.each_attribute do |attribute_name, attribute_definition| %>
           <th class="p-2 first:pl-6 border-b border-b-2 border-gray-400 text-gray-600 text-left text-sm font-normal bg-white top-0 z-10">
-            <%= model.human_attribute_name(attribute_name) %>
+            <%=
+              if attribute_definition.respond_to?(:attribute_name) && attribute_definition.attribute_name
+                attribute_definition.attribute_name
+              else
+                model.human_attribute_name(attribute_name)
+              end
+            %>
           </th>
         <% end %>
       </tr>

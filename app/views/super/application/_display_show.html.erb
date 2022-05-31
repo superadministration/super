@@ -1,7 +1,15 @@
 <table class="max-w-full mt-4">
-  <% display_show.each_attribute_name do |attribute_name| %>
+  <% display_show.each_attribute do |attribute_name, attribute_definition| %>
     <tr>
-      <th class="py-1 align-baseline text-right px-4"><%= model.human_attribute_name(attribute_name) %></th>
+      <th class="py-1 align-baseline text-right px-4">
+        <%=
+          if attribute_definition.respond_to?(:attribute_name) && attribute_definition.attribute_name
+            attribute_definition.attribute_name
+          else
+            model.human_attribute_name(attribute_name)
+          end
+        %>
+      </th>
       <td class="py-1 align-baseline"><%= display_show.render_attribute(template: self, record: @record, column: attribute_name) %></td>
     </tr>
   <% end %>

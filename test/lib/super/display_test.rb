@@ -91,6 +91,42 @@ class Super::DisplayTest < ActionView::TestCase
     assert_includes(span.attr("class"), "text-white")
   end
 
+  test "overriding attribute name on #index" do
+    index_action = Super::ActionInquirer.index!
+    view.define_singleton_method(:current_action) { index_action }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
+
+    display = Super::Display.new do |f, type|
+      f[:name] = type.string.attribute_name("Designation")
+    end
+    display.apply(action: view.current_action, format: Mime[:html])
+
+    @records = [members(:picard)]
+    render(display)
+
+    assert_select "thead th", "Designation"
+    assert_select "tbody td", "Jean-Luc Picard"
+  end
+
+  test "overriding attribute name on #show" do
+    show_action = Super::ActionInquirer.show!
+    view.define_singleton_method(:current_action) { show_action }
+    view.define_singleton_method(:model) { Member }
+    view.define_singleton_method(:resolved_member_actions) { |*| [] }
+
+    display = Super::Display.new do |f, type|
+      f[:name] = type.string.attribute_name("Designation")
+    end
+    display.apply(action: view.current_action, format: Mime[:html])
+
+    @record = members(:picard)
+    render(display)
+
+    assert_select "th", "Designation"
+    assert_select "td", "Jean-Luc Picard"
+  end
+
   private
 
   def new_action(action)

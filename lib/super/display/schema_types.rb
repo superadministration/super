@@ -26,26 +26,31 @@ module Super
 
         builder def ignore_nil; @ignore_nil = true; end
 
+        builder def attribute_name(name); @attribute_name = name; end
+
         def build
           Built.new(
             real: @real,
             type: @type,
             ignore_nil: !!@ignore_nil,
+            attribute_name: @attribute_name,
             &@transform_block
           )
         end
       end
 
       class Built
-        def initialize(real:, type:, ignore_nil:, &transform_block)
+        def initialize(real:, type:, ignore_nil:, attribute_name:, &transform_block)
           @real = real
           @type = type
           @ignore_nil = ignore_nil
+          @attribute_name = attribute_name
           @transform_block = transform_block
         end
 
         def real?; @real; end
         attr_reader :type
+        attr_reader :attribute_name
 
         def present(attribute_name, value = nil)
           if @transform_block.nil?

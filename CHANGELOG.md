@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   overriding the entire action.
 * Added customizable error handling for the `#destroy` action
 * Added a warning and an explicit end to `Super::ViewChain`
+* Added a way to override the `Super::Display` attribute name
 
 ### Deprecations
 

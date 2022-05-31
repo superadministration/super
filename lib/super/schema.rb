@@ -14,8 +14,9 @@ module Super
     class Fields
       include Enumerable
 
-      def initialize
+      def initialize(transform_value_on_set: nil)
         @backing = {}
+        @transform_value_on_set = transform_value_on_set
       end
 
       def [](key)
@@ -23,7 +24,12 @@ module Super
       end
 
       def []=(key, value)
-        @backing[key] = value
+        @backing[key] =
+          if @transform_value_on_set
+            @transform_value_on_set.call(value)
+          else
+            value
+          end
       end
 
       def keys
