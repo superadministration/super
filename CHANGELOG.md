@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Deprecated `#real(:column)` and `#computed(:column)`. Prefer using
   `#real(:attribute)` and `#computed(:attribute)`
 * Deprecated `Super::Navigiation.new` needing a block that yields an array
+* Deprecated `Super::Badge.new(text, styles:)` in favor of the singular
+  `style:`. Example: `Super::Badge.new(text, style: :blue)`
+* Deprecated `Super::Badge`'s handling of string styles
 
 ### Breaking changes
 

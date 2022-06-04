@@ -12,9 +12,18 @@ module Super
       purple: "bg-purple-800 text-white",
     }
 
-    def initialize(text, styles: nil)
+    def initialize(text, style: nil, styles: nil)
       @text = text
-      @requested_styles = Array(styles.presence).flatten
+      if styles.present?
+        Super::Useful::Deprecation["0.22"].deprecation_warning("styles:", "use `style:` with a single style")
+      end
+      @requested_styles = Array(styles.presence).flatten + Array(style.presence).flatten
+      if @requested_styles.any? { |s| s.is_a?(String) }
+        Super::Useful::Deprecation["0.22"].warn("Super::Badge.new(text, style:) accepts exactly one Symbol style from this list #{STYLES.keys.inspect}")
+      end
+      if @requested_styles.size != 1
+        Super::Useful::Deprecation["0.22"].warn("Super::Badge.new(text, style:) accepts exactly one style, but it received #{@requested_styles.size}")
+      end
     end
 
     def styles
