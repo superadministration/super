@@ -15,11 +15,6 @@ module Super
         builder def real; @real = true; end
         builder def computed; @real = false; end
 
-        # @deprecated Prefer {#attribute}
-        builder def column
-          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
-          @type = :attribute
-        end
         builder def attribute; @type = :attribute; end
         builder def record; @type = :record; end
         builder def none; @type = :none; end
@@ -71,59 +66,12 @@ module Super
         end
       end
 
-      # @deprecated
-      class Badge
-        extend Useful::Builder
-
-        def initialize(builder)
-          @builder = builder
-          @whens = {}
-          format_for_lookup(&:itself)
-          format_for_display(&:itself)
-        end
-
-        builder_with_block def when(*patterns, &block)
-          patterns.each do |pattern|
-            @whens[pattern] = block
-          end
-        end
-
-        builder_with_block def else(&block)
-          @else = block
-        end
-
-        builder_with_block def format_for_lookup(&block)
-          @format_for_lookup = block
-        end
-
-        builder_with_block def format_for_display(&block)
-          @format_for_display = block
-        end
-
-        def build
-          @builder.transform do |value|
-            lookup_value = @format_for_lookup.call(value)
-            block = @whens[lookup_value] || @else
-            Super::Badge.new(
-              @format_for_display.call(value),
-              styles: block&.call
-            )
-          end
-          @builder.build
-        end
-      end
-
       def initialize(fields:)
         @actions_called = false
         @fields = fields
       end
 
       def real(type = :attribute, &transform_block)
-        if type == :column
-          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
-          type = :attribute
-        end
-
         TYPES
           .case(type)
           .when(:attribute) { Builder.new.real.ignore_nil.attribute.transform(&transform_block) }
@@ -133,11 +81,6 @@ module Super
       end
 
       def computed(type = :attribute, &transform_block)
-        if type == :column
-          Useful::Deprecation["0.22"].deprecation_warning(":column", "use :attribute instead")
-          type = :attribute
-        end
-
         TYPES
           .case(type)
           .when(:attribute) { Builder.new.computed.ignore_nil.attribute.transform(&transform_block) }
@@ -165,16 +108,6 @@ module Super
         computed do |value|
           Partial.new("display_rich_text", locals: { rich_text: value })
         end
-      end
-
-      # @deprecated Use {#real} or {#computed} instead, and return an instance of {Super::Badge}
-      def badge(*builder_methods)
-        Useful::Deprecation["0.22"].deprecation_warning("#badge", "use #real or #computed instead, and return an instance of Super::Badge")
-        builder_methods = %i[real ignore_nil attribute] if builder_methods.empty?
-        builder = builder_methods.each_with_object(Builder.new) do |builder_method, builder|
-          builder.public_send(builder_method)
-        end
-        Badge.new(builder)
       end
 
       def actions

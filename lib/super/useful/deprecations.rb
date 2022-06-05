@@ -6,7 +6,6 @@ module Super
   module Useful
     class Deprecation
       VERSIONS = {
-        "0.22" => ActiveSupport::Deprecation.new("0.22", "Super")
       }
       private_constant :VERSIONS
 

@@ -8,7 +8,6 @@ class NavigationTest < ActiveSupport::TestCase
   def test_builder_link_to
     navbar = Super::Navigation.new do |nav|
       nav.link_to("Members", "/admin/members")
-      []
     end
 
     assert_equal([Super::Link.new("Members", "/admin/members")], navbar.definition)

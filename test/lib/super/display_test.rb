@@ -52,8 +52,8 @@ class Super::DisplayTest < ActionView::TestCase
     view.define_singleton_method(:resolved_member_actions) { |*| [] }
     view.define_singleton_method(:display_schema) do
       Display.new do |f, type|
-        f[:name] = type.real(:column) { |column| Super::Badge.new(column.upcase, styles: :blue) }
-        f[:rank] = type.real(:attribute) { |attribute| Super::Badge.new(attribute.tr("A-Za-z", "N-ZA-Mn-za-m"), styles: :red) }
+        f[:name] = type.real(:attribute) { |column| Super::Badge.new(column.upcase, style: :blue) }
+        f[:rank] = type.real(:attribute) { |attribute| Super::Badge.new(attribute.tr("A-Za-z", "N-ZA-Mn-za-m"), style: :red) }
       end
     end
 
@@ -74,12 +74,13 @@ class Super::DisplayTest < ActionView::TestCase
     view.define_singleton_method(:resolved_member_actions) { |*| [] }
 
     display = Super::Display.new do |f, type|
-      f[:testing_badges] =
-        type.badge(:computed, :record)
-        .format_for_display { |record| record.rank }
-        .format_for_display { |record| record.name }
-        .when("captain") { [:blue] }
-        .else { [:red] }
+      f[:testing_badges] = type.computed(:record) do |record|
+        if record.rank == "captain"
+          Super::Badge.new(record.name, style: :red)
+        else
+          Super::Badge.new(record.name, style: :blue)
+        end
+      end
     end
     display.apply(action: view.current_action, format: Mime[:html])
 

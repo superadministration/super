@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking changes
+
+* Removed deprecated `Super::Display::SchemaTypes#badge`
+* Removed deprecated `#real(:column)` and `#computed(:column)`
+* Removed deprecated support for arrays in `Super::Navigiation.new`
+* Removed deprecated `styles:` argument from `Super::Badge.new`
+* Removed deprecated `Badge`'s handling of string styles
+
 ## [0.21.0] - 2022-06-05
 
 ### Improvements

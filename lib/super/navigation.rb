@@ -4,10 +4,7 @@ module Super
   class Navigation
     def initialize
       @builder = Builder.new
-      result = yield @builder
-      if result.is_a?(Array)
-        Useful::Deprecation["0.22"].deprecation_warning("returning an array", "calling a Super::Navigation builder method defines the navigation")
-      end
+      yield @builder
     end
 
     def definition
