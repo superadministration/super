@@ -7,7 +7,7 @@
 require_relative "../dummy_path"
 
 ENGINE_ROOT = File.expand_path("..", __dir__)
-ENGINE_PATH = File.expand_path("../lib/super/engine", __dir__)
+ENGINE_PATH = File.expand_path("../lib/super/railtie", __dir__)
 APP_PATH = File.expand_path("../#{SUPER_DUMMY_PATH}/config/application", __dir__)
 
 # Set up gems listed in the Gemfile.
