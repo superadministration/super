@@ -25,6 +25,7 @@ gemspec
 gem "appraisal", require: false
 gem "yard", require: false
 gem "rubocop", "~> 1.0", require: false
+gem "rubocop-sorbet", require: false
 
 # Sorbet
 gem "sorbet", require: false

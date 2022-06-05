@@ -1,4 +1,7 @@
 ---
+require:
+  - rubocop-sorbet
+
 AllCops:
   TargetRubyVersion: 2.4
   DisabledByDefault: true
@@ -11,6 +14,14 @@ AllCops:
 
 Layout/EmptyLineAfterMagicComment:
   Enabled: Yes
+
+Sorbet/HasSigil:
+  Enabled: Yes
+  SuggestedStrictness: "true"
+  MinimumStrictness: "false"
+  Include:
+    - app/**/*
+    - lib/super/**/*
 
 Style/FrozenStringLiteralComment:
   Enabled: Yes
