@@ -75,7 +75,7 @@ module Super
       end
     end
 
-    def each
+    def each(&block)
       if !block_given?
         return enum_for(:each)
       end

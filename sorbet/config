@@ -1,3 +1,5 @@
 --dir
 .
 --ignore=vendor/
+--ignore=test/
+--ignore=super_test_engine/

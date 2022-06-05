@@ -30,7 +30,7 @@ module Super
 
         alias add push
 
-        def each
+        def each(&block)
           return enum_for(:each) if !block_given?
 
           @operators.each do |identifier, operator|
