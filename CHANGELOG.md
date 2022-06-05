@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.21.0] - 2022-06-05
+
 ### Improvements
 
 * Added overridable controller methods (which are now called by the current
@@ -449,7 +451,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Sprockets and Webpacker support. Defaults to Sprockets
 * Navigation bar with links to all admin controllers
 
-[Unreleased]: https://github.com/superadministration/super/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/superadministration/super/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/superadministration/super/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/superadministration/super/compare/v0.19.0...v0.20.0
 [0.19.0]: https://github.com/superadministration/super/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/superadministration/super/compare/v0.17.0...v0.18.0
