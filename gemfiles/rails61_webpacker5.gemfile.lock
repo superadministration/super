@@ -108,8 +108,6 @@ GEM
     minitest-bisect (1.5.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.1)
-    minitest-ci (3.4.0)
-      minitest (>= 5.0.6)
     minitest-server (1.0.6)
       minitest (~> 5.0)
     mocha (1.13.0)
@@ -212,7 +210,6 @@ DEPENDENCIES
   capybara (~> 3.18)
   i18n-debug
   minitest-bisect
-  minitest-ci
   mocha
   pry-rails
   puma (~> 4.3, >= 4.3.6)
