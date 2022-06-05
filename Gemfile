@@ -9,6 +9,12 @@ if caller.none? { |line| line =~ /appraisal/ }
   instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
 end
 
+# Sorbet
+gem "sorbet", require: false
+gem "sorbet-runtime"
+gem "tapioca", require: false
+gem "spoom", require: false
+
 # Declare your gem's dependencies in super.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
@@ -25,3 +31,4 @@ gemspec
 gem "appraisal", require: false
 gem "yard", require: false
 gem "standard", group: [:development, :test], require: false
+gem "rubocop-sorbet", require: false
