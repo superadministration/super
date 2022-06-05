@@ -24,3 +24,4 @@ gemspec
 
 gem "appraisal", require: false
 gem "yard", require: false
+gem "rubocop", "~> 1.0", require: false
