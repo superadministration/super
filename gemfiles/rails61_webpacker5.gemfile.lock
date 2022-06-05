@@ -68,10 +68,6 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    appraisal (2.4.1)
-      bundler
-      rake
-      thor (>= 0.14.0)
     builder (3.2.4)
     capybara (3.36.0)
       addressable
@@ -192,21 +188,17 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.27)
-      webrick (~> 1.7.0)
     zeitwerk (2.5.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal
   capybara (~> 3.18)
   i18n-debug
   minitest-bisect
@@ -222,7 +214,6 @@ DEPENDENCIES
   super!
   webdrivers (~> 4.3)
   webpacker (~> 5.0)
-  yard
 
 BUNDLED WITH
    2.3.4

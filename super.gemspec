@@ -42,8 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "puma", "~> 4.3", ">= 4.3.6"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pry-rails"
-  spec.add_development_dependency "appraisal"
-  spec.add_development_dependency "yard"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "i18n-debug"
   spec.add_development_dependency "simplecov"
