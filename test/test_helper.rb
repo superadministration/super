@@ -4,6 +4,10 @@ ENV["RAILS_ENV"] = "test"
 require "pry"
 require "simplecov"
 
+if Gem::Dependency.new("sorbet-runtime").matching_specs.any?
+  require "sorbet-runtime"
+end
+
 require_relative "../dummy_path"
 SimpleCov.start("rails") unless ENV["SKIP_SIMPLECOV"]
 require_relative "../#{SUPER_DUMMY_PATH}/config/environment"
