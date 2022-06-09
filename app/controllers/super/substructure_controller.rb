@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Super
@@ -38,7 +39,7 @@ module Super
     # This defines what to set in the <title> tag. It works in conjunction with
     # the `#site_title` method
     #
-    # @return [String, void]
+    # @return [String, nil]
     helper_method def page_title
       model.name.pluralize
     rescue Error::NotImplementedError, NameError
@@ -56,9 +57,9 @@ module Super
     # Configures the fields that are displayed on the index and show actions.
     # This is a required method
     #
-    # @return [Display]
+    # @return [Super::Display]
     helper_method def display_schema
-      Display.new do |fields, type|
+      Super::Display.new do |fields, type|
         Display::Guesser.new(model: model, action: current_action, fields: fields, type: type).call
       end
     end
@@ -66,9 +67,9 @@ module Super
     # Configures the editable fields on the new and edit actions. This is a
     # required method
     #
-    # @return [Form]
+    # @return [Super::Form]
     helper_method def form_schema
-      Form.new do |fields, type|
+      Super::Form.new do |fields, type|
         Form::Guesser.new(model: model, fields: fields, type: type).call
       end
     end
@@ -104,7 +105,7 @@ module Super
     # Configures the actions linked to on the index page. This is an optional
     # method
     #
-    # @return [Array<Link>]
+    # @return [Array<Super::Link>]
     helper_method def collection_actions
       if current_action.index?
         [
@@ -124,8 +125,9 @@ module Super
     # `@record` won't always be set, notably on the index page where it's
     # called on every row
     #
-    # @return [Array<Link>]
-    helper_method def member_actions(record)
+    # @param record [ActiveRecord::Base]
+    # @return [Array<Super::Link>]
+    def member_actions(record)
       if current_action.show?
         Super::Link.find_all(:edit, :destroy)
       elsif current_action.edit?
@@ -134,6 +136,7 @@ module Super
         Super::Link.find_all(:show, :edit, :destroy)
       end
     end
+    helper_method :member_actions
 
     helper_method def resolve_collection_action(action)
       action.resolve(params: params)

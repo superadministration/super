@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -76,7 +77,7 @@ module Super
       @action = new_action
     end
 
-    def respond_to_missing?(method_name, *)
+    def respond_to_missing?(method_name, _)
       inquiry = parse_inquiry(method_name)
 
       return super if !inquiry
@@ -84,7 +85,7 @@ module Super
       @actions.include?(inquiry) || @categories.include?(inquiry) || super
     end
 
-    def method_missing(method_name, *)
+    def method_missing(method_name, *_args)
       inquiry = parse_inquiry(method_name)
 
       return super if !inquiry

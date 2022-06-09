@@ -1,7 +1,10 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
   module ViewHelper
+    include Kernel
+
     module_function
 
     # For example, calling `classes("always", ["sometimes", condition])` would

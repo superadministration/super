@@ -1,7 +1,20 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
   class LinkBuilder
+    # @!method text(&block)
+    #   @return [Super::LinkBuilder]
+    # @!method process_text(&block)
+    #   @return [Super::LinkBuilder]
+    # @!method href(&block)
+    #   @return [Super::LinkBuilder]
+    # @!method process_href(&block)
+    #   @return [Super::LinkBuilder]
+    # @!method options(&block)
+    #   @return [Super::LinkBuilder]
+    # @!method process_options(&block)
+    #   @return [Super::LinkBuilder]
     %i[text href options].each do |method_name|
       class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
         def #{method_name}(&block)

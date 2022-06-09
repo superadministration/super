@@ -1,8 +1,11 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
   class Schema
     module Common
+      include Kernel
+
       def each_attribute_name
         if block_given?
           @fields.keys.each do |key|

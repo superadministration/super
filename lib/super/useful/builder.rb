@@ -1,8 +1,11 @@
+# typed: false
 # frozen_string_literal: true
 
 module Super
   module Useful
     module Builder
+      include Kernel
+
       def builder(method_name)
         alias_method("original_#{method_name}", method_name)
 

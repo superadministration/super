@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -87,6 +88,7 @@ module Super
 
     class Handler
       class << self
+        # @return [Super::Assets::Handler]
         def auto
           sprockets_spec = gem_specification("sprockets")
           if sprockets_spec
@@ -107,51 +109,67 @@ module Super
           none
         end
 
+        # @return [Boolean]
         def sprockets_available?
-          !gem_specification("sprockets").nil? && defined?(Sprockets)
+          if !gem_specification("sprockets") || !defined?(Sprockets)
+            return false
+          end
+
+          true
         end
 
+        # @return [Gem::Specification, nil]
         def gem_specification(gem_name)
           Gem::Dependency.new(gem_name).matching_specs&.sort_by(&:version)&.first
         end
       end
 
+      # @return [Super::Assets::Handler]
       def self.sprockets
         @sprockets ||= new(:sprockets)
       end
 
+      # @return [Super::Assets::Handler]
       def self.webpacker
         @webpacker ||= new(:webpacker)
       end
 
+      # @return [Super::Assets::Handler]
       def self.none
         @none ||= new(:none)
       end
 
+      # @param asset_handler [Symbol]
       def initialize(asset_handler)
         @asset_handler = asset_handler
       end
 
+      # @return [Boolean]
       def ==(other)
         to_sym == other.to_sym
       end
 
+      # @return [Boolean]
       def sprockets?
         @asset_handler == :sprockets
       end
 
+      # @return [Boolean]
       def webpacker?
         @asset_handler == :webpacker
       end
 
+      # @return [Boolean]
       def none?
         @asset_handler == :none
       end
 
+      # @return [Symbol]
       def to_sym
         @asset_handler
       end
 
+      # @return [String]
       def to_s
         @asset_handler.to_s
       end

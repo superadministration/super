@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Super
@@ -22,6 +23,8 @@ module Super
 
     private
 
+    # @param definition [Array<Super::Navigation::Menu, Super::Link>]
+    # @param unused_links [Hash<String=>Boolean>]
     def validate_and_determine_explicit_links(definition, unused_links)
       definition.each do |link_or_menu_or_rest|
         if link_or_menu_or_rest.is_a?(Super::Link)
@@ -72,6 +75,12 @@ module Super
 
     ALL = Object.new
     REST = Object.new
+
+    # @!attribute [rw] title
+    #   @return [String]
+    #
+    # @!attribute [rw] links
+    #   @return [Array<Super::Navigation::Menu, Super::Link>]
     Menu = Struct.new(:title, :links)
 
     class Builder
@@ -80,6 +89,7 @@ module Super
         @menu_level = 0
       end
 
+      # @return [Array<Super::Navigation::Menu, Super::Link>]
       def build
         @links
       end

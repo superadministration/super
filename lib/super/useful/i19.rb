@@ -1,8 +1,11 @@
+# typed: true
 # frozen_string_literal: true
 
 module Super
   module Useful
     module I19
+      include Kernel
+
       module_function
 
       def build_chain(prefix, optional, suffix)
