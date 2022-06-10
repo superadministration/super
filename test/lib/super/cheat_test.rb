@@ -8,20 +8,16 @@ class CheatTest < ActiveSupport::TestCase
       instance.controller
     end
     recorded_methods = out.lines.map(&:strip).to_set
-    all_controllers_methods =
-      Super::ApplicationController.instance_methods(false) +
-      Super::ApplicationController.private_instance_methods +
-      Super::SubstructureController.private_instance_methods +
-      Super::ViewController.private_instance_methods +
-      Super::SitewideController.private_instance_methods
-    all_controllers_methods.uniq!
-
     all_instance_methods =
-      all_controllers_methods -
-      ActionController::Base.private_instance_methods -
+      Super::ApplicationController.instance_methods(true) +
+      Super::ApplicationController.private_instance_methods(true) -
+      ActionController::Base.instance_methods(true) -
+      ActionController::Base.private_instance_methods(true) -
       [:_layout, :_generate_paths_by_default]
+    all_instance_methods.uniq!
 
-    assert(recorded_methods.delete?("== Super::ApplicationController"), "couldn't find the header in #{recorded_methods}")
+    assert(recorded_methods.delete?("== Super::ApplicationController"), "couldn't find the header")
+
     all_instance_methods.each do |method_name|
       expected = "##{method_name}"
       params = Super::ApplicationController.instance_method(method_name).parameters
