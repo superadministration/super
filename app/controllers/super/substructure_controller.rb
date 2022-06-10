@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 module Super
-  # Various methods that determine the behavior of your controllers. These
-  # methods can and should be overridden.
-  class SubstructureController < ViewController
+  # These methods determine the behavior of your resourceful Super controllers.
+  # These methods can and should be overridden.
+  class SubstructureController < FoundationController
     def self.batch(action_name)
       mod = Module.new do
         define_method(action_name) do
@@ -146,16 +146,19 @@ module Super
       action.resolve(params: params, record: record)
     end
 
+    # @return [Boolean]
     helper_method def filters_enabled?
       true
     end
 
+    # @return [Super::Filter]
     helper_method def filter_schema
       Super::Filter.new do |fields, type|
         Super::Filter::Guesser.new(model: model, fields: fields, type: type).call
       end
     end
 
+    # @return [Boolean]
     helper_method def sort_enabled?
       true
     end
@@ -180,11 +183,12 @@ module Super
 
     # Specifies how many records to show per page
     #
-    # @return [ActiveRecord::Relation]
+    # @return [Integer]
     helper_method def records_per_page
       Super.configuration.index_records_per_page
     end
 
+    # @return [Boolean]
     helper_method def batch_actions_enabled?
       true
     end
@@ -206,6 +210,7 @@ module Super
       base_scope.build
     end
 
+    # @return [void]
     def set_record_attributes
       @record.attributes = permitted_params
     end
@@ -218,40 +223,7 @@ module Super
       @record.destroy
     end
 
-    def redirect_to_record
-      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
-    end
-
-    def redirect_to_records
-      redirect_to polymorphic_path(Super::Link.polymorphic_parts(model))
-    end
-
-    def redirect_to_record_with_destroy_failure_message(error = nil)
-      flash.alert =
-        case error
-        when ActiveRecord::InvalidForeignKey
-          I18n.t("super.destroy_error.invalid_foreign_key")
-        else
-          I18n.t("super.destroy_error.generic")
-        end
-
-      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
-    end
-
-    def render_new_as_bad_request
-      @current_action = ActionInquirer.new!
-      @form = form_schema
-      @view = new_view
-      render :new, status: :bad_request
-    end
-
-    def render_edit_as_bad_request
-      @current_action = ActionInquirer.edit!
-      @form = form_schema
-      @view = edit_view
-      render :edit, status: :bad_request
-    end
-
+    # @return [Super::Query]
     helper_method def query
       @query ||= Super::Query.new(
         model: model,
@@ -260,10 +232,12 @@ module Super
       )
     end
 
+    # @return [ActiveRecord::Relation]
     def apply_queries
       query.apply_changes(@records)
     end
 
+    # @return [Super::Filter::FormObject, nil]
     def initialize_filter_form
       if filters_enabled?
         @filter_form = query.build(
@@ -274,6 +248,7 @@ module Super
       end
     end
 
+    # @return [Super::Sort::FormObject, nil]
     def initialize_sort_form
       if sort_enabled?
         @sort_form = query.build(
@@ -285,10 +260,12 @@ module Super
       end
     end
 
+    # @return [Symbol, String]
     helper_method def pagination_disabled_param
       :_all_pages
     end
 
+    # @return [Boolean]
     def pagination_enabled?
       !params.key?(pagination_disabled_param)
     end
@@ -323,8 +300,29 @@ module Super
       )
     end
 
+    # @return [Boolean]
     helper_method def csv_enabled?
       true
+    end
+
+    helper_method def resolved_member_actions(record)
+      member_actions(record).map do |action|
+        if action.respond_to?(:resolve)
+          resolve_member_action(action, record)
+        else
+          action
+        end
+      end
+    end
+
+    helper_method def resolved_collection_actions
+      collection_actions.map do |action|
+        if action.respond_to?(:resolve)
+          resolve_collection_action(action)
+        else
+          action
+        end
+      end
     end
   end
 end

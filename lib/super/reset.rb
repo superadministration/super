@@ -11,12 +11,7 @@ module Super
       _generate_paths_by_default: true,
 
       # Defined in Super::SubstructureController
-      navigation: true,
       page_title: true,
-
-      # Defined in Super::ApplicationController
-      current_action: true,
-      with_current_action: true,
 
       # Keep all of the ones in Super::SitewideController
     }

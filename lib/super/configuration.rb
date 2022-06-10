@@ -29,7 +29,7 @@ module Super
     config_accessor(:title) { "Super Admin" }
 
     # @!attribute [rw] index_records_per_page
-    #   @return [String]
+    #   @return [Integer]
     config_accessor(:index_records_per_page) { 100 }
 
     # @!attribute [rw] javascripts

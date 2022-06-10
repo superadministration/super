@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -8,6 +8,7 @@ module Super
   class ViewController < SitewideController
     private
 
+    # @return [#to_partial_path]
     def index_view
       Super::Layout.new(
         main: Super::ViewChain.new(
@@ -23,6 +24,7 @@ module Super
       )
     end
 
+    # @return [#to_partial_path]
     def show_view
       Super::Layout.new(
         main: Super::ViewChain.new(
@@ -33,6 +35,7 @@ module Super
       )
     end
 
+    # @return [#to_partial_path]
     def new_view
       Super::Layout.new(
         main: Super::ViewChain.new(
@@ -43,6 +46,7 @@ module Super
       )
     end
 
+    # @return [#to_partial_path]
     def edit_view
       Super::Layout.new(
         main: Super::ViewChain.new(

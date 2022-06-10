@@ -648,10 +648,6 @@ module Super
   # Defined in Super::SubstructureController
   page_title: true,
 
-  # Defined in Super::ApplicationController
-  current_action: true,
-  with_current_action: true,
-
   # Keep all of the ones in Super::SitewideController
 }, T.untyped)
   end
@@ -2134,7 +2130,7 @@ module Super
     sig { returns(String) }
     attr_accessor :title
 
-    sig { returns(String) }
+    sig { returns(Integer) }
     attr_accessor :index_records_per_page
 
     sig { returns(T::Array[Super::Assets::Asset]) }
@@ -2350,83 +2346,104 @@ module Super
   # Generally, the return value of each of these methods should be set to
   # `@view`.
   class ViewController < Super::SitewideController
-    # sord omit - no YARD return type given, using untyped
+    # sord duck - #to_partial_path looks like a duck type, replacing with untyped
     sig { returns(T.untyped) }
     def index_view; end
 
-    # sord omit - no YARD return type given, using untyped
+    # sord duck - #to_partial_path looks like a duck type, replacing with untyped
     sig { returns(T.untyped) }
     def show_view; end
 
-    # sord omit - no YARD return type given, using untyped
+    # sord duck - #to_partial_path looks like a duck type, replacing with untyped
     sig { returns(T.untyped) }
     def new_view; end
 
-    # sord omit - no YARD return type given, using untyped
+    # sord duck - #to_partial_path looks like a duck type, replacing with untyped
     sig { returns(T.untyped) }
     def edit_view; end
   end
 
-  # Various methods that are useful for all Super admin controllers, regardless
-  # of the controller being a resourceful or non-resourceful.
-  class SitewideController < ActionController::Base
+  # These methods could be useful for any Super controller, resourceful or not.
+  class SitewideController < Super::SubstructureController
+    sig { returns(String) }
+    def site_title; end
+
+    sig { returns(Super::Navigation) }
+    def site_navigation; end
+
+    sig { returns(String) }
+    def document_title; end
+
     # sord omit - no YARD return type given, using untyped
     sig { returns(T.untyped) }
     def document_title_segments; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
+    sig { returns(String) }
     def document_title_separator; end
   end
 
-  # Provides a default implementation for each of the resourceful actions
-  class ApplicationController < Super::SubstructureController
-    include Super::ClientError::Handling
-
-    # sord omit - no YARD return type given, using untyped
-    # Displays a list of records to the user
-    sig { returns(T.untyped) }
-    def index; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Displays a specific record to the user
-    sig { returns(T.untyped) }
-    def show; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Displays a form to allow the user to create a new record
-    sig { returns(T.untyped) }
-    def new; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Creates a record, or shows the validation errors
-    sig { returns(T.untyped) }
-    def create; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Displays a form to allow the user to update an existing record
-    sig { returns(T.untyped) }
-    def edit; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Updates a record, or shows validation errors
-    sig { returns(T.untyped) }
-    def update; end
-
-    # sord omit - no YARD return type given, using untyped
-    # Deletes a record, or shows validation errors
-    sig { returns(T.untyped) }
-    def destroy; end
+  # These methods could be useful for any Super controller, resourceful or not.
+  class FoundationController < ActionController::Base
+    sig { returns(Super::ActionInquirer) }
+    def current_action; end
 
     # sord omit - no YARD type given for "action", using untyped
-    # sord omit - no YARD return type given, using untyped
-    sig { params(action: T.untyped).returns(T.untyped) }
+    sig { params(action: T.untyped).void }
     def with_current_action(action); end
   end
 
-  # Various methods that determine the behavior of your controllers. These
-  # methods can and should be overridden.
-  class SubstructureController < Super::ViewController
+  # Provides a default implementation for each of the resourceful actions
+  class ApplicationController < Super::ViewController
+    include Super::ClientError::Handling
+
+    # Displays a list of records to the user
+    sig { void }
+    def index; end
+
+    # Displays a specific record to the user
+    sig { void }
+    def show; end
+
+    # Displays a form to allow the user to create a new record
+    sig { void }
+    def new; end
+
+    # Creates a record, or shows the validation errors
+    sig { void }
+    def create; end
+
+    # Displays a form to allow the user to update an existing record
+    sig { void }
+    def edit; end
+
+    # Updates a record, or shows validation errors
+    sig { void }
+    def update; end
+
+    # Deletes a record, or shows validation errors
+    sig { void }
+    def destroy; end
+
+    sig { void }
+    def redirect_to_record; end
+
+    sig { void }
+    def redirect_to_records; end
+
+    # sord omit - no YARD type given for "error", using untyped
+    sig { params(error: T.untyped).void }
+    def redirect_to_record_with_destroy_failure_message(error = nil); end
+
+    sig { void }
+    def render_new_as_bad_request; end
+
+    sig { void }
+    def render_edit_as_bad_request; end
+  end
+
+  # These methods determine the behavior of your resourceful Super controllers.
+  # These methods can and should be overridden.
+  class SubstructureController < Super::FoundationController
     # sord omit - no YARD type given for "action_name", using untyped
     # sord omit - no YARD return type given, using untyped
     sig { params(action_name: T.untyped).returns(T.untyped) }
@@ -2480,10 +2497,21 @@ module Super
     sig { params(record: ActiveRecord::Base).returns(T::Array[Super::Link]) }
     def member_actions(record); end
 
-    # sord warn - ActiveRecord::Relation wasn't able to be resolved to a constant in this project
+    sig { returns(T::Boolean) }
+    def filters_enabled?; end
+
+    sig { returns(Super::Filter) }
+    def filter_schema; end
+
+    sig { returns(T::Boolean) }
+    def sort_enabled?; end
+
     # Specifies how many records to show per page
-    sig { returns(ActiveRecord::Relation) }
+    sig { returns(Integer) }
     def records_per_page; end
+
+    sig { returns(T::Boolean) }
+    def batch_actions_enabled?; end
 
     # sord omit - no YARD return type given, using untyped
     sig { returns(T.untyped) }
@@ -2497,8 +2525,7 @@ module Super
     sig { returns(T.untyped) }
     def build_record; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
+    sig { void }
     def set_record_attributes; end
 
     # sord omit - no YARD return type given, using untyped
@@ -2509,38 +2536,21 @@ module Super
     sig { returns(T.untyped) }
     def destroy_record; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
-    def redirect_to_record; end
+    sig { returns(Super::Query) }
+    def query; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
-    def redirect_to_records; end
-
-    # sord omit - no YARD type given for "error", using untyped
-    # sord omit - no YARD return type given, using untyped
-    sig { params(error: T.untyped).returns(T.untyped) }
-    def redirect_to_record_with_destroy_failure_message(error = nil); end
-
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
-    def render_new_as_bad_request; end
-
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
-    def render_edit_as_bad_request; end
-
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
+    # sord warn - ActiveRecord::Relation wasn't able to be resolved to a constant in this project
+    sig { returns(ActiveRecord::Relation) }
     def apply_queries; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(Super::Filter::FormObject)) }
     def initialize_filter_form; end
 
-    # sord omit - no YARD return type given, using untyped
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(Super::Sort::FormObject)) }
     def initialize_sort_form; end
+
+    sig { returns(T.any(Symbol, String)) }
+    def pagination_disabled_param; end
 
     sig { returns(T::Boolean) }
     def pagination_enabled?; end
@@ -2553,5 +2563,8 @@ module Super
     # Paginates
     sig { returns(ActiveRecord::Relation) }
     def paginate_records; end
+
+    sig { returns(T::Boolean) }
+    def csv_enabled?; end
   end
 end
