@@ -2,7 +2,7 @@
 
 module Super
   # Provides a default implementation for each of the resourceful actions
-  class ApplicationController < SubstructureController
+  class ApplicationController < ViewController
     include ClientError::Handling
 
     before_action do
@@ -12,6 +12,8 @@ module Super
     end
 
     # Displays a list of records to the user
+    #
+    # @return [void]
     def index
       if request.format.ref == :csv && !csv_enabled?
         params_for_rebuilding_url = params.to_unsafe_hash
@@ -28,6 +30,8 @@ module Super
     end
 
     # Displays a specific record to the user
+    #
+    # @return [void]
     def show
       @record = load_record
       @display = display_schema.apply(action: current_action, format: request.format)
@@ -35,6 +39,8 @@ module Super
     end
 
     # Displays a form to allow the user to create a new record
+    #
+    # @return [void]
     def new
       @record = build_record
       @form = form_schema
@@ -42,6 +48,8 @@ module Super
     end
 
     # Creates a record, or shows the validation errors
+    #
+    # @return [void]
     def create
       @record = build_record
       set_record_attributes
@@ -54,6 +62,8 @@ module Super
     end
 
     # Displays a form to allow the user to update an existing record
+    #
+    # @return [void]
     def edit
       @record = load_record
       @form = form_schema
@@ -61,6 +71,8 @@ module Super
     end
 
     # Updates a record, or shows validation errors
+    #
+    # @return [void]
     def update
       @record = load_record
       set_record_attributes
@@ -73,6 +85,8 @@ module Super
     end
 
     # Deletes a record, or shows validation errors
+    #
+    # @return [void]
     def destroy
       @record = load_record
 
@@ -87,43 +101,43 @@ module Super
 
     private
 
-    helper_method def current_action
-      @current_action ||=
-        ActionInquirer.new(
-          ActionInquirer.default_for_resources,
-          params[:action]
-        )
+    # @return [void]
+    def redirect_to_record
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
     end
 
-    def with_current_action(action)
-      original = @current_action
-      @current_action = ActionInquirer.new(
-        ActionInquirer.default_for_resources,
-        action
-      )
-      yield
-    ensure
-      @current_action = original
+    # @return [void]
+    def redirect_to_records
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(model))
     end
 
-    helper_method def resolved_member_actions(record)
-      member_actions(record).map do |action|
-        if action.respond_to?(:resolve)
-          resolve_member_action(action, record)
+    # @return [void]
+    def redirect_to_record_with_destroy_failure_message(error = nil)
+      flash.alert =
+        case error
+        when ActiveRecord::InvalidForeignKey
+          I18n.t("super.destroy_error.invalid_foreign_key")
         else
-          action
+          I18n.t("super.destroy_error.generic")
         end
-      end
+
+      redirect_to polymorphic_path(Super::Link.polymorphic_parts(@record))
     end
 
-    helper_method def resolved_collection_actions
-      collection_actions.map do |action|
-        if action.respond_to?(:resolve)
-          resolve_collection_action(action)
-        else
-          action
-        end
-      end
+    # @return [void]
+    def render_new_as_bad_request
+      @current_action = ActionInquirer.new!
+      @form = form_schema
+      @view = new_view
+      render :new, status: :bad_request
+    end
+
+    # @return [void]
+    def render_edit_as_bad_request
+      @current_action = ActionInquirer.edit!
+      @form = form_schema
+      @view = edit_view
+      render :edit, status: :bad_request
     end
   end
 end
