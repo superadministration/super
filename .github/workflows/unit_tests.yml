@@ -86,3 +86,16 @@ jobs:
         node-version: "16.x"
     - run: bin/rails db:migrate
     - run: bin/rails test
+
+  type_check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.0"
+        bundler-cache: true
+    - run: bin/tapioca gem --verify
+    - run: bin/spoom tc
+    - run: bin/rails db:migrate
+    - run: bin/tapioca dsl --verify
