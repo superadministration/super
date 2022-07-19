@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Removed deprecated `styles:` argument from `Super::Badge.new`
 * Removed deprecated `Badge`'s handling of string styles
 
+### Improvements
+
+* Added the `file_field` form builder method
+
 ## [0.21.0] - 2022-06-05
 
 ### Improvements

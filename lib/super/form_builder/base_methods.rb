@@ -3,7 +3,7 @@
 module Super
   class FormBuilder
     class Wrappers
-      skipped_field_helpers = [:label, :check_box, :radio_button, :fields_for, :fields, :hidden_field, :file_field]
+      skipped_field_helpers = [:label, :check_box, :radio_button, :fields_for, :fields, :hidden_field]
       (ActionView::Helpers::FormBuilder.field_helpers - skipped_field_helpers).each do |builder_method_name|
         class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
           def #{builder_method_name}(attribute, options = {})
@@ -43,12 +43,6 @@ module Super
       end
 
       ::Super::Form::SchemaTypes.define_schema_type_for(:check_box)
-
-      # def file_field(attribute, options = {})
-      # end
-
-      # def file_field!(attribute, label_text: nil, label: {}, field: {}, show_errors: true)
-      # end
 
       def hidden_field(attribute, options = {})
         @builder.hidden_field(attribute, options)
