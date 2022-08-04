@@ -11,6 +11,8 @@ module Super::RenderHelper
         return renderable
       when Super::Partial
         return render(*args, **kwargs, &block)
+      when Super::Link
+        return renderable.to_link(self, kwargs)
       end
     end
 

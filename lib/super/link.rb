@@ -91,6 +91,15 @@ module Super
       @href = Super::Compatability.polymorphic_path_container.polymorphic_path(@href)
     end
 
+    def to_link(template, local_assigns)
+      default_options = local_assigns.fetch(:default_options, {})
+      template.link_to(
+        text,
+        href,
+        default_options.deep_merge(options)
+      )
+    end
+
     def to_partial_path
       "link"
     end
