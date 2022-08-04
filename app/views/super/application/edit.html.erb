@@ -1,2 +1,2 @@
 <% raise Super::Error::NothingToRender, "edit" if @view.nil? %>
-<%= render(@view) %>
+<%= super_render(@view) %>

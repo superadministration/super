@@ -1,7 +1,7 @@
 <% if current_action.collection? %>
 <div class="whitespace-nowrap gap-1">
 <% html_id = "batch-checkbox-#{value.to_s.gsub(/[^a-z0-9]+/, "-")}" %>
-<input type="checkbox" name="batch[]" value="<%= value %>" id="<%= html_id %>">
+<input type="checkbox" name="batch[]" value="<%= batch_checkbox.locals[:value] %>" id="<%= html_id %>">
 <label for="<%= html_id %>"><%= value %></label>
 </div>
 <% else %>

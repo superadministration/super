@@ -15,10 +15,10 @@
 %>
 <% if current %>
   <% if view_chain.empty? %>
-    <%= render(current) %>
+    <%= super_render(current) %>
   <% else %>
-    <%= render(current) do %>
-      <%= render(view_chain) %>
+    <%= super_render(current) do %>
+      <%= super_render(view_chain) %>
     <% end %>
   <% end %>
 <% end %>

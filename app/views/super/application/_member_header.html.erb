@@ -4,7 +4,7 @@
   </h1>
   <div class="flex gap-2">
     <% resolved_member_actions(@record).each do |link| %>
-      <%= render(
+      <%= super_render(
         link,
         default_options: {
           class: "super-button super-button--border-blue super-button-sm inline-block"

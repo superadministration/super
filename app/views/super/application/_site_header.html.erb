@@ -2,13 +2,13 @@
   <h1 class="text-lg font-bold mr-6 mb-1"><%= site_title %></h1>
   <% site_navigation.definition.each do |link_or_menu| %>
     <% if link_or_menu.is_a?(Super::Link) %>
-      <%= render(link_or_menu, default_options: { class: "inline-block mr-6" }) %>
+      <%= super_render(link_or_menu, default_options: { class: "inline-block mr-6" }) %>
     <% else %>
       <details class="details-reset details-backdrop-transparent select-none inline-block mr-6">
         <summary class="text-blue-700"><%= link_or_menu.title %></summary>
         <ul class="absolute bg-white shadow-md px-4 py-3 z-20">
           <% link_or_menu.links.each do |link| %>
-            <li><%= render(link, default_options: { class: "" }) %></li>
+            <li><%= super_render(link, default_options: { class: "" }) %></li>
           <% end %>
         </ul>
       </details>

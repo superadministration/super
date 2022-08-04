@@ -3,6 +3,6 @@
     <legend class="bg-white p-1 -mx-1"><%= form_fieldset.label %></legend>
   <% end %>
   <% form_fieldset.nested_fields.each do |field, type| %>
-    <%= render(type, form: form, column: field) %>
+    <%= super_render(type, form: form, column: field) %>
   <% end %>
 </fieldset>
