@@ -14,6 +14,7 @@ module Super
     initializer "super.inclusion" do
       ActiveSupport.on_load(:action_view) do
         include Super::FormBuilderHelper
+        include Super::RenderHelper
       end
     end
 

@@ -5,7 +5,7 @@
     <details-dialog class="bg-white shadow-md px-4 py-4 rounded-lg">
       <header class="flex items-center">
         <h1 class="font-semibold border-b-1 flex-1"><%= t("super.csv.modal_header") %></h1>
-        <button type="button" data-close-dialog class="flex-initial h-4 w-4"><%= render("super/feather/x") %></button>
+        <button type="button" data-close-dialog class="flex-initial h-4 w-4"><%= super_render("super/feather/x") %></button>
       </header>
       <div class="mt-3">
         <% linkable_params = params.to_unsafe_hash %>

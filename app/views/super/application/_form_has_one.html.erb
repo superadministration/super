@@ -6,6 +6,6 @@
   %>
 
   <%= form.fields_for(form_has_one.reader) do |ff| %>
-    <%= render "form_fieldset", form_fieldset: form_has_one, form: ff %>
+    <%= super_render "form_fieldset", form_fieldset: form_has_one, form: ff %>
   <% end %>
 </div>

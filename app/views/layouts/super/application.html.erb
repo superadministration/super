@@ -28,15 +28,15 @@
 
   <body class="font-sans pb-4">
     <div class="px-4">
-      <%= render "site_header" %>
+      <%= super_render "site_header" %>
 
-      <%= render "flash" %>
+      <%= super_render "flash" %>
 
       <div class="pt-4"></div>
 
       <%= yield %>
 
-      <%= render "site_footer" %>
+      <%= super_render "site_footer" %>
     </div>
   </body>
 </html>

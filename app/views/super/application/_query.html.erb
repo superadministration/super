@@ -3,13 +3,13 @@
 
   <%= form_tag(query.path, method: :get, data: { controller: "clean-filter-params", action: "submit->clean-filter-params#call" }) do %>
     <% if filters_enabled? %>
-      <%= render @filter_form %>
+      <%= super_render @filter_form %>
     <% end %>
     <% if sort_enabled? %>
       <% if filters_enabled? %>
         <div class="mt-6"></div>
       <% end %>
-      <%= render @sort_form %>
+      <%= super_render @sort_form %>
     <% end %>
 
     <%= submit_tag("Apply", class: "super-button super-button--border-gray mt-6") %>

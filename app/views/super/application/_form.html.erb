@@ -1,7 +1,7 @@
 <%= super_form_for(form_record(@record), url: form_action(@record)) do |f| %>
   <div class="max-w-3xl">
     <% form.each_attribute do |field, type| %>
-      <%= render(
+      <%= super_render(
         type,
         form: f,
         column: field
