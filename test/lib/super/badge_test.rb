@@ -6,7 +6,7 @@ class BadgeTest < ActiveSupport::TestCase
   test %(Badge.new("text", style: :light)) do
     badge = build("text", style: :light)
 
-    assert_includes(badge.attr("class"), Super::Badge::STYLES[:light])
+    assert_includes(badge.attr("class"), Super::Badge::STYLES[:light].join(" "))
   end
 
   test %(Badge.new("test", style: :doesnt_exist)) do
