@@ -1,5 +1,6 @@
 --dir
 .
+--ignore=lib/super/sherbet.rb
 --ignore=vendor/
 --ignore=test/
 --ignore=super_test_engine/

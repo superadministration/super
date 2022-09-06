@@ -32,4 +32,3 @@ gem "sorbet", require: false
 gem "sorbet-runtime"
 gem "tapioca", require: false
 gem "spoom", require: false
-gem "sord", require: false

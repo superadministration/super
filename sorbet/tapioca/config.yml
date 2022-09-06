@@ -1,9 +1,8 @@
 gem:
   # Add your `gem` command parameters here:
   #
-  exclude:
-  - parlour
-  - sord
+  # exclude:
+  # - gem_name
   # doc: true
   # workers: 5
 dsl:

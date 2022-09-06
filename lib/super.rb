@@ -8,6 +8,8 @@ end
 
 require "rails/engine"
 
+require "super/sherbet"
+
 require "super/schema/common"
 require "super/useful/builder"
 require "super/useful/deprecations"
