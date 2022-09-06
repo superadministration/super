@@ -26,6 +26,25 @@ module Super
       chain.empty?
     end
 
+    def handle_super_render(template, local_assigns, &block)
+      name, current = shift
+      current = template.super_resolve_renderable(current)
+
+      if !current
+        Rails.logger.warn do
+          "Super::ViewChain encountered a nil view: #{name.inspect}."
+        end
+      end
+
+      if empty?
+        template.super_render(current)
+      else
+        template.super_render(current) do
+          template.concat(template.super_render(self))
+        end
+      end
+    end
+
     private
 
     def chain

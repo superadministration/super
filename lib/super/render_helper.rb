@@ -13,9 +13,19 @@ module Super::RenderHelper
         return render(*args, **kwargs, &block)
       when Super::Link
         return renderable.to_link(self, kwargs)
+      when Super::ViewChain
+        return renderable.handle_super_render(self, kwargs)
       end
     end
 
     render(*args, **kwargs, &block)
+  end
+
+  def super_resolve_renderable(renderable)
+    if renderable.kind_of?(Symbol)
+      instance_variable_get(renderable)
+    else
+      renderable
+    end
   end
 end

@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added the `file_field` form builder method
 * Speed up rendering `Super::Link`
+* Speed up rendering `Super::ViewChain`
 
 ## [0.21.0] - 2022-06-05
 
