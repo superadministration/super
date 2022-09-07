@@ -26,10 +26,10 @@ module Sherbet
         Sherbet.undefine if path == "sorbet-runtime"
         sherbet_previous_require(path)
       end
-      alias_method :sherbet_previous_require_relative, :require_relative
-      def require_relative(path)
+      sherbet_previous_require_relative = method(:require_relative)
+      define_method(:require_relative) do |path|
         Sherbet.undefine if path == "types/configuration"
-        sherbet_previous_require_relative(path)
+        sherbet_previous_require_relative.call(path)
       end
     end
   end
