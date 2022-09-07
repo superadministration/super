@@ -23,12 +23,14 @@ module Sherbet
     Kernel.class_eval do
       alias_method :sherbet_previous_require, :require
       def require(path)
+        puts "SHERBET REQUIRE: #{path}"
         Sherbet.undefine if path == "sorbet-runtime"
         sherbet_previous_require(path)
       end
     end
   end
   def self.undefine
+    puts "SHERBET UNDEFINE"
     if ::Object::T == Sherbet::T
       Object.__send__(:undef_const, :T)
     end
@@ -158,6 +160,7 @@ module Sherbet
   end
 end
 if !defined?(T)
+  puts "SHERBET DEFINED T"
   Sherbet.auto_undefine
   T = Sherbet::T
 end

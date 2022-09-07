@@ -3,82 +3,82 @@ name: Unit tests
 on: [push]
 
 jobs:
-  thorough_test:
-    strategy:
-      fail-fast: false
-      matrix:
-        gemfile:
-          - gemfiles/rails50_sprockets3_ruby23.gemfile
-          - gemfiles/rails50_sprockets3.gemfile
-          - gemfiles/rails51_sprockets3.gemfile
-          - gemfiles/rails52_sprockets4.gemfile
-          - gemfiles/rails60_sprockets4.gemfile
-          - gemfiles/rails60_webpacker4.gemfile
-          - gemfiles/rails60_webpacker5.gemfile
-          - gemfiles/rails61_sprockets4.gemfile
-          - gemfiles/rails61_webpacker5.gemfile
-          - gemfiles/rails70_sprockets4.gemfile
-        ruby:
-          - "2.3"
-          - "2.4"
-          - "2.5"
-          - "2.6"
-          - "2.7"
-          - "3.0"
-          - "3.1"
-        exclude:
-          - ruby: "2.3"
-          - ruby: "2.4"
-          - ruby: "2.5"
-          - ruby: "2.6"
-          - ruby: "2.7"
-          - ruby: "3.0"
-          - ruby: "3.1"
-        include:
-          - gemfile: gemfiles/rails50_sprockets3_ruby23.gemfile
-            ruby: "2.3"
-          - gemfile: gemfiles/rails50_sprockets3.gemfile
-            ruby: "2.4"
-          - gemfile: gemfiles/rails51_sprockets3.gemfile
-            ruby: "2.5"
-          - gemfile: gemfiles/rails52_sprockets4.gemfile
-            ruby: "2.5"
-          - gemfile: gemfiles/rails60_sprockets4.gemfile
-            ruby: "2.6"
-          - gemfile: gemfiles/rails60_webpacker4.gemfile
-            ruby: "2.6"
-          - gemfile: gemfiles/rails60_webpacker5.gemfile
-            ruby: "2.7"
-          - gemfile: gemfiles/rails60_sprockets4.gemfile
-            ruby: "2.7"
-          - gemfile: gemfiles/rails61_sprockets4.gemfile
-            ruby: "2.7"
-          - gemfile: gemfiles/rails61_webpacker5.gemfile
-            ruby: "2.7"
-          - gemfile: gemfiles/rails61_webpacker5.gemfile
-            ruby: "3.0"
-          - gemfile: gemfiles/rails70_sprockets4.gemfile
-            ruby: "2.7"
-          - gemfile: gemfiles/rails70_sprockets4.gemfile
-            ruby: "3.0"
-          - gemfile: gemfiles/rails70_sprockets4.gemfile
-            ruby: "3.1"
-    runs-on: ubuntu-latest
-    env:
-      BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
-      SELENIUM_CHROME: "true"
+  # thorough_test:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       gemfile:
+  #         - gemfiles/rails50_sprockets3_ruby23.gemfile
+  #         - gemfiles/rails50_sprockets3.gemfile
+  #         - gemfiles/rails51_sprockets3.gemfile
+  #         - gemfiles/rails52_sprockets4.gemfile
+  #         - gemfiles/rails60_sprockets4.gemfile
+  #         - gemfiles/rails60_webpacker4.gemfile
+  #         - gemfiles/rails60_webpacker5.gemfile
+  #         - gemfiles/rails61_sprockets4.gemfile
+  #         - gemfiles/rails61_webpacker5.gemfile
+  #         - gemfiles/rails70_sprockets4.gemfile
+  #       ruby:
+  #         - "2.3"
+  #         - "2.4"
+  #         - "2.5"
+  #         - "2.6"
+  #         - "2.7"
+  #         - "3.0"
+  #         - "3.1"
+  #       exclude:
+  #         - ruby: "2.3"
+  #         - ruby: "2.4"
+  #         - ruby: "2.5"
+  #         - ruby: "2.6"
+  #         - ruby: "2.7"
+  #         - ruby: "3.0"
+  #         - ruby: "3.1"
+  #       include:
+  #         - gemfile: gemfiles/rails50_sprockets3_ruby23.gemfile
+  #           ruby: "2.3"
+  #         - gemfile: gemfiles/rails50_sprockets3.gemfile
+  #           ruby: "2.4"
+  #         - gemfile: gemfiles/rails51_sprockets3.gemfile
+  #           ruby: "2.5"
+  #         - gemfile: gemfiles/rails52_sprockets4.gemfile
+  #           ruby: "2.5"
+  #         - gemfile: gemfiles/rails60_sprockets4.gemfile
+  #           ruby: "2.6"
+  #         - gemfile: gemfiles/rails60_webpacker4.gemfile
+  #           ruby: "2.6"
+  #         - gemfile: gemfiles/rails60_webpacker5.gemfile
+  #           ruby: "2.7"
+  #         - gemfile: gemfiles/rails60_sprockets4.gemfile
+  #           ruby: "2.7"
+  #         - gemfile: gemfiles/rails61_sprockets4.gemfile
+  #           ruby: "2.7"
+  #         - gemfile: gemfiles/rails61_webpacker5.gemfile
+  #           ruby: "2.7"
+  #         - gemfile: gemfiles/rails61_webpacker5.gemfile
+  #           ruby: "3.0"
+  #         - gemfile: gemfiles/rails70_sprockets4.gemfile
+  #           ruby: "2.7"
+  #         - gemfile: gemfiles/rails70_sprockets4.gemfile
+  #           ruby: "3.0"
+  #         - gemfile: gemfiles/rails70_sprockets4.gemfile
+  #           ruby: "3.1"
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
+  #     SELENIUM_CHROME: "true"
 
-    steps:
-    - uses: actions/checkout@v1
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - uses: actions/setup-node@v1
-      with:
-        node-version: "12.x"
-    - name: Thoroughly test
-      run: ruby bin/thoroughly_test.rb
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: ${{ matrix.ruby }}
+  #       bundler-cache: true
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: "12.x"
+  #   - name: Thoroughly test
+  #     run: ruby bin/thoroughly_test.rb
 
   test:
     runs-on: ubuntu-latest
