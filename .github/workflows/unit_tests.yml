@@ -93,4 +93,5 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: "12.x"
+    - run: bin/rails db:migrate
     - run: bin/rails test

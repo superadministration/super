@@ -31,11 +31,11 @@ module Sherbet
   end
   def self.undefine
     puts "SHERBET UNDEFINE"
-    if ::Object::T == Sherbet::T
+    if ::Object::T == Sherbet::Type
       Object.__send__(:undef_const, :T)
     end
   end
-  module T
+  module Type
     def self.type_parameter(name)
     end
     def self.must(arg)
@@ -162,5 +162,5 @@ end
 if !defined?(T)
   puts "SHERBET DEFINED T"
   Sherbet.auto_undefine
-  T = Sherbet::T
+  T = Sherbet::Type
 end
