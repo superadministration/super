@@ -3,7 +3,7 @@ name: Unit tests
 on: [push]
 
 jobs:
-  build:
+  thorough_test:
     strategy:
       fail-fast: false
       matrix:
@@ -79,3 +79,18 @@ jobs:
         node-version: "12.x"
     - name: Thoroughly test
       run: ruby bin/thoroughly_test.rb
+
+  test:
+    runs-on: ubuntu-latest
+    env:
+      SELENIUM_CHROME: "true"
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.0"
+        bundler-cache: true
+    - uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"
+    - run: bin/rails test
