@@ -23,19 +23,22 @@ module Sherbet
     Kernel.class_eval do
       alias_method :sherbet_previous_require, :require
       def require(path)
-        puts "SHERBET REQUIRE: #{path}"
         Sherbet.undefine if path == "sorbet-runtime"
         sherbet_previous_require(path)
+      end
+      alias_method :sherbet_previous_require_relative, :require_relative
+      def require_relative(path)
+        Sherbet.undefine if path == "types/configuration"
+        sherbet_previous_require_relative(path)
       end
     end
   end
   def self.undefine
-    puts "SHERBET UNDEFINE"
-    if ::Object::T == Sherbet::Type
+    if ::Object::T == Sherbet::Types
       Object.__send__(:undef_const, :T)
     end
   end
-  module Type
+  module Types
     def self.type_parameter(name)
     end
     def self.must(arg)
@@ -89,12 +92,12 @@ module Sherbet
     end
     module Utils
     end
-  module Enumerator
+    module Enumerator
       module Lazy
         def self.[](*)
         end
       end
-  end
+    end
     module AbstractUtils
     end
     module Generic
@@ -160,7 +163,6 @@ module Sherbet
   end
 end
 if !defined?(T)
-  puts "SHERBET DEFINED T"
   Sherbet.auto_undefine
-  T = Sherbet::Type
+  T = Sherbet::Types
 end
