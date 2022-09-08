@@ -4,6 +4,8 @@
 module Super
   class Filter
     class FormObject
+      include Query::FormObjectInterface
+
       class AttributeForm
         def initialize(model:, field_name:, operators:, params:)
           @model = model

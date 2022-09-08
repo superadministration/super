@@ -4,6 +4,8 @@
 module Super
   module Sort
     class FormObject
+      include Query::FormObjectInterface
+
       DIRECTIONS = ["asc", "desc"]
 
       def initialize(model:, params:, default:, sortable_columns:)
