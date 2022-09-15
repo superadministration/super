@@ -30,11 +30,11 @@ module Super
 
         alias_method :add, :push
 
-        def each
+        def each(&block)
           return enum_for(:each) if !block_given?
 
           @operators.each do |identifier, operator|
-            yield(
+            block.call(
               OperatorWithFieldTranscript.new(
                 operator,
                 @operator_transcript[identifier] || @fallback_transcript

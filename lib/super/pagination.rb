@@ -35,7 +35,7 @@ module Super
       pages > 1
     end
 
-    def each
+    def each(&block)
       if !block_given?
         return enum_for(:each)
       end
@@ -50,7 +50,7 @@ module Super
           page_query_params[@page_query_param] = pageno
         end
 
-        yield(page_query_params, is_current_page, display)
+        block.call(page_query_params, is_current_page, display)
       end
     end
 
