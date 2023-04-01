@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+bundle exec standardrb --config .remove_sorbet_standard.yml --fix || true

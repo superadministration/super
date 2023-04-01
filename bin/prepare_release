@@ -3,6 +3,8 @@
 set -e
 set -x
 
+bin/remove_sorbet
+
 bin/multitask run bundle install
 
 ruby \

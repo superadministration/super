@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/zachahn/rubocop-no_sorbet.git
+  revision: 6baabac52abb42fd85fcdf84cd702ae038a4d063
+  specs:
+    rubocop-no_sorbet (0.0.0)
+      rubocop
+
 PATH
   remote: .
   specs:
@@ -311,6 +318,7 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rails_anonymous_controller_testing
   rexml
+  rubocop-no_sorbet!
   rubocop-sorbet
   selenium-webdriver (~> 3.142)
   simplecov

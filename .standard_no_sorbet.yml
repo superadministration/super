@@ -1,0 +1,17 @@
+---
+require:
+  - rubocop-no_sorbet
+
+AllCops:
+  TargetRubyVersion: 2.4
+  DisabledByDefault: true
+  Exclude:
+    - "**/node_modules/**/*"
+    - "**/tmp/**/*"
+    - "**/vendor/**/*"
+    - "test/dummy/**/*"
+    - "super_test_engine/**/*"
+    - "sorbet/**/*"
+
+NoSorbet:
+  Enabled: Yes
