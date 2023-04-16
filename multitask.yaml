@@ -12,21 +12,12 @@ only_combinations:
   - name: rails52_sprockets4
     gemfile: gemfiles/rails52_sprockets4.gemfile
     ruby: "2.5.9"
-  - name: rails60_webpacker4
-    gemfile: gemfiles/rails60_webpacker4.gemfile
-    ruby: "2.6.9"
-  - name: rails60_webpacker5
-    gemfile: gemfiles/rails60_webpacker5.gemfile
-    ruby: "2.7.2"
   - name: rails60_sprockets4
     gemfile: gemfiles/rails60_sprockets4.gemfile
     ruby: "2.7.2"
   - name: rails61_sprockets4
     gemfile: gemfiles/rails61_sprockets4.gemfile
     ruby: "2.7.2"
-  - name: rails61_webpacker5
-    gemfile: gemfiles/rails61_webpacker5.gemfile
-    ruby: "3.0.3"
   - name: rails70_sprockets4
     gemfile: gemfiles/rails70_sprockets4.gemfile
     ruby: "3.1.0"

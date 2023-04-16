@@ -7,11 +7,7 @@ SUPER_RAILS_ROOTS = {
   "rails51_sprockets3" => "test/dummy/rails51_sprockets3",
   "rails52_sprockets4" => "test/dummy/rails52_sprockets4",
   "rails60_sprockets4" => "test/dummy/rails60_sprockets4",
-  "rails60_webpacker4" => "test/dummy/rails60_webpacker4",
-  "rails60_webpacker5" => "test/dummy/rails60_webpacker5",
   "rails61_sprockets4" => "test/dummy/rails61_sprockets4",
-  "rails61_webpacker5" => "test/dummy/rails61_webpacker5",
-  "rails61_webpacker6" => "test/dummy/rails61_webpacker6",
   "rails70_sprockets4" => "test/dummy/rails70_sprockets4",
 }
 
