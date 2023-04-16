@@ -20,7 +20,7 @@ module Super
       def unfurl(responds_to_each_attribute)
         responds_to_each_attribute.each_attribute.map do |name, type|
           if type.nested_fields&.any?
-            { name => [:id, *unfurl(type)] }
+            {name => [:id, *unfurl(type)]}
           else
             name
           end

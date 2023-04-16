@@ -18,7 +18,7 @@ module Super
         ),
         aside: Super::ViewChain.new(
           query_panel: Super::Panel.new,
-          query: query,
+          query: query
         )
       )
     end

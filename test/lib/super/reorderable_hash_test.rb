@@ -28,8 +28,8 @@ class ReorderableHashTest < ActiveSupport::TestCase
   test "[]=" do
     rehash = Super::ReorderableHash.new
     rehash[:foo, {}] = 2
-    rehash[:bar, { after: :foo }] = 1
-    rehash[:baz, { before: :bar }] = 3
+    rehash[:bar, {after: :foo}] = 1
+    rehash[:baz, {before: :bar}] = 3
     rehash.order(:baz, after: :foo)
     assert_equal(%i[foo baz bar], rehash.keys)
   end
@@ -45,7 +45,7 @@ class ReorderableHashTest < ActiveSupport::TestCase
     rehash.each do |key, value|
       resulting[key] = value
     end
-    assert_equal({ foo: 1, bar: 2, baz: 3 }, resulting)
-    assert_equal({ foo: 1, bar: 2, baz: 3 }, rehash.each.to_a.to_h)
+    assert_equal({foo: 1, bar: 2, baz: 3}, resulting)
+    assert_equal({foo: 1, bar: 2, baz: 3}, rehash.each.to_a.to_h)
   end
 end

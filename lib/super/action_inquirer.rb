@@ -24,24 +24,44 @@ module Super
         "delete" => %w[destroy],
 
         "collection" => %w[index new create],
-        "member" => %w[show edit update destroy],
+        "member" => %w[show edit update destroy]
       }
     end
 
     # @return [ActionInquirer]
-    def self.index!; new(default_for_resources, "index"); end
+    def self.index!
+      new(default_for_resources, "index")
+    end
+
     # @return [ActionInquirer]
-    def self.show!; new(default_for_resources, "show"); end
+    def self.show!
+      new(default_for_resources, "show")
+    end
+
     # @return [ActionInquirer]
-    def self.new!; new(default_for_resources, "new"); end
+    def self.new!
+      new(default_for_resources, "new")
+    end
+
     # @return [ActionInquirer]
-    def self.edit!; new(default_for_resources, "edit"); end
+    def self.edit!
+      new(default_for_resources, "edit")
+    end
+
     # @return [ActionInquirer]
-    def self.create!; new(default_for_resources, "create"); end
+    def self.create!
+      new(default_for_resources, "create")
+    end
+
     # @return [ActionInquirer]
-    def self.update!; new(default_for_resources, "update"); end
+    def self.update!
+      new(default_for_resources, "update")
+    end
+
     # @return [ActionInquirer]
-    def self.destroy!; new(default_for_resources, "destroy"); end
+    def self.destroy!
+      new(default_for_resources, "destroy")
+    end
 
     def initialize(categories_and_their_actions, action)
       @categories = categories_and_their_actions.keys.map(&:to_s)

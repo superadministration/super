@@ -11,7 +11,7 @@ jobs:
         with:
           ruby-version: "2.7"
           bundler-cache: true
-      - run: bin/rubocop
+      - run: bin/standardrb --parallel
   js:
     runs-on: ubuntu-latest
     steps:

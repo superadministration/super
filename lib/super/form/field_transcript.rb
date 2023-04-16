@@ -38,6 +38,10 @@ module Super
         @kwargs = kwargs
         @method_name
       end
+
+      def respond_to_missing?(*, **)
+        true
+      end
     end
   end
 end

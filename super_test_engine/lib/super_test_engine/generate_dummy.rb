@@ -51,7 +51,7 @@ class SuperDummyGenerator < Rails::Generators::Base
       skip_action_cable: true,
       skip_coffee: true,
       database: "sqlite3",
-      full: true,
+      full: true
     }
 
     Dir.mktmpdir do |dir|

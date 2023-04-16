@@ -30,8 +30,8 @@ module Super
       assert_equal(
         [
           :name,
-          { widgets_attributes: [:id, :knob, :lever, :display, :_destroy] },
-          { buttons_attributes: [:id, :label] },
+          {widgets_attributes: [:id, :knob, :lever, :display, :_destroy]},
+          {buttons_attributes: [:id, :label]}
         ],
         Form::StrongParams.new(form).permit
       )
@@ -54,8 +54,8 @@ module Super
       assert_equal(
         [
           :name,
-          { widget_attributes: [:id, :knob, :lever, :display, :_destroy] },
-          { button_attributes: [:id, :label] },
+          {widget_attributes: [:id, :knob, :lever, :display, :_destroy]},
+          {button_attributes: [:id, :label]}
         ],
         Form::StrongParams.new(form).permit
       )

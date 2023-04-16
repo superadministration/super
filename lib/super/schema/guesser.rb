@@ -21,7 +21,7 @@ module Super
       end
 
       def ignore_foreign_keys
-        @rejects.push(-> (attribute_name) { is_foreign_key[attribute_name] })
+        @rejects.push(->(attribute_name) { is_foreign_key[attribute_name] })
         self
       end
 
@@ -69,10 +69,10 @@ module Super
       def is_foreign_key
         @is_foreign_key ||=
           @model
-          .reflect_on_all_associations
-          .select { |a| a.macro == :belongs_to }
-          .map { |a| [a.foreign_key, true] }
-          .to_h
+            .reflect_on_all_associations
+            .select { |a| a.macro == :belongs_to }
+            .map { |a| [a.foreign_key, true] }
+            .to_h
       end
     end
   end

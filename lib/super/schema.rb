@@ -41,7 +41,7 @@ module Super
       end
 
       def each(&block)
-        if block_given?
+        if block
           return @backing.each(&block)
         end
 
@@ -65,7 +65,7 @@ module Super
         inside = {}
         @backing = inside
         yield
-        return inside
+        inside
       ensure
         @backing = outside
         inside

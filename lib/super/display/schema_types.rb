@@ -12,16 +12,30 @@ module Super
           @transform_block = block
         end
 
-        builder def real; @real = true; end
-        builder def computed; @real = false; end
+        builder def real
+          @real = true
+        end
+        builder def computed
+          @real = false
+        end
 
-        builder def attribute; @type = :attribute; end
-        builder def record; @type = :record; end
-        builder def none; @type = :none; end
+        builder def attribute
+          @type = :attribute
+        end
+        builder def record
+          @type = :record
+        end
+        builder def none
+          @type = :none
+        end
 
-        builder def ignore_nil; @ignore_nil = true; end
+        builder def ignore_nil
+          @ignore_nil = true
+        end
 
-        builder def attribute_name(name); @attribute_name = name; end
+        builder def attribute_name(name) # standard:disable Style/TrivialAccessors
+          @attribute_name = name
+        end
 
         def build
           Built.new(
@@ -43,7 +57,9 @@ module Super
           @transform_block = transform_block
         end
 
-        def real?; @real; end
+        def real?
+          @real
+        end
         attr_reader :type
         attr_reader :attribute_name
 
@@ -75,8 +91,8 @@ module Super
         TYPES
           .case(type)
           .when(:attribute) { Builder.new.real.ignore_nil.attribute.transform(&transform_block) }
-          .when(:record)    { Builder.new.real.ignore_nil.record.transform(&transform_block) }
-          .when(:none)      { Builder.new.real.ignore_nil.none.transform(&transform_block) }
+          .when(:record) { Builder.new.real.ignore_nil.record.transform(&transform_block) }
+          .when(:none) { Builder.new.real.ignore_nil.none.transform(&transform_block) }
           .result
       end
 
@@ -84,8 +100,8 @@ module Super
         TYPES
           .case(type)
           .when(:attribute) { Builder.new.computed.ignore_nil.attribute.transform(&transform_block) }
-          .when(:record)    { Builder.new.computed.ignore_nil.record.transform(&transform_block) }
-          .when(:none)      { Builder.new.computed.ignore_nil.none.transform(&transform_block) }
+          .when(:record) { Builder.new.computed.ignore_nil.record.transform(&transform_block) }
+          .when(:none) { Builder.new.computed.ignore_nil.none.transform(&transform_block) }
           .result
       end
 
@@ -95,18 +111,25 @@ module Super
 
       def batch
         real do |value|
-          Partial.new("batch_checkbox", locals: { value: value })
+          Partial.new("batch_checkbox", locals: {value: value})
         end
       end
 
-      def string; real(&:to_s); end
+      def string
+        real(&:to_s)
+      end
 
-      def timestamp; real(&:to_s); end
-      def time; real { |value| value.strftime("%H:%M:%S") }; end
+      def timestamp
+        real(&:to_s)
+      end
+
+      def time
+        real { |value| value.strftime("%H:%M:%S") }
+      end
 
       def rich_text
         computed do |value|
-          Partial.new("display_rich_text", locals: { rich_text: value })
+          Partial.new("display_rich_text", locals: {rich_text: value})
         end
       end
 

@@ -44,8 +44,8 @@ module Super
           query_parameter_keys = [NULLARY] if query_parameter_keys.empty?
           @specified_values =
             query_parameter_keys
-            .map { |key| [key, @params[key].presence&.strip] }
-            .to_h
+              .map { |key| [key, @params[key].presence&.strip] }
+              .to_h
 
           @specified_values.each do |key, value|
             define_singleton_method(key) { value }

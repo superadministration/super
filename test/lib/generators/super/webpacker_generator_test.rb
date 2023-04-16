@@ -8,7 +8,12 @@ class Super::WebpackerGeneratorTest < Rails::Generators::TestCase
   teardown do
     package_path = Rails.root.join("package.json")
     yarn_path = Rails.root.join("yarn.lock")
-    package_json = JSON.parse(package_path.read) rescue {}
+    package_json =
+      begin
+        JSON.parse(package_path.read)
+      rescue
+        {}
+      end
     if package_json.keys.size == 1 && package_json.dig("dependencies", "@superadministration/super")
       package_path.delete
       yarn_path.delete if yarn_path.exist?

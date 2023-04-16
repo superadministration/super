@@ -8,14 +8,14 @@ class FormTest < ActionView::TestCase
     member.name = nil
     member.valid?
 
-    concat_form_for([:admin, members(:picard)], html: { class: "first" }) do |f|
+    concat_form_for([:admin, members(:picard)], html: {class: "first"}) do |f|
       f.text_field :name
     end
     assert_select "form.first" do
       assert_select ".field_with_errors"
     end
 
-    concat_super_form_for([:admin, members(:picard)], html: { class: "second" }) do |f|
+    concat_super_form_for([:admin, members(:picard)], html: {class: "second"}) do |f|
       f.text_field :name
     end
     assert_select "form.second" do

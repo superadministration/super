@@ -28,7 +28,7 @@ module Super
           nil
         end
 
-        alias add push
+        alias_method :add, :push
 
         def each
           return enum_for(:each) if !block_given?

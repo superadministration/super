@@ -30,14 +30,14 @@ module Super
 
       def check_box!(attribute, checked_value: "1", unchecked_value: "0", label_text: nil, label: {}, field: {}, show_errors: true)
         label[:super] ||= {}
-        label[:super] = { class: "select-none ml-1" }.merge(label[:super])
+        label[:super] = {class: "select-none ml-1"}.merge(label[:super])
         container do
           compact_join([
             "<div>".html_safe,
             public_send(:check_box, attribute, field, checked_value, unchecked_value),
             public_send(:label, attribute, label_text, label),
             "</div>".html_safe,
-            show_errors && inline_errors(attribute),
+            show_errors && inline_errors(attribute)
           ])
         end
       end

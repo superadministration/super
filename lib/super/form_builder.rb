@@ -19,7 +19,7 @@ module Super
   # https://api.rubyonrails.org/classes/ActionView/Helpers/FormBuilder.html
   class FormBuilder < ActionView::Helpers::FormBuilder
     FIELD_ERROR_PROC = proc { |html_tag, instance| html_tag }
-    FORM_BUILDER_DEFAULTS = { builder: self }.freeze
+    FORM_BUILDER_DEFAULTS = {builder: self}.freeze
 
     def super(**options)
       @super_wrappers ||= Wrappers.new(self, @template)
@@ -68,29 +68,27 @@ module Super
           elsif type == :block
             definition_last.push("&#{name}")
             call_last.push("&#{name}")
-          else
-            if type == :req
-              definition.push(name.to_s)
-              call.push(name.to_s)
-            elsif type == :opt || type == :key
-              if !optionals.key?(name)
-                raise Super::Error::ArgumentError, "Form bang method has optional argument, but doesn't know the default value: #{name}"
-              end
-
-              default_value = optionals[name]
-
-              if type == :opt
-                definition.push("#{name} = #{default_value}")
-                call.push(name.to_s)
-              elsif type == :key
-                definition.push("#{name}: #{default_value}")
-                call.push("#{name}: #{name}")
-              else
-                raise Super::Error::ArgumentError, "Form bang method has a unprocessable argument with name #{name}"
-              end
-            else
-              raise Super::Error::ArgumentError, "Form bang method has keyword argument type #{type} and name #{name}"
+          elsif type == :req
+            definition.push(name.to_s)
+            call.push(name.to_s)
+          elsif type == :opt || type == :key
+            if !optionals.key?(name)
+              raise Super::Error::ArgumentError, "Form bang method has optional argument, but doesn't know the default value: #{name}"
             end
+
+            default_value = optionals[name]
+
+            if type == :opt
+              definition.push("#{name} = #{default_value}")
+              call.push(name.to_s)
+            elsif type == :key
+              definition.push("#{name}: #{default_value}")
+              call.push("#{name}: #{name}")
+            else
+              raise Super::Error::ArgumentError, "Form bang method has a unprocessable argument with name #{name}"
+            end
+          else
+            raise Super::Error::ArgumentError, "Form bang method has keyword argument type #{type} and name #{name}"
           end
         end
 

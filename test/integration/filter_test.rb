@@ -46,7 +46,6 @@ class FilterFrontendIntegrationTest < CapybaraTest
       find_field("f_created_at_between_q1").click
       set_date!(members(:picard).created_at.in_time_zone("America/New_York") + 1.day)
       set_time!(members(:picard).created_at.in_time_zone("America/New_York") + 1.day)
-      members(:picard).created_at.in_time_zone("America/New_York") + 1.day
       click_button "Apply"
       assert_equal(1, page.find_all("tbody tr").size)
       assert(page.has_content?("Jean-Luc Picard"))

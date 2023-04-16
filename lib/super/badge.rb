@@ -9,7 +9,7 @@ module Super
       yellow: "bg-yellow-400 text-black",
       green: "bg-green-700 text-white",
       blue: "bg-blue-700 text-white",
-      purple: "bg-purple-800 text-white",
+      purple: "bg-purple-800 text-white"
     }
 
     def initialize(text, style:)

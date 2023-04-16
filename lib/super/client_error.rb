@@ -6,9 +6,13 @@ module Super
   # See also `Super::Error`
   class ClientError < StandardError
     class BadRequest < ClientError; end
+
     class Unauthorized < ClientError; end
+
     class Forbidden < ClientError; end
+
     class NotFound < ClientError; end
+
     class UnprocessableEntity < ClientError; end
 
     module Handling

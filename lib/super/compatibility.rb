@@ -34,6 +34,10 @@ module Super
               def method_missing(method_name)
                 Rails.application.routes.url_helpers.public_send(method_name)
               end
+
+              def respond_to_missing?(*args, **kwargs)
+                Rails.application.routes.url_helpers.respond_to?(*args, **kwargs)
+              end
             end
 
             klass.new

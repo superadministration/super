@@ -10,7 +10,7 @@ module Super
       _generate_paths_by_default: true,
 
       # Defined in Super::SubstructureController
-      page_title: true,
+      page_title: true
 
       # Keep all of the ones in Super::SitewideController
     }

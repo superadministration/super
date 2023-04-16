@@ -24,7 +24,7 @@ module Super
         end
 
         def when(*keys, &block)
-          if !block_given?
+          if !block
             raise Error::ArgumentError, "must receive block"
           end
 

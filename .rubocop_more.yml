@@ -1,0 +1,9 @@
+---
+AllCops:
+  DisabledByDefault: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: Yes
+  Exclude:
+    - "gemfiles/**/*"
+    - "test/**/*"

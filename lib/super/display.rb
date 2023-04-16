@@ -27,7 +27,7 @@ module Super
 
     def initialize
       @fields = Super::Schema::Fields.new(
-        transform_value_on_set: -> (val) { if val.respond_to?(:build) then val.build else val end }
+        transform_value_on_set: ->(val) { val.respond_to?(:build) ? val.build : val }
       )
       @schema_types = SchemaTypes.new(fields: @fields)
 
@@ -62,18 +62,18 @@ module Super
 
       formatted =
         SchemaTypes::TYPES
-        .case(formatter.type)
-        .when(:record) do
-          formatter.present(column, record)
-        end
-        .when(:attribute) do
-          value = record.public_send(column)
-          formatter.present(column, value)
-        end
-        .when(:none) do
-          formatter.present(column)
-        end
-        .result
+          .case(formatter.type)
+          .when(:record) do
+            formatter.present(column, record)
+          end
+          .when(:attribute) do
+            value = record.public_send(column)
+            formatter.present(column, value)
+          end
+          .when(:none) do
+            formatter.present(column)
+          end
+          .result
 
       if formatted.respond_to?(:to_partial_path)
         if formatted.respond_to?(:locals)

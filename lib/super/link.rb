@@ -26,24 +26,24 @@ module Super
       @registry ||= {}.tap do |reg|
         reg[:new] = LinkBuilder.new
           .text { |params:| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.new") }
-          .href { |params:| { controller: params[:controller], action: :new, only_path: true } }
+          .href { |params:| {controller: params[:controller], action: :new, only_path: true} }
           .freeze
         reg[:index] = LinkBuilder.new
           .text { |params:| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.index") }
-          .href { |params:| { controller: params[:controller], action: :index, only_path: true } }
+          .href { |params:| {controller: params[:controller], action: :index, only_path: true} }
           .freeze
         reg[:show] = LinkBuilder.new
           .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.show") }
-          .href { |params:, record:| { controller: params[:controller], action: :show, id: record, only_path: true } }
+          .href { |params:, record:| {controller: params[:controller], action: :show, id: record, only_path: true} }
           .freeze
         reg[:edit] = LinkBuilder.new
           .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.edit") }
-          .href { |params:, record:| { controller: params[:controller], action: :edit, id: record, only_path: true } }
+          .href { |params:, record:| {controller: params[:controller], action: :edit, id: record, only_path: true} }
           .freeze
         reg[:destroy] = LinkBuilder.new
           .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.destroy") }
-          .href { |params:, record:| { controller: params[:controller], action: :destroy, id: record, only_path: true } }
-          .options { |**| { method: :delete, data: { confirm: "Really delete?" } } }
+          .href { |params:, record:| {controller: params[:controller], action: :destroy, id: record, only_path: true} }
+          .options { |**| {method: :delete, data: {confirm: "Really delete?"}} }
           .freeze
       end
     end

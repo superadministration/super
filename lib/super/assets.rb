@@ -16,7 +16,7 @@ module Super
     end
 
     def self.use_webpacker(assets, grep: nil)
-      assets = [assets] if !assets.kind_of?(Array)
+      assets = [assets] if !assets.is_a?(Array)
 
       assets.map do |asset|
         grep_matches = grep && asset === grep
@@ -29,7 +29,7 @@ module Super
     end
 
     def self.use_sprockets(assets, grep: nil)
-      assets = [assets] if !assets.kind_of?(Array)
+      assets = [assets] if !assets.is_a?(Array)
 
       assets.map do |asset|
         grep_matches = grep && asset === grep

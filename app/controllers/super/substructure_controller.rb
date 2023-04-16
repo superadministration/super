@@ -42,7 +42,7 @@ module Super
     helper_method def page_title
       model.name.pluralize
     rescue Error::NotImplementedError, NameError
-      return nil
+      nil
     end
 
     # Configures what database records are visible on load. This is an optional
@@ -161,10 +161,6 @@ module Super
     end
 
     helper_method def sortable_columns
-      action = ActionInquirer.new(
-        ActionInquirer.default_for_resources,
-        "index"
-      )
       attribute_names =
         display_schema.each_attribute.map do |key, val|
           val = val.build if val.respond_to?(:build)
@@ -175,7 +171,7 @@ module Super
     end
 
     helper_method def default_sort
-      { id: :desc }
+      {id: :desc}
     end
 
     # Specifies how many records to show per page
@@ -191,8 +187,7 @@ module Super
     end
 
     helper_method def batch_actions
-      [
-      ]
+      []
     end
 
     def load_records
@@ -225,7 +220,7 @@ module Super
       @query ||= Super::Query.new(
         model: model,
         params: request.GET,
-        current_path: request.path,
+        current_path: request.path
       )
     end
 

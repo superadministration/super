@@ -7,7 +7,7 @@ class LinkTest < ActiveSupport::TestCase
       {
         default: [
           :"super.admin.actions.new",
-          :"super.actions.new",
+          :"super.actions.new"
         ]
       }
     ]
@@ -15,13 +15,13 @@ class LinkTest < ActiveSupport::TestCase
     link = Super::Link.new(i18n, "/admin/members/new", class: "foo")
     assert_equal("New", link.text)
     assert_equal("/admin/members/new", link.href)
-    assert_equal({ class: "foo" }, link.options)
+    assert_equal({class: "foo"}, link.options)
   end
 
   test "it converts Hash href to a url string" do
-    link = Super::Link.new("New", { controller: "admin/members", action: :new, only_path: true }, class: "foo")
+    link = Super::Link.new("New", {controller: "admin/members", action: :new, only_path: true}, class: "foo")
     assert_equal("New", link.text)
     assert_equal("/admin/members/new", link.href)
-    assert_equal({ class: "foo" }, link.options)
+    assert_equal({class: "foo"}, link.options)
   end
 end

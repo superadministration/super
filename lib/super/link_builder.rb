@@ -20,10 +20,10 @@ module Super
       raise Super::Error::IncompleteBuilder, "LinkBuilder requires that #text is set" if @text.nil?
       raise Super::Error::IncompleteBuilder, "LinkBuilder requires that #href is set" if @href.nil?
 
-      @options ||= -> (**) { {} }
-      @process_text ||= -> (t) { t }
-      @process_href ||= -> (h) { h }
-      @process_options ||= -> (o) { o }
+      @options ||= ->(**) { {} }
+      @process_text ||= ->(t) { t }
+      @process_href ||= ->(h) { h }
+      @process_options ||= ->(o) { o }
 
       Super::Link.new(
         @process_text.call(@text.call(**kwargs)),

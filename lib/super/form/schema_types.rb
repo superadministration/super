@@ -79,7 +79,7 @@ module Super
           end
 
           if @extras.key?(:reader)
-            return @extras[:reader].to_s.singularize.humanize
+            @extras[:reader].to_s.singularize.humanize
           end
         end
 
@@ -142,7 +142,7 @@ module Super
       end
 
       def self.define_schema_type_for(method_name)
-        class_eval(<<~RUBY)
+        class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
           def #{method_name}(*args, **kwargs)
             Direct.new(super_builder: true, method_name: :#{method_name}!, args: args, kwargs: kwargs)
           end

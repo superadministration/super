@@ -9,7 +9,7 @@ class Super::Useful::I19Test < ActiveSupport::TestCase
         :"a.1.2.3.z",
         :"a.1.2.z",
         :"a.1.z",
-        :"a.z",
+        :"a.z"
       ],
       result
     )

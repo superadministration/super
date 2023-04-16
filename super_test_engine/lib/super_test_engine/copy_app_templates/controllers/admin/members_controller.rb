@@ -40,7 +40,7 @@ class Admin::MembersController < AdminController
       fields[:rank] = type.select(Member.ranks.keys)
       fields[:position] = type.text_field
       fields[:ship_id] = type.select(
-        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] }
       )
 
       fields[:favorite_things_attributes] = type.has_many(:favorite_things) do |ftaf|
@@ -56,7 +56,7 @@ class Admin::MembersController < AdminController
       fields[:rank] = type.select(Member.ranks.values)
       fields[:position] = type.text
       fields[:ship_id] = type.select(
-        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] },
+        Ship.all.map { |s| ["#{s.name} (Ship ##{s.id})", s.id] }
       )
       fields[:created_at] = type.timestamp
       fields[:updated_at] = type.timestamp
@@ -68,12 +68,12 @@ class Admin::MembersController < AdminController
   end
 
   def default_sort
-    { id: :asc }
+    {id: :asc}
   end
 
   def batch_actions
     [
-      Super::Link.new("No-op", batch_noop_admin_members_path, method: :post),
+      Super::Link.new("No-op", batch_noop_admin_members_path, method: :post)
     ]
   end
 end

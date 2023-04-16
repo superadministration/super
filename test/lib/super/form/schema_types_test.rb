@@ -11,16 +11,18 @@ module FormSchemaTypesTests
 
   class CollectionCheckBoxesTest < FormIntegration
     controller(Super::ApplicationController) do
-      def model; Sink; end
+      def model
+        Sink
+      end
 
       def form_schema
         choices = {
           lorem: :ipsum,
           dolor: :sit,
-          amet: :consecutor,
+          amet: :consecutor
         }
         Super::Form.new do |f, type|
-          f[:string_column] = type.collection_check_boxes(choices, :first, :last, field: { include_hidden: false }, field_html: {})
+          f[:string_column] = type.collection_check_boxes(choices, :first, :last, field: {include_hidden: false}, field_html: {})
         end
       end
     end
@@ -28,7 +30,7 @@ module FormSchemaTypesTests
     def test_it
       get "/anonymous/new"
       # Rails 5.x seems to add a hidden `utf8` input
-      assert_equal(0, form.css("input[type=hidden]").select { |i| i.attr("name") != "utf8" }.size)
+      assert_equal(0, form.css("input[type=hidden]").count { |i| i.attr("name") != "utf8" })
       assert_equal(["lorem", "dolor", "amet"], form.css("input[type=checkbox]").map { |i| i.attr("value") })
       assert_equal(["String column", "ipsum", "sit", "consecutor"], form.css("label").map(&:text))
     end
@@ -36,7 +38,9 @@ module FormSchemaTypesTests
 
   class SelectTest < FormIntegration
     controller(Super::ApplicationController) do
-      def model; Sink; end
+      def model
+        Sink
+      end
 
       def form_schema
         Super::Form.new do |f, type|
@@ -53,7 +57,9 @@ module FormSchemaTypesTests
 
   class CheckBoxTest < FormIntegration
     controller(Super::ApplicationController) do
-      def model; Sink; end
+      def model
+        Sink
+      end
 
       def form_schema
         Super::Form.new do |f, type|
@@ -82,7 +88,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
           partial_path: "cool_partial_path",
           extras: {},
           nested: {}
-        ),
+        )
       },
       result.instance_variable_get(:@fields).to_h
     )
@@ -99,7 +105,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
       {
         widgets_attributes: Super::Form::SchemaTypes::Generic.new(
           partial_path: "form_has_many",
-          extras: { reader: :widgets },
+          extras: {reader: :widgets},
           nested: {
             name: Super::Form::SchemaTypes::Generic.new(
               partial_path: "cool_partial_path",
@@ -124,7 +130,7 @@ class FormSchemaTypesTest < ActiveSupport::TestCase
       {
         widgets_attributes: Super::Form::SchemaTypes::Generic.new(
           partial_path: "form_has_many",
-          extras: { reader: :widgets },
+          extras: {reader: :widgets},
           nested: {
             name: Super::Form::SchemaTypes::Generic.new(
               partial_path: "cool_partial_path",

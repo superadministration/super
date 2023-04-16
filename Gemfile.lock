@@ -103,6 +103,8 @@ GEM
     i18n-debug (1.2.0)
       i18n (< 2)
     json (2.6.3)
+    language_server-protocol (3.17.0.3)
+    lint_roller (1.0.0)
     loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -138,7 +140,7 @@ GEM
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parallel (1.23.0)
-    parser (3.2.2.0)
+    parser (3.2.2.1)
       ast (~> 2.4.1)
     path_expander (1.1.1)
     pry (0.14.2)
@@ -197,6 +199,9 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.28.0)
       parser (>= 3.2.1.0)
+    rubocop-performance (1.16.0)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -217,6 +222,17 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.4)
+    standard (1.28.0)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.50.2)
+      standard-custom (~> 1.0.0)
+      standard-performance (~> 1.0.1)
+    standard-custom (1.0.0)
+      lint_roller (~> 1.0)
+    standard-performance (1.0.1)
+      lint_roller (~> 1.0)
+      rubocop-performance (~> 1.16.0)
     thor (1.2.1)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -248,11 +264,11 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rails_anonymous_controller_testing
   rexml
-  rubocop (~> 1.0)
   selenium-webdriver (~> 3.142)
   simplecov
   sprockets-rails (~> 3.4)
   sqlite3 (~> 1.4.0)
+  standard
   super!
   webdrivers (~> 4.3)
   yard

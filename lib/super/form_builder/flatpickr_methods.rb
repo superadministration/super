@@ -10,7 +10,7 @@ module Super
           data: {
             controller: "flatpickr",
             flatpickr_options_value: {
-              dateFormat: "Y-m-d",
+              dateFormat: "Y-m-d"
             }
           }
         )
@@ -33,7 +33,7 @@ module Super
             flatpickr_options_value: {
               enableSeconds: true,
               enableTime: true,
-              dateFormat: "Z",
+              dateFormat: "Z"
             }
           }
         )
@@ -57,7 +57,7 @@ module Super
               enableSeconds: true,
               enableTime: true,
               noCalendar: true,
-              dateFormat: "H:i:S",
+              dateFormat: "H:i:S"
             }
           }
         )

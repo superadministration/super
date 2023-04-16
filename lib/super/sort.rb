@@ -99,7 +99,7 @@ module Super
         @default.map do |attribute_name, direction|
           {
             a: attribute_name,
-            d: direction,
+            d: direction
           }
         end
       end

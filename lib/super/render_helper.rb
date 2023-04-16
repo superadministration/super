@@ -22,7 +22,7 @@ module Super::RenderHelper
   end
 
   def super_resolve_renderable(renderable)
-    if renderable.kind_of?(Symbol)
+    if renderable.is_a?(Symbol)
       instance_variable_get(renderable)
     else
       renderable

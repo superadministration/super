@@ -6,8 +6,16 @@ class PackagedAssetTest < ActiveSupport::TestCase
     @package_json_path = Pathname.new(@package_json.path)
   end
   teardown do
-    @package_json.close rescue nil
-    @package_json.unlink rescue nil
+    begin
+      @package_json.close
+    rescue
+      nil
+    end
+    begin
+      @package_json.unlink
+    rescue
+      nil
+    end
   end
 
   def package_json_write(contents)
@@ -21,17 +29,17 @@ class PackagedAssetTest < ActiveSupport::TestCase
   end
 
   test "it's true when it's an exact match" do
-    package_json_write({ dependencies: { "@superadministration/super" => Super::VERSION } }.to_json)
+    package_json_write({dependencies: {"@superadministration/super" => Super::VERSION}}.to_json)
     assert_equal(true, Super::PackagedAsset.version_matches_gem?(@package_json_path))
   end
 
   test "it's true when major, minor, and patch match" do
-    package_json_write({ dependencies: { "@superadministration/super" => "#{Super::VERSION}.1" } }.to_json)
+    package_json_write({dependencies: {"@superadministration/super" => "#{Super::VERSION}.1"}}.to_json)
     assert_equal(true, Super::PackagedAsset.version_matches_gem?(@package_json_path))
   end
 
   test "it's false when major, minor, or patch don't match" do
-    package_json_write({ dependencies: { "@superadministration/super" => "1#{Super::VERSION}" } }.to_json)
+    package_json_write({dependencies: {"@superadministration/super" => "1#{Super::VERSION}"}}.to_json)
     assert_equal(false, Super::PackagedAsset.version_matches_gem?(@package_json_path))
   end
 end

@@ -27,8 +27,8 @@ module Super
       end
 
       def classes_ordered
-        each_node = -> (&b) { @ordering.each_key(&b) }
-        each_child = -> (cb, &b) { @ordering[cb].each(&b) }
+        each_node = ->(&b) { @ordering.each_key(&b) }
+        each_child = ->(cb, &b) { @ordering[cb].each(&b) }
 
         TSort.tsort(each_node, each_child)
       end

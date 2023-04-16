@@ -18,10 +18,10 @@ Gem::Specification.new do |spec|
     "changelog_uri" => "https://github.com/superadministration/super/blob/main/CHANGELOG.md",
     "documentation_uri" => "https://superadministration.github.io/",
     "homepage_uri" => "https://github.com/superadministration/super",
-    "source_code_uri" => "https://github.com/superadministration/super",
+    "source_code_uri" => "https://github.com/superadministration/super"
   }
 
-  spec.files = Dir[
+  files = Dir[
     "{app,config,db,lib,docs}/**/*",
     "frontend/*/dist/**/*",
     "LICENSE",
@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
     ".yardopts",
   ]
 
-  spec.files = spec.files.select { |path| File.file?(path) }
+  spec.files = files.select { |path| File.file?(path) }
   spec.required_ruby_version = ">= 2.3.0"
 
   rails_versions = ">= 5.0"

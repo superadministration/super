@@ -49,7 +49,7 @@ class FlatpickrTest < CapybaraTest
       sink = Sink.last
       expected = tomorrow.dup.in_time_zone("UTC")
       assert_equal(expected, sink.datetime_column)
-      assert_match(/Datetime column #{expected.to_s}\b/, page.first("table").text)
+      assert_match(/Datetime column #{expected}\b/, page.first("table").text)
       # Make sure it no-ops when "edited" without changes
       visit(edit_admin_sink_path(sink))
       assert_equal(expected.iso8601(3), find_field("Datetime column").value)
@@ -58,7 +58,7 @@ class FlatpickrTest < CapybaraTest
       end
       sink.reload
       assert_equal(expected, sink.datetime_column)
-      assert_match(/Datetime column #{expected.to_s}\b/, page.first("table").text)
+      assert_match(/Datetime column #{expected}\b/, page.first("table").text)
     end
   end
 

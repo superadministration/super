@@ -19,7 +19,6 @@ class CheatTest < ActiveSupport::TestCase
     assert(recorded_methods.delete?("== Super::ApplicationController"), "couldn't find the header")
 
     all_instance_methods.each do |method_name|
-      expected = "##{method_name}"
       params = Super::ApplicationController.instance_method(method_name).parameters
       expected_params =
         if params.empty?

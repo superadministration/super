@@ -28,7 +28,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("config/initializers/super.rb") do |contents|
-      eval(contents)
+      eval(contents) # standard:disable Security/Eval
     end
     assert_file("app/controllers/admin_controller.rb", <<~RUBY)
       class AdminController < Super::ApplicationController
@@ -48,7 +48,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("config/initializers/super.rb") do |contents|
-      eval(contents)
+      eval(contents) # standard:disable Security/Eval
     end
 
     assert_file("app/controllers/badminton_controller.rb", <<~RUBY)
@@ -63,7 +63,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
     run_generator(["--controller-namespace", ""])
 
     assert_file("config/initializers/super.rb") do |contents|
-      eval(contents)
+      eval(contents) # standard:disable Security/Eval
       assert_equal("", Super.configuration.generator_module)
     end
 
@@ -87,7 +87,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("config/initializers/super.rb") do |contents|
-      eval(contents)
+      eval(contents) # standard:disable Security/Eval
     end
 
     assert_file("app/controllers/one_controller.rb", <<~RUBY)
@@ -108,7 +108,7 @@ class Super::InstallGeneratorTest < Rails::Generators::TestCase
       end
     RUBY
     assert_file("config/initializers/super.rb") do |contents|
-      eval(contents)
+      eval(contents) # standard:disable Security/Eval
     end
 
     assert_file("app/controllers/one/two_controller.rb", <<~RUBY)

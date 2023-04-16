@@ -8,7 +8,7 @@ class Member < ApplicationRecord
     lieutenant: "Lieutenant",
     lieutenant_junior_grade: "Lieutenant Junior Grade",
     ensign: "Ensign",
-    nco: "NCO",
+    nco: "NCO"
   }
 
   belongs_to :ship
@@ -17,7 +17,7 @@ class Member < ApplicationRecord
   accepts_nested_attributes_for(
     :favorite_things,
     allow_destroy: true,
-    reject_if: -> (record) { record[:name].blank? }
+    reject_if: ->(record) { record[:name].blank? }
   )
 
   validates :name, presence: true

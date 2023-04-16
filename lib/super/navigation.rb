@@ -152,10 +152,17 @@ module Super
         end
       end
 
-      def header(routes); end
-      def no_routes(routes, filter); end
-      def result; end
-      def section_title(title); end
+      def header(routes)
+      end
+
+      def no_routes(routes, filter)
+      end
+
+      def result
+      end
+
+      def section_title(title)
+      end
     end
   end
 end

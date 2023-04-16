@@ -57,7 +57,7 @@ module Super
       attr_reader :humanized_operator_name
 
       def behavior(&block)
-        self.behavior = block if block_given?
+        self.behavior = block if block
         @behavior
       end
 

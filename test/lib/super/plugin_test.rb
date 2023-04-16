@@ -2,8 +2,11 @@ require "test_helper"
 
 class PluginTest < ActiveSupport::TestCase
   module A; end
+
   module B; end
+
   module C; end
+
   module D; end
 
   def test_ordering
@@ -15,7 +18,7 @@ class PluginTest < ActiveSupport::TestCase
       [B, A, D, C],
       [B, C, D, A],
       [B, A, C, D],
-      [B, C, A, D],
+      [B, C, A, D]
     ]
 
     10.times do
@@ -23,7 +26,7 @@ class PluginTest < ActiveSupport::TestCase
       actions = [
         -> { registry.insert_before(C, include: B) },
         -> { registry.insert_before(A, include: B) },
-        -> { registry.use(include: D) },
+        -> { registry.use(include: D) }
       ]
 
       while actions.any?

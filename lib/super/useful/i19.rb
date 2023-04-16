@@ -24,7 +24,7 @@ module Super
       def chain_to_i18n(chain)
         head, *tail = chain
 
-        [head, { default: tail }]
+        [head, {default: tail}]
       end
 
       def i18n_with_fallback(prefix, optional, suffix)

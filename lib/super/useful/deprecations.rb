@@ -5,8 +5,7 @@ require "active_support/deprecation"
 module Super
   module Useful
     class Deprecation
-      VERSIONS = {
-      }
+      VERSIONS = {}
       private_constant :VERSIONS
 
       def self.[](version)

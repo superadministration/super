@@ -8,11 +8,11 @@ SUPER_RAILS_ROOTS = {
   "rails52_sprockets4" => "test/dummy/rails52_sprockets4",
   "rails60_sprockets4" => "test/dummy/rails60_sprockets4",
   "rails61_sprockets4" => "test/dummy/rails61_sprockets4",
-  "rails70_sprockets4" => "test/dummy/rails70_sprockets4",
+  "rails70_sprockets4" => "test/dummy/rails70_sprockets4"
 }
 
 SUPER_DEVELOPMENT_GEMFILE =
-  if ENV["BUNDLE_GEMFILE"] && ENV["BUNDLE_GEMFILE"] =~ /\.gemfile\z/
+  if ENV["BUNDLE_GEMFILE"]&.end_with?("/.gemfile")
     File.basename(ENV["BUNDLE_GEMFILE"], ".gemfile")
   else
     SUPER_DEFAULT_RAILS

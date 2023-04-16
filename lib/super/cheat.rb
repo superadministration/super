@@ -12,10 +12,10 @@ module Super
       ]
       methods =
         paths
-        .map { |f| File.read(File.expand_path(f, __dir__)) }
-        .flat_map { |content| content.scan(/^\s+(?:helper_method )?def .*$/) }
-        .reject { |method| method =~ /\bdef self\./ }
-        .map { |method| method.strip.sub(/^(?:helper_method )?def /, "#") }
+          .map { |f| File.read(File.expand_path(f, __dir__)) }
+          .flat_map { |content| content.scan(/^\s+(?:helper_method )?def .*$/) }
+          .reject { |method| method =~ /\bdef self\./ }
+          .map { |method| method.strip.sub(/^(?:helper_method )?def /, "#") }
 
       puts "== Super::ApplicationController"
       puts methods.join("\n")

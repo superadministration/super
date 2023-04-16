@@ -60,7 +60,7 @@ class NavigationTest < ActiveSupport::TestCase
           "Ships",
           [
             Super::Link.new("Ships", "/admin/ships"),
-            Super::Link.new("Members", "/admin/members"),
+            Super::Link.new("Members", "/admin/members")
           ]
         )
       ],
@@ -101,7 +101,7 @@ class NavigationTest < ActiveSupport::TestCase
       [
         Super::Link.new("Boats", "/admin/boats"),
         Super::Link.new("Marshmallows", "/admin/marshmallows"),
-        Super::Link.new("Sidekiq", "/admin/sidekiq"),
+        Super::Link.new("Sidekiq", "/admin/sidekiq")
       ],
       navbar.definition
     )
@@ -137,9 +137,9 @@ class NavigationTest < ActiveSupport::TestCase
           [
             Super::Link.new("Boats", "/admin/boats"),
             Super::Link.new("Marshmallows", "/admin/marshmallows"),
-            Super::Link.new("Sidekiq", "/admin/sidekiq"),
+            Super::Link.new("Sidekiq", "/admin/sidekiq")
           ]
-        ),
+        )
       ],
       navbar.definition
     )
@@ -165,7 +165,7 @@ class NavigationTest < ActiveSupport::TestCase
       [
         Super::Link.new("Marshmallows", "/admin/marshmallows"),
         Super::Link.new("Sidekiq", "/admin/sidekiq"),
-        Super::Link.new("Boats", "/admin/boats"),
+        Super::Link.new("Boats", "/admin/boats")
       ],
       navbar.definition
     )
@@ -195,7 +195,7 @@ class NavigationTest < ActiveSupport::TestCase
         Super::Link.new("Marshmallows", "/admin/marshmallows"),
         Super::Link.new("Sidekiq", "/admin/sidekiq"),
         Super::Link.new("Marshmallows", "/admin/marshmallows"),
-        Super::Link.new("Sidekiq", "/admin/sidekiq"),
+        Super::Link.new("Sidekiq", "/admin/sidekiq")
       ],
       navbar.definition
     )
