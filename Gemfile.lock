@@ -97,6 +97,7 @@ GEM
     diff-lcs (1.5.0)
     docile (1.4.0)
     erubi (1.12.0)
+    erubis (2.7.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -243,6 +244,7 @@ GEM
       sorbet (>= 0.5.10187)
       sorbet-runtime (>= 0.5.9204)
       thor (>= 0.19.2)
+    spring (4.0.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -300,6 +302,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   capybara (~> 3.18)
+  erubis
   i18n-debug
   minitest-bisect
   mocha
@@ -314,6 +317,7 @@ DEPENDENCIES
   sorbet
   sorbet-runtime
   spoom
+  spring
   sprockets-rails (~> 3.4)
   sqlite3 (~> 1.4.0)
   standard

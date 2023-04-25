@@ -32,3 +32,7 @@ gem "appraisal", require: false
 gem "yard", require: false
 gem "standard", group: [:development, :test], require: false
 gem "rubocop-sorbet", require: false
+
+# Required for Sorbet "todo"
+gem "erubis", require: false
+gem "spring", require: false

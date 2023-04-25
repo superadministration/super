@@ -825,6 +825,190 @@ module Rails::Autoloaders::Inflector
   end
 end
 
+# source://railties//lib/rails/command.rb#10
+module Rails::Command
+  include ::Rails::Command::Behavior
+  extend ::ActiveSupport::Autoload
+  extend ::Rails::Command::Behavior::ClassMethods
+
+  class << self
+    # source://railties//lib/rails/command.rb#25
+    def environment; end
+
+    # source://railties//lib/rails/command.rb#68
+    def find_by_namespace(namespace, command_name = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/command.rb#21
+    def hidden_commands; end
+
+    # source://railties//lib/rails/command.rb#30
+    def invoke(full_namespace, args = T.unsafe(nil), **config); end
+
+    # source://railties//lib/rails/command.rb#88
+    def print_commands; end
+
+    # source://railties//lib/rails/command.rb#80
+    def root; end
+
+    private
+
+    # source://railties//lib/rails/command.rb#108
+    def command_type; end
+
+    # source://railties//lib/rails/command.rb#100
+    def commands; end
+
+    # source://railties//lib/rails/command.rb#116
+    def file_lookup_paths; end
+
+    # source://railties//lib/rails/command.rb#112
+    def lookup_paths; end
+
+    # source://railties//lib/rails/command.rb#96
+    def rails_new_with_no_path?(args); end
+  end
+end
+
+# source://railties//lib/rails/command/actions.rb#5
+module Rails::Command::Actions
+  # source://railties//lib/rails/command/actions.rb#48
+  def load_generators; end
+
+  # source://railties//lib/rails/command/actions.rb#44
+  def load_tasks; end
+
+  # source://railties//lib/rails/command/actions.rb#18
+  def require_application!; end
+
+  # source://railties//lib/rails/command/actions.rb#13
+  def require_application_and_environment!; end
+
+  # source://railties//lib/rails/command/actions.rb#26
+  def require_environment!; end
+
+  # source://railties//lib/rails/command/actions.rb#9
+  def set_application_directory!; end
+end
+
+# source://railties//lib/rails/command/base.rb#13
+class Rails::Command::Base < ::Thor
+  include ::Rails::Command::Actions
+
+  # source://railties//lib/rails/command/base.rb#174
+  def help; end
+
+  class << self
+    # source://railties//lib/rails/command/base.rb#99
+    def banner(*_arg0); end
+
+    # source://railties//lib/rails/command/base.rb#106
+    def base_name; end
+
+    # source://railties//lib/rails/command/base.rb#115
+    def command_name; end
+
+    # source://railties//lib/rails/command/base.rb#135
+    def default_command_root; end
+
+    # source://railties//lib/rails/command/base.rb#49
+    def desc(usage = T.unsafe(nil), description = T.unsafe(nil), options = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/command/base.rb#43
+    def engine?; end
+
+    # source://railties//lib/rails/command/base.rb#94
+    def executable; end
+
+    # source://railties//lib/rails/command/base.rb#38
+    def exit_on_failure?; end
+
+    # source://railties//lib/rails/command/base.rb#70
+    def hide_command!; end
+
+    # source://railties//lib/rails/command/base.rb#74
+    def inherited(base); end
+
+    # source://railties//lib/rails/command/base.rb#60
+    def namespace(name = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/command/base.rb#82
+    def perform(command, args, config); end
+
+    # source://railties//lib/rails/command/base.rb#90
+    def printing_commands; end
+
+    # source://railties//lib/rails/command/base.rb#123
+    def usage_path; end
+
+    private
+
+    # source://railties//lib/rails/command/base.rb#155
+    def command_root_namespace; end
+
+    # source://railties//lib/rails/command/base.rb#142
+    def create_command(meth); end
+
+    # source://railties//lib/rails/command/base.rb#163
+    def namespaced_commands; end
+
+    # source://railties//lib/rails/command/base.rb#159
+    def relative_command_path; end
+  end
+end
+
+# source://railties//lib/rails/command/base.rb#17
+class Rails::Command::Base::CorrectableError < ::Rails::Command::Base::Error
+  include ::DidYouMean::Correctable
+
+  # source://railties//lib/rails/command/base.rb#20
+  def initialize(message, key, options); end
+
+  # source://railties//lib/rails/command/base.rb#29
+  def corrections; end
+
+  # source://railties//lib/rails/command/base.rb#18
+  def key; end
+
+  # source://railties//lib/rails/command/base.rb#18
+  def options; end
+end
+
+# source://railties//lib/rails/command/base.rb#14
+class Rails::Command::Base::Error < ::Thor::Error; end
+
+# source://railties//lib/rails/command/behavior.rb#7
+module Rails::Command::Behavior
+  extend ::ActiveSupport::Concern
+
+  mixes_in_class_methods ::Rails::Command::Behavior::ClassMethods
+end
+
+# source://railties//lib/rails/command/behavior.rb#0
+module Rails::Command::Behavior::ClassMethods
+  # source://railties//lib/rails/command/behavior.rb#12
+  def no_color!; end
+
+  # source://railties//lib/rails/command/behavior.rb#17
+  def subclasses; end
+
+  private
+
+  # source://railties//lib/rails/command/behavior.rb#36
+  def lookup(namespaces); end
+
+  # source://railties//lib/rails/command/behavior.rb#56
+  def lookup!; end
+
+  # source://railties//lib/rails/command/behavior.rb#70
+  def namespaces_to_paths(namespaces); end
+
+  # source://railties//lib/rails/command/behavior.rb#23
+  def print_list(base, namespaces); end
+end
+
+# source://railties//lib/rails/command.rb#18
+Rails::Command::HELP_MAPPINGS = T.let(T.unsafe(nil), Array)
+
 # source://railties//lib/rails/configuration.rb#9
 module Rails::Configuration; end
 
@@ -1179,6 +1363,1002 @@ class Rails::Engine::Railties
   def each(*args, &block); end
 end
 
+# source://railties//lib/rails/generators.rb#17
+module Rails::Generators
+  include ::Rails::Command::Behavior
+  extend ::Rails::Command::Behavior::ClassMethods
+
+  # source://railties//lib/rails/generators.rb#30
+  def namespace; end
+
+  # source://railties//lib/rails/generators.rb#30
+  def namespace=(val); end
+
+  class << self
+    # source://railties//lib/rails/generators.rb#282
+    def add_generated_file(file); end
+
+    # source://railties//lib/rails/generators.rb#91
+    def after_generate_callbacks; end
+
+    # source://railties//lib/rails/generators.rb#83
+    def aliases; end
+
+    # source://railties//lib/rails/generators.rb#115
+    def api_only!; end
+
+    # source://railties//lib/rails/generators.rb#67
+    def configure!(config); end
+
+    # source://railties//lib/rails/generators.rb#107
+    def fallbacks; end
+
+    # source://railties//lib/rails/generators.rb#232
+    def find_by_namespace(name, base = T.unsafe(nil), context = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators.rb#168
+    def help(command = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators.rb#133
+    def hidden_namespaces; end
+
+    # source://railties//lib/rails/generators.rb#162
+    def hide_namespace(*namespaces); end
+
+    # source://railties//lib/rails/generators.rb#162
+    def hide_namespaces(*namespaces); end
+
+    # source://railties//lib/rails/generators.rb#259
+    def invoke(namespace, args = T.unsafe(nil), config = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators.rb#30
+    def namespace; end
+
+    # source://railties//lib/rails/generators.rb#30
+    def namespace=(val); end
+
+    # source://railties//lib/rails/generators.rb#87
+    def options; end
+
+    # source://railties//lib/rails/generators.rb#189
+    def print_generators; end
+
+    # source://railties//lib/rails/generators.rb#184
+    def public_namespaces; end
+
+    # source://railties//lib/rails/generators.rb#193
+    def sorted_groups; end
+
+    # source://railties//lib/rails/generators.rb#79
+    def templates_path; end
+
+    private
+
+    # source://railties//lib/rails/generators.rb#309
+    def command_type; end
+
+    # source://railties//lib/rails/generators.rb#317
+    def file_lookup_paths; end
+
+    # source://railties//lib/rails/generators.rb#294
+    def invoke_fallbacks_for(name, base); end
+
+    # source://railties//lib/rails/generators.rb#313
+    def lookup_paths; end
+
+    # source://railties//lib/rails/generators.rb#288
+    def print_list(base, namespaces); end
+
+    # source://railties//lib/rails/generators.rb#321
+    def run_after_generate_callback; end
+  end
+end
+
+# source://railties//lib/rails/generators/actions.rb#9
+module Rails::Generators::Actions
+  # source://railties//lib/rails/generators/actions.rb#10
+  def initialize(*_arg0); end
+
+  # source://railties//lib/rails/generators/actions.rb#106
+  def add_source(source, options = T.unsafe(nil), &block); end
+
+  # source://railties//lib/rails/generators/actions.rb#132
+  def application(data = T.unsafe(nil), options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#132
+  def environment(data = T.unsafe(nil), options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#22
+  def gem(*args); end
+
+  # source://railties//lib/rails/generators/actions.rb#66
+  def gem_group(*names, &block); end
+
+  # source://railties//lib/rails/generators/actions.rb#238
+  def generate(what, *args); end
+
+  # source://railties//lib/rails/generators/actions.rb#154
+  def git(commands = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#80
+  def github(repo, options = T.unsafe(nil), &block); end
+
+  # source://railties//lib/rails/generators/actions.rb#227
+  def initializer(filename, data = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#187
+  def lib(filename, data = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#263
+  def rails_command(command, options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#253
+  def rake(command, options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#208
+  def rakefile(filename, data = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#314
+  def readme(path); end
+
+  # source://railties//lib/rails/generators/actions.rb#281
+  def route(routing_code, namespace: T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#173
+  def vendor(filename, data = T.unsafe(nil)); end
+
+  private
+
+  # source://railties//lib/rails/generators/actions.rb#388
+  def append_file_with_newline(path, str, options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#333
+  def execute_command(executor, command, options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#347
+  def extify(name); end
+
+  # source://railties//lib/rails/generators/actions.rb#375
+  def indentation; end
+
+  # source://railties//lib/rails/generators/actions.rb#322
+  def log(*args); end
+
+  # source://railties//lib/rails/generators/actions.rb#394
+  def match_file(path, pattern); end
+
+  # source://railties//lib/rails/generators/actions.rb#368
+  def optimize_indentation(value, amount = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#356
+  def quote(value); end
+
+  # source://railties//lib/rails/generators/actions.rb#368
+  def rebase_indentation(value, amount = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/actions.rb#398
+  def route_namespace_pattern(namespace); end
+
+  # source://railties//lib/rails/generators/actions.rb#380
+  def with_indentation(&block); end
+end
+
+# source://railties//lib/rails/generators/actions/create_migration.rb#9
+class Rails::Generators::Actions::CreateMigration < ::Thor::Actions::CreateFile
+  # source://railties//lib/rails/generators/actions/create_migration.rb#41
+  def existing_migration; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#41
+  def exists?; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#18
+  def identical?; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#22
+  def invoke!; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#10
+  def migration_dir; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#14
+  def migration_file_name; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#37
+  def relative_existing_migration; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#29
+  def revoke!; end
+
+  private
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#48
+  def on_conflict_behavior; end
+
+  # source://railties//lib/rails/generators/actions/create_migration.rb#69
+  def say_status(status, color, message = T.unsafe(nil)); end
+end
+
+# source://railties//lib/rails/generators/active_model.rb#28
+class Rails::Generators::ActiveModel
+  # source://railties//lib/rails/generators/active_model.rb#31
+  def initialize(name); end
+
+  # source://railties//lib/rails/generators/active_model.rb#75
+  def destroy; end
+
+  # source://railties//lib/rails/generators/active_model.rb#70
+  def errors; end
+
+  # source://railties//lib/rails/generators/active_model.rb#29
+  def name; end
+
+  # source://railties//lib/rails/generators/active_model.rb#59
+  def save; end
+
+  # source://railties//lib/rails/generators/active_model.rb#64
+  def update(params = T.unsafe(nil)); end
+
+  class << self
+    # source://railties//lib/rails/generators/active_model.rb#36
+    def all(klass); end
+
+    # source://railties//lib/rails/generators/active_model.rb#50
+    def build(klass, params = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators/active_model.rb#44
+    def find(klass, params = T.unsafe(nil)); end
+  end
+end
+
+# source://railties//lib/rails/generators/app_name.rb#5
+module Rails::Generators::AppName
+  private
+
+  # source://railties//lib/rails/generators/app_name.rb#33
+  def app_const; end
+
+  # source://railties//lib/rails/generators/app_name.rb#28
+  def app_const_base; end
+
+  # source://railties//lib/rails/generators/app_name.rb#9
+  def app_name; end
+
+  # source://railties//lib/rails/generators/app_name.rb#28
+  def camelized; end
+
+  # source://railties//lib/rails/generators/app_name.rb#21
+  def defined_app_const_base; end
+
+  # source://railties//lib/rails/generators/app_name.rb#21
+  def defined_app_const_base?; end
+
+  # source://railties//lib/rails/generators/app_name.rb#17
+  def defined_app_name; end
+
+  # source://railties//lib/rails/generators/app_name.rb#13
+  def original_app_name; end
+
+  # source://railties//lib/rails/generators/app_name.rb#37
+  def valid_const?; end
+end
+
+# source://railties//lib/rails/generators/app_name.rb#6
+Rails::Generators::AppName::RESERVED_NAMES = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/base.rb#17
+class Rails::Generators::Base < ::Thor::Group
+  include ::Thor::Actions
+  include ::Rails::Generators::Actions
+  extend ::Thor::Actions::ClassMethods
+
+  private
+
+  # source://railties//lib/rails/generators/base.rb#256
+  def class_collisions(*class_names); end
+
+  # source://railties//lib/rails/generators/base.rb#279
+  def extract_last_module(nesting); end
+
+  # source://railties//lib/rails/generators/base.rb#294
+  def indent(content, multiplier = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/base.rb#288
+  def module_namespacing(&block); end
+
+  # source://railties//lib/rails/generators/base.rb#304
+  def namespace; end
+
+  # source://railties//lib/rails/generators/base.rb#312
+  def namespace_dirs; end
+
+  # source://railties//lib/rails/generators/base.rb#308
+  def namespaced?; end
+
+  # source://railties//lib/rails/generators/base.rb#316
+  def namespaced_path; end
+
+  # source://railties//lib/rails/generators/base.rb#299
+  def wrap_with_namespace(content); end
+
+  class << self
+    # source://railties//lib/rails/generators/base.rb#388
+    def add_shebang_option!; end
+
+    # source://railties//lib/rails/generators/base.rb#321
+    def banner; end
+
+    # source://railties//lib/rails/generators/base.rb#326
+    def base_name; end
+
+    # source://railties//lib/rails/generators/base.rb#228
+    def base_root; end
+
+    # source://railties//lib/rails/generators/base.rb#209
+    def class_option(name, options = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators/base.rb#349
+    def default_aliases_for_option(name, options); end
+
+    # source://railties//lib/rails/generators/base.rb#354
+    def default_for_option(config, name, options, default); end
+
+    # source://railties//lib/rails/generators/base.rb#414
+    def default_generator_root; end
+
+    # source://railties//lib/rails/generators/base.rb#219
+    def default_source_root; end
+
+    # source://railties//lib/rails/generators/base.rb#343
+    def default_value_for_option(name, options); end
+
+    # source://railties//lib/rails/generators/base.rb#41
+    def desc(description = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators/base.rb#29
+    def exit_on_failure?; end
+
+    # source://railties//lib/rails/generators/base.rb#334
+    def generator_name; end
+
+    # source://railties//lib/rails/generators/base.rb#61
+    def hide!; end
+
+    # source://railties//lib/rails/generators/base.rb#174
+    def hook_for(*names, &block); end
+
+    # source://railties//lib/rails/generators/base.rb#367
+    def hooks; end
+
+    # source://railties//lib/rails/generators/base.rb#234
+    def inherited(base); end
+
+    # source://railties//lib/rails/generators/base.rb#54
+    def namespace(name = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators/base.rb#373
+    def prepare_for_invocation(name, value); end
+
+    # source://railties//lib/rails/generators/base.rb#200
+    def remove_hook_for(*names); end
+
+    # source://railties//lib/rails/generators/base.rb#34
+    def source_root(path = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/generators/base.rb#406
+    def usage_path; end
+  end
+end
+
+# source://railties//lib/rails/generators.rb#32
+Rails::Generators::DEFAULT_ALIASES = T.let(T.unsafe(nil), Hash)
+
+# source://railties//lib/rails/generators.rb#49
+Rails::Generators::DEFAULT_OPTIONS = T.let(T.unsafe(nil), Hash)
+
+# source://railties//lib/rails/generators/database.rb#5
+module Rails::Generators::Database
+  # source://railties//lib/rails/generators/database.rb#9
+  def initialize(*_arg0); end
+
+  # source://railties//lib/rails/generators/database.rb#29
+  def convert_database_option_for_jruby; end
+
+  # source://railties//lib/rails/generators/database.rb#14
+  def gem_for_database(database = T.unsafe(nil)); end
+
+  private
+
+  # source://railties//lib/rails/generators/database.rb#42
+  def mysql_socket; end
+end
+
+# source://railties//lib/rails/generators/database.rb#7
+Rails::Generators::Database::DATABASES = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/database.rb#6
+Rails::Generators::Database::JDBC_DATABASES = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/base.rb#14
+class Rails::Generators::Error < ::Thor::Error; end
+
+# source://railties//lib/rails/generators/generated_attribute.rb#7
+class Rails::Generators::GeneratedAttribute
+  # source://railties//lib/rails/generators/generated_attribute.rb#97
+  def initialize(name, type = T.unsafe(nil), index_type = T.unsafe(nil), attr_options = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#199
+  def attachment?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#203
+  def attachments?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#31
+  def attr_options; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#159
+  def column_name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#121
+  def default; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#105
+  def field_type; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#163
+  def foreign_key?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#179
+  def has_index?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#183
+  def has_uniq_index?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#147
+  def human_name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#151
+  def index_name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#32
+  def index_name=(_arg0); end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#215
+  def inject_index_options; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#211
+  def inject_options; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#30
+  def name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#30
+  def name=(_arg0); end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#219
+  def options_for_migration; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#187
+  def password_digest?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#139
+  def plural_name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#171
+  def polymorphic?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#167
+  def reference?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#175
+  def required?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#195
+  def rich_text?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#143
+  def singular_name; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#191
+  def token?; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#30
+  def type; end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#30
+  def type=(_arg0); end
+
+  # source://railties//lib/rails/generators/generated_attribute.rb#207
+  def virtual?; end
+
+  class << self
+    # source://railties//lib/rails/generators/generated_attribute.rb#35
+    def parse(column_definition); end
+
+    # source://railties//lib/rails/generators/generated_attribute.rb#72
+    def reference?(type); end
+
+    # source://railties//lib/rails/generators/generated_attribute.rb#68
+    def valid_index_type?(index_type); end
+
+    # source://railties//lib/rails/generators/generated_attribute.rb#63
+    def valid_type?(type); end
+
+    private
+
+    # source://railties//lib/rails/generators/generated_attribute.rb#79
+    def parse_type_and_options(type); end
+  end
+end
+
+# source://railties//lib/rails/generators/generated_attribute.rb#10
+Rails::Generators::GeneratedAttribute::DEFAULT_TYPES = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/generated_attribute.rb#8
+Rails::Generators::GeneratedAttribute::INDEX_OPTIONS = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/generated_attribute.rb#9
+Rails::Generators::GeneratedAttribute::UNIQ_INDEX_OPTIONS = T.let(T.unsafe(nil), Array)
+
+# source://railties//lib/rails/generators/migration.rb#11
+module Rails::Generators::Migration
+  extend ::ActiveSupport::Concern
+
+  mixes_in_class_methods ::Rails::Generators::Migration::ClassMethods
+
+  # source://railties//lib/rails/generators/migration.rb#35
+  def create_migration(destination, data, config = T.unsafe(nil), &block); end
+
+  # source://railties//lib/rails/generators/migration.rb#13
+  def migration_class_name; end
+
+  # source://railties//lib/rails/generators/migration.rb#13
+  def migration_file_name; end
+
+  # source://railties//lib/rails/generators/migration.rb#13
+  def migration_number; end
+
+  # source://railties//lib/rails/generators/migration.rb#56
+  def migration_template(source, destination, config = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/migration.rb#39
+  def set_migration_assigns!(destination); end
+end
+
+# source://railties//lib/rails/generators/migration.rb#15
+module Rails::Generators::Migration::ClassMethods
+  # source://railties//lib/rails/generators/migration.rb#24
+  def current_migration_number(dirname); end
+
+  # source://railties//lib/rails/generators/migration.rb#20
+  def migration_exists?(dirname, file_name); end
+
+  # source://railties//lib/rails/generators/migration.rb#16
+  def migration_lookup_at(dirname); end
+
+  # source://railties//lib/rails/generators/migration.rb#30
+  def next_migration_number(dirname); end
+end
+
+# source://railties//lib/rails/generators/model_helpers.rb#7
+module Rails::Generators::ModelHelpers
+  # source://railties//lib/rails/generators/model_helpers.rb#25
+  def initialize(args, *_options); end
+
+  # source://railties//lib/rails/generators/model_helpers.rb#19
+  def skip_warn; end
+
+  # source://railties//lib/rails/generators/model_helpers.rb#19
+  def skip_warn=(val); end
+
+  private
+
+  # source://railties//lib/rails/generators/model_helpers.rb#55
+  def inflection_impossible?(name); end
+
+  # source://railties//lib/rails/generators/model_helpers.rb#51
+  def irregular_model_name?(name); end
+
+  # source://railties//lib/rails/generators/model_helpers.rb#47
+  def plural_model_name?(name); end
+
+  class << self
+    # source://railties//lib/rails/generators/model_helpers.rb#21
+    def included(base); end
+
+    # source://railties//lib/rails/generators/model_helpers.rb#19
+    def skip_warn; end
+
+    # source://railties//lib/rails/generators/model_helpers.rb#19
+    def skip_warn=(val); end
+  end
+end
+
+# source://railties//lib/rails/generators/model_helpers.rb#14
+Rails::Generators::ModelHelpers::INFLECTION_IMPOSSIBLE_ERROR_MESSAGE = T.let(T.unsafe(nil), String)
+
+# source://railties//lib/rails/generators/model_helpers.rb#10
+Rails::Generators::ModelHelpers::IRREGULAR_MODEL_NAME_WARN_MESSAGE = T.let(T.unsafe(nil), String)
+
+# source://railties//lib/rails/generators/model_helpers.rb#8
+Rails::Generators::ModelHelpers::PLURAL_MODEL_NAME_WARN_MESSAGE = T.let(T.unsafe(nil), String)
+
+# source://railties//lib/rails/generators/named_base.rb#8
+class Rails::Generators::NamedBase < ::Rails::Generators::Base
+  # source://railties//lib/rails/generators/named_base.rb#11
+  def initialize(args, *options); end
+
+  # source://thor/1.2.1/lib/thor/base.rb#139
+  def file_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#29
+  def js_template(source, destination); end
+
+  # source://thor/1.2.1/lib/thor/base.rb#147
+  def name; end
+
+  # source://thor/1.2.1/lib/thor/base.rb#147
+  def name=(_arg0); end
+
+  # source://railties//lib/rails/generators/named_base.rb#23
+  def template(source, *args, &block); end
+
+  private
+
+  # source://railties//lib/rails/generators/named_base.rb#138
+  def application_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#175
+  def assign_names!(name); end
+
+  # source://railties//lib/rails/generators/named_base.rb#188
+  def attributes_names; end
+
+  # source://railties//lib/rails/generators/named_base.rb#70
+  def class_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#58
+  def class_path; end
+
+  # source://railties//lib/rails/generators/named_base.rb#105
+  def edit_helper(*_arg0, &_arg1); end
+
+  # source://railties//lib/rails/generators/named_base.rb#54
+  def file_path; end
+
+  # source://railties//lib/rails/generators/named_base.rb#125
+  def fixture_file_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#74
+  def human_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#82
+  def i18n_scope; end
+
+  # source://railties//lib/rails/generators/named_base.rb#97
+  def index_helper(type: T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/named_base.rb#43
+  def inside_template; end
+
+  # source://railties//lib/rails/generators/named_base.rb#50
+  def inside_template?; end
+
+  # source://railties//lib/rails/generators/named_base.rb#150
+  def model_resource_name(base_name = T.unsafe(nil), prefix: T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/named_base.rb#200
+  def mountable_engine?; end
+
+  # source://railties//lib/rails/generators/named_base.rb#66
+  def namespaced_class_path; end
+
+  # source://railties//lib/rails/generators/named_base.rb#109
+  def new_helper(type: T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/named_base.rb#182
+  def parse_attributes!; end
+
+  # source://railties//lib/rails/generators/named_base.rb#121
+  def plural_file_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#78
+  def plural_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#167
+  def plural_route_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#117
+  def plural_table_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#196
+  def pluralize_table_names?; end
+
+  # source://railties//lib/rails/generators/named_base.rb#146
+  def redirect_resource_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#62
+  def regular_class_path; end
+
+  # source://railties//lib/rails/generators/named_base.rb#129
+  def route_url; end
+
+  # source://railties//lib/rails/generators/named_base.rb#101
+  def show_helper(arg = T.unsafe(nil), type: T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/named_base.rb#39
+  def singular_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#159
+  def singular_route_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#113
+  def singular_table_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#86
+  def table_name; end
+
+  # source://railties//lib/rails/generators/named_base.rb#93
+  def uncountable?; end
+
+  # source://railties//lib/rails/generators/named_base.rb#133
+  def url_helper_prefix; end
+
+  class << self
+    # source://railties//lib/rails/generators/named_base.rb#214
+    def check_class_collision(options = T.unsafe(nil)); end
+  end
+end
+
+# source://railties//lib/rails/generators/resource_helpers.rb#10
+module Rails::Generators::ResourceHelpers
+  include ::Rails::Generators::ModelHelpers
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#17
+  def initialize(*args); end
+
+  private
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#39
+  def assign_controller_names!(name); end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#50
+  def controller_class_name; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#31
+  def controller_class_path; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#29
+  def controller_file_name; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#46
+  def controller_file_path; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#54
+  def controller_i18n_scope; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#29
+  def controller_name; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#61
+  def orm_class; end
+
+  # source://railties//lib/rails/generators/resource_helpers.rb#77
+  def orm_instance(name = T.unsafe(nil)); end
+
+  class << self
+    # source://railties//lib/rails/generators/resource_helpers.rb#11
+    def included(base); end
+  end
+end
+
+# source://railties//lib/rails/generators/test_case.rb#30
+class Rails::Generators::TestCase < ::ActiveSupport::TestCase
+  include ::ActiveSupport::Testing::Stream
+  include ::Rails::Generators::Testing::Behaviour
+  include ::Rails::Generators::Testing::SetupAndTeardown
+  include ::Rails::Generators::Testing::Assertions
+  include ::FileUtils::StreamUtils_
+  include ::FileUtils
+  extend ::Rails::Generators::Testing::Behaviour::ClassMethods
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#21
+  def current_path; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#21
+  def current_path=(_arg0); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#21
+  def current_path?; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#22
+  def default_arguments; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#22
+  def default_arguments=(_arg0); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#22
+  def default_arguments?; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#23
+  def destination_root; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#23
+  def destination_root=(_arg0); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#23
+  def destination_root?; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#24
+  def generator_class; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#24
+  def generator_class=(_arg0); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#24
+  def generator_class?; end
+
+  class << self
+    # source://railties//lib/rails/generators/testing/behaviour.rb#21
+    def current_path; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#21
+    def current_path=(value); end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#21
+    def current_path?; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#22
+    def default_arguments; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#22
+    def default_arguments=(value); end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#22
+    def default_arguments?; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#23
+    def destination_root; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#23
+    def destination_root=(value); end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#23
+    def destination_root?; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#24
+    def generator_class; end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#24
+    def generator_class=(value); end
+
+    # source://railties//lib/rails/generators/testing/behaviour.rb#24
+    def generator_class?; end
+  end
+end
+
+# source://railties//lib/rails/generators/testing/behaviour.rb#13
+module Rails::Generators::Testing; end
+
+# source://railties//lib/rails/generators/testing/assertions.rb#6
+module Rails::Generators::Testing::Assertions
+  # source://railties//lib/rails/generators/testing/assertions.rb#88
+  def assert_class_method(method, content, &block); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#25
+  def assert_directory(relative, *contents); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#117
+  def assert_field_default_value(attribute_type, value); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#110
+  def assert_field_type(attribute_type, field_type); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#25
+  def assert_file(relative, *contents); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#100
+  def assert_instance_method(method, content); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#100
+  def assert_method(method, content); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#64
+  def assert_migration(relative, *contents, &block); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#47
+  def assert_no_directory(relative); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#47
+  def assert_no_file(relative); end
+
+  # source://railties//lib/rails/generators/testing/assertions.rb#74
+  def assert_no_migration(relative); end
+end
+
+# source://railties//lib/rails/generators/testing/behaviour.rb#14
+module Rails::Generators::Testing::Behaviour
+  include ::ActiveSupport::Testing::Stream
+  extend ::ActiveSupport::Concern
+  include GeneratedInstanceMethods
+
+  mixes_in_class_methods GeneratedClassMethods
+  mixes_in_class_methods ::Rails::Generators::Testing::Behaviour::ClassMethods
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#85
+  def create_generated_attribute(attribute_type, name = T.unsafe(nil), index = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#77
+  def generator(args = T.unsafe(nil), options = T.unsafe(nil), config = T.unsafe(nil)); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#67
+  def run_generator(args = T.unsafe(nil), config = T.unsafe(nil)); end
+
+  private
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#90
+  def destination_root_is_set?; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#94
+  def ensure_current_path; end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#104
+  def migration_file_name(relative); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#99
+  def prepare_destination; end
+
+  module GeneratedClassMethods
+    def current_path; end
+    def current_path=(value); end
+    def current_path?; end
+    def default_arguments; end
+    def default_arguments=(value); end
+    def default_arguments?; end
+    def destination_root; end
+    def destination_root=(value); end
+    def destination_root?; end
+    def generator_class; end
+    def generator_class=(value); end
+    def generator_class?; end
+  end
+
+  module GeneratedInstanceMethods
+    def current_path; end
+    def current_path=(value); end
+    def current_path?; end
+    def default_arguments; end
+    def default_arguments=(value); end
+    def default_arguments?; end
+    def destination_root; end
+    def destination_root=(value); end
+    def destination_root?; end
+    def generator_class; end
+    def generator_class=(value); end
+    def generator_class?; end
+  end
+end
+
+# source://railties//lib/rails/generators/testing/behaviour.rb#27
+module Rails::Generators::Testing::Behaviour::ClassMethods
+  # source://railties//lib/rails/generators/testing/behaviour.rb#39
+  def arguments(array); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#46
+  def destination(path); end
+
+  # source://railties//lib/rails/generators/testing/behaviour.rb#31
+  def tests(klass); end
+end
+
+# source://railties//lib/rails/generators/testing/setup_and_teardown.rb#6
+module Rails::Generators::Testing::SetupAndTeardown
+  # source://railties//lib/rails/generators/testing/setup_and_teardown.rb#7
+  def setup; end
+
+  # source://railties//lib/rails/generators/testing/setup_and_teardown.rb#13
+  def teardown; end
+end
+
 # source://railties//lib/rails/info.rb#9
 module Rails::Info
   # source://railties//lib/rails/info.rb#10
@@ -1322,6 +2502,12 @@ class Rails::Initializable::Initializer
   def run(*args); end
 end
 
+# source://railties//lib/rails/test_unit/line_filtering.rb#6
+module Rails::LineFiltering
+  # source://railties//lib/rails/test_unit/line_filtering.rb#7
+  def run(reporter, options = T.unsafe(nil)); end
+end
+
 # source://railties//lib/rails/mailers_controller.rb#5
 class Rails::MailersController < ::Rails::ApplicationController
   # source://railties//lib/rails/mailers_controller.rb#16
@@ -1370,6 +2556,8 @@ end
 
 # source://railties//lib/rails/mailers_controller.rb#0
 module Rails::MailersController::HelperMethods
+  include ::ActionText::ContentHelper
+  include ::ActionText::TagHelper
   include ::ActionController::Base::HelperMethods
 
   # source://railties//lib/rails/mailers_controller.rb#12
@@ -1835,6 +3023,95 @@ class Rails::SourceAnnotationExtractor::Annotation < ::Struct
     def tags; end
   end
 end
+
+# source://railties//lib/rails/test_unit/runner.rb#10
+module Rails::TestUnit; end
+
+# source://railties//lib/rails/test_unit/runner.rb#105
+class Rails::TestUnit::CompositeFilter
+  # source://railties//lib/rails/test_unit/runner.rb#108
+  def initialize(runnable, filter, patterns); end
+
+  # source://railties//lib/rails/test_unit/runner.rb#115
+  def ===(method); end
+
+  # source://railties//lib/rails/test_unit/runner.rb#106
+  def named_filter; end
+
+  private
+
+  # source://railties//lib/rails/test_unit/runner.rb#130
+  def derive_line_filters(patterns); end
+
+  # source://railties//lib/rails/test_unit/runner.rb#120
+  def derive_named_filter(filter); end
+end
+
+# source://railties//lib/rails/test_unit/runner.rb#141
+class Rails::TestUnit::Filter
+  # source://railties//lib/rails/test_unit/runner.rb#142
+  def initialize(runnable, file, line); end
+
+  # source://railties//lib/rails/test_unit/runner.rb#147
+  def ===(method); end
+
+  private
+
+  # source://railties//lib/rails/test_unit/runner.rb#159
+  def definition_for(method); end
+end
+
+# source://railties//lib/rails/test_unit/runner.rb#11
+class Rails::TestUnit::Runner
+  # source://railties//lib/rails/test_unit/runner.rb#12
+  def filters; end
+
+  class << self
+    # source://railties//lib/rails/test_unit/runner.rb#15
+    def attach_before_load_options(opts); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#50
+    def compose_filter(runnable, filter); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#12
+    def filters; end
+
+    # source://railties//lib/rails/test_unit/runner.rb#45
+    def load_tests(argv); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#20
+    def parse_options(argv); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#33
+    def rake_run(argv = T.unsafe(nil)); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#39
+    def run(argv = T.unsafe(nil)); end
+
+    private
+
+    # source://railties//lib/rails/test_unit/runner.rb#83
+    def default_test_exclude_glob; end
+
+    # source://railties//lib/rails/test_unit/runner.rb#79
+    def default_test_glob; end
+
+    # source://railties//lib/rails/test_unit/runner.rb#59
+    def extract_filters(argv); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#95
+    def list_tests(argv); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#91
+    def path_argument?(arg); end
+
+    # source://railties//lib/rails/test_unit/runner.rb#87
+    def regexp_filter?(arg); end
+  end
+end
+
+# source://railties//lib/rails/test_unit/railtie.rb#6
+class Rails::TestUnitRailtie < ::Rails::Railtie; end
 
 # source://railties//lib/rails/gem_version.rb#9
 module Rails::VERSION; end

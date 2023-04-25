@@ -1280,6 +1280,15 @@ end
 # source://activesupport//lib/active_support/code_generator.rb#6
 ActiveSupport::CodeGenerator::MethodSet::METHOD_CACHES = T.let(T.unsafe(nil), Hash)
 
+# source://activesupport//lib/active_support/core_ext/range/compare_range.rb#4
+module ActiveSupport::CompareWithRange
+  # source://activesupport//lib/active_support/core_ext/range/compare_range.rb#16
+  def ===(value); end
+
+  # source://activesupport//lib/active_support/core_ext/range/compare_range.rb#41
+  def include?(value); end
+end
+
 # source://activesupport//lib/active_support/concern.rb#110
 module ActiveSupport::Concern
   # source://activesupport//lib/active_support/concern.rb#127
@@ -1317,6 +1326,21 @@ end
 
 # source://activesupport//lib/active_support/concurrency/share_lock.rb#7
 module ActiveSupport::Concurrency; end
+
+# source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#9
+class ActiveSupport::Concurrency::LoadInterlockAwareMonitor < ::Monitor
+  # source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#15
+  def mon_enter; end
+
+  # source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#20
+  def synchronize(&block); end
+end
+
+# source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#11
+ActiveSupport::Concurrency::LoadInterlockAwareMonitor::EXCEPTION_IMMEDIATE = T.let(T.unsafe(nil), Hash)
+
+# source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#10
+ActiveSupport::Concurrency::LoadInterlockAwareMonitor::EXCEPTION_NEVER = T.let(T.unsafe(nil), Hash)
 
 # source://activesupport//lib/active_support/concurrency/share_lock.rb#11
 class ActiveSupport::Concurrency::ShareLock
@@ -1624,6 +1648,24 @@ module ActiveSupport::Dependencies::RequireDependency
   # source://activesupport//lib/active_support/dependencies/require_dependency.rb#11
   def require_dependency(filename); end
 end
+
+# source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#4
+module ActiveSupport::DeprecatedNumericWithFormat
+  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
+  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
+end
+
+# source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#4
+module ActiveSupport::DeprecatedRangeWithFormat
+  # source://activesupport//lib/active_support/deprecation/method_wrappers.rb#63
+  def to_default_s(*args, &block); end
+
+  # source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#6
+  def to_s(format = T.unsafe(nil)); end
+end
+
+# source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#5
+ActiveSupport::DeprecatedRangeWithFormat::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/deprecation.rb#8
 class ActiveSupport::Deprecation
@@ -2376,6 +2418,20 @@ end
 
 # source://activesupport//lib/active_support/duration.rb#130
 ActiveSupport::Duration::VARIABLE_PARTS = T.let(T.unsafe(nil), Array)
+
+# source://activesupport//lib/active_support/core_ext/range/each.rb#6
+module ActiveSupport::EachTimeWithZone
+  # source://activesupport//lib/active_support/core_ext/range/each.rb#7
+  def each(&block); end
+
+  # source://activesupport//lib/active_support/core_ext/range/each.rb#12
+  def step(n = T.unsafe(nil), &block); end
+
+  private
+
+  # source://activesupport//lib/active_support/core_ext/range/each.rb#18
+  def ensure_iteration_allowed; end
+end
 
 # source://activesupport//lib/active_support/encrypted_configuration.rb#10
 class ActiveSupport::EncryptedConfiguration < ::ActiveSupport::EncryptedFile
@@ -4482,6 +4538,15 @@ class ActiveSupport::NumberHelper::RoundingHelper
   def convert_to_decimal(number); end
 end
 
+# source://activesupport//lib/active_support/core_ext/numeric/conversions.rb#7
+module ActiveSupport::NumericWithFormat
+  # source://activesupport//lib/active_support/core_ext/numeric/conversions.rb#111
+  def to_formatted_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/numeric/conversions.rb#111
+  def to_fs(format = T.unsafe(nil), options = T.unsafe(nil)); end
+end
+
 # source://activesupport//lib/active_support/option_merger.rb#6
 class ActiveSupport::OptionMerger
   # source://activesupport//lib/active_support/option_merger.rb#11
@@ -4614,6 +4679,18 @@ end
 
 # source://activesupport//lib/active_support/railtie.rb#7
 class ActiveSupport::Railtie < ::Rails::Railtie; end
+
+# source://activesupport//lib/active_support/core_ext/range/conversions.rb#4
+module ActiveSupport::RangeWithFormat
+  # source://activesupport//lib/active_support/core_ext/range/conversions.rb#30
+  def to_formatted_s(format = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/range/conversions.rb#30
+  def to_fs(format = T.unsafe(nil)); end
+end
+
+# source://activesupport//lib/active_support/core_ext/range/conversions.rb#5
+ActiveSupport::RangeWithFormat::RANGE_FORMATS = T.let(T.unsafe(nil), Hash)
 
 # source://activesupport//lib/active_support/reloader.rb#27
 class ActiveSupport::Reloader < ::ActiveSupport::ExecutionWrapper
@@ -5660,6 +5737,20 @@ class ActiveSupport::Testing::SimpleStubs::Stub < ::Struct
   end
 end
 
+# source://activesupport//lib/active_support/testing/stream.rb#5
+module ActiveSupport::Testing::Stream
+  private
+
+  # source://activesupport//lib/active_support/testing/stream.rb#23
+  def capture(stream); end
+
+  # source://activesupport//lib/active_support/testing/stream.rb#17
+  def quietly(&block); end
+
+  # source://activesupport//lib/active_support/testing/stream.rb#7
+  def silence_stream(stream); end
+end
+
 # source://activesupport//lib/active_support/testing/tagged_logging.rb#7
 module ActiveSupport::Testing::TaggedLogging
   # source://activesupport//lib/active_support/testing/tagged_logging.rb#10
@@ -6344,6 +6435,9 @@ class Array
   # source://activesupport//lib/active_support/core_ext/array/access.rb#47
   def excluding(*elements); end
 
+  # source://activesupport//lib/active_support/core_ext/array/extract.rb#10
+  def extract!; end
+
   # source://activesupport//lib/active_support/core_ext/array/extract_options.rb#24
   def extract_options!; end
 
@@ -6359,14 +6453,26 @@ class Array
   # source://activesupport//lib/active_support/core_ext/array/access.rb#12
   def from(position); end
 
+  # source://activesupport//lib/active_support/core_ext/array/grouping.rb#62
+  def in_groups(number, fill_with = T.unsafe(nil), &block); end
+
+  # source://activesupport//lib/active_support/core_ext/array/grouping.rb#22
+  def in_groups_of(number, fill_with = T.unsafe(nil), &block); end
+
   # source://activesupport//lib/active_support/core_ext/array/access.rb#36
   def including(*elements); end
+
+  # source://activesupport//lib/active_support/core_ext/array/inquiry.rb#16
+  def inquiry; end
 
   # source://activesupport//lib/active_support/core_ext/array/access.rb#55
   def second; end
 
   # source://activesupport//lib/active_support/core_ext/array/access.rb#97
   def second_to_last; end
+
+  # source://activesupport//lib/active_support/core_ext/array/grouping.rb#93
+  def split(value = T.unsafe(nil), &block); end
 
   # source://activesupport//lib/active_support/core_ext/enumerable.rb#310
   def sum(init = T.unsafe(nil), &block); end
@@ -6392,6 +6498,9 @@ class Array
   # source://activesupport//lib/active_support/core_ext/object/to_query.rb#50
   def to_query(key); end
 
+  # source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#5
+  def to_s(format = T.unsafe(nil)); end
+
   # source://activesupport//lib/active_support/core_ext/array/conversions.rb#60
   def to_sentence(options = T.unsafe(nil)); end
 
@@ -6407,15 +6516,20 @@ class Array
   end
 end
 
+# source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#4
+Array::NOT_SET = T.let(T.unsafe(nil), Object)
+
 # source://activesupport//lib/active_support/core_ext/object/json.rb#118
 class BigDecimal < ::Numeric
   include ::ActiveSupport::BigDecimalWithDefaultFormat
+  include ::ActiveSupport::NumericWithFormat
+  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # source://activesupport//lib/active_support/core_ext/object/json.rb#128
   def as_json(options = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/core_ext/big_decimal/conversions.rb#8
-  def to_s(format = T.unsafe(nil)); end
+  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
+  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/class/attribute.rb#5
@@ -6478,6 +6592,9 @@ class Date
   # source://activesupport//lib/active_support/core_ext/date/calculations.rb#67
   def beginning_of_day; end
 
+  # source://activesupport//lib/active_support/core_ext/date/blank.rb#11
+  def blank?; end
+
   # source://activesupport//lib/active_support/core_ext/date/calculations.rb#128
   def change(options); end
 
@@ -6523,6 +6640,9 @@ class Date
   # source://activesupport//lib/active_support/core_ext/date/conversions.rb#47
   def to_fs(format = T.unsafe(nil)); end
 
+  # source://activesupport//lib/active_support/core_ext/date/deprecated_conversions.rb#7
+  def to_s(format = T.unsafe(nil)); end
+
   # source://activesupport//lib/active_support/core_ext/date/conversions.rb#82
   def to_time(form = T.unsafe(nil)); end
 
@@ -6558,6 +6678,9 @@ end
 
 # source://activesupport//lib/active_support/core_ext/date/conversions.rb#9
 Date::DATE_FORMATS = T.let(T.unsafe(nil), Hash)
+
+# source://activesupport//lib/active_support/core_ext/date/deprecated_conversions.rb#6
+Date::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/core_ext/date_and_time/compatibility.rb#5
 module DateAndTime; end
@@ -6795,8 +6918,16 @@ end
 
 # source://activesupport//lib/active_support/core_ext/date_time/calculations.rb#5
 class DateTime < ::Date
+  include ::DateAndTime::Compatibility
+
   # source://activesupport//lib/active_support/core_ext/date_time/calculations.rb#204
   def <=>(other); end
+
+  # source://activesupport//lib/active_support/core_ext/date_time/acts_like.rb#8
+  def acts_like_date?; end
+
+  # source://activesupport//lib/active_support/core_ext/date_time/acts_like.rb#13
+  def acts_like_time?; end
 
   # source://activesupport//lib/active_support/core_ext/date_time/calculations.rb#78
   def advance(options); end
@@ -6845,6 +6976,9 @@ class DateTime < ::Date
 
   # source://activesupport//lib/active_support/core_ext/date_time/calculations.rb#154
   def beginning_of_minute; end
+
+  # source://activesupport//lib/active_support/core_ext/date_time/blank.rb#11
+  def blank?; end
 
   # source://activesupport//lib/active_support/core_ext/date_time/calculations.rb#51
   def change(options); end
@@ -6924,6 +7058,12 @@ class DateTime < ::Date
   # source://activesupport//lib/active_support/core_ext/date_time/conversions.rb#84
   def to_i; end
 
+  # source://activesupport//lib/active_support/core_ext/date_time/deprecated_conversions.rb#7
+  def to_s(format = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/date_time/compatibility.rb#15
+  def to_time; end
+
   # source://activesupport//lib/active_support/core_ext/date_time/conversions.rb#89
   def usec; end
 
@@ -6953,10 +7093,53 @@ class DateTime < ::Date
   end
 end
 
+# source://activesupport//lib/active_support/core_ext/date_time/deprecated_conversions.rb#6
+DateTime::NOT_SET = T.let(T.unsafe(nil), Object)
+
 # source://activesupport//lib/active_support/core_ext/object/try.rb#117
 class Delegator < ::BasicObject
   include ::ActiveSupport::Tryable
 end
+
+# source://activesupport//lib/active_support/core_ext/digest/uuid.rb#7
+module Digest::UUID
+  class << self
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#13
+    def use_rfc4122_namespaced_uuids; end
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#13
+    def use_rfc4122_namespaced_uuids=(val); end
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#21
+    def uuid_from_hash(hash_class, namespace, name); end
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#44
+    def uuid_v3(uuid_namespace, name); end
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#54
+    def uuid_v4; end
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#49
+    def uuid_v5(uuid_namespace, name); end
+
+    private
+
+    # source://activesupport//lib/active_support/core_ext/digest/uuid.rb#58
+    def pack_uuid_namespace(namespace); end
+  end
+end
+
+# source://activesupport//lib/active_support/core_ext/digest/uuid.rb#8
+Digest::UUID::DNS_NAMESPACE = T.let(T.unsafe(nil), String)
+
+# source://activesupport//lib/active_support/core_ext/digest/uuid.rb#10
+Digest::UUID::OID_NAMESPACE = T.let(T.unsafe(nil), String)
+
+# source://activesupport//lib/active_support/core_ext/digest/uuid.rb#9
+Digest::UUID::URL_NAMESPACE = T.let(T.unsafe(nil), String)
+
+# source://activesupport//lib/active_support/core_ext/digest/uuid.rb#11
+Digest::UUID::X500_NAMESPACE = T.let(T.unsafe(nil), String)
 
 # source://activesupport//lib/active_support/core_ext/string/output_safety.rb#8
 module ERB::Util
@@ -7112,8 +7295,14 @@ end
 
 # source://activesupport//lib/active_support/core_ext/object/json.rb#110
 class Float < ::Numeric
+  include ::ActiveSupport::NumericWithFormat
+  include ::ActiveSupport::DeprecatedNumericWithFormat
+
   # source://activesupport//lib/active_support/core_ext/object/json.rb#113
   def as_json(options = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
+  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/hash/deep_merge.rb#3
@@ -7158,6 +7347,12 @@ class Hash
 
   # source://activesupport//lib/active_support/core_ext/hash/keys.rb#72
   def deep_transform_keys!(&block); end
+
+  # source://activesupport//lib/active_support/core_ext/hash/deep_transform_values.rb#12
+  def deep_transform_values(&block); end
+
+  # source://activesupport//lib/active_support/core_ext/hash/deep_transform_values.rb#19
+  def deep_transform_values!(&block); end
 
   # source://activesupport//lib/active_support/core_ext/hash/except.rb#20
   def except!(*keys); end
@@ -7226,6 +7421,12 @@ class Hash
 
   # source://activesupport//lib/active_support/core_ext/hash/keys.rb#129
   def _deep_transform_keys_in_object!(object, &block); end
+
+  # source://activesupport//lib/active_support/core_ext/hash/deep_transform_values.rb#25
+  def _deep_transform_values_in_object(object, &block); end
+
+  # source://activesupport//lib/active_support/core_ext/hash/deep_transform_values.rb#36
+  def _deep_transform_values_in_object!(object, &block); end
 
   class << self
     # source://activesupport//lib/active_support/core_ext/hash/conversions.rb#133
@@ -7358,11 +7559,17 @@ end
 
 # source://activesupport//lib/active_support/core_ext/integer/time.rb#6
 class Integer < ::Numeric
+  include ::ActiveSupport::NumericWithFormat
+  include ::ActiveSupport::DeprecatedNumericWithFormat
+
   # source://activesupport//lib/active_support/core_ext/integer/time.rb#10
   def month; end
 
   # source://activesupport//lib/active_support/core_ext/integer/time.rb#10
   def months; end
+
+  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
+  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/core_ext/integer/time.rb#18
   def year; end
@@ -7781,13 +7988,35 @@ end
 
 # source://activesupport//lib/active_support/core_ext/object/json.rb#151
 class Range
+  include ::ActiveSupport::RangeWithFormat
+  include ::ActiveSupport::DeprecatedRangeWithFormat
+  include ::ActiveSupport::CompareWithRange
+  include ::ActiveSupport::EachTimeWithZone
   include ::Enumerable
+
+  # source://activesupport//lib/active_support/core_ext/range/compare_range.rb#16
+  def ===(value); end
 
   # source://activesupport//lib/active_support/core_ext/object/json.rb#152
   def as_json(options = T.unsafe(nil)); end
 
+  # source://activesupport//lib/active_support/core_ext/range/each.rb#7
+  def each(&block); end
+
+  # source://activesupport//lib/active_support/core_ext/range/compare_range.rb#41
+  def include?(value); end
+
+  # source://activesupport//lib/active_support/core_ext/range/overlaps.rb#7
+  def overlaps?(other); end
+
+  # source://activesupport//lib/active_support/core_ext/range/each.rb#12
+  def step(n = T.unsafe(nil), &block); end
+
   # source://activesupport//lib/active_support/core_ext/enumerable.rb#287
   def sum(identity = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#6
+  def to_s(format = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/object/json.rb#133
@@ -7798,6 +8027,23 @@ class Regexp
   # source://activesupport//lib/active_support/core_ext/regexp.rb#11
   def multiline?; end
 end
+
+# source://activesupport//lib/active_support/core_ext/securerandom.rb#5
+module SecureRandom
+  class << self
+    # source://activesupport//lib/active_support/core_ext/securerandom.rb#38
+    def base36(n = T.unsafe(nil)); end
+
+    # source://activesupport//lib/active_support/core_ext/securerandom.rb#19
+    def base58(n = T.unsafe(nil)); end
+  end
+end
+
+# source://activesupport//lib/active_support/core_ext/securerandom.rb#7
+SecureRandom::BASE36_ALPHABET = T.let(T.unsafe(nil), Array)
+
+# source://activesupport//lib/active_support/core_ext/securerandom.rb#6
+SecureRandom::BASE58_ALPHABET = T.let(T.unsafe(nil), Array)
 
 # source://activesupport//lib/active_support/core_ext/object/duplicable.rb#53
 module Singleton
@@ -7859,6 +8105,18 @@ class String
   # source://activesupport//lib/active_support/core_ext/string/inflections.rb#266
   def humanize(capitalize: T.unsafe(nil), keep_id_suffix: T.unsafe(nil)); end
 
+  # source://activesupport//lib/active_support/core_ext/string/zones.rb#9
+  def in_time_zone(zone = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/string/indent.rb#42
+  def indent(amount, indent_string = T.unsafe(nil), indent_empty_lines = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/string/indent.rb#7
+  def indent!(amount, indent_string = T.unsafe(nil), indent_empty_lines = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/string/inquiry.rb#13
+  def inquiry; end
+
   # source://activesupport//lib/active_support/core_ext/string/multibyte.rb#48
   def is_utf8?; end
 
@@ -7891,6 +8149,9 @@ class String
 
   # source://activesupport//lib/active_support/core_ext/string/filters.rb#21
   def squish!; end
+
+  # source://activesupport//lib/active_support/core_ext/string/strip.rb#22
+  def strip_heredoc; end
 
   # source://activesupport//lib/active_support/core_ext/string/inflections.rb#231
   def tableize; end
@@ -7956,6 +8217,7 @@ class Time
   include ::Comparable
   include ::DateAndTime::Zones
   include ::DateAndTime::Calculations
+  include ::DateAndTime::Compatibility
 
   # source://activesupport//lib/active_support/core_ext/time/calculations.rb#280
   def +(other); end
@@ -8107,6 +8369,12 @@ class Time
   # source://activesupport//lib/active_support/core_ext/time/conversions.rb#53
   def to_fs(format = T.unsafe(nil)); end
 
+  # source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#7
+  def to_s(format = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/core_ext/time/compatibility.rb#13
+  def to_time; end
+
   class << self
     # source://activesupport//lib/active_support/core_ext/time/calculations.rb#18
     def ===(other); end
@@ -8157,6 +8425,9 @@ Time::COMMON_YEAR_DAYS_IN_MONTH = T.let(T.unsafe(nil), Array)
 
 # source://activesupport//lib/active_support/core_ext/time/conversions.rb#8
 Time::DATE_FORMATS = T.let(T.unsafe(nil), Hash)
+
+# source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#6
+Time::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/core_ext/object/blank.rb#72
 class TrueClass
