@@ -78,5 +78,5 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 [gem]: https://rubygems.org/gems/super
 [discussions]: https://github.com/superadministration/super/discussions
 [docs]: https://superadministration.github.io/
-[demo]: https://demo-super.herokuapp.com/admin
+[demo]: https://superdemo.zachahn.com/admin
 [demo_source]: https://github.com/superadministration/super_demo
