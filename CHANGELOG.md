@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0] - 2023-05-07
+
 ### Breaking changes
 
 * Removed deprecated `Super::Display::SchemaTypes#badge`
@@ -469,7 +471,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Sprockets and Webpacker support. Defaults to Sprockets
 * Navigation bar with links to all admin controllers
 
-[Unreleased]: https://github.com/superadministration/super/compare/v0.21.0...HEAD
+[Unreleased]: https://github.com/superadministration/super/compare/v0.22.0...HEAD
+[0.22.0]: https://github.com/superadministration/super/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/superadministration/super/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/superadministration/super/compare/v0.19.0...v0.20.0
 [0.19.0]: https://github.com/superadministration/super/compare/v0.18.0...v0.19.0
