@@ -1,3 +1,5 @@
+# typed: true
+
 class Admin::ShipsController < AdminController
   private
 

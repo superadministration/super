@@ -1,3 +1,5 @@
+# typed: true
+
 require "test_helper"
 require "generators/super/resource/resource_generator"
 

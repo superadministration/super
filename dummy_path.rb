@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 SUPER_DEFAULT_RAILS = "rails70_sprockets4"

@@ -1,3 +1,5 @@
+# typed: false
+
 module AdHocViewHelpers
   extend ActiveSupport::Concern
 

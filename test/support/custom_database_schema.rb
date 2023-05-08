@@ -1,3 +1,5 @@
+# typed: false
+
 module CustomDatabaseSchema
   extend ActiveSupport::Concern
 

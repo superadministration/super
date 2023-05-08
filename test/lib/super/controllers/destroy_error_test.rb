@@ -1,3 +1,5 @@
+# typed: false
+
 require "test_helper"
 
 class DestroyErrorTest < ActionDispatch::IntegrationTest

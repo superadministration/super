@@ -1,3 +1,5 @@
+# typed: true
+
 class AdminController < Super::ApplicationController
   private
 

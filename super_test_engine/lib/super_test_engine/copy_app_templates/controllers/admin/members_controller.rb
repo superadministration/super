@@ -1,3 +1,5 @@
+# typed: true
+
 class Admin::MembersController < AdminController
   def show
     super

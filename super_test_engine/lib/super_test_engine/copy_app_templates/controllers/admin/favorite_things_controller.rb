@@ -1,3 +1,5 @@
+# typed: true
+
 class Admin::FavoriteThingsController < AdminController
   private
 

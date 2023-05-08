@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: false
+# frozen_string_literal: true
 
 module Super::RenderHelper
   def super_render(*args, **kwargs, &block)

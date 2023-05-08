@@ -1,3 +1,5 @@
+# typed: strict
+
 require "test_helper"
 
 class ReorderableHashTest < ActiveSupport::TestCase

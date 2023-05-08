@@ -1,3 +1,5 @@
+# typed: true
+
 require "test_helper"
 require "generators/super/action_text/action_text_generator"
 

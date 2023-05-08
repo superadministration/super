@@ -1,3 +1,5 @@
+# typed: true
+
 class Admin::SinksController < AdminController
   private
 

@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Super
@@ -31,7 +32,7 @@ module Super
         alias_method :add, :push
 
         def each(&block)
-          return enum_for(:each) if !block_given?
+          return enum_for(:each) if !block
 
           @operators.each do |identifier, operator|
             block.call(

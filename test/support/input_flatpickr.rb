@@ -1,3 +1,5 @@
+# typed: false
+
 module InputFlatpickr
   def set_date!(date)
     page.first(".flatpickr-monthDropdown-month[value='#{date.month - 1}']").select_option

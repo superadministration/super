@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Super
@@ -36,7 +37,7 @@ module Super
     end
 
     def each(&block)
-      if !block_given?
+      if !block
         return enum_for(:each)
       end
 
