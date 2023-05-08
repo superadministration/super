@@ -3,18 +3,34 @@
 
 module Super
   class LinkBuilder
-    %i[text href options].each do |method_name|
-      class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
-        def #{method_name}(&block)
-          @#{method_name} = block
-          self
-        end
+    def text(&block)
+      @text = block
+      self
+    end
 
-        def process_#{method_name}(&block)
-          @process_#{method_name} = block
-          self
-        end
-      RUBY
+    def process_text(&block)
+      @process_text = block
+      self
+    end
+
+    def href(&block)
+      @href = block
+      self
+    end
+
+    def process_href(&block)
+      @process_href = block
+      self
+    end
+
+    def options(&block)
+      @options = block
+      self
+    end
+
+    def process_options(&block)
+      @process_options = block
+      self
     end
 
     def resolve(**kwargs)

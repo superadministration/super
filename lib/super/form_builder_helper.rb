@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -14,7 +14,7 @@ module Super
       ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
 
       options[:builder] ||= FormBuilder
-      form_for(record, options, &block)
+      T.let(self, T.untyped).form_for(record, options, &block)
     ensure
       ActionView::Base.field_error_proc = original
     end
@@ -25,7 +25,7 @@ module Super
       ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
 
       options[:builder] ||= FormBuilder
-      form_with(**options, &block)
+      T.let(self, T.untyped).form_with(**options, &block)
     ensure
       ActionView::Base.field_error_proc = original
     end
@@ -36,7 +36,7 @@ module Super
       ActionView::Base.field_error_proc = FormBuilder::FIELD_ERROR_PROC
 
       options[:builder] ||= FormBuilder
-      fields_for(*args, **options, &block)
+      T.unsafe(self).fields_for(*args, **options, &block)
     ensure
       ActionView::Base.field_error_proc = original
     end

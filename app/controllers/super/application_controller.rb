@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -7,6 +7,7 @@ module Super
     include ClientError::Handling
 
     before_action do
+      T.bind(self, Super::ApplicationController)
       if Super::PackagedAsset.warning_message
         flash.now[:mismatching_package_json_gemfile_versions] = Super::PackagedAsset.warning_message
       end

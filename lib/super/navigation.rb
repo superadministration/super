@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -94,7 +94,7 @@ module Super
       end
 
       def link_to(*args, **kwargs)
-        @links.push(Super::Link.new(*args, **kwargs))
+        @links.push(T.unsafe(Super::Link).new(*args, **kwargs))
         self
       end
 

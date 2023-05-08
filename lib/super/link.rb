@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -68,11 +68,11 @@ module Super
       if @text.is_a?(Array)
         *head, tail = @text
         if !tail.is_a?(Hash)
-          head.push(tail)
+          T.must(head).push(tail)
           tail = {}
         end
 
-        @text = I18n.t(*head, **tail)
+        @text = T.unsafe(I18n).t(*head, **tail)
         return @text
       end
 

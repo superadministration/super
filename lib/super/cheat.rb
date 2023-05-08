@@ -1,8 +1,11 @@
-# typed: false
+# typed: strict
 # frozen_string_literal: true
 
 module Super
   class Cheat
+    extend T::Sig
+
+    sig { void }
     def controller
       paths = %w[
         ../../app/controllers/super/application_controller.rb
@@ -14,7 +17,8 @@ module Super
       methods =
         paths
           .map { |f| File.read(File.expand_path(f, __dir__)) }
-          .flat_map { |content| content.scan(/^\s+(?:helper_method )?def .*$/) }
+          .map { |content| content.scan(/^\s+(?:helper_method )?def .*$/) }
+          .flatten
           .reject { |method| method =~ /\bdef self\./ }
           .map { |method| method.strip.sub(/^(?:helper_method )?def /, "#") }
 

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -76,6 +76,7 @@ module Super
 
     module ControllerMethods
       def index
+        T.bind(self, Super::SubstructureController)
         super
         return if !@records
         @pagination = initialize_pagination

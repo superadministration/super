@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -8,7 +8,7 @@ module Super
 
       def resolve_for_rendering(template, partials, block)
         if block
-          partials = [block.call, *parts]
+          partials = [block.call, *partials]
         end
 
         partials =

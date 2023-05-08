@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -14,7 +14,7 @@ module Super
           c
         when Array
           if c.size != 2
-            raise %(Expected exactly two elements (["class", some_condition]), got: #{c.inspect})
+            Kernel.raise %(Expected exactly two elements (["class", some_condition]), got: #{c.inspect})
           end
 
           c.first if c.last

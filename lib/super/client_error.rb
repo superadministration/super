@@ -1,4 +1,4 @@
-# typed: false
+# typed: strict
 # frozen_string_literal: true
 
 module Super
@@ -20,7 +20,9 @@ module Super
       extend ActiveSupport::Concern
 
       included do
+        T.bind(self, T.class_of(ActionController::Base))
         rescue_from ::Super::ClientError do |exception|
+          T.bind(self, ActionController::Base)
           code, default_message =
             case exception
             when ClientError::UnprocessableEntity

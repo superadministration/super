@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -8,6 +8,7 @@ module Super
     def self.batch(action_name)
       mod = Module.new do
         define_method(action_name) do
+          T.bind(self, Super::SubstructureController)
           if !params[:batch]
             flash.alert = I18n.t("super.batch.none_error")
             return render :nothing, status: :bad_request

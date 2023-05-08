@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -7,9 +7,9 @@ module Super
       module_function
 
       def build_chain(prefix, optional, suffix)
-        prefix = Array(prefix)
-        optional = Array(optional)
-        suffix = Array(suffix)
+        prefix = Kernel.Array(prefix)
+        optional = Kernel.Array(optional)
+        suffix = Kernel.Array(suffix)
 
         result = []
 

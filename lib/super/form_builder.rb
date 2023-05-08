@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -112,7 +112,7 @@ module Super
       end
 
       private_class_method def self.define_convenience(method_name, *args, **kwargs)
-        define_with_label_tag(method_name, *args, **kwargs)
+        T.unsafe(self).send(:define_with_label_tag, method_name, *args, **kwargs)
         ::Super::Form::SchemaTypes.define_schema_type_for(method_name)
       end
 

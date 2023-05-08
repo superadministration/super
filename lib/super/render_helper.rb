@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super::RenderHelper
@@ -10,7 +10,7 @@ module Super::RenderHelper
       when ActiveSupport::SafeBuffer
         return renderable
       when Super::Partial
-        return render(*args, **kwargs, &block)
+        return T.unsafe(self).render(*args, **kwargs, &block)
       when Super::Link
         return renderable.to_link(self, kwargs)
       when Super::ViewChain
@@ -18,10 +18,11 @@ module Super::RenderHelper
       end
     end
 
-    render(*args, **kwargs, &block)
+    T.unsafe(self).render(*args, **kwargs, &block)
   end
 
   def super_resolve_renderable(renderable)
+    T.bind(self, ActionView::Base)
     if renderable.is_a?(Symbol)
       instance_variable_get(renderable)
     else

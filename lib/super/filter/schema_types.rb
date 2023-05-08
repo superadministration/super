@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 module Super
@@ -14,7 +14,7 @@ module Super
           @operator_transcript = {}
           @fallback_transcript = nil
 
-          push(*new_operators)
+          T.unsafe(self).push(*new_operators)
         end
 
         def push(*new_operators)
@@ -73,7 +73,7 @@ module Super
 
       def use(*identifiers)
         found_operators = identifiers.flatten.map { |id| Operator[id] }
-        OperatorList.new(*found_operators)
+        T.unsafe(OperatorList).new(*found_operators)
       end
 
       def select(collection)
