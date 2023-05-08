@@ -1,0 +1,6 @@
+---
+require:
+  - rubocop-sorbet
+
+Sorbet:
+  DisabledByDefault: false
