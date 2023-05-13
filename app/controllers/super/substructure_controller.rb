@@ -172,6 +172,28 @@ module Super
       attribute_names.compact
     end
 
+    # @return[Boolean]
+    helper_method def scope_enabled?
+      true
+    end
+
+    # @return [Super::Scope]
+    helper_method def scope_schema
+      Super::Query.subsets do |subsets|
+        subsets[:all] = Super::Subset.new(&:all)
+        subsets[:ex_borg] = Super::Subset.new { |rel| rel.where(name: "Jean-Luc Picard") }
+      end
+      [
+        Super::Subset.new(:all, &:all),
+        Super::Subset.new(:ex_borg) { |rel| rel.where(name: "Jean-Luc Picard") }
+      ]
+
+      # Super::Scope.new do |builder|
+      #   builder(:all, &:itself)
+      #   builder(:best) { |rel| rel.where(name: "Jean-Luc Picard") }
+      # end
+    end
+
     helper_method def default_sort
       {id: :desc}
     end
