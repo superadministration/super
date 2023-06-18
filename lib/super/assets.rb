@@ -92,7 +92,6 @@ module Super
     class Handler
       class << self
         def auto
-          return propshaft
           sprockets_spec = gem_specification("sprockets")
           if sprockets_spec
             major = sprockets_spec.version.segments.first
