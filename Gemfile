@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 if caller.none? { |line| line =~ /appraisal/ }
-  require_relative "./dummy_path"
+  require_relative "dummy_path"
   version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
   instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
 end
