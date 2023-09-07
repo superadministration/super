@@ -7,3 +7,4 @@ Style/FrozenStringLiteralComment:
   Exclude:
     - "gemfiles/**/*"
     - "test/**/*"
+    - "super_test_engine/**/*"
