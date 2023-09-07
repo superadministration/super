@@ -157,6 +157,11 @@ module Super
       end
     end
 
+    helper_method def cluster
+      Super::Cluster.new do
+      end
+    end
+
     # @return [Boolean]
     helper_method def sort_enabled?
       true
