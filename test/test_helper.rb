@@ -54,23 +54,27 @@ class CapybaraTest < ActionDispatch::IntegrationTest
 
   def self.selenium!
     setup do
-      skip if ENV["SKIP_SELENIUM"]
-      skip if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
-
-      non_headless, headless =
-        if ENV["SELENIUM_CHROME"]
-          %i[selenium_chrome selenium_chrome_headless]
-        else
-          %i[selenium selenium_headless]
-        end
-
-      Capybara.current_driver =
-        if ENV["SELENIUM_NON_HEADLESS"]
-          non_headless
-        else
-          headless
-        end
+      selenium!
     end
+  end
+
+  def selenium!
+    skip if ENV["SKIP_SELENIUM"]
+    skip if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 0
+
+    non_headless, headless =
+      if ENV["SELENIUM_CHROME"]
+        %i[selenium_chrome selenium_chrome_headless]
+      else
+        %i[selenium selenium_headless]
+      end
+
+    Capybara.current_driver =
+      if ENV["SELENIUM_NON_HEADLESS"]
+        non_headless
+      else
+        headless
+      end
   end
 
   def browser_tz(tz)
