@@ -1,4 +1,4 @@
-<div data-controller="delete clean-filter-param" class="mt-4">
+<div data-controller="clean-filter-param" class="up-delete mt-4">
   <div class="flex items-center">
     <div class="flex-auto">
       <%= expr_fields.super.select(
@@ -19,7 +19,7 @@
       ) %>
     </div>
     <div class="flex-none pl-2">
-      <a href="#" data-action="delete#call" class="block text-black hover:text-red-600 h-4 w-4"><%= super_render("super/feather/x") %></a>
+      <a href="#" class="up-delete-invoke block text-black hover:text-red-600 h-4 w-4"><%= super_render("super/feather/x") %></a>
     </div>
   </div>
 </div>

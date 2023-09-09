@@ -11579,6 +11579,14 @@ up.compiler(".up-batch", function (element, data, meta) {
   form.appendChild(authenticityTokenInput);
 });
 
+up.compiler(".up-delete-invoke", function (element, data, meta) {
+  up.on(element, "click", function (event) {
+    var target = element.closest(".up-delete");
+    target.remove();
+    up.event.halt(event);
+  });
+});
+
 var EventListener = /** @class */function () {
   function EventListener(eventTarget, eventName, eventOptions) {
     this.eventTarget = eventTarget;
@@ -14053,7 +14061,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var _default$7 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -14066,7 +14074,9 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
       event.preventDefault();
       var unixtime = new Date().getTime();
       var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
-      this.templateTarget.insertAdjacentHTML("beforebegin", content);
+      var newElement = up.element.createFromHTML(content);
+      up.hello(newElement);
+      this.templateTarget.insertAdjacentElement("beforebegin", newElement);
     }
   }], [{
     key: "targets",
@@ -14077,7 +14087,7 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -14106,7 +14116,7 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -14120,23 +14130,6 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
         var controller = this.application.getControllerForElementAndIdentifier(el, "clean-filter-param");
         controller.call();
       }.bind(this));
-    }
-  }]);
-  return _default;
-}(Controller);
-
-var _default$4 = /*#__PURE__*/function (_Controller) {
-  _inherits(_default, _Controller);
-  var _super = _createSuper(_default);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _super.apply(this, arguments);
-  }
-  _createClass(_default, [{
-    key: "call",
-    value: function call(event) {
-      event.preventDefault();
-      this.element.remove();
     }
   }]);
   return _default;
@@ -16435,10 +16428,9 @@ var _default = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var StimulusApplication = Application.start();
-StimulusApplication.register("apply-template", _default$7);
-StimulusApplication.register("clean-filter-param", _default$6);
-StimulusApplication.register("clean-filter-params", _default$5);
-StimulusApplication.register("delete", _default$4);
+StimulusApplication.register("apply-template", _default$6);
+StimulusApplication.register("clean-filter-param", _default$5);
+StimulusApplication.register("clean-filter-params", _default$4);
 StimulusApplication.register("flatpickr", _default$3);
 StimulusApplication.register("tab-container", _default$2);
 StimulusApplication.register("tab", _default$1);

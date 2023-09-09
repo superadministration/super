@@ -13,7 +13,8 @@ export default class extends Controller {
       /TEMPLATEINDEX/g,
       unixtime.toString()
     );
-
-    this.templateTarget.insertAdjacentHTML("beforebegin", content);
+    let newElement = up.element.createFromHTML(content);
+    up.hello(newElement);
+    this.templateTarget.insertAdjacentElement("beforebegin", newElement);
   }
 }
