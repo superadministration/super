@@ -5,7 +5,7 @@
 
     <ul class="absolute bg-white shadow-md px-4 py-3 z-20">
       <% batch_actions.each do |batch_action| %>
-        <li><button data-controller="batch" data-batch-method-value="<%= batch_action.options&.dig(:method) || "get" %>" data-batch-action-value="<%= batch_action.href %>" data-action="batch#submit" class="<%= default_options[:class] %>"><%= batch_action.text %></button></li>
+        <li><button data-batch-method="<%= batch_action.options&.dig(:method) %>" data-batch-href="<%= batch_action.href %>" class="up-batch <%= default_options[:class] %>"><%= batch_action.text %></button></li>
       <% end %>
     </ul>
   </details>

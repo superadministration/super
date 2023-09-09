@@ -3,11 +3,11 @@ import "details-element-polyfill";
 import "@github/details-dialog-element";
 
 import "unpoly";
+import "./unpoly_batch";
 
 import { Application, Controller as StimulusController } from "stimulus";
 
 import apply_template_controller from "./apply_template_controller";
-import batch from "./batch_controller";
 import clean_filter_param_controller from "./clean_filter_param_controller";
 import clean_filter_params_controller from "./clean_filter_params_controller";
 import delete_controller from "./delete_controller";
@@ -18,7 +18,6 @@ import toggle_pending_destruction_controller from "./toggle_pending_destruction_
 
 let StimulusApplication = Application.start();
 StimulusApplication.register("apply-template", apply_template_controller);
-StimulusApplication.register("batch", batch);
 StimulusApplication.register(
   "clean-filter-param",
   clean_filter_param_controller

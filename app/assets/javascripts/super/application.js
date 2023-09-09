@@ -11551,6 +11551,37 @@ var Super = (function (exports) {
     })();
   });
 
+  up.compiler(".up-batch", function (element, data, meta) {
+    var directMethods = ["get", "post"];
+    var postMethods = ["put", "patch", "delete"];
+    var form = element.closest("form");
+    var batchMethod = data.batchMethod;
+    if (typeof batchMethod === "string") {
+      batchMethod = batchMethod.toLowerCase();
+    }
+    if (directMethods.includes(batchMethod)) {
+      form.method = batchMethod;
+    } else if (postMethods.includes(batchMethod)) {
+      form.method = "post";
+      var methodInput = document.createElement("input");
+      methodInput.type = "hidden";
+      methodInput.name = "_method";
+      methodInput.value = batchMethod;
+      form.appendChild(methodInput);
+    } else {
+      form.method = "get";
+    }
+    form.action = data.batchHref;
+    if (batchMethod === "get") {
+      return;
+    }
+    var authenticityTokenInput = document.createElement("input");
+    authenticityTokenInput.type = "hidden";
+    authenticityTokenInput.name = document.querySelector("meta[name='csrf-param']").content;
+    authenticityTokenInput.value = document.querySelector("meta[name='csrf-token']").content;
+    form.appendChild(authenticityTokenInput);
+  });
+
   var EventListener = /** @class */function () {
     function EventListener(eventTarget, eventName, eventOptions) {
       this.eventTarget = eventTarget;
@@ -14025,7 +14056,7 @@ var Super = (function (exports) {
     return typeof key === "symbol" ? key : String(key);
   }
 
-  var _default$8 = /*#__PURE__*/function (_Controller) {
+  var _default$7 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
     var _super = _createSuper(_default);
     function _default() {
@@ -14044,37 +14075,6 @@ var Super = (function (exports) {
       key: "targets",
       get: function get() {
         return ["template"];
-      }
-    }]);
-    return _default;
-  }(Controller);
-
-  var _default$7 = /*#__PURE__*/function (_Controller) {
-    _inherits(_default, _Controller);
-    var _super = _createSuper(_default);
-    function _default() {
-      _classCallCheck(this, _default);
-      return _super.apply(this, arguments);
-    }
-    _createClass(_default, [{
-      key: "submit",
-      value: function submit() {
-        var form = this.element.closest("form");
-        form.method = this.methodValue;
-        form.action = this.actionValue;
-        var authenticityTokenInput = document.createElement("input");
-        authenticityTokenInput.type = "hidden";
-        authenticityTokenInput.name = document.querySelector("meta[name='csrf-param']").content;
-        authenticityTokenInput.value = document.querySelector("meta[name='csrf-token']").content;
-        form.appendChild(authenticityTokenInput);
-      }
-    }], [{
-      key: "values",
-      get: function get() {
-        return {
-          method: String,
-          action: String
-        };
       }
     }]);
     return _default;
@@ -16438,8 +16438,7 @@ var Super = (function (exports) {
   }(Controller);
 
   var StimulusApplication = Application.start();
-  StimulusApplication.register("apply-template", _default$8);
-  StimulusApplication.register("batch", _default$7);
+  StimulusApplication.register("apply-template", _default$7);
   StimulusApplication.register("clean-filter-param", _default$6);
   StimulusApplication.register("clean-filter-params", _default$5);
   StimulusApplication.register("delete", _default$4);
