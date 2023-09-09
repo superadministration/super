@@ -24,7 +24,7 @@ module Super
       end
 
       @records = load_records
-      @display = display_schema.apply(action: current_action, format: request.format)
+      @display = display_schema.apply(action: current_action, format: request.format, is_unpoly: unpoly?)
       @view = index_view
       initialize_filter_form
       initialize_sort_form
@@ -36,7 +36,7 @@ module Super
     # @return [void]
     def show
       @record = load_record
-      @display = display_schema.apply(action: current_action, format: request.format)
+      @display = display_schema.apply(action: current_action, format: request.format, is_unpoly: unpoly?)
       @view = show_view
     end
 

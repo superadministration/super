@@ -44,7 +44,7 @@ module Super
         reg[:destroy] = LinkBuilder.new
           .text { |params:, **| Super::Useful::I19.i18n_with_fallback("super", params[:controller].split("/"), "actions.destroy") }
           .href { |params:, record:| {controller: params[:controller], action: :destroy, id: record, only_path: true} }
-          .options { |**| {method: :delete, data: {confirm: "Really delete?"}} }
+          .options { |**| {up: {follow: "", confirm: "Really delete?", method: "delete"}} }
           .freeze
       end
     end
@@ -59,7 +59,7 @@ module Super
     def initialize(text, href, **options)
       @text = text
       @href = href
-      @options = options
+      @options = expand_unpoly_options(options).freeze
     end
 
     attr_reader :options
@@ -93,7 +93,7 @@ module Super
     end
 
     def to_link(template, local_assigns)
-      default_options = local_assigns.fetch(:default_options, {})
+      default_options = expand_unpoly_options(local_assigns.fetch(:default_options, {}))
       template.link_to(
         text,
         href,
@@ -107,6 +107,17 @@ module Super
 
     def ==(other)
       self.class == other.class && text == other.text && href == other.href && options == other.options
+    end
+
+    private
+
+    def expand_unpoly_options(original)
+      options = original.dup
+      unpoly_options = options.delete(:up) || {}
+      unpoly_options.each do |key, value|
+        options["up-#{key.to_s.tr("_", "-")}".to_sym] ||= value
+      end
+      options
     end
   end
 end

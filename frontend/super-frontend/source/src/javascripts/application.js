@@ -2,7 +2,8 @@ import "@webcomponents/custom-elements";
 import "details-element-polyfill";
 import "@github/details-dialog-element";
 
-import RailsUjs from "@rails/ujs";
+import "unpoly";
+
 import { Application, Controller as StimulusController } from "stimulus";
 
 import apply_template_controller from "./apply_template_controller";

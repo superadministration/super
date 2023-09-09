@@ -26,5 +26,13 @@ module Super
     ensure
       @current_action = original
     end
+
+    def unpoly?
+      if instance_variable_defined?(:@unpoly_request)
+        return @unpoly_request
+      end
+
+      @unpoly_request = request.headers.key?("HTTP_X_UP_VERSION")
+    end
   end
 end

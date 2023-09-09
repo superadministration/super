@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking changes
+
+* Replaced Rails UJS with Unpoly
+
 ## [0.22.0] - 2023-05-07
 
 ### Breaking changes

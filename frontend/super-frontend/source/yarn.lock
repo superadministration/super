@@ -973,11 +973,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rails/ujs@^6.0.2-1":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.7.tgz#b09dc5b2105dd267e8374c47e4490240451dc7f6"
-  integrity sha512-0e7WQ4LE/+LEfW2zfAw9ppsB6A8RmxbdAUPAF++UT80epY+7emuQDkKXmaK0a9lp6An50RvzezI0cIQjp1A58w==
-
 "@rollup/plugin-babel@^5.3.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
@@ -2799,6 +2794,11 @@ universalify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
   integrity sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
+
+unpoly@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/unpoly/-/unpoly-3.3.0.tgz#44fb25aa344b1bc3c14426656d11f1a71b97b080"
+  integrity sha512-OYFi2AtCmeTwhH8RPvz+7+Gaz+nCMJ3Ezx0kfqEoKyBdN1BffbU/vtR4IbsiprRoKrsO4gywchdsPjXdwCY/Sg==
 
 update-browserslist-db@^1.0.10:
   version "1.0.11"

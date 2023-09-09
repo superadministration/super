@@ -13,7 +13,7 @@ class Super::DisplayTest < ActionView::TestCase
       f[:just_a_test] = type.computed(:record) { |record| record.name.upcase }
       f[:just_a_link] = type.computed(:record) { |record| Super::Link.new(record.rank, "https://rubyonrails.org/") }
     end
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @records = [members(:picard)]
     render(display)
@@ -38,7 +38,7 @@ class Super::DisplayTest < ActionView::TestCase
     end
 
     display = view.display_schema
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @record = members(:picard)
     render(display)
@@ -60,7 +60,7 @@ class Super::DisplayTest < ActionView::TestCase
     end
 
     display = view.display_schema
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @record = members(:picard)
     render(display)
@@ -84,7 +84,7 @@ class Super::DisplayTest < ActionView::TestCase
         end
       end
     end
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @records = [members(:picard)]
     render(display)
@@ -103,7 +103,7 @@ class Super::DisplayTest < ActionView::TestCase
     display = Super::Display.new do |f, type|
       f[:name] = type.string.attribute_name("Designation")
     end
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @records = [members(:picard)]
     render(display)
@@ -121,7 +121,7 @@ class Super::DisplayTest < ActionView::TestCase
     display = Super::Display.new do |f, type|
       f[:name] = type.string.attribute_name("Designation")
     end
-    display.apply(action: view.current_action, format: Mime[:html])
+    display.apply(action: view.current_action, format: Mime[:html], is_unpoly: false)
 
     @record = members(:picard)
     render(display)

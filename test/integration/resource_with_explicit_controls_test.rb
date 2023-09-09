@@ -52,14 +52,20 @@ class ResourceWithExplicitControlsTest < CapybaraTest
   end
 
   def test_delete
+    selenium!
+
     visit(admin_members_path)
+    picard_element_id = "#record-pk-#{members(:picard).id}"
     assert_difference -> { Member.all.size }, -1 do
-      within("#record-pk-#{members(:picard).id}") do
-        click_on("Delete")
+      within(picard_element_id) do
+        accept_confirm do
+          click_on("Delete")
+        end
       end
+
+      page.has_no_selector?(picard_element_id)
     end
 
-    assert_includes(200...300, page.status_code)
     assert_equal(admin_members_path, page.current_path)
   end
 end
