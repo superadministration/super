@@ -11587,6 +11587,20 @@ up.compiler(".up-delete-invoke", function (element, data, meta) {
   });
 });
 
+up.compiler(".up-form-field--destroy", function (element, data, meta) {
+  up.on(element, "change", function (event) {
+    var target = element.closest(".up-form-field--destroy-target");
+    if (!target) {
+      return;
+    }
+    if (element.checked) {
+      target.classList.add("opacity-75", "bg-gray-100");
+    } else {
+      target.classList.remove("opacity-75", "bg-gray-100");
+    }
+  });
+});
+
 var EventListener = /** @class */function () {
   function EventListener(eventTarget, eventName, eventOptions) {
     this.eventTarget = eventTarget;
@@ -14061,7 +14075,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -14087,7 +14101,7 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -14116,7 +14130,7 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -16266,7 +16280,7 @@ if (typeof window !== "undefined") {
   window.flatpickr = flatpickr;
 }
 
-var _default$3 = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -16289,7 +16303,7 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -16344,7 +16358,7 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -16404,36 +16418,12 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default = /*#__PURE__*/function (_Controller) {
-  _inherits(_default, _Controller);
-  var _super = _createSuper(_default);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _super.apply(this, arguments);
-  }
-  _createClass(_default, [{
-    key: "call",
-    value: function call(event) {
-      var target = event.target;
-      if (target) {
-        if (target.checked) {
-          this.element.classList.add("opacity-75", "bg-gray-100");
-        } else {
-          this.element.classList.remove("opacity-75", "bg-gray-100");
-        }
-      }
-    }
-  }]);
-  return _default;
-}(Controller);
-
 var StimulusApplication = Application.start();
-StimulusApplication.register("apply-template", _default$6);
-StimulusApplication.register("clean-filter-param", _default$5);
-StimulusApplication.register("clean-filter-params", _default$4);
-StimulusApplication.register("flatpickr", _default$3);
-StimulusApplication.register("tab-container", _default$2);
-StimulusApplication.register("tab", _default$1);
-StimulusApplication.register("toggle-pending-destruction", _default);
+StimulusApplication.register("apply-template", _default$5);
+StimulusApplication.register("clean-filter-param", _default$4);
+StimulusApplication.register("clean-filter-params", _default$3);
+StimulusApplication.register("flatpickr", _default$2);
+StimulusApplication.register("tab-container", _default$1);
+StimulusApplication.register("tab", _default);
 
 export { StimulusApplication, Controller as StimulusController };
