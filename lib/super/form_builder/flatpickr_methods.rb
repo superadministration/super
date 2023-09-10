@@ -7,10 +7,9 @@ module Super
       def date_flatpickr(attribute, options = {})
         options, defaults = split_defaults(
           options,
-          class: "super-input w-full",
+          class: "up-flatpickr super-input w-full",
           data: {
-            controller: "flatpickr",
-            flatpickr_options_value: {
+            up_flatpickr_options: {
               dateFormat: "Y-m-d"
             }
           }
@@ -28,10 +27,9 @@ module Super
       def datetime_flatpickr(attribute, options = {})
         options, defaults = split_defaults(
           options,
-          class: "super-input w-full",
+          class: "up-flatpickr super-input w-full",
           data: {
-            controller: "flatpickr",
-            flatpickr_options_value: {
+            up_flatpickr_options: {
               enableSeconds: true,
               enableTime: true,
               dateFormat: "Z"
@@ -51,10 +49,9 @@ module Super
       def time_flatpickr(attribute, options = {})
         options, defaults = split_defaults(
           options,
-          class: "super-input w-full",
+          class: "up-flatpickr super-input w-full",
           data: {
-            controller: "flatpickr",
-            flatpickr_options_value: {
+            up_flatpickr_options: {
               enableSeconds: true,
               enableTime: true,
               noCalendar: true,

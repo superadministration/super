@@ -5,6 +5,7 @@ import "@github/details-dialog-element";
 import "unpoly";
 import "./unpoly_batch";
 import "./unpoly_delete";
+import "./unpoly_flatpickr";
 import "./unpoly_form_field__destroy";
 
 import { Application, Controller as StimulusController } from "stimulus";
@@ -12,7 +13,6 @@ import { Application, Controller as StimulusController } from "stimulus";
 import apply_template_controller from "./apply_template_controller";
 import clean_filter_param_controller from "./clean_filter_param_controller";
 import clean_filter_params_controller from "./clean_filter_params_controller";
-import flatpickr_controller from "./flatpickr_controller";
 import tab_container_controller from "./tab_container_controller";
 import tab_controller from "./tab_controller";
 
@@ -26,7 +26,6 @@ StimulusApplication.register(
   "clean-filter-params",
   clean_filter_params_controller
 );
-StimulusApplication.register("flatpickr", flatpickr_controller);
 StimulusApplication.register("tab-container", tab_container_controller);
 StimulusApplication.register("tab", tab_controller);
 
