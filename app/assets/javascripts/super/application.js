@@ -13743,6 +13743,22 @@ var Super = (function (exports) {
     });
   });
 
+  up.compiler(".up-template-invoke", function (element, data, meta) {
+    up.on(element, "click", function (event) {
+      var container = element.closest(".up-template");
+      var templateSource = container.querySelector("template.up-template-source");
+      if (!(container && templateSource)) {
+        return;
+      }
+      up.event.halt(event);
+      var unixtime = new Date().getTime();
+      var content = templateSource.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
+      var newElement = up.element.createFromHTML(content);
+      up.hello(newElement);
+      templateSource.insertAdjacentElement("beforebegin", newElement);
+    });
+  });
+
   var EventListener = /** @class */function () {
     function EventListener(eventTarget, eventName, eventOptions) {
       this.eventTarget = eventTarget;
@@ -16217,32 +16233,6 @@ var Super = (function (exports) {
     return typeof key === "symbol" ? key : String(key);
   }
 
-  var _default$4 = /*#__PURE__*/function (_Controller) {
-    _inherits(_default, _Controller);
-    var _super = _createSuper(_default);
-    function _default() {
-      _classCallCheck(this, _default);
-      return _super.apply(this, arguments);
-    }
-    _createClass(_default, [{
-      key: "call",
-      value: function call(event) {
-        event.preventDefault();
-        var unixtime = new Date().getTime();
-        var content = this.templateTarget.innerHTML.replace(/TEMPLATEINDEX/g, unixtime.toString());
-        var newElement = up.element.createFromHTML(content);
-        up.hello(newElement);
-        this.templateTarget.insertAdjacentElement("beforebegin", newElement);
-      }
-    }], [{
-      key: "targets",
-      get: function get() {
-        return ["template"];
-      }
-    }]);
-    return _default;
-  }(Controller);
-
   var _default$3 = /*#__PURE__*/function (_Controller) {
     _inherits(_default, _Controller);
     var _super = _createSuper(_default);
@@ -16407,7 +16397,6 @@ var Super = (function (exports) {
   }(Controller);
 
   var StimulusApplication = Application.start();
-  StimulusApplication.register("apply-template", _default$4);
   StimulusApplication.register("clean-filter-param", _default$3);
   StimulusApplication.register("clean-filter-params", _default$2);
   StimulusApplication.register("tab-container", _default$1);
