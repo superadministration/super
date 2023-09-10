@@ -16230,54 +16230,6 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var _default$3 = /*#__PURE__*/function (_Controller) {
-  _inherits(_default, _Controller);
-  var _super = _createSuper(_default);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _super.apply(this, arguments);
-  }
-  _createClass(_default, [{
-    key: "call",
-    value: function call() {
-      var allControlsBlank = this.controlTargets.every(function (el) {
-        return el.value === "";
-      });
-      if (!allControlsBlank) {
-        return;
-      }
-      this.candidateTargets.forEach(function (el) {
-        el.disabled = true;
-      });
-    }
-  }], [{
-    key: "targets",
-    get: function get() {
-      return ["candidate", "control"];
-    }
-  }]);
-  return _default;
-}(Controller);
-
-var _default$2 = /*#__PURE__*/function (_Controller) {
-  _inherits(_default, _Controller);
-  var _super = _createSuper(_default);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _super.apply(this, arguments);
-  }
-  _createClass(_default, [{
-    key: "call",
-    value: function call(event) {
-      this.element.querySelectorAll("[data-controller='clean-filter-param']").forEach(function (el) {
-        var controller = this.application.getControllerForElementAndIdentifier(el, "clean-filter-param");
-        controller.call();
-      }.bind(this));
-    }
-  }]);
-  return _default;
-}(Controller);
-
 var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
@@ -16394,8 +16346,6 @@ var _default = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var StimulusApplication = Application.start();
-StimulusApplication.register("clean-filter-param", _default$3);
-StimulusApplication.register("clean-filter-params", _default$2);
 StimulusApplication.register("tab-container", _default$1);
 StimulusApplication.register("tab", _default);
 

@@ -11,20 +11,10 @@ import "./unpoly_template";
 
 import { Application, Controller as StimulusController } from "stimulus";
 
-import clean_filter_param_controller from "./clean_filter_param_controller";
-import clean_filter_params_controller from "./clean_filter_params_controller";
 import tab_container_controller from "./tab_container_controller";
 import tab_controller from "./tab_controller";
 
 let StimulusApplication = Application.start();
-StimulusApplication.register(
-  "clean-filter-param",
-  clean_filter_param_controller
-);
-StimulusApplication.register(
-  "clean-filter-params",
-  clean_filter_params_controller
-);
 StimulusApplication.register("tab-container", tab_container_controller);
 StimulusApplication.register("tab", tab_controller);
 

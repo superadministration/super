@@ -1,7 +1,7 @@
 <% if filters_enabled? || sort_enabled? %>
   <h1 class="text-xl">Query</h1>
 
-  <%= form_tag(query.path, method: :get, data: { controller: "clean-filter-params", action: "submit->clean-filter-params#call" }) do %>
+  <%= form_tag(query.path, method: :get) do %>
     <% if filters_enabled? %>
       <%= super_render @filter_form %>
     <% end %>
