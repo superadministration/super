@@ -13759,6 +13759,38 @@ var Super = (function (exports) {
     });
   });
 
+  function run(activeValue, container) {
+    var variants = container.querySelectorAll(".up-filter-field-variant");
+    variants.forEach(function (variant) {
+      var currentVariantValue = variant.dataset.filterFieldVariantId;
+      if (activeValue === currentVariantValue) {
+        // show
+        var content = variant.querySelector(".up-filter-field-variant-content");
+        if (content) {
+          return;
+        }
+        var pocket = variant.querySelector(".up-filter-field-variant-pocket");
+        var pocketContent = up.element.createFromHTML(pocket.innerHTML);
+        up.hello(pocketContent);
+        variant.appendChild(pocketContent);
+      } else {
+        // hide
+        var _content = variant.querySelector(".up-filter-field-variant-content");
+        if (_content) {
+          _content.remove();
+        }
+      }
+    });
+  }
+  up.compiler(".up-filter-field-variants-invoke", function (element, data, meta) {
+    var container = element.closest(".up-filter-field-variants");
+    run(element.value, container);
+    up.on(element, "change", function (event) {
+      var activeValue = event.target.value;
+      run(activeValue, container);
+    });
+  });
+
   var EventListener = /** @class */function () {
     function EventListener(eventTarget, eventName, eventOptions) {
       this.eventTarget = eventTarget;
@@ -16128,229 +16160,7 @@ var Super = (function (exports) {
     return Controller;
   }();
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
-    }
-  }
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    Object.defineProperty(Constructor, "prototype", {
-      writable: false
-    });
-    return Constructor;
-  }
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    Object.defineProperty(subClass, "prototype", {
-      writable: false
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-    return _setPrototypeOf(o, p);
-  }
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return self;
-  }
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    } else if (call !== void 0) {
-      throw new TypeError("Derived constructors may only return object or undefined");
-    }
-    return _assertThisInitialized(self);
-  }
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-        result;
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-      return _possibleConstructorReturn(this, result);
-    };
-  }
-  function _toPrimitive(input, hint) {
-    if (typeof input !== "object" || input === null) return input;
-    var prim = input[Symbol.toPrimitive];
-    if (prim !== undefined) {
-      var res = prim.call(input, hint || "default");
-      if (typeof res !== "object") return res;
-      throw new TypeError("@@toPrimitive must return a primitive value.");
-    }
-    return (hint === "string" ? String : Number)(input);
-  }
-  function _toPropertyKey(arg) {
-    var key = _toPrimitive(arg, "string");
-    return typeof key === "symbol" ? key : String(key);
-  }
-
-  var _default$1 = /*#__PURE__*/function (_Controller) {
-    _inherits(_default, _Controller);
-    var _super = _createSuper(_default);
-    function _default() {
-      _classCallCheck(this, _default);
-      return _super.apply(this, arguments);
-    }
-    _createClass(_default, [{
-      key: "connect",
-      value: function connect() {
-        var _this = this;
-        this.tabTargets.forEach(function (tab) {
-          tab.tabContainer = _this;
-        });
-      }
-    }, {
-      key: "activeTabIdentifier",
-      get: function get() {
-        return this.controlTarget.value;
-      }
-    }, {
-      key: "change",
-      value: function change(event) {
-        this.update(event.target.value);
-      }
-    }, {
-      key: "update",
-      value: function update(newActiveTabIdentifier) {
-        var _this2 = this;
-        this.tabTargets.forEach(function (tab) {
-          var tabController = _this2.application.getControllerForElementAndIdentifier(tab, _this2.tabControllerNameValue);
-          if (tab.dataset[_this2.tabIdentifierGetterValue] == newActiveTabIdentifier) {
-            tabController.show();
-          } else {
-            tabController.hide();
-          }
-        });
-      }
-    }], [{
-      key: "targets",
-      get: function get() {
-        return ["control", "tab"];
-      }
-    }, {
-      key: "values",
-      get: function get() {
-        return {
-          tabIdentifierGetter: String,
-          tabControllerName: String
-        };
-      }
-    }]);
-    return _default;
-  }(Controller);
-
-  var _default = /*#__PURE__*/function (_Controller) {
-    _inherits(_default, _Controller);
-    var _super = _createSuper(_default);
-    function _default() {
-      _classCallCheck(this, _default);
-      return _super.apply(this, arguments);
-    }
-    _createClass(_default, [{
-      key: "connect",
-      value: function connect() {
-        var tabContainer = this.element[this.tabContainerGetterValue];
-        if (tabContainer.activeTabIdentifier === this.identifierValue) {
-          this.show();
-        } else {
-          this.hide();
-        }
-      }
-    }, {
-      key: "toggle",
-      value: function toggle() {
-        if (this.hasContentTarget) {
-          this.hide();
-        } else {
-          this.show();
-        }
-      }
-    }, {
-      key: "show",
-      value: function show() {
-        if (this.hasContentTarget) {
-          return;
-        }
-        var pocketContent = this.pocketTarget.content.cloneNode(true);
-        this.element.appendChild(pocketContent);
-      }
-    }, {
-      key: "hide",
-      value: function hide() {
-        if (!this.hasContentTarget) {
-          return;
-        }
-        this.contentTarget.remove();
-      }
-    }], [{
-      key: "targets",
-      get: function get() {
-        return ["pocket", "content"];
-      }
-    }, {
-      key: "values",
-      get: function get() {
-        return {
-          identifier: String,
-          tabContainerGetter: String
-        };
-      }
-    }]);
-    return _default;
-  }(Controller);
-
   var StimulusApplication = Application.start();
-  StimulusApplication.register("tab-container", _default$1);
-  StimulusApplication.register("tab", _default);
 
   exports.StimulusApplication = StimulusApplication;
   exports.StimulusController = Controller;

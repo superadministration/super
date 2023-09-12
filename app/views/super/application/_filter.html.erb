@@ -4,10 +4,10 @@
     <div class="mt-4">
       <%= form.fields_for(attribute_form_object.field_name, attribute_form_object) do |attribute_form| %>
         <% selected_index = 0 %>
-        <div data-controller="tab-container" data-tab-container-tab-identifier-getter-value="tabIdentifierValue" data-tab-container-tab-controller-name-value="tab">
+        <div class="up-filter-field-variants">
           <div>
             <span class="inline-block"><%= attribute_form_object.humanized_attribute_name %></span>
-            <select data-tab-container-target="control" data-action="tab-container#change" class="super-input super-input-select inline-block">
+            <select class="up-filter-field-variants-invoke super-input super-input-select inline-block">
               <% selected = false %>
               <% attribute_form_object.each_operator.with_index do |operator_form_object, index| %>
                 <%
@@ -26,9 +26,9 @@
           </div>
           <div>
             <% attribute_form_object.each_operator.with_index do |operator_form_object, index| %>
-              <div data-controller="tab" data-tab-tab-container-getter-value="tabContainer" data-tab-container-target="tab" data-tab-identifier-value="<%= operator_form_object.identifier %>">
+              <div class="up-filter-field-variant" data-filter-field-variant-id="<%= operator_form_object.identifier %>">
                 <% form_html = capture do %>
-                  <div data-tab-target="content">
+                  <div class="up-filter-field-variant-content">
                     <%= attribute_form.fields_for(operator_form_object.identifier, operator_form_object) do |operator_form| %>
                       <div class="flex gap-x-2 mt-2">
                         <% operator_form_object.each_field.with_index do |operator_field_name, index| %>
@@ -55,7 +55,7 @@
 
                 <%= form_html if index == selected_index %>
 
-                <template data-tab-target="pocket">
+                <template class="up-filter-field-variant-pocket">
                   <%= form_html %>
                 </template>
               </div>
