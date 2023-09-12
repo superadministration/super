@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking changes
 
 * Replaced Rails UJS with Unpoly
+* Replaced Stimulus with Unpoly
 
 ## [0.22.0] - 2023-05-07
 
