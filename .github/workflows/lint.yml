@@ -9,7 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7"
           bundler-cache: true
       - run: bin/standardrb --parallel
       - run: bin/rubocop --parallel --config .rubocop_more.yml

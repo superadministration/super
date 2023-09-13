@@ -5807,24 +5807,24 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#61
   def initialize(utc_time, time_zone, local_time = T.unsafe(nil), period = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#335
+  # source://activesupport//lib/active_support/time_with_zone.rb#309
   def +(other); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#369
+  # source://activesupport//lib/active_support/time_with_zone.rb#343
   def -(other); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#268
+  # source://activesupport//lib/active_support/time_with_zone.rb#242
   def <=>(other); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#530
+  # source://activesupport//lib/active_support/time_with_zone.rb#504
   def acts_like_time?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#458
+  # source://activesupport//lib/active_support/time_with_zone.rb#432
   def advance(options); end
 
   def after?(_arg0); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#397
+  # source://activesupport//lib/active_support/time_with_zone.rb#371
   def ago(other); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#176
@@ -5832,19 +5832,19 @@ class ActiveSupport::TimeWithZone
 
   def before?(_arg0); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#276
+  # source://activesupport//lib/active_support/time_with_zone.rb#250
   def between?(min, max); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#541
+  # source://activesupport//lib/active_support/time_with_zone.rb#515
   def blank?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#418
+  # source://activesupport//lib/active_support/time_with_zone.rb#392
   def change(options); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#73
   def comparable_time; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def day; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#104
@@ -5853,16 +5853,16 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#188
   def encode_with(coder); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#311
+  # source://activesupport//lib/active_support/time_with_zone.rb#285
   def eql?(other); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#135
   def formatted_offset(colon = T.unsafe(nil), alternate_utc_string = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#545
+  # source://activesupport//lib/active_support/time_with_zone.rb#519
   def freeze; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#306
+  # source://activesupport//lib/active_support/time_with_zone.rb#280
   def future?; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#73
@@ -5886,16 +5886,16 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#121
   def gmtoff; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#315
+  # source://activesupport//lib/active_support/time_with_zone.rb#289
   def hash; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def hour; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#196
   def httpdate; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#335
+  # source://activesupport//lib/active_support/time_with_zone.rb#309
   def in(other); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#87
@@ -5907,7 +5907,7 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#150
   def inspect; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#535
+  # source://activesupport//lib/active_support/time_with_zone.rb#509
   def is_a?(klass); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#104
@@ -5916,49 +5916,49 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#158
   def iso8601(fraction_digits = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#535
+  # source://activesupport//lib/active_support/time_with_zone.rb#509
   def kind_of?(klass); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#93
   def localtime(utc_offset = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#551
+  # source://activesupport//lib/active_support/time_with_zone.rb#525
   def marshal_dump; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#555
+  # source://activesupport//lib/active_support/time_with_zone.rb#529
   def marshal_load(variables); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def mday; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#576
+  # source://activesupport//lib/active_support/time_with_zone.rb#550
   def method_missing(*_arg0, &_arg1); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def min; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def mon; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def month; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#293
+  # source://activesupport//lib/active_support/time_with_zone.rb#267
   def next_day?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def nsec; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#281
+  # source://activesupport//lib/active_support/time_with_zone.rb#255
   def past?; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#82
   def period; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#300
+  # source://activesupport//lib/active_support/time_with_zone.rb#274
   def prev_day?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#561
+  # source://activesupport//lib/active_support/time_with_zone.rb#535
   def respond_to?(sym, include_priv = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#204
@@ -5970,13 +5970,13 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#204
   def rfc822; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def sec; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#335
+  # source://activesupport//lib/active_support/time_with_zone.rb#309
   def since(other); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#262
+  # source://activesupport//lib/active_support/time_with_zone.rb#236
   def strftime(format); end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#68
@@ -5985,46 +5985,46 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#59
   def time_zone; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#481
+  # source://activesupport//lib/active_support/time_with_zone.rb#455
   def to_a; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def to_date; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#514
+  # source://activesupport//lib/active_support/time_with_zone.rb#488
   def to_datetime; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#489
+  # source://activesupport//lib/active_support/time_with_zone.rb#463
   def to_f; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#248
+  # source://activesupport//lib/active_support/time_with_zone.rb#222
   def to_formatted_s(format = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#248
+  # source://activesupport//lib/active_support/time_with_zone.rb#222
   def to_fs(format = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#497
+  # source://activesupport//lib/active_support/time_with_zone.rb#471
   def to_i; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#506
+  # source://activesupport//lib/active_support/time_with_zone.rb#480
   def to_r; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#212
+  # source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#42
   def to_s(format = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#521
+  # source://activesupport//lib/active_support/time_with_zone.rb#495
   def to_time; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#287
+  # source://activesupport//lib/active_support/time_with_zone.rb#261
   def today?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#293
+  # source://activesupport//lib/active_support/time_with_zone.rb#267
   def tomorrow?; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#497
+  # source://activesupport//lib/active_support/time_with_zone.rb#471
   def tv_sec; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def usec; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#73
@@ -6036,19 +6036,19 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#121
   def utc_offset; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def wday; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#158
   def xmlschema(fraction_digits = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def yday; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#470
+  # source://activesupport//lib/active_support/time_with_zone.rb#444
   def year; end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#300
+  # source://activesupport//lib/active_support/time_with_zone.rb#274
   def yesterday?; end
 
   # source://activesupport//lib/active_support/time_with_zone.rb#143
@@ -6056,22 +6056,22 @@ class ActiveSupport::TimeWithZone
 
   private
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#612
+  # source://activesupport//lib/active_support/time_with_zone.rb#586
   def duration_of_variable_length?(obj); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#593
+  # source://activesupport//lib/active_support/time_with_zone.rb#567
   def get_period_and_ensure_valid_local_time(period); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#585
+  # source://activesupport//lib/active_support/time_with_zone.rb#559
   def incorporate_utc_offset(time, offset); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#569
+  # source://activesupport//lib/active_support/time_with_zone.rb#543
   def respond_to_missing?(sym, include_priv); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#606
+  # source://activesupport//lib/active_support/time_with_zone.rb#580
   def transfer_time_values_to_utc_constructor(time); end
 
-  # source://activesupport//lib/active_support/time_with_zone.rb#616
+  # source://activesupport//lib/active_support/time_with_zone.rb#590
   def wrap_with_time_zone(time); end
 
   class << self
@@ -6080,13 +6080,13 @@ class ActiveSupport::TimeWithZone
   end
 end
 
-# source://activesupport//lib/active_support/time_with_zone.rb#209
+# source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#40
 ActiveSupport::TimeWithZone::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/time_with_zone.rb#55
 ActiveSupport::TimeWithZone::PRECISIONS = T.let(T.unsafe(nil), Hash)
 
-# source://activesupport//lib/active_support/time_with_zone.rb#583
+# source://activesupport//lib/active_support/time_with_zone.rb#557
 ActiveSupport::TimeWithZone::SECONDS_PER_DAY = T.let(T.unsafe(nil), Integer)
 
 # source://activesupport//lib/active_support/values/time_zone.rb#29
@@ -6250,7 +6250,7 @@ ActiveSupport::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 ActiveSupport::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
 
 # source://activesupport//lib/active_support/gem_version.rb#13
-ActiveSupport::VERSION::PRE = T.let(T.unsafe(nil), String)
+ActiveSupport::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://activesupport//lib/active_support/gem_version.rb#15
 ActiveSupport::VERSION::STRING = T.let(T.unsafe(nil), String)
