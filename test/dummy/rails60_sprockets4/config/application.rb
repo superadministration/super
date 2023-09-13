@@ -28,3 +28,7 @@ module Dummy
   end
 end
 
+
+Rails.application.config.paths.add "../share/app/controllers", eager_load: true
+Rails.application.config.paths.add "../share/app/models", eager_load: true
+Rails.application.config.paths["app/views"] << "../share/app/views"

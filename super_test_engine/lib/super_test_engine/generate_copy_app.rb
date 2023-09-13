@@ -32,11 +32,17 @@ class SuperCopyAppGenerator < Rails::Generators::Base
     Super::InstallGenerator.start([], destination_root: destination_root)
   end
 
-  def copy_app
-    directory "models", "app/models", exclude_pattern: /\.swp$/
-    directory "controllers/admin", "app/controllers/admin", exclude_pattern: /\.swp$/
-    copy_file "controllers/admin_controller.rb", "app/controllers/admin_controller.rb", exclude_pattern: /\.swp$/
-    directory "views/members", "app/views/admin/members", exclude_pattern: /\.swp$/
+  def remove_default_files
+    remove_file "app/controllers/admin_controller.rb"
+  end
+
+  def set_app_paths
+    insert_into_file("config/application.rb", <<~RUBY)
+
+      Rails.application.config.paths.add "../share/app/controllers", eager_load: true
+      Rails.application.config.paths.add "../share/app/models", eager_load: true
+      Rails.application.config.paths["app/views"] << "../share/app/views"
+    RUBY
   end
 
   def copy_db
