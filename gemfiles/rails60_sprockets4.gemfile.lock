@@ -103,7 +103,7 @@ GEM
     minitest-server (1.0.6)
       minitest (~> 5.0)
     mocha (1.13.0)
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.13.0)
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
@@ -114,7 +114,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (4.3.10)
+    puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -192,7 +192,7 @@ DEPENDENCIES
   minitest-bisect
   mocha
   pry-rails
-  puma (~> 4.3, >= 4.3.6)
+  puma (~> 5.6)
   rails (~> 6.0.0)
   rails_anonymous_controller_testing
   selenium-webdriver (~> 3.142)

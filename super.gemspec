@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "capybara", "~> 3.18"
   spec.add_development_dependency "selenium-webdriver", "~> 3.142"
   spec.add_development_dependency "webdrivers", "~> 4.3"
-  spec.add_development_dependency "puma", "~> 4.3", ">= 4.3.6"
+  spec.add_development_dependency "puma"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pry-rails"
   spec.add_development_dependency "mocha"
