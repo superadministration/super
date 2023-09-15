@@ -3,11 +3,9 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-if caller.none? { |line| line =~ /appraisal/ }
-  require_relative "dummy_path"
-  version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
-  instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
-end
+require_relative "dummy_path"
+version_specific_gemfile = File.read(File.join(__dir__, "gemfiles", "#{SUPER_DEVELOPMENT_GEMFILE}.gemfile"))
+instance_eval(version_specific_gemfile.sub(/^gemspec.*$/, ""))
 
 # Sorbet
 gem "sorbet", require: false
@@ -28,7 +26,6 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem "appraisal", require: false
 gem "yard", require: false
 gem "standard", group: [:development, :test], require: false
 gem "rubocop-sorbet", require: false
