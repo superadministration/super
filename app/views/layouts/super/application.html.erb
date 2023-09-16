@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <% Super.configuration.stylesheets.each do |stylesheet| %>
-      <% if stylesheet.handler.sprockets? %>
+      <% if stylesheet.handler.sprockets? || stylesheet.handler.propshaft? %>
         <%= stylesheet_link_tag(stylesheet.path, **stylesheet.arguments) %>
       <% elsif stylesheet.handler.webpacker? %>
         <%= stylesheet_pack_tag(stylesheet.path, **stylesheet.arguments) %>
@@ -18,7 +18,7 @@
     <% end %>
 
     <% Super.configuration.javascripts.each do |javascript| %>
-      <% if javascript.handler.sprockets? %>
+      <% if javascript.handler.sprockets? || javascript.handler.propshaft? %>
         <%= javascript_include_tag(javascript.path) %>
       <% elsif javascript.handler.webpacker? %>
         <%= javascript_pack_tag(javascript.path) %>

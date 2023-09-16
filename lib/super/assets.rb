@@ -12,6 +12,10 @@ module Super
       Asset.new(handler: Handler.sprockets, path: path, arguments: arguments)
     end
 
+    def self.propshaft(path, **arguments)
+      Asset.new(handler: Handler.propshaft, path: path, arguments: arguments)
+    end
+
     def self.auto(path, **arguments)
       Asset.new(handler: Handler.auto, path: path, arguments: arguments)
     end
@@ -97,6 +101,14 @@ module Super
             end
           end
 
+          propshaft_spec = gem_specification("propshaft")
+          if propshaft_spec
+            minor = propshaft_spec.version.segments.second
+            if minor >= 7
+              return propshaft
+            end
+          end
+
           webpacker_spec = gem_specification("webpacker")
           if webpacker_spec
             major = webpacker_spec.version.segments.first
@@ -125,6 +137,10 @@ module Super
         @webpacker ||= new(:webpacker)
       end
 
+      def self.propshaft
+        @propshaft ||= new(:propshaft)
+      end
+
       def self.none
         @none ||= new(:none)
       end
@@ -139,6 +155,10 @@ module Super
 
       def sprockets?
         @asset_handler == :sprockets
+      end
+
+      def propshaft?
+        @asset_handler == :propshaft
       end
 
       def webpacker?
