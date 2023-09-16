@@ -50,7 +50,7 @@ module Super
       def collection_check_boxes(attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
         options, defaults = split_defaults(options, include_blank: true)
         options = defaults.merge(options)
-        html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+        html_options, html_defaults = split_defaults(html_options, class: "")
         html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
 
         @builder.collection_check_boxes(attribute, collection, value_method, text_method, options, html_options, &block)
@@ -61,7 +61,7 @@ module Super
       def collection_radio_buttons(attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
         options, defaults = split_defaults(options, include_blank: true)
         options = defaults.merge(options)
-        html_options, html_defaults = split_defaults(html_options, class: "super-input super-input-select")
+        html_options, html_defaults = split_defaults(html_options, class: "")
         html_options[:class] = join_classes(html_defaults[:class], html_options[:class])
 
         @builder.collection_radio_buttons(attribute, collection, value_method, text_method, options, html_options, &block)
