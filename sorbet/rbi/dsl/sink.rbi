@@ -422,8 +422,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def bigint_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def bigint_column_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def bigint_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def bigint_column_in_database; end
@@ -431,8 +431,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def bigint_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def bigint_column_previously_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def bigint_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def bigint_column_previously_was; end
@@ -467,8 +467,8 @@ class Sink
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def binary_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def binary_column_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def binary_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def binary_column_in_database; end
@@ -476,8 +476,8 @@ class Sink
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def binary_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def binary_column_previously_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def binary_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def binary_column_previously_was; end
@@ -512,8 +512,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
     def boolean_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def boolean_column_changed?; end
+    sig { params(from: T.nilable(T::Boolean), to: T.nilable(T::Boolean)).returns(T::Boolean) }
+    def boolean_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def boolean_column_in_database; end
@@ -521,8 +521,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
     def boolean_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def boolean_column_previously_changed?; end
+    sig { params(from: T.nilable(T::Boolean), to: T.nilable(T::Boolean)).returns(T::Boolean) }
+    def boolean_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def boolean_column_previously_was; end
@@ -557,8 +557,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -566,8 +566,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -602,8 +602,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Date), T.nilable(::Date)])) }
     def date_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def date_column_changed?; end
+    sig { params(from: T.nilable(::Date), to: T.nilable(::Date)).returns(T::Boolean) }
+    def date_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Date)) }
     def date_column_in_database; end
@@ -611,8 +611,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Date), T.nilable(::Date)])) }
     def date_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def date_column_previously_changed?; end
+    sig { params(from: T.nilable(::Date), to: T.nilable(::Date)).returns(T::Boolean) }
+    def date_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Date)) }
     def date_column_previously_was; end
@@ -647,8 +647,13 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def datetime_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def datetime_column_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def datetime_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def datetime_column_in_database; end
@@ -656,8 +661,13 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def datetime_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def datetime_column_previously_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def datetime_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def datetime_column_previously_was; end
@@ -692,8 +702,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def decimal_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def decimal_column_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def decimal_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def decimal_column_in_database; end
@@ -701,8 +711,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def decimal_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def decimal_column_previously_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def decimal_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def decimal_column_previously_was; end
@@ -737,8 +747,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def float_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def float_column_changed?; end
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
+    def float_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def float_column_in_database; end
@@ -746,8 +756,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def float_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def float_column_previously_changed?; end
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
+    def float_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def float_column_previously_was; end
@@ -782,8 +792,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def id_in_database; end
@@ -791,8 +801,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def id_previously_was; end
@@ -827,8 +837,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def integer_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def integer_column_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def integer_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def integer_column_in_database; end
@@ -836,8 +846,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def integer_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def integer_column_previously_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def integer_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def integer_column_previously_was; end
@@ -872,8 +882,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def numeric_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def numeric_column_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def numeric_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def numeric_column_in_database; end
@@ -881,8 +891,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def numeric_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def numeric_column_previously_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def numeric_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def numeric_column_previously_was; end
@@ -1052,8 +1062,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def string_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def string_column_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def string_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def string_column_in_database; end
@@ -1061,8 +1071,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def string_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def string_column_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def string_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def string_column_previously_was; end
@@ -1097,8 +1107,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def text_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def text_column_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def text_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def text_column_in_database; end
@@ -1106,8 +1116,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def text_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def text_column_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def text_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def text_column_previously_was; end
@@ -1142,8 +1152,13 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def time_column_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def time_column_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def time_column_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def time_column_in_database; end
@@ -1151,8 +1166,13 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def time_column_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def time_column_previously_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def time_column_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def time_column_previously_was; end
@@ -1187,8 +1207,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_in_database; end
@@ -1196,8 +1216,8 @@ class Sink
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_previously_was; end

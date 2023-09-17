@@ -7,19 +7,4 @@
 class AdminController
   include GeneratedUrlHelpersModule
   include GeneratedPathHelpersModule
-
-  sig { returns(HelperProxy) }
-  def helpers; end
-
-  module HelperMethods
-    include ::ActionController::Base::HelperMethods
-    include ::Super::FoundationController::HelperMethods
-    include ::Super::SubstructureController::HelperMethods
-    include ::Super::SitewideController::HelperMethods
-    include ::Super::ViewHelper
-  end
-
-  class HelperProxy < ::ActionView::Base
-    include HelperMethods
-  end
 end
