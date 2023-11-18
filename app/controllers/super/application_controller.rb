@@ -8,8 +8,8 @@ module Super
 
     before_action do
       T.bind(self, Super::ApplicationController)
-      if Super::PackagedAsset.warning_message
-        flash.now[:mismatching_package_json_gemfile_versions] = Super::PackagedAsset.warning_message
+      if !Super::PackagedAsset.version_matches_gem?
+        flash.now[:mismatching_package_json_gemfile_versions] = I18n.t("super.mismatching_package_json_gemfile_versions")
       end
     end
 

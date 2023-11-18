@@ -24,10 +24,7 @@ module Super
         Super::ApplicationController.public_send(method_name, klass)
       end
 
-      Super::PackagedAsset.warning_message =
-        if !Super::PackagedAsset.version_matches_gem?(Rails.root.join("package.json"))
-          I18n.t("super.mismatching_package_json_gemfile_versions")
-        end
+      Super::PackagedAsset.package_json_path = Rails.root.join("package.json")
     end
   end
 end
