@@ -19,7 +19,6 @@ module Super
       def package_json_path=(value)
         @package_json_path = T.let(value, T.nilable(Pathname))
         self.version_matches_gem = nil
-        @package_json_path
       end
     end
 

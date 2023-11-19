@@ -1,4 +1,4 @@
-# typed: true
+# typed: false
 
 require "test_helper"
 require "generators/super/install/install_generator"

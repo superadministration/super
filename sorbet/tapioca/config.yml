@@ -11,4 +11,4 @@ dsl:
   # exclude:
   # - SomeGeneratorName
   # workers: 5
-  app_root: "test/dummy/rails70_sprockets4"
+  app_root: "test/dummy/rails71_sprockets4"

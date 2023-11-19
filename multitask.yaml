@@ -27,9 +27,12 @@ only_combinations:
   - name: rails70_sprockets4
     gemfile: gemfiles/rails70_sprockets4.gemfile
     ruby: "3.2.2"
+  - name: rails71_sprockets4
+    gemfile: gemfiles/rails70_sprockets4.gemfile
+    ruby: "3.2.2"
   - name: default
     gemfile: Gemfile
-    ruby: "3.0.6"
+    ruby: "3.2.2"
 run_layout: |
   sh <<'SH' && echo '\033[0;32m*** Success <%= ruby %> | <%= gemfile %>\033[0m' || echo '\033[0;31m!!! Failed <%= ruby %> | <%= gemfile %>\033[0m'
     set -e
