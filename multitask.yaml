@@ -28,7 +28,7 @@ only_combinations:
     gemfile: gemfiles/rails70_sprockets4.gemfile
     ruby: "3.2.2"
   - name: rails71_sprockets4
-    gemfile: gemfiles/rails70_sprockets4.gemfile
+    gemfile: gemfiles/rails71_sprockets4.gemfile
     ruby: "3.2.2"
   - name: default
     gemfile: Gemfile

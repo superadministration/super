@@ -3,7 +3,6 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require "pry"
 require "simplecov"
 
 if Gem::Dependency.new("sorbet-runtime").matching_specs.any?

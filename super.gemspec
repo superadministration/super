@@ -41,7 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "webdrivers", "~> 4.3"
   spec.add_development_dependency "puma"
   spec.add_development_dependency "sqlite3"
-  spec.add_development_dependency "pry-rails"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "i18n-debug"
   spec.add_development_dependency "simplecov"

@@ -104,7 +104,6 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (3.0.0)
-    coderay (1.1.3)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -137,7 +136,6 @@ GEM
       net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
-    method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
     minitest (5.20.0)
@@ -170,11 +168,6 @@ GEM
     path_expander (1.1.1)
     prettier_print (1.2.1)
     prism (0.17.1)
-    pry (0.14.2)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-    pry-rails (0.3.9)
-      pry (>= 0.10.4)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.4)
@@ -338,7 +331,6 @@ DEPENDENCIES
   i18n-debug
   minitest-bisect
   mocha
-  pry-rails
   puma
   rails (~> 7.1.0)
   rails_anonymous_controller_testing
