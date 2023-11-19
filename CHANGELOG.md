@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Replaced Rails UJS with Unpoly
 * Replaced Stimulus with Unpoly
+* Upgraded Tailwind from v2 to v3. Tailwind no longer includes styles by
+  default, but Super includes common styles. More can be added on a case-by-case
+  basis.
 
 ## [0.22.0] - 2023-05-07
 
