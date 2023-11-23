@@ -63,7 +63,7 @@ jobs:
       SELENIUM_CHROME: "true"
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
@@ -76,7 +76,7 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: "20"
     - name: Thoroughly test
@@ -87,11 +87,11 @@ jobs:
     env:
       SELENIUM_CHROME: "true"
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: "20"
     - run: bin/rails db:migrate
@@ -100,7 +100,7 @@ jobs:
   type_check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.2"
