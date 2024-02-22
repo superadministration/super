@@ -80,3 +80,10 @@ The gem is available under the terms of the [GNU LGPLv3](./LICENSE).
 [docs]: https://superadministration.github.io/
 [demo]: https://superdemo.zachahn.com/admin
 [demo_source]: https://github.com/superadministration/super_demo
+# https://tea.xyz/what-is-this-file
+---
+version: 1.0.0
+codeOwners:
+  - '0x6b3aE29582899909Bdf08164787Bea0dfbA299BD'
+quorum: 1
+
